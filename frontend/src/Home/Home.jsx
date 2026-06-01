@@ -1,4 +1,3 @@
-// src/Home.jsx
 // src/Home/Home.jsx
 
 import { ArrowRight, Zap, RefreshCcw, Truck, Star } from "lucide-react";
@@ -23,10 +22,11 @@ export default function Home({ onShopNow }) {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white">
+    // ⚡ FIXED CRITICAL PADDING TOP: Prevents the fixed/glass navbar from overlapping your scrolling brand ticker
+    <div className="bg-white pt-20 lg:pt-24 transition-all duration-300">
 
-      {/* ── Scrolling ticker ── */}
-      <div className="bg-[#3b82f6] overflow-hidden py-2.5">
+      {/* ── Scrolling ticker (UPDATED BACKGROUND COLOR TO MATCH OUR SYSTEM THEME) ── */}
+      <div className="bg-[#0b2240] overflow-hidden py-2.5 border-b border-white/5">
         <div className="flex animate-marquee whitespace-nowrap">
           {[...TICKER, ...TICKER].map((item, i) => (
             <span
@@ -44,7 +44,7 @@ export default function Home({ onShopNow }) {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#3b82f6] mb-2">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ff5700] mb-2">
               This Week
             </p>
             <h2 className="text-5xl md:text-6xl font-black uppercase leading-[0.9] tracking-tighter text-[#0b2240]">
@@ -100,7 +100,7 @@ export default function Home({ onShopNow }) {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="max-w-xl">
             {/* Rebranded brand label below */}
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#3b82f6] mb-3">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ff5700] mb-3">
               The LuxZera Promise
             </p>
             <h2 className="text-5xl md:text-7xl font-black uppercase leading-[0.88] tracking-tighter text-white">

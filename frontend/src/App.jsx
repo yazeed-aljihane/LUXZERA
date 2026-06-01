@@ -20,6 +20,8 @@ import ProductDetailPage from "./pages/ProductDetailPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import FaqPage from "./pages/FaqPage.jsx";
+import AccountPage from "./pages/AccountPage.jsx";
+import OrdersPage from "./pages/OrdersPage.jsx";
 
 export default function App() {
   const navigate = useNavigate();
@@ -30,47 +32,47 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
 
-  const loadUser = async () => {
+    const loadUser = async () => {
 
-    const token =
-      localStorage.getItem("token");
+      const token =
+        localStorage.getItem("token");
 
-    if (!token) return;
+      if (!token) return;
 
-    try {
+      try {
 
-      const response = await fetch(
-        "http://localhost:8080/api/users/me",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await fetch(
+          "http://localhost:8080/api/users/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        }
-      );
+        );
 
-      if (!response.ok) {
+        if (!response.ok) {
+
+          localStorage.removeItem("token");
+          return;
+        }
+
+        const profile =
+          await response.json();
+
+        setCurrentUser(profile);
+
+      } catch (error) {
+
+        console.error(error);
 
         localStorage.removeItem("token");
-        return;
       }
+    };
 
-      const profile =
-        await response.json();
+    loadUser();
 
-      setCurrentUser(profile);
+  }, []);
 
-    } catch (error) {
-
-      console.error(error);
-
-      localStorage.removeItem("token");
-    }
-  };
-
-  loadUser();
-
-}, []);
-  
 
 
   const currentPage = (() => {
@@ -104,10 +106,21 @@ export default function App() {
         onFaqClick={() => navigate("/faqs")}
         onCartClick={() => navigate("/cart")}
         onAuthClick={() => setLoginOpen(true)}
+        onAccountClick={() => navigate("/account")}
+        onOrdersClick={() => navigate("/orders")}
+
       />
 
       <main>
         <Routes>
+          <Route
+            path="/account"
+            element={<AccountPage />}
+          />
+          <Route
+            path="/orders"
+            element={<OrdersPage />}
+          />
 
           <Route
             path="/"

@@ -16,6 +16,7 @@ export default function Navbar({
   onCartClick,
   onAuthClick,
   currentPage,
+  currentUser,
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -131,12 +132,20 @@ export default function Navbar({
             Start Shopping
           </button>
 
-          <button
-            onClick={onAuthClick}
-            className="border border-transparent px-3 py-3 text-xs font-black uppercase tracking-[0.24em] text-[#0b2240] transition-all duration-300 ease-in-out hover:border-slate-200 hover:text-[#ff5700]"
-          >
-            Login
-          </button>
+          {currentUser ? (
+  <button
+    className="border border-transparent px-3 py-3 text-xs font-black uppercase tracking-[0.24em] text-[#0b2240]"
+  >
+    {currentUser.firstName}
+  </button>
+) : (
+  <button
+    onClick={onAuthClick}
+    className="border border-transparent px-3 py-3 text-xs font-black uppercase tracking-[0.24em] text-[#0b2240] transition-all duration-300 ease-in-out hover:border-slate-200 hover:text-[#ff5700]"
+  >
+    Login
+  </button>
+)}
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">

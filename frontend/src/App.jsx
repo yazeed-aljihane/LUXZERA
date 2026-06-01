@@ -1,10 +1,16 @@
 // src/App.jsx
+
+import { useState } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "./context/CartContext.jsx";
 import { ArrowRight } from "lucide-react";
+
+import { useCart } from "./context/CartContext.jsx";
+
 import Hero from "./components/Hero.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx"; // 1. Import your new premium footer here
+import Footer from "./components/Footer.jsx";
+import LoginModal from "./components/LoginModal.jsx";
+
 import Home from "./Home/Home.jsx";
 import MarketPage from "./pages/MarketPage.jsx";
 import MenPage from "./pages/MenPage.jsx";
@@ -19,20 +25,33 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount } = useCart();
-  
+
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
   const currentPage = (() => {
     if (location.pathname.startsWith("/product")) return "product";
-    if (location.pathname.startsWith("/market") || location.pathname.startsWith("/shop")) return "shop";
+    if (
+      location.pathname.startsWith("/market") ||
+      location.pathname.startsWith("/shop")
+    ) {
+      return "shop";
+    }
+
     return location.pathname.split("/")[1] || "";
   })();
 
-  const showFloatingCart = cartCount > 0 && location.pathname !== "/cart";
+  const showFloatingCart =
+    cartCount > 0 &&
+    location.pathname !== "/cart";
 
   return (
     <div className="min-h-screen bg-white relative">
+
       <Navbar
         cartCount={cartCount}
         currentPage={currentPage}
+        currentUser={currentUser}
         onLogoClick={() => navigate("/")}
         onShopClick={() => navigate("/market")}
         onMenClick={() => navigate("/men")}
@@ -40,28 +59,89 @@ export default function App() {
         onUnisexClick={() => navigate("/unisex")}
         onFaqClick={() => navigate("/faqs")}
         onCartClick={() => navigate("/cart")}
+        onAuthClick={() => setLoginOpen(true)}
       />
 
       <main>
         <Routes>
+
           <Route
             path="/"
             element={
               <>
-                <Hero onShopNow={() => navigate("/market")} />
-                <Home onShopNow={() => navigate("/market")} />
+                <Hero
+                  onShopNow={() => navigate("/market")}
+                />
+
+                <Home
+                  onShopNow={() => navigate("/market")}
+                />
               </>
             }
           />
-          <Route path="/market" element={<MarketPage />} />
-          <Route path="/shop" element={<Navigate to="/market" replace />} />
-          <Route path="/men" element={<MenPage />} />
-          <Route path="/women" element={<WomenPage />} />
-          <Route path="/unisex" element={<UnisexPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/about" element={<AboutPage onShopNow={() => navigate("/market")} />} />
-          <Route path="/faqs" element={<FaqPage onShopNow={() => navigate("/market")} />} />
+
+          <Route
+            path="/market"
+            element={<MarketPage />}
+          />
+
+          <Route
+            path="/shop"
+            element={
+              <Navigate
+                to="/market"
+                replace
+              />
+            }
+          />
+
+          <Route
+            path="/men"
+            element={<MenPage />}
+          />
+
+          <Route
+            path="/women"
+            element={<WomenPage />}
+          />
+
+          <Route
+            path="/unisex"
+            element={<UnisexPage />}
+          />
+
+          <Route
+            path="/product/:id"
+            element={<ProductDetailPage />}
+          />
+
+          <Route
+            path="/cart"
+            element={<CartPage />}
+          />
+
+          <Route
+            path="/about"
+            element={
+              <AboutPage
+                onShopNow={() =>
+                  navigate("/market")
+                }
+              />
+            }
+          />
+
+          <Route
+            path="/faqs"
+            element={
+              <FaqPage
+                onShopNow={() =>
+                  navigate("/market")
+                }
+              />
+            }
+          />
+
           <Route
             path="*"
             element={
@@ -70,13 +150,14 @@ export default function App() {
               </div>
             }
           />
+
         </Routes>
       </main>
 
-      {/* 2. Render Footer globally sitting underneath main content views */}
-      <Footer onShopNow={() => navigate("/market")} />
+      <Footer
+        onShopNow={() => navigate("/market")}
+      />
 
-      {/* ─── FLOATING CAPSULE POPUP PINNED TO THE BOTTOM RIGHT ─── */}
       {showFloatingCart && (
         <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">
           <button
@@ -84,10 +165,22 @@ export default function App() {
             className="h-12 px-6 bg-[#ff5700] hover:bg-[#0b2240] text-white font-black uppercase text-[11px] tracking-[0.25em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.16)] border border-white/10 group"
           >
             View Bag ({cartCount})
-            <ArrowRight size={13} strokeWidth={3} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+
+            <ArrowRight
+              size={13}
+              strokeWidth={3}
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            />
           </button>
         </div>
       )}
+
+      <LoginModal
+        isOpen={loginOpen}
+        onClose={() => setLoginOpen(false)}
+        onLoginSuccess={setCurrentUser}
+      />
+
     </div>
   );
-} 
+}

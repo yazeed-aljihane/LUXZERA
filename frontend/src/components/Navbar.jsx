@@ -51,11 +51,10 @@ export default function Navbar({
   };
 
   return (
-    // 🍏 APPLE SOLID FLOW LAYOUT: Natural block flow to isolate page tiers cleanly
     <header className="w-full border-b border-slate-100 bg-white select-none">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         
-        {/* LEFT BRAND SECTION (LOGO AMPLIFIED) */}
+        {/* 1. LEFT SIDE BRAND LOGO */}
         <div className="flex shrink-0 items-center">
           <button
             onClick={onLogoClick}
@@ -65,12 +64,12 @@ export default function Navbar({
             <img
               src="/LuxZera.png"
               alt="LuxZera Logo"
-              className="h-8 w-auto object-contain select-none transition-all duration-300"
+              className="h-9 w-auto object-contain select-none transition-all duration-300"
             />
           </button>
         </div>
 
-        {/* CENTER LINKS: PERFECTED METRIC BALANCING */}
+        {/* 2. CENTER NAVIGATION */}
         <nav className="hidden md:flex items-center gap-8" aria-label="Primary Navigation">
           {DEPARTMENTS.map((dept) => {
             const active = currentPage === dept.value;
@@ -79,7 +78,7 @@ export default function Navbar({
                 key={dept.value}
                 onClick={() => handleDepartment(dept.value)}
                 className={`text-[15px] font-bold tracking-tight transition-colors duration-150 ${
-                  active ? "text-[#ff5700]" : "text-slate-600 hover:text-black"
+                  active ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"
                 }`}
               >
                 {dept.label}
@@ -87,7 +86,6 @@ export default function Navbar({
             );
           })}
 
-          {/* Minimal Divider Line */}
           <span className="h-4 w-px bg-slate-200 select-none" />
 
           {NAV_LINKS.map(({ label, page }) => {
@@ -97,7 +95,7 @@ export default function Navbar({
                 key={label}
                 onClick={() => handleNavigate(page)}
                 className={`text-[15px] font-bold tracking-tight transition-colors duration-150 ${
-                  active ? "text-[#ff5700]" : "text-slate-600 hover:text-black"
+                  active ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"
                 }`}
               >
                 {label}
@@ -106,52 +104,55 @@ export default function Navbar({
           })}
         </nav>
 
-        {/* RIGHT SYSTEM HUB UTILITIES */}
-        <div className="hidden md:flex items-center gap-6 shrink-0">
+        {/* 3. RIGHT UTILITY CONTROLS */}
+        <div className="hidden md:flex items-center gap-7 shrink-0">
           
-          {/* Shopping Bag Icon Trigger */}
+          {/* ── 🛒 SHOPPING BAG TRIGGER (FIXED FLOATING BADGE POSITIONING) ── */}
           <button
             onClick={onCartClick}
-            className={`relative flex h-9 w-9 items-center justify-center transition-colors duration-150 ${
-              isCartActive ? "text-[#ff5700]" : "text-slate-600 hover:text-black"
+            className={`relative flex h-9 w-9 shrink-0 aspect-square items-center justify-center transition-colors duration-150 ${
+              isCartActive ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"
             }`}
-            aria-label={`Cart (${cartCount} items)`}
           >
-            <ShoppingBag size={18} strokeWidth={2} />
+            <ShoppingBag size={22} strokeWidth={2.2} className="shrink-0" />
             {cartCount > 0 && (
-              <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] font-bold leading-none text-white">
+              // Adjusted top and right spacing relative to the 22px icon frame so it sits perfectly snug
+              <span className="absolute top-0 right-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] font-black leading-none text-white shadow-xs translate-x-1 -translate-y-0.5">
                 {cartCount}
               </span>
             )}
           </button>
 
-          {/* User Account Frame Block */}
+          {/* ── 👤 USER TRIGGER PROFILE SYSTEM ── */}
           {currentUser ? (
             <div className="relative">
               <button
                 onClick={() => setProfileOpen(!profileOpen)}
-                className="flex items-center gap-2 py-1 text-slate-600 hover:text-black transition-colors duration-150"
+                className="flex items-center gap-3 py-1 text-slate-600 hover:text-[#ff5700] transition-colors duration-150 group/trigger"
               >
-                <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 text-[10px] font-bold uppercase overflow-hidden">
+                <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-700 text-xs font-black uppercase overflow-hidden shrink-0 transition-colors group-hover/trigger:border-[#ff5700]/30 shadow-xs">
                   {currentUser.avatarUrl ? (
                     <img src={currentUser.avatarUrl} alt="" className="w-full h-full object-cover" />
                   ) : (
                     (currentUser.firstName?.[0] || "S")
                   )}
                 </div>
-                <span className="text-[14px] font-medium tracking-tight">
+                <span className="text-[15px] font-bold tracking-tight group-hover/trigger:text-[#ff5700] transition-colors">
                   {currentUser.firstName || "Saketh"}
                 </span>
-                <ChevronDown size={12} className={`text-slate-400 transition-transform duration-200 ${profileOpen ? "rotate-180" : ""}`} />
+                <ChevronDown size={14} strokeWidth={2.5} className="text-slate-400 group-hover/trigger:text-[#ff5700] transition-transform duration-200" />
               </button>
 
               {profileOpen && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                  <div className="absolute right-0 mt-2 w-56 z-50 overflow-hidden rounded-xl border border-slate-200 bg-white p-2 shadow-xl animate-in fade-in zoom-in-95 duration-100 origin-top-right">
+                  
+                  {/* Dropdown Card Shell (Widen to w-72 for uncompromised text breathing space) */}
+                  <div className="absolute right-0 mt-3 w-72 z-50 overflow-hidden rounded-xl border border-slate-200 bg-white pt-3 pl-3 pr-3 shadow-2xl animate-in fade-in zoom-in-95 duration-100 origin-top-right flex flex-col">
                     
-                    <div className="flex items-center gap-2 pb-2 pt-1 px-2 border-b border-slate-100">
-                      <div className="w-7 h-7 rounded-full bg-slate-900 flex items-center justify-center text-white text-[10px] font-bold uppercase overflow-hidden">
+                    {/* USER DETAILS TOP AREA */}
+                    <div className="flex items-center gap-3 pb-3 px-1 border-b border-slate-100 group/user cursor-pointer">
+                      <div className="w-12 h-12 rounded-full bg-[#0b2240] flex items-center justify-center text-white text-sm font-black uppercase overflow-hidden border border-slate-100 shadow-xs shrink-0">
                         {currentUser.avatarUrl ? (
                           <img src={currentUser.avatarUrl} alt="" className="w-full h-full object-cover" />
                         ) : (
@@ -159,37 +160,38 @@ export default function Navbar({
                         )}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-semibold text-slate-900 truncate">
-                          {currentUser.firstName} {currentUser.lastName}
+                        <p className="text-sm font-bold text-slate-900 truncate group-hover/user:text-[#ff5700] transition-colors">
+                          {currentUser.firstName ? `${currentUser.firstName} ${currentUser.lastName || ""}` : "Saketh Chokkapu"}
                         </p>
-                        <p className="text-[10px] text-slate-400 truncate">
-                          {currentUser.email || "saketh@luxzera.com"}
+                        <p className="text-[11px] font-medium text-slate-400 truncate mt-0.5">
+                          {currentUser.email || "chokkapusaketh@gmail.com"}
                         </p>
                       </div>
                     </div>
 
-                    <div className="space-y-0.5 pt-1.5">
+                    {/* MENU RUN LINKS */}
+                    <div className="space-y-0.5 pt-2 pb-3">
                       <button
                         onClick={() => { onAccountClick?.(); setProfileOpen(false); }}
-                        className="w-full flex items-center gap-2 px-2 py-1.5 text-left text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
+                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#ff5700] hover:bg-slate-50 rounded-lg transition-colors group/item"
                       >
-                        <User size={12} className="text-slate-400" />
+                        <User size={13} className="text-slate-400 group-hover/item:text-[#ff5700] transition-colors" />
                         My Account
                       </button>
 
                       <button
                         onClick={() => { onOrdersClick?.(); setProfileOpen(false); }}
-                        className="w-full flex items-center gap-2 px-2 py-1.5 text-left text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
+                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#ff5700] hover:bg-slate-50 rounded-lg transition-colors group/item"
                       >
-                        <ShoppingBasket size={12} className="text-slate-400" />
+                        <ShoppingBasket size={13} className="text-slate-400 group-hover/item:text-[#ff5700] transition-colors" />
                         Orders
                       </button>
 
                       <button
                         onClick={() => setProfileOpen(false)}
-                        className="w-full flex items-center gap-2 px-2 py-1.5 text-left text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
+                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#ff5700] hover:bg-slate-50 rounded-lg transition-colors group/item"
                       >
-                        <Heart size={12} className="text-slate-400" />
+                        <Heart size={13} className="text-slate-400 group-hover/item:text-[#ff5700] transition-colors" />
                         Wishlist
                       </button>
 
@@ -198,11 +200,20 @@ export default function Navbar({
                           localStorage.removeItem("token");
                           window.location.reload();
                         }}
-                        className="w-full flex items-center gap-2 px-2 py-1.5 text-left text-xs text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
-                        <LogOut size={12} className="text-red-400" />
+                        <LogOut size={13} className="text-red-400" />
                         Logout
                       </button>
+                    </div>
+
+                    {/* BRANDING FOOTER */}
+                    <div className="-mx-3 mt-auto h-14 bg-slate-50 border-t border-slate-100 flex items-center justify-center overflow-hidden">
+                      <img 
+                        src="/LuxZera.png" 
+                        alt="LuxZera Platform" 
+                        className="h-8 w-auto object-contain select-none" 
+                      />
                     </div>
 
                   </div>
@@ -212,18 +223,18 @@ export default function Navbar({
           ) : (
             <button
               onClick={onAuthClick}
-              className="bg-slate-900 text-white rounded-full px-4 py-1.5 text-[13px] font-medium hover:bg-slate-800 transition-colors duration-150"
+              className="border border-[#0b2240] text-[#0b2240] rounded-full px-4 py-1.5 text-[13px] font-medium hover:bg-[#0b2240] hover:text-white transition-colors duration-150"
             >
               Sign In
             </button>
           )}
         </div>
 
-        {/* Mobile menu indicators */}
+        {/* Mobile menu triggers */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={onCartClick}
-            className={`relative flex h-8 w-8 items-center justify-center ${isCartActive ? "text-[#ff5700]" : "text-slate-600"}`}
+            className={`relative flex h-8 w-8 items-center justify-center ${isCartActive ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"}`}
           >
             <ShoppingBag size={16} strokeWidth={2} />
             {cartCount > 0 && (
@@ -234,7 +245,7 @@ export default function Navbar({
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-8 w-8 items-center justify-center text-slate-600"
+            className="flex h-8 w-8 items-center justify-center text-slate-600 hover:text-[#ff5700]"
           >
             {mobileOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={2} />}
           </button>
@@ -242,7 +253,7 @@ export default function Navbar({
 
       </div>
 
-      {/* Mobile Drawer Dropdown List */}
+      {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="w-full bg-white border-t border-slate-100 px-6 py-4 md:hidden animate-in fade-in duration-100">
           <div className="flex flex-col gap-3">
@@ -250,7 +261,7 @@ export default function Navbar({
               <button
                 key={dept.value}
                 onClick={() => handleDepartment(dept.value)}
-                className={`text-left text-sm py-1 font-bold ${
+                className={`text-left text-sm py-1 font-bold transition-colors ${
                   currentPage === dept.value ? "text-[#ff5700]" : "text-slate-600"
                 }`}
               >

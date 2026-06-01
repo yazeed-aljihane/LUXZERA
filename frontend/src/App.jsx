@@ -1,6 +1,6 @@
 // src/App.jsx
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -28,6 +28,50 @@ export default function App() {
 
   const [loginOpen, setLoginOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+
+  const loadUser = async () => {
+
+    const token =
+      localStorage.getItem("token");
+
+    if (!token) return;
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:8080/api/users/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+
+        localStorage.removeItem("token");
+        return;
+      }
+
+      const profile =
+        await response.json();
+
+      setCurrentUser(profile);
+
+    } catch (error) {
+
+      console.error(error);
+
+      localStorage.removeItem("token");
+    }
+  };
+
+  loadUser();
+
+}, []);
+  
+
 
   const currentPage = (() => {
     if (location.pathname.startsWith("/product")) return "product";

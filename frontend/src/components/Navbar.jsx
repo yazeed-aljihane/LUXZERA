@@ -18,13 +18,17 @@ export default function Navbar({
   currentPage,
   currentUser,
 }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const departmentHandlers = {
     Men: onMenClick,
     Women: onWomenClick,
     Unisex: onUnisexClick,
   };
+
+  const [profileOpen, setProfileOpen] =
+  useState(false);
+  const [mobileOpen, setMobileOpen] =
+  useState(false);
 
   const isMarketActive = ["shop", "product"].includes(currentPage);
   const isCartActive = currentPage === "cart";
@@ -132,12 +136,49 @@ export default function Navbar({
             Start Shopping
           </button>
 
-          {currentUser ? (
-  <button
-    className="border border-transparent px-3 py-3 text-xs font-black uppercase tracking-[0.24em] text-[#0b2240]"
-  >
-    {currentUser.firstName}
-  </button>
+         {currentUser ? (
+  <div className="relative">
+
+    <button
+      onClick={() =>
+        setProfileOpen(!profileOpen)
+      }
+      className="border border-slate-200 px-4 py-3 text-xs font-black uppercase tracking-[0.24em] text-[#0b2240]"
+    >
+      {currentUser.firstName} ▼
+    </button>
+
+    {profileOpen && (
+
+      <div className="absolute right-0 mt-2 w-52 rounded-lg border bg-white shadow-xl">
+
+        <button
+          className="block w-full px-4 py-3 text-left text-sm hover:bg-slate-50"
+        >
+          My Account
+        </button>
+
+        <button
+          className="block w-full px-4 py-3 text-left text-sm hover:bg-slate-50"
+        >
+          Orders
+        </button>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            window.location.reload();
+          }}
+          className="block w-full px-4 py-3 text-left text-sm text-red-600 hover:bg-slate-50"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    )}
+
+  </div>
 ) : (
   <button
     onClick={onAuthClick}

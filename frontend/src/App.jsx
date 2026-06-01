@@ -1,5 +1,4 @@
 // src/App.jsx
-
 import { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -9,7 +8,7 @@ import { useCart } from "./context/CartContext.jsx";
 import Hero from "./components/Hero.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
-import LoginModal from "./components/LoginModal.jsx";
+import AuthModal from "./components/AuthModal.jsx";
 
 import Home from "./Home/Home.jsx";
 import MarketPage from "./pages/MarketPage.jsx";
@@ -28,52 +27,96 @@ export default function App() {
   const location = useLocation();
   const { cartCount } = useCart();
 
-  const [loginOpen, setLoginOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [authOpen, setAuthOpen] = useState(false);
+
+  // ── ⚡ SPRING BOOT GOOGLE CREDENTIAL HANDLER ──
+  const handleCallbackResponse = async (response) => {
+    console.log("Encoded JWT ID token received from Google selector");
+    
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: response.credential }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", data.token);
+        window.location.reload(); 
+      } else {
+        console.error("Spring Boot rejected the token authorization check.");
+      }
+    } catch (err) {
+      console.error("Network error talking to backend server:", err);
+    }
+  };
+
+  // ── 🔒 STRICT SINGLE INITIALIZATION SYSTEM ──
   useEffect(() => {
+    /* global google */
+    if (typeof google !== "undefined" && !window.gsiInitialized) {
+      google.accounts.id.initialize({
+        client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com", // 🔴 Put your Google Console Client ID here!
+        callback: handleCallbackResponse,
+        ux_mode: "popup",
+        context: "signin",
+        auto_select: false, // ⚡ STOPS Google from trying to automatically sign in or send background requests
+      });
+      window.gsiInitialized = true; 
+    }
+  }, []);
 
+  // Triggered when clicking "Continue with Google" inside our clean modal selection view
+  const handleGoogleSignInAction = () => {
+    if (typeof google !== "undefined") {
+      setAuthOpen(false); // Snaps our custom overlay out of view
+      
+      // Forces a distinct user-triggered prompt modal call
+      google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          console.log("Browser suppressed regular prompt overlays.");
+        }
+      }); 
+    } else {
+      console.error("Google script asset has not loaded into layout DOM trees yet.");
+    }
+  };
+
+  const handleAppleSignInAction = () => {
+    console.log("Apple secure token identity handshake triggered.");
+  };
+
+  useEffect(() => {
     const loadUser = async () => {
-
-      const token =
-        localStorage.getItem("token");
-
+      const token = localStorage.getItem("token");
       if (!token) return;
 
       try {
-
-        const response = await fetch(
-          "http://localhost:8080/api/users/me",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+        const response = await fetch("http://localhost:8080/api/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`
           }
-        );
+        });
 
         if (!response.ok) {
-
           localStorage.removeItem("token");
           return;
         }
 
-        const profile =
-          await response.json();
-
+        const profile = await response.json();
         setCurrentUser(profile);
-
       } catch (error) {
-
         console.error(error);
-
         localStorage.removeItem("token");
       }
     };
 
     loadUser();
-
   }, []);
-
-
 
   const currentPage = (() => {
     if (location.pathname.startsWith("/product")) return "product";
@@ -83,17 +126,13 @@ export default function App() {
     ) {
       return "shop";
     }
-
     return location.pathname.split("/")[1] || "";
   })();
 
-  const showFloatingCart =
-    cartCount > 0 &&
-    location.pathname !== "/cart";
+  const showFloatingCart = cartCount > 0 && location.pathname !== "/cart";
 
   return (
     <div className="min-h-screen bg-white relative">
-
       <Navbar
         cartCount={cartCount}
         currentPage={currentPage}
@@ -105,100 +144,36 @@ export default function App() {
         onUnisexClick={() => navigate("/unisex")}
         onFaqClick={() => navigate("/faqs")}
         onCartClick={() => navigate("/cart")}
-        onAuthClick={() => setLoginOpen(true)}
+        onAuthClick={() => setAuthOpen(true)} // Opens our exact minimalist double-button screen
         onAccountClick={() => navigate("/account")}
         onOrdersClick={() => navigate("/orders")}
-
       />
 
       <main>
         <Routes>
-          <Route
-            path="/account"
-            element={<AccountPage />}
-          />
-          <Route
-            path="/orders"
-            element={<OrdersPage />}
-          />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
 
           <Route
             path="/"
             element={
               <>
-                <Hero
-                  onShopNow={() => navigate("/market")}
-                />
-
-                <Home
-                  onShopNow={() => navigate("/market")}
-                />
+                <Hero onShopNow={() => navigate("/market")} />
+                <Home onShopNow={() => navigate("/market")} />
               </>
             }
           />
 
-          <Route
-            path="/market"
-            element={<MarketPage />}
-          />
-
-          <Route
-            path="/shop"
-            element={
-              <Navigate
-                to="/market"
-                replace
-              />
-            }
-          />
-
-          <Route
-            path="/men"
-            element={<MenPage />}
-          />
-
-          <Route
-            path="/women"
-            element={<WomenPage />}
-          />
-
-          <Route
-            path="/unisex"
-            element={<UnisexPage />}
-          />
-
-          <Route
-            path="/product/:id"
-            element={<ProductDetailPage />}
-          />
-
-          <Route
-            path="/cart"
-            element={<CartPage />}
-          />
-
-          <Route
-            path="/about"
-            element={
-              <AboutPage
-                onShopNow={() =>
-                  navigate("/market")
-                }
-              />
-            }
-          />
-
-          <Route
-            path="/faqs"
-            element={
-              <FaqPage
-                onShopNow={() =>
-                  navigate("/market")
-                }
-              />
-            }
-          />
-
+          <Route path="/market" element={<MarketPage />} />
+          <Route path="/shop" element={<Navigate to="/market" replace />} />
+          <Route path="/men" element={<MenPage />} />
+          <Route path="/women" element={<WomenPage />} />
+          <Route path="/unisex" element={<UnisexPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/about" element={<AboutPage onShopNow={() => navigate("/market")} />} />
+          <Route path="/faqs" element={<FaqPage onShopNow={() => navigate("/market")} />} />
+          
           <Route
             path="*"
             element={
@@ -207,13 +182,10 @@ export default function App() {
               </div>
             }
           />
-
         </Routes>
       </main>
 
-      <Footer
-        onShopNow={() => navigate("/market")}
-      />
+      <Footer onShopNow={() => navigate("/market")} />
 
       {showFloatingCart && (
         <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">
@@ -222,7 +194,6 @@ export default function App() {
             className="h-12 px-6 bg-[#ff5700] hover:bg-[#0b2240] text-white font-black uppercase text-[11px] tracking-[0.25em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.16)] border border-white/10 group"
           >
             View Bag ({cartCount})
-
             <ArrowRight
               size={13}
               strokeWidth={3}
@@ -232,12 +203,13 @@ export default function App() {
         </div>
       )}
 
-      <LoginModal
-        isOpen={loginOpen}
-        onClose={() => setLoginOpen(false)}
-        onLoginSuccess={setCurrentUser}
+      {/* RENDER DUAL ACTION PROVIDER MODAL WITH SHARP/TRANSPARENT LAYERS */}
+      <AuthModal 
+        isOpen={authOpen}
+        onClose={() => setAuthOpen(false)}
+        onGoogleSignIn={handleGoogleSignInAction}
+        onAppleSignIn={handleAppleSignInAction}
       />
-
     </div>
   );
 }

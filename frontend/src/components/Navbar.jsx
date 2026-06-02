@@ -131,11 +131,15 @@ export default function Navbar({
                 className="flex items-center gap-3 py-1 text-slate-600 hover:text-[#ff5700] transition-colors duration-150 group/trigger"
               >
                 <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-700 text-xs font-black uppercase overflow-hidden shrink-0 transition-colors group-hover/trigger:border-[#ff5700]/30 shadow-xs">
-                  {currentUser.avatarUrl ? (
-                    <img src={currentUser.avatarUrl} alt="" className="w-full h-full object-cover" />
-                  ) : (
-                    (currentUser.firstName?.[0] || "S")
-                  )}
+                  {currentUser.profilePicture ? (
+  <img
+    src={currentUser.profilePicture}
+    alt=""
+    className="w-full h-full object-cover"
+  />
+) : (
+  (currentUser.firstName?.[0] || "S")
+)}
                 </div>
                 <span className="text-[15px] font-bold tracking-tight group-hover/trigger:text-[#ff5700] transition-colors">
                   {currentUser.firstName || "Saketh"}

@@ -33,20 +33,26 @@ export default function App() {
   // ── ⚡ SPRING BOOT GOOGLE CREDENTIAL HANDLER ──
   const handleCallbackResponse = async (response) => {
     console.log("Encoded JWT ID token received from Google selector");
-    
+
     try {
       const res = await fetch("http://localhost:8080/api/auth/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ token: response.credential }),
+        body: JSON.stringify({ idToken: response.credential }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        localStorage.setItem("token", data.token);
-        window.location.reload(); 
+        console.log(data);
+
+        console.log("BACKEND RESPONSE:", data);
+
+        localStorage.setItem(
+          "token",
+          data.accessToken
+        ); window.location.reload();
       } else {
         console.error("Spring Boot rejected the token authorization check.");
       }
@@ -60,13 +66,13 @@ export default function App() {
     /* global google */
     if (typeof google !== "undefined" && !window.gsiInitialized) {
       google.accounts.id.initialize({
-        client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com", // 🔴 Put your Google Console Client ID here!
+        client_id: "814947106292-6esiq93nb2v12edi5u0401nrr4p64ttv.apps.googleusercontent.com", // 🔴 Put your Google Console Client ID here!
         callback: handleCallbackResponse,
         ux_mode: "popup",
         context: "signin",
         auto_select: false, // ⚡ STOPS Google from trying to automatically sign in or send background requests
       });
-      window.gsiInitialized = true; 
+      window.gsiInitialized = true;
     }
   }, []);
 
@@ -74,13 +80,13 @@ export default function App() {
   const handleGoogleSignInAction = () => {
     if (typeof google !== "undefined") {
       setAuthOpen(false); // Snaps our custom overlay out of view
-      
+
       // Forces a distinct user-triggered prompt modal call
       google.accounts.id.prompt((notification) => {
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
           console.log("Browser suppressed regular prompt overlays.");
         }
-      }); 
+      });
     } else {
       console.error("Google script asset has not loaded into layout DOM trees yet.");
     }
@@ -163,7 +169,7 @@ export default function App() {
               </>
             }
           />
-
+          <Route path="/AccountPage" element={<AccountPage />} />
           <Route path="/market" element={<MarketPage />} />
           <Route path="/shop" element={<Navigate to="/market" replace />} />
           <Route path="/men" element={<MenPage />} />
@@ -173,7 +179,7 @@ export default function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/about" element={<AboutPage onShopNow={() => navigate("/market")} />} />
           <Route path="/faqs" element={<FaqPage onShopNow={() => navigate("/market")} />} />
-          
+
           <Route
             path="*"
             element={
@@ -204,7 +210,7 @@ export default function App() {
       )}
 
       {/* RENDER DUAL ACTION PROVIDER MODAL WITH SHARP/TRANSPARENT LAYERS */}
-      <AuthModal 
+      <AuthModal
         isOpen={authOpen}
         onClose={() => setAuthOpen(false)}
         onGoogleSignIn={handleGoogleSignInAction}

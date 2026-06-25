@@ -5,22 +5,56 @@ import { X } from "lucide-react";
 export default function AuthModal({ isOpen, onClose, onAppleSignIn }) {
   useEffect(() => {
     /* global google */
-    if (isOpen && typeof google !== "undefined") {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    let cleanupTimer = null;
+
+    const renderGoogleButton = () => {
+      if (typeof google === "undefined") {
+        return false;
+      }
+
+      const btnContainer = document.getElementById("google-signin-btn");
+      if (!btnContainer) {
+        return false;
+      }
+
+      btnContainer.innerHTML = "";
+
+      google.accounts.id.renderButton(btnContainer, {
+        type: "standard",
+        theme: "outline",
+        size: "large",
+        text: "signin_with",
+        shape: "pill",
+        logo_alignment: "center",
+        width: 280, // Perfectly locked geometric symmetry tracking width
+      });
+
+      return true;
+    };
+
+    if (!renderGoogleButton()) {
+      cleanupTimer = window.setInterval(() => {
+        if (renderGoogleButton()) {
+          window.clearInterval(cleanupTimer);
+          cleanupTimer = null;
+        }
+      }, 50);
+    }
+
+    return () => {
+      if (cleanupTimer) {
+        window.clearInterval(cleanupTimer);
+      }
+
       const btnContainer = document.getElementById("google-signin-btn");
       if (btnContainer) {
         btnContainer.innerHTML = "";
-        
-        google.accounts.id.renderButton(btnContainer, {
-          type: "standard",
-          theme: "outline",
-          size: "large",
-          text: "signin_with",
-          shape: "pill",
-          logo_alignment: "center",
-          width: 280, // Perfectly locked geometric symmetry tracking width
-        });
       }
-    }
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;

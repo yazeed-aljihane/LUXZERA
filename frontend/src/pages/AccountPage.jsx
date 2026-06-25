@@ -1,26 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AccountSidebar from "../components/account/AccountSidebar";
 import ProfileHeader from "../components/account/ProfileHeader";
 import AccountView from "../components/account/AccountView";
 import AccountEdit from "../components/account/AccountEdit";
 
-const AccountPage = () => {
+const AccountPage = ({ currentUser, onUserChange }) => {
   const [isEditing, setIsEditing] = useState(false);
-  
-  // LuxZera core user entity state 
-  const [user, setUser] = useState({
-    id: 1,
-    email: "saketh@gmail.com",
-    firstName: "Saketh",
-    lastName: "Chokkapu",
-    profilePicture: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-    role: "USER",
-    status: "ACTIVE"
-  });
+  const [user, setUser] = useState(currentUser ?? null);
 
   const [formData, setFormData] = useState({});
 
+  useEffect(() => {
+    setUser(currentUser ?? null);
+    setFormData({});
+    setIsEditing(false);
+  }, [currentUser]);
+
   const handleEditToggle = () => {
+    if (!user) return;
+
     setFormData({ firstName: user.firstName, lastName: user.lastName });
     setIsEditing(true);
   };
@@ -31,13 +29,28 @@ const AccountPage = () => {
   };
 
   const handleSave = () => {
-    setUser((prev) => ({
-      ...prev,
+    const nextUser = {
+      ...user,
       firstName: formData.firstName,
       lastName: formData.lastName
-    }));
+    };
+
+    setUser(nextUser);
+    onUserChange?.(nextUser);
     setIsEditing(false);
   };
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#f5f5f7] flex items-center justify-center px-6">
+        <div className="max-w-md rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-400">Account unavailable</p>
+          <h1 className="mt-3 text-2xl font-semibold text-slate-950 tracking-tight">Sign in to view your profile</h1>
+          <p className="mt-2 text-sm text-slate-500">The account page now reads the same user object as the navbar, so both update together.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f5f5f7] antialiased font-sans py-12">

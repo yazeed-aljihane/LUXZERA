@@ -30,9 +30,28 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [authOpen, setAuthOpen] = useState(false);
 
+  const fetchCurrentUser = async (accessToken) => {
+    const response = await fetch("http://localhost:8080/api/users/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to load authenticated user profile");
+    }
+
+    return response.json();
+  };
+
   // ── ⚡ SPRING BOOT GOOGLE CREDENTIAL HANDLER ──
   const handleCallbackResponse = async (response) => {
     console.log("Encoded JWT ID token received from Google selector");
+
+    if (!response?.credential) {
+      console.error("Google credential response did not include an ID token.");
+      return;
+    }
 
     try {
       const res = await fetch("http://localhost:8080/api/auth/google", {
@@ -49,10 +68,11 @@ export default function App() {
 
         console.log("BACKEND RESPONSE:", data);
 
-        localStorage.setItem(
-          "token",
-          data.accessToken
-        ); window.location.reload();
+        localStorage.setItem("token", data.accessToken);
+
+        const profile = await fetchCurrentUser(data.accessToken);
+        setCurrentUser(profile);
+        setAuthOpen(false);
       } else {
         console.error("Spring Boot rejected the token authorization check.");
       }
@@ -66,7 +86,7 @@ export default function App() {
     /* global google */
     if (typeof google !== "undefined" && !window.gsiInitialized) {
       google.accounts.id.initialize({
-        client_id: "814947106292-6esiq93nb2v12edi5u0401nrr4p64ttv.apps.googleusercontent.com", // 🔴 Put your Google Console Client ID here!
+        client_id: "404546324859-b29lgq8vjkpvf7tkov149dpc9sr8hia4.apps.googleusercontent.com", // 🔴 Put your Google Console Client ID here!
         callback: handleCallbackResponse,
         ux_mode: "popup",
         context: "signin",
@@ -76,24 +96,14 @@ export default function App() {
     }
   }, []);
 
-  // Triggered when clicking "Continue with Google" inside our clean modal selection view
-  const handleGoogleSignInAction = () => {
-    if (typeof google !== "undefined") {
-      setAuthOpen(false); // Snaps our custom overlay out of view
-
-      // Forces a distinct user-triggered prompt modal call
-      google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          console.log("Browser suppressed regular prompt overlays.");
-        }
-      });
-    } else {
-      console.error("Google script asset has not loaded into layout DOM trees yet.");
-    }
-  };
-
   const handleAppleSignInAction = () => {
     console.log("Apple secure token identity handshake triggered.");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setCurrentUser(null);
+    setAuthOpen(false);
   };
 
   useEffect(() => {
@@ -102,22 +112,12 @@ export default function App() {
       if (!token) return;
 
       try {
-        const response = await fetch("http://localhost:8080/api/users/me", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-
-        if (!response.ok) {
-          localStorage.removeItem("token");
-          return;
-        }
-
-        const profile = await response.json();
+        const profile = await fetchCurrentUser(token);
         setCurrentUser(profile);
       } catch (error) {
         console.error(error);
         localStorage.removeItem("token");
+        setCurrentUser(null);
       }
     };
 
@@ -136,28 +136,40 @@ export default function App() {
   })();
 
   const showFloatingCart = cartCount > 0 && location.pathname !== "/cart";
+  const showNavbar = location.pathname !== "/";
 
   return (
     <div className="min-h-screen bg-white relative">
-      <Navbar
-        cartCount={cartCount}
-        currentPage={currentPage}
-        currentUser={currentUser}
-        onLogoClick={() => navigate("/")}
-        onShopClick={() => navigate("/market")}
-        onMenClick={() => navigate("/men")}
-        onWomenClick={() => navigate("/women")}
-        onUnisexClick={() => navigate("/unisex")}
-        onFaqClick={() => navigate("/faqs")}
-        onCartClick={() => navigate("/cart")}
-        onAuthClick={() => setAuthOpen(true)} // Opens our exact minimalist double-button screen
-        onAccountClick={() => navigate("/account")}
-        onOrdersClick={() => navigate("/orders")}
-      />
+      {showNavbar && (
+        <Navbar
+          cartCount={cartCount}
+          currentPage={currentPage}
+          currentUser={currentUser}
+          onLogoClick={() => navigate("/")}
+          onShopClick={() => navigate("/market")}
+          onMenClick={() => navigate("/men")}
+          onWomenClick={() => navigate("/women")}
+          onUnisexClick={() => navigate("/unisex")}
+          onFaqClick={() => navigate("/faqs")}
+          onCartClick={() => navigate("/cart")}
+          onAuthClick={() => setAuthOpen(true)} // Opens our exact minimalist double-button screen
+          onAccountClick={() => navigate("/account")}
+          onOrdersClick={() => navigate("/orders")}
+          onLogout={handleLogout}
+        />
+      )}
 
       <main>
         <Routes>
-          <Route path="/account" element={<AccountPage />} />
+          <Route
+            path="/account"
+            element={
+              <AccountPage
+                currentUser={currentUser}
+                onUserChange={setCurrentUser}
+              />
+            }
+          />
           <Route path="/orders" element={<OrdersPage />} />
 
           <Route
@@ -169,7 +181,6 @@ export default function App() {
               </>
             }
           />
-          <Route path="/AccountPage" element={<AccountPage />} />
           <Route path="/market" element={<MarketPage />} />
           <Route path="/shop" element={<Navigate to="/market" replace />} />
           <Route path="/men" element={<MenPage />} />
@@ -213,7 +224,6 @@ export default function App() {
       <AuthModal
         isOpen={authOpen}
         onClose={() => setAuthOpen(false)}
-        onGoogleSignIn={handleGoogleSignInAction}
         onAppleSignIn={handleAppleSignInAction}
       />
     </div>

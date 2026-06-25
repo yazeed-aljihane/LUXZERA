@@ -1,15 +1,14 @@
 // src/components/Navbar.jsx
 import { useState } from "react";
-import { Menu, ShoppingBag, X, User, ShoppingBasket, Heart, LogOut, ChevronDown } from "lucide-react";
+import { ShoppingBag, User, ShoppingBasket, Heart, LogOut, ChevronDown, X, Menu } from "lucide-react";
 
-const DEPARTMENTS = [
-  { label: "Men", value: "men" },
+const LEFT_LINKS = [
+  { label: "Men",   value: "men"   },
   { label: "Women", value: "women" },
-  { label: "Unisex", value: "unisex" }
 ];
-const NAV_LINKS = [
-  { label: "Market", page: "market" },
-  { label: "FAQs", page: "faqs" }
+const RIGHT_LINKS = [
+  { label: "Unisex", value: "unisex" },
+  { label: "Kids",   value: "kids"   },
 ];
 
 export default function Navbar({
@@ -26,270 +25,207 @@ export default function Navbar({
   currentUser,
   onAccountClick,
   onOrdersClick,
+  onLogout,
 }) {
-  const departmentHandlers = {
-    men: onMenClick,
-    women: onWomenClick,
-    unisex: onUnisexClick,
-  };
-
   const [profileOpen, setProfileOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen,  setMobileOpen]  = useState(false);
 
-  const isMarketActive = ["shop", "product", "market"].includes(currentPage);
-  const isCartActive = currentPage === "cart";
-
-  const handleDepartment = (value) => {
-    departmentHandlers[value]?.();
-    setMobileOpen(false);
+  const handlers = {
+    men:    onMenClick,
+    women:  onWomenClick,
+    unisex: onUnisexClick,
+    kids:   onShopClick,
   };
 
-  const handleNavigate = (page) => {
-    if (page === "faqs") onFaqClick?.();
-    else onShopClick?.();
-    setMobileOpen(false);
-  };
+  const profileImage    = currentUser?.profilePicture || currentUser?.avatarUrl || null;
+  const profileName     = currentUser?.firstName || "Account";
+  const profileFullName = currentUser?.firstName
+    ? `${currentUser.firstName} ${currentUser.lastName || ""}`.trim()
+    : "My Account";
+  const profileEmail = currentUser?.email || "";
+
+  const handleLogout = () => { onLogout?.(); setProfileOpen(false); setMobileOpen(false); };
+
+  const navLink = (active) =>
+    `text-[13px] tracking-wide transition-colors duration-150 font-medium ${
+      active ? "text-[#ff5700]" : "text-[#1a1a1a]/70 hover:text-[#1a1a1a]"
+    }`;
 
   return (
-    <header className="w-full border-b border-slate-100 bg-white select-none">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        
-        {/* 1. LEFT SIDE BRAND LOGO */}
-        <div className="flex shrink-0 items-center">
-          <button
-            onClick={onLogoClick}
-            className="group flex items-center justify-center transition-opacity active:opacity-70"
-            aria-label="Go to LuxZera home"
-          >
-            <img
-              src="/LuxZera.png"
-              alt="LuxZera Logo"
-              className="h-9 w-auto object-contain select-none transition-all duration-300"
-            />
-          </button>
-        </div>
+    <>
+      {/* ════════════════════════════════════════════
+          DESKTOP — full-width, same bg as hero
+      ════════════════════════════════════════════ */}
+      <header
+        className="hidden md:block w-full bg-[#f0efeb] select-none relative"
+        style={{ height: "4rem" }}
+      >
+        {/* Absolute-fill inner row so logo is always mathematically centred */}
+        <div className="absolute inset-0 flex items-center px-10">
 
-        {/* 2. CENTER NAVIGATION */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Primary Navigation">
-          {DEPARTMENTS.map((dept) => {
-            const active = currentPage === dept.value;
-            return (
+          {/* LEFT: Men · Women */}
+          <nav className="flex items-center gap-7">
+            {LEFT_LINKS.map(({ label, value }) => (
               <button
-                key={dept.value}
-                onClick={() => handleDepartment(dept.value)}
-                className={`text-[15px] font-bold tracking-tight transition-colors duration-150 ${
-                  active ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"
-                }`}
-              >
-                {dept.label}
-              </button>
-            );
-          })}
-
-          <span className="h-4 w-px bg-slate-200 select-none" />
-
-          {NAV_LINKS.map(({ label, page }) => {
-            const active = page === "market" ? isMarketActive : currentPage === page;
-            return (
-              <button
-                key={label}
-                onClick={() => handleNavigate(page)}
-                className={`text-[15px] font-bold tracking-tight transition-colors duration-150 ${
-                  active ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"
-                }`}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* 3. RIGHT UTILITY CONTROLS */}
-        <div className="hidden md:flex items-center gap-7 shrink-0">
-          
-          {/* ── 🛒 SHOPPING BAG TRIGGER (FIXED FLOATING BADGE POSITIONING) ── */}
-          <button
-            onClick={onCartClick}
-            className={`relative flex h-9 w-9 shrink-0 aspect-square items-center justify-center transition-colors duration-150 ${
-              isCartActive ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"
-            }`}
-          >
-            <ShoppingBag size={22} strokeWidth={2.2} className="shrink-0" />
-            {cartCount > 0 && (
-              // Adjusted top and right spacing relative to the 22px icon frame so it sits perfectly snug
-              <span className="absolute top-0 right-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] font-black leading-none text-white shadow-xs translate-x-1 -translate-y-0.5">
-                {cartCount}
-              </span>
-            )}
-          </button>
-
-          {/* ── 👤 USER TRIGGER PROFILE SYSTEM ── */}
-          {currentUser ? (
-            <div className="relative">
-              <button
-                onClick={() => setProfileOpen(!profileOpen)}
-                className="flex items-center gap-3 py-1 text-slate-600 hover:text-[#ff5700] transition-colors duration-150 group/trigger"
-              >
-                <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-700 text-xs font-black uppercase overflow-hidden shrink-0 transition-colors group-hover/trigger:border-[#ff5700]/30 shadow-xs">
-                  {currentUser.profilePicture ? (
-  <img
-    src={currentUser.profilePicture}
-    alt=""
-    className="w-full h-full object-cover"
-  />
-) : (
-  (currentUser.firstName?.[0] || "S")
-)}
-                </div>
-                <span className="text-[15px] font-bold tracking-tight group-hover/trigger:text-[#ff5700] transition-colors">
-                  {currentUser.firstName || "Saketh"}
-                </span>
-                <ChevronDown size={14} strokeWidth={2.5} className="text-slate-400 group-hover/trigger:text-[#ff5700] transition-transform duration-200" />
-              </button>
-
-              {profileOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                  
-                  {/* Dropdown Card Shell (Widen to w-72 for uncompromised text breathing space) */}
-                  <div className="absolute right-0 mt-3 w-72 z-50 overflow-hidden rounded-xl border border-slate-200 bg-white pt-3 pl-3 pr-3 shadow-2xl animate-in fade-in zoom-in-95 duration-100 origin-top-right flex flex-col">
-                    
-                    {/* USER DETAILS TOP AREA */}
-                    <div className="flex items-center gap-3 pb-3 px-1 border-b border-slate-100 group/user cursor-pointer">
-                      <div className="w-12 h-12 rounded-full bg-[#0b2240] flex items-center justify-center text-white text-sm font-black uppercase overflow-hidden border border-slate-100 shadow-xs shrink-0">
-                        {currentUser.avatarUrl ? (
-                          <img src={currentUser.avatarUrl} alt="" className="w-full h-full object-cover" />
-                        ) : (
-                          (currentUser.firstName?.[0] || "S")
-                        )}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-bold text-slate-900 truncate group-hover/user:text-[#ff5700] transition-colors">
-                          {currentUser.firstName ? `${currentUser.firstName} ${currentUser.lastName || ""}` : "Saketh Chokkapu"}
-                        </p>
-                        <p className="text-[11px] font-medium text-slate-400 truncate mt-0.5">
-                          {currentUser.email || "chokkapusaketh@gmail.com"}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* MENU RUN LINKS */}
-                    <div className="space-y-0.5 pt-2 pb-3">
-                      <button
-                        onClick={() => { onAccountClick?.(); setProfileOpen(false); }}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#ff5700] hover:bg-slate-50 rounded-lg transition-colors group/item"
-                      >
-                        <User size={13} className="text-slate-400 group-hover/item:text-[#ff5700] transition-colors" />
-                        My Account
-                      </button>
-
-                      <button
-                        onClick={() => { onOrdersClick?.(); setProfileOpen(false); }}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#ff5700] hover:bg-slate-50 rounded-lg transition-colors group/item"
-                      >
-                        <ShoppingBasket size={13} className="text-slate-400 group-hover/item:text-[#ff5700] transition-colors" />
-                        Orders
-                      </button>
-
-                      <button
-                        onClick={() => setProfileOpen(false)}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#ff5700] hover:bg-slate-50 rounded-lg transition-colors group/item"
-                      >
-                        <Heart size={13} className="text-slate-400 group-hover/item:text-[#ff5700] transition-colors" />
-                        Wishlist
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          localStorage.removeItem("token");
-                          window.location.reload();
-                        }}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left text-xs font-bold uppercase tracking-wider text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      >
-                        <LogOut size={13} className="text-red-400" />
-                        Logout
-                      </button>
-                    </div>
-
-                    {/* BRANDING FOOTER */}
-                    <div className="-mx-3 mt-auto h-14 bg-slate-50 border-t border-slate-100 flex items-center justify-center overflow-hidden">
-                      <img 
-                        src="/LuxZera.png" 
-                        alt="LuxZera Platform" 
-                        className="h-8 w-auto object-contain select-none" 
-                      />
-                    </div>
-
-                  </div>
-                </>
-              )}
-            </div>
-          ) : (
-            <button
-              onClick={onAuthClick}
-              className="border border-[#0b2240] text-[#0b2240] rounded-full px-4 py-1.5 text-[13px] font-medium hover:bg-[#0b2240] hover:text-white transition-colors duration-150"
-            >
-              Sign In
-            </button>
-          )}
-        </div>
-
-        {/* Mobile menu triggers */}
-        <div className="flex items-center gap-2 md:hidden">
-          <button
-            onClick={onCartClick}
-            className={`relative flex h-8 w-8 items-center justify-center ${isCartActive ? "text-[#ff5700]" : "text-slate-600 hover:text-[#ff5700]"}`}
-          >
-            <ShoppingBag size={16} strokeWidth={2} />
-            {cartCount > 0 && (
-              <span className="absolute right-0 top-0 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-black px-1 text-[8px] font-medium leading-none text-white">
-                {cartCount}
-              </span>
-            )}
-          </button>
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-8 w-8 items-center justify-center text-slate-600 hover:text-[#ff5700]"
-          >
-            {mobileOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={2} />}
-          </button>
-        </div>
-
-      </div>
-
-      {/* Mobile Drawer */}
-      {mobileOpen && (
-        <div className="w-full bg-white border-t border-slate-100 px-6 py-4 md:hidden animate-in fade-in duration-100">
-          <div className="flex flex-col gap-3">
-            {DEPARTMENTS.map((dept) => (
-              <button
-                key={dept.value}
-                onClick={() => handleDepartment(dept.value)}
-                className={`text-left text-sm py-1 font-bold transition-colors ${
-                  currentPage === dept.value ? "text-[#ff5700]" : "text-slate-600"
-                }`}
-              >
-                {dept.label}
-              </button>
-            ))}
-            {NAV_LINKS.map(({ label, page }) => (
-              <button
-                key={label}
-                onClick={() => handleNavigate(page)}
-                className="text-left text-sm py-1 font-bold text-slate-400"
+                key={value}
+                onClick={() => handlers[value]?.()}
+                className={navLink(currentPage === value)}
               >
                 {label}
               </button>
             ))}
-            <button
-              onClick={() => { if (currentUser) { localStorage.removeItem("token"); window.location.reload(); } else { onAuthClick?.(); } setMobileOpen(false); }}
-              className="mt-2 w-full bg-slate-950 py-2.5 rounded-xl text-center text-xs font-medium text-white"
-            >
-              {currentUser ? "Logout" : "Sign In"}
+          </nav>
+
+          {/* CENTER LOGO — true centre via absolute positioning inside the row */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <button onClick={onLogoClick} aria-label="LuxZera home" className="active:opacity-60 transition-opacity">
+              <img src="/LuxZera.png" alt="LuxZera" className="h-[1.75rem] w-auto object-contain" />
             </button>
           </div>
+
+          {/* RIGHT: Unisex · Kids · divider · cart · auth */}
+          <div className="ml-auto flex items-center gap-7">
+            {RIGHT_LINKS.map(({ label, value }) => (
+              <button
+                key={value}
+                onClick={() => handlers[value]?.()}
+                className={navLink(currentPage === value)}
+              >
+                {label}
+              </button>
+            ))}
+
+            {/* hairline divider */}
+            <span className="h-[14px] w-px bg-[#1a1a1a]/15" />
+
+            {/* Cart */}
+            <button
+              onClick={onCartClick}
+              className={`relative flex items-center justify-center w-8 h-8 transition-colors duration-150 ${
+                currentPage === "cart" ? "text-[#ff5700]" : "text-[#1a1a1a]/60 hover:text-[#1a1a1a]"
+              }`}
+            >
+              <ShoppingBag size={19} strokeWidth={1.6} />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 flex h-[15px] min-w-[15px] items-center justify-center rounded-full bg-[#ff5700] px-1 text-[8px] font-black text-white leading-none">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
+            {/* Auth / Profile */}
+            {currentUser ? (
+              <div className="relative">
+                <button
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="flex items-center gap-2 group"
+                >
+                  <div className="w-[30px] h-[30px] rounded-full overflow-hidden bg-slate-200 border border-slate-200 flex items-center justify-center text-[11px] font-bold text-slate-600">
+                    {profileImage
+                      ? <img src={profileImage} alt="" className="w-full h-full object-cover" />
+                      : (currentUser.firstName?.[0] || "U")}
+                  </div>
+                  <ChevronDown
+                    size={12}
+                    strokeWidth={2.5}
+                    className="text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors"
+                  />
+                </button>
+
+                {profileOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
+                    <div className="absolute right-0 mt-3 w-60 z-50 rounded-2xl border border-slate-100 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden animate-in fade-in zoom-in-95 duration-100 origin-top-right">
+                      {/* Profile header */}
+                      <div className="flex items-center gap-3 px-4 pt-4 pb-3 border-b border-slate-100">
+                        <div className="w-9 h-9 rounded-full bg-[#0b2240] flex items-center justify-center text-white text-xs font-black overflow-hidden shrink-0">
+                          {profileImage ? <img src={profileImage} alt="" className="w-full h-full object-cover" /> : (currentUser.firstName?.[0] || "U")}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[13px] font-semibold text-slate-900 truncate leading-tight">{profileFullName}</p>
+                          <p className="text-[11px] text-slate-400 truncate mt-0.5">{profileEmail}</p>
+                        </div>
+                      </div>
+                      {/* Menu */}
+                      <div className="py-2 px-2 space-y-0.5">
+                        {[
+                          { icon: <User size={13} />,          label: "My Account", action: () => { onAccountClick?.(); setProfileOpen(false); } },
+                          { icon: <ShoppingBasket size={13} />, label: "Orders",     action: () => { onOrdersClick?.();  setProfileOpen(false); } },
+                          { icon: <Heart size={13} />,          label: "Wishlist",   action: () => setProfileOpen(false) },
+                        ].map(({ icon, label, action }) => (
+                          <button key={label} onClick={action}
+                            className="w-full flex items-center gap-2.5 px-3 py-[9px] text-left text-[12px] font-medium text-slate-600 hover:text-[#1a1a1a] hover:bg-slate-50 rounded-xl transition-colors">
+                            <span className="text-slate-300">{icon}</span>{label}
+                          </button>
+                        ))}
+                        <div className="h-px bg-slate-100 mx-1 my-1" />
+                        <button onClick={handleLogout}
+                          className="w-full flex items-center gap-2.5 px-3 py-[9px] text-left text-[12px] font-medium text-red-500 hover:bg-red-50 rounded-xl transition-colors">
+                          <LogOut size={13} className="text-red-400" />Logout
+                        </button>
+                      </div>
+                      {/* Footer */}
+                      <div className="border-t border-slate-100 h-10 bg-slate-50 flex items-center justify-center">
+                        <img src="/LuxZera.png" alt="" className="h-5 w-auto object-contain opacity-40" />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={onAuthClick}
+                className="text-[13px] font-medium text-[#1a1a1a]/70 hover:text-[#1a1a1a] transition-colors tracking-wide"
+              >
+                Sign in
+              </button>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* ════════════════════════════════════════════
+          MOBILE
+      ════════════════════════════════════════════ */}
+      <header
+        className="md:hidden flex w-full items-center justify-between px-5 bg-[#f0efeb]"
+        style={{ height: "3.5rem" }}
+      >
+        <button onClick={onLogoClick}>
+          <img src="/LuxZera.png" alt="LuxZera" className="h-6 w-auto object-contain" />
+        </button>
+        <div className="flex items-center gap-4">
+          <button onClick={onCartClick} className="relative text-[#1a1a1a]/60">
+            <ShoppingBag size={19} strokeWidth={1.6} />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#ff5700] text-[8px] font-black text-white">
+                {cartCount}
+              </span>
+            )}
+          </button>
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-[#1a1a1a]/60">
+            {mobileOpen ? <X size={19} strokeWidth={1.6} /> : <Menu size={19} strokeWidth={1.6} />}
+          </button>
+        </div>
+      </header>
+
+      {mobileOpen && (
+        <div className="md:hidden bg-[#f0efeb] border-t border-[#1a1a1a]/8 px-5 py-5 flex flex-col gap-4">
+          {[...LEFT_LINKS, ...RIGHT_LINKS].map(({ label, value }) => (
+            <button key={value}
+              onClick={() => { handlers[value]?.(); setMobileOpen(false); }}
+              className={`text-left text-[15px] font-medium ${currentPage === value ? "text-[#ff5700]" : "text-[#1a1a1a]/70"}`}>
+              {label}
+            </button>
+          ))}
+          <div className="h-px bg-[#1a1a1a]/10 my-1" />
+          <button
+            onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
+            className="w-full bg-[#1a1a1a] text-white text-[12px] font-semibold tracking-wide py-3 rounded-2xl">
+            {currentUser ? "Sign out" : "Sign in"}
+          </button>
         </div>
       )}
-    </header>
+    </>
   );
 }

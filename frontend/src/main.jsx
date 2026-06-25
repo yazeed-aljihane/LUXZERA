@@ -13,7 +13,7 @@ ReactDOM.createRoot(
 ).render(
   <React.StrictMode>
     <GoogleOAuthProvider
-      clientId="814947106292-6esiq93nb2v12edi5u0401nrr4p64ttv.apps.googleusercontent.com"
+      clientId="404546324859-b29lgq8vjkpvf7tkov149dpc9sr8hia4.apps.googleusercontent.com"
     >
       <BrowserRouter>
         <CartProvider>

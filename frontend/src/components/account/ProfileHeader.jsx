@@ -1,15 +1,23 @@
 import React from 'react';
 
 const ProfileHeader = ({ user, isEditing, onUploadClick }) => {
+  const profileImage = user?.profilePicture || user?.avatarUrl || null;
+
   return (
     <div className="flex items-center justify-between pb-8 border-b border-slate-100 mb-8">
       <div className="flex items-center gap-5">
         <div className="relative group">
-          <img
-            src={user?.profilePicture}
-            alt="profile"
-            className="w-20 h-20 rounded-full object-cover shadow-sm bg-slate-50"
-          />
+          {profileImage ? (
+            <img
+              src={profileImage}
+              alt="profile"
+              className="w-20 h-20 rounded-full object-cover shadow-sm bg-slate-50"
+            />
+          ) : (
+            <div className="w-20 h-20 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-xl font-semibold shadow-sm">
+              {user?.firstName?.[0] || "S"}
+            </div>
+          )}
         </div>
         <div>
           <div className="flex items-center gap-2.5">

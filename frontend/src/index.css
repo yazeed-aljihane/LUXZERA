@@ -5,13 +5,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global body override - Modern Premium Fashion Marketplace */
+:root {
+  --primary-bg: #FAF9F7;
+  --secondary-bg: #F2EFEA;
+  --brand-blue: #5B6EF5;
+  --accent-gold: #C6A15B;
+  --accent-terracotta: #C97A5A;
+  --text-charcoal: #2B2B2B;
+  --border-gray: #E7E3DD;
+}
+
 body {
-  background-color: #FAF9F7;
-  color: #2B2B2B;
+  background-color: var(--primary-bg);
+  color: var(--text-charcoal);
   font-family: 'Plus Jakarta Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ── Scale utilities missing from Tailwind by default ── */
+.scale-103 { transform: scale(1.03); }
+.group:hover .group-hover\:scale-103 { transform: scale(1.03); }
+
+/* ── Fade-in-up animation ── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ── Fade-in animation ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+
+/* ── Slow drift for hero background ── */
+@keyframes driftSlow {
+  0%   { transform: scale(1.04) translateY(0px); }
+  50%  { transform: scale(1.06) translateY(-8px); }
+  100% { transform: scale(1.04) translateY(0px); }
+}
+
+.animate-drift-slow {
+  animation: driftSlow 18s ease-in-out infinite;
+}
+
 /* Modern navigation link hover underline animation */
 .hover-underline-modern {
   position: relative;
@@ -82,4 +133,21 @@ body {
     linear-gradient(rgba(43, 43, 43, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(43, 43, 43, 0.03) 1px, transparent 1px);
   background-size: 3rem 3rem;
+}
+
+/* LuxZera Signature: Double Editorial Frame */
+.double-editorial-frame {
+  border: 1px solid #E7E3DD;
+  padding: 0.375rem;
+  background-color: #FAF9F7;
+  border-radius: 1rem;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

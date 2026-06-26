@@ -1,330 +1,374 @@
 // src/Home/Home.jsx
-import { ArrowRight, Star } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import ProductCard from "../components/ProductCard.jsx";
 import { PRODUCTS } from "../data/products.js";
 
-// Curated high-fashion models matching our quiet luxury editorial spread
-const LIFE_1 = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80"; // model in warm beige coat styling
-const LIFE_2 = "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=80"; // high fashion black and white silhouette
+// Fashion editorial images
+const MODEL_A = "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=900&q=80";
+const MODEL_B = "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=900&q=80";
+const MODEL_C = "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=80";
+const MODEL_D = "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=80";
+
+const CHANNELS = [
+  { label: "New Arrivals",        tag: "Just Dropped",     color: "#5B6EF5", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80",   span: "md:col-span-2" },
+  { label: "Trending Now",        tag: "This Week",        color: "#C97A5A", img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80",   span: "" },
+  { label: "Editor's Picks",      tag: "Curated Selects",  color: "#2B2B2B", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80",   span: "" },
+  { label: "Emerging Designers",  tag: "Next Wave",        color: "#C6A15B", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80",   span: "" },
+  { label: "Independent Brands",  tag: "Exclusive",        color: "#5B6EF5", img: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=600&q=80",      span: "" },
+  { label: "Luxury Collections",  tag: "Premium Only",     color: "#C97A5A", img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80",   span: "md:col-span-2" },
+];
+
+const DESIGNERS = [
+  {
+    name: "Ami Laurent",
+    location: "Paris, FR",
+    role: "Independent Designer",
+    quote: "Clothes should feel like a second skin — effortless, personal.",
+    img: MODEL_C,
+    accent: "#5B6EF5",
+  },
+  {
+    name: "Kian Wells",
+    location: "London, UK",
+    role: "Menswear Creator",
+    quote: "I design for men who don't follow trends — they set them.",
+    img: MODEL_B,
+    accent: "#C97A5A",
+  },
+];
 
 export default function Home({ onShopNow }) {
-  const navigate = useNavigate();
-
-  // Retrieve products for sections
-  const exclusiveProducts = PRODUCTS.slice(0, 3);
-  const designerProducts = PRODUCTS.slice(3, 6);
-
-  const stats = [
-    { value: "42+", label: "Country Store in USA" },
-    { value: "75+", label: "Available Stores Worldwide" },
-    { value: "120+", label: "Fashion Show Organizing Yearly" }
-  ];
+  const trendingProducts = PRODUCTS.slice(0, 4);
+  const editorPicks     = PRODUCTS.slice(4, 7);
 
   const categories = [
-    { name: "Shirts", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=100&q=80" },
-    { name: "Hot Summer", img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=100&q=80" },
-    { name: "Conceptional", img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=100&q=80" },
-    { name: "Denim Blazer", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=100&q=80" },
+    { name: "Shirts",       img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=80&q=70" },
+    { name: "Outerwear",    img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=80&q=70" },
+    { name: "Conceptual",   img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=80&q=70" },
+    { name: "Denim",        img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=80&q=70" },
+    { name: "Streetwear",   img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=80&q=70" },
+    { name: "Luxury",       img: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=80&q=70" },
   ];
 
   return (
-    <div className="bg-[#F8F6F2] text-[#111111] font-luxury-body transition-all duration-300">
+    <div className="bg-[#FAF9F7] text-[#2B2B2B] font-sans">
 
-      {/* ═══ 1. EXCLUSIVE DESIGN SECTION ═══ */}
-      <section className="max-w-7xl mx-auto px-8 lg:px-16 py-24 border-b border-[#E8E3DA] relative">
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8 mb-12">
-          
-          <div className="w-full lg:w-1/2 text-left">
-            {/* Huge elegant Cormorant serif title */}
-            <h2 className="font-luxury-title text-6xl md:text-7xl font-light uppercase tracking-tight text-[#111111] leading-[0.95]">
-              Exclusive <br />
-              design <span className="text-[#C9A86A]">—</span>
+      {/* ════════════════════════════════════════════
+          1. CURATED CHANNELS — Magazine Grid
+      ════════════════════════════════════════════ */}
+      <section className="w-full border-b border-[#E7E3DD]">
+        {/* Section Header */}
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-20 pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#C6A15B] block mb-3">
+              — Curated For You
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#2B2B2B] leading-[0.9]">
+              Shop By<br />Channel
             </h2>
           </div>
-
-          <div className="w-full lg:w-1/2 flex flex-col sm:flex-row items-start justify-between gap-6 text-left">
-            <div className="flex items-center gap-3">
-              <span className="font-luxury-title text-4xl text-[#C9A86A] font-light leading-none">LZ</span>
-              <p className="text-xs text-[#2A2A2A]/70 max-w-xs font-light leading-relaxed">
-                TIMELESS VARIANTS OF STYLE AND COLOURS MADE FROM HIGH QUALITY MATERIAL.
-              </p>
-            </div>
-            <button
-              onClick={onShopNow}
-              className="btn-luxury-outline px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-semibold shrink-0"
-            >
-              View Collection
-            </button>
-          </div>
-
+          <button
+            onClick={onShopNow}
+            className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.28em] text-[#2B2B2B]/50 hover:text-[#5B6EF5] transition-colors shrink-0"
+          >
+            View All <ArrowRight size={12} strokeWidth={2.5} />
+          </button>
         </div>
 
-        {/* 3-column product cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {exclusiveProducts.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
-      </section>
-
-      {/* ═══ 2. LUXZERA PLATFORM STATS BANNER (MATTE BLACK LUXURY BANNER) ═══ */}
-      <section className="w-full bg-[#111111] text-[#F8F6F2] py-20 px-8 lg:px-16 relative overflow-hidden border-b border-[#E8E3DA]/10">
-        
-        {/* Subtle top border highlights */}
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-[#C9A86A]/40" />
-
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
-          
-          {/* Left Block with circular image crop simulation */}
-          <div className="w-full lg:w-1/2 flex items-center gap-8 text-left">
-            <div className="relative shrink-0 hidden sm:block">
-              {/* Image in luxury crop border */}
-              <div className="w-32 h-44 border border-[#C9A86A]/40 overflow-hidden bg-[#1e1e1e]">
-                <img 
-                  src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" 
-                  alt="Atelier capsule" 
-                  className="w-full h-full object-cover object-top opacity-90 scale-105" 
+        {/* Channel Grid */}
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pb-20">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {CHANNELS.map((ch, i) => (
+              <div
+                key={ch.label}
+                onClick={onShopNow}
+                className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-[#E7E3DD] bg-[#F2EFEA] ${ch.span} ${
+                  i === 0 || i === 5 ? "h-64" : "h-52"
+                }`}
+              >
+                <img
+                  src={ch.img}
+                  alt={ch.label}
+                  className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.4s] group-hover:scale-105"
+                  loading="lazy"
                 />
-              </div>
-              {/* Floating Vertical label */}
-              <span className="absolute -left-7 top-1/2 -translate-y-1/2 -rotate-90 text-[8px] uppercase tracking-[0.3em] text-[#C9A86A] font-semibold">
-                FASHION WEEK
-              </span>
-            </div>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2B2B2B]/70 via-[#2B2B2B]/10 to-transparent" />
 
-            <div>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#C9A86A] mb-3 block">
-                // LuxZera Platform
-              </span>
-              <h3 className="font-luxury-title text-3xl md:text-4xl font-light uppercase tracking-tight leading-tight text-[#F8F6F2] max-w-md">
-                LuxZera is a brand platform for creative misfits clothing.
-              </h3>
-            </div>
-          </div>
-
-          {/* Right side stats grid and action button */}
-          <div className="w-full lg:w-1/2 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
-            {/* Stats list */}
-            <div className="flex flex-col gap-6 text-left">
-              {stats.map((s, idx) => (
-                <div key={idx} className="flex flex-col border-l border-[#C9A86A]/30 pl-4 py-1">
-                  <span className="font-luxury-title text-2xl font-light text-[#C9A86A] leading-none">{s.value}</span>
-                  <span className="text-[9px] font-semibold uppercase tracking-widest text-[#F8F6F2]/60 mt-1">{s.label}</span>
+                {/* Channel label */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between">
+                  <div>
+                    <span className="text-[7.5px] font-extrabold uppercase tracking-[0.3em] text-white/55 block mb-1">{ch.tag}</span>
+                    <span className="text-sm font-black uppercase tracking-wide text-[#FAF9F7] leading-tight">{ch.label}</span>
+                  </div>
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0"
+                    style={{ backgroundColor: ch.color }}
+                  >
+                    <ArrowRight size={12} className="text-[#FAF9F7]" strokeWidth={2.5} />
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* ════════════════════════════════════════════
+          2. CATEGORY BADGE SCROLL ROW
+      ════════════════════════════════════════════ */}
+      <section className="w-full bg-[#F2EFEA] border-b border-[#E7E3DD] py-5 overflow-x-auto scrollbar-none">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center gap-4 whitespace-nowrap min-w-max">
+          {categories.map((cat) => (
             <button
+              key={cat.name}
               onClick={onShopNow}
-              className="px-10 py-5 bg-[#C9A86A] hover:bg-[#F8F6F2] text-[#111111] hover:text-[#111111] font-semibold text-[10px] uppercase tracking-[0.25em] transition-all duration-300 flex items-center gap-2.5 border border-[#C9A86A] shrink-0"
+              className="flex items-center gap-2.5 border border-[#E7E3DD] bg-[#FAF9F7] hover:border-[#5B6EF5]/40 hover:bg-white px-4 py-2.5 rounded-full transition-all duration-200 group shadow-sm"
             >
-              Start Shopping
-              <ArrowRight size={13} />
-            </button>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ═══ 3. BE WHO YOU ARE SECTION ═══ */}
-      <section className="max-w-7xl mx-auto px-8 lg:px-16 py-24 border-b border-[#E8E3DA] relative overflow-hidden">
-        
-        {/* Background branding watermark */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[15vw] font-luxury-title text-[#E8E3DA]/15 pointer-events-none uppercase font-light leading-none select-none">
-          LUXZERA
-        </div>
-
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 relative z-10">
-          <div className="text-left">
-            <h2 className="font-luxury-title text-6xl md:text-7xl font-light uppercase tracking-tight text-[#111111] leading-[0.95]">
-              Be Who <br />
-              You Are!
-            </h2>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row sm:items-center gap-8 justify-between text-left w-full lg:w-auto">
-            <p className="text-xs text-[#2A2A2A]/70 max-w-xs font-light leading-relaxed">
-              Refresh your wardrobe with new exclusive streetwear from our stylish collections. Crafted for character.
-            </p>
-            <button
-              onClick={onShopNow}
-              className="btn-luxury-outline px-8 py-4 text-[10px] uppercase tracking-[0.25em] font-semibold flex items-center gap-2.5 shrink-0"
-            >
-              Start Shopping <ArrowRight size={12} strokeWidth={1.5} />
-            </button>
-          </div>
-        </div>
-
-        {/* 2-column lifestyle image grids */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
-          
-          {/* Card 1 */}
-          <div 
-            onClick={onShopNow}
-            className="group cursor-pointer flex flex-col text-left"
-          >
-            <div className="aspect-[4/3] overflow-hidden border border-[#E8E3DA] bg-[#E8E3DA]/25 select-none relative mb-4">
-              <img 
-                src={LIFE_1} 
-                alt="Denim styling" 
-                className="w-full h-full object-cover object-top img-luxury-zoom" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/70 via-transparent to-transparent flex items-end p-8">
-                <div className="text-left">
-                  <span className="font-luxury-title text-2xl font-light text-[#F8F6F2] uppercase tracking-wide">Street Casual</span>
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C9A86A] mt-1.5">Cop Capsule Drops</p>
-                </div>
+              <div className="w-7 h-7 rounded-full overflow-hidden border border-[#E7E3DD] shrink-0">
+                <img src={cat.img} alt="" className="w-full h-full object-cover" />
               </div>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div 
-            onClick={onShopNow}
-            className="group cursor-pointer flex flex-col text-left"
-          >
-            <div className="aspect-[4/3] overflow-hidden border border-[#E8E3DA] bg-[#E8E3DA]/25 select-none relative mb-4">
-              <img 
-                src={LIFE_2} 
-                alt="Patterned shirt styling" 
-                className="w-full h-full object-cover object-top img-luxury-zoom" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/70 via-transparent to-transparent flex items-end p-8">
-                <div className="text-left">
-                  <span className="font-luxury-title text-2xl font-light text-[#F8F6F2] uppercase tracking-wide">Designer Fits</span>
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C9A86A] mt-1.5">Explore Style Boards</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ═══ 4. EDITORIAL TEXT BLOCKQUOTE ═══ */}
-      <section className="w-full bg-[#F8F6F2] py-8 border-b border-[#E8E3DA] select-none text-center">
-        <blockquote className="font-luxury-title text-2xl md:text-3xl italic text-[#111111]/85 leading-relaxed max-w-4xl mx-auto px-8 py-10">
-          "Fashion is part of the daily air and it changes all the time, you can even see the approaching of a revolution in clothes."
-        </blockquote>
-      </section>
-
-      {/* ═══ 5. CATEGORIES HORIZONTAL SCROLL BADGES ROW (Clean Scrolling Badges) ═══ */}
-      <section className="w-full bg-[#E8E3DA]/30 border-b border-[#E8E3DA] py-6 overflow-x-auto scrollbar-none select-none">
-        <div className="max-w-7xl mx-auto px-8 lg:px-16 flex items-center justify-start md:justify-center gap-8 whitespace-nowrap min-w-max">
-          {categories.map((cat, idx) => (
-            <div 
-              key={idx} 
-              onClick={onShopNow}
-              className="flex items-center gap-3 border border-[#E8E3DA] bg-[#F8F6F2] px-5 py-3.5 hover:border-[#C9A86A] transition-all cursor-pointer group hover:scale-[1.02]"
-            >
-              <div className="w-7 h-7 rounded-full overflow-hidden border border-[#E8E3DA] bg-[#E8E3DA]/50 shrink-0">
-                <img src={cat.img} alt="" className="w-full h-full object-cover object-center" />
-              </div>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#111111] group-hover:text-[#C9A86A] transition-colors">
+              <span className="text-[8.5px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B] group-hover:text-[#5B6EF5] transition-colors">
                 {cat.name}
               </span>
-            </div>
+            </button>
           ))}
         </div>
       </section>
 
-      {/* ═══ 6. TWO TRENDS CARDS SIDE-BY-SIDE ═══ */}
-      <section className="max-w-7xl mx-auto px-8 lg:px-16 py-24 border-b border-[#E8E3DA]">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          
-          {/* Card 1: Matte Black Design Card */}
-          <div 
-            onClick={onShopNow}
-            className="group cursor-pointer relative overflow-hidden bg-[#111111] border border-[#C9A86A]/20 flex flex-col md:flex-row h-72"
-          >
-            {/* Left Content */}
-            <div className="flex-1 p-8 flex flex-col justify-between text-left relative z-10">
-              <div>
-                <span className="font-luxury-title text-[#F8F6F2]/30 text-xs tracking-widest block uppercase">LUXZERA EDIT</span>
-                <span className="font-luxury-title text-[#C9A86A] text-2xl font-light uppercase tracking-wide mt-2 block">
-                  TRENDS <br />FASHION <br />VIBES
-                </span>
-              </div>
-              <div>
-                <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#F8F6F2]/60 mt-1 block">Chris Pat</span>
-                <span className="text-[8px] font-light text-[#F8F6F2]/40 block mt-0.5">LuxZera is a brand platform for creative misfits clothing.</span>
-              </div>
-            </div>
-            {/* Right Image crop */}
-            <div className="w-full md:w-44 h-full relative overflow-hidden bg-[#1a1a1a] border-l border-[#E8E3DA]/10 shrink-0 select-none">
-              <img 
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80" 
-                alt="Chris Pat styling" 
-                className="w-full h-full object-cover object-top img-luxury-zoom opacity-90" 
-              />
-            </div>
+      {/* ════════════════════════════════════════════
+          3. TRENDING COLLECTIONS — Horizontal Luxury Grid
+      ════════════════════════════════════════════ */}
+      <section className="w-full border-b border-[#E7E3DD]">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-20 pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#C97A5A] block mb-3">
+              — What's Hot
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#2B2B2B] leading-[0.9]">
+              Trending<br />Collections
+            </h2>
           </div>
-
-          {/* Card 2: Soft Stone Design Card */}
-          <div 
+          <button
             onClick={onShopNow}
-            className="group cursor-pointer relative overflow-hidden bg-[#E8E3DA]/40 border border-[#E8E3DA] flex flex-col md:flex-row h-72"
+            className="shrink-0 flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.28em] text-[#2B2B2B]/50 hover:text-[#5B6EF5] transition-colors"
           >
-            {/* Left Content */}
-            <div className="flex-1 p-8 flex flex-col justify-between text-left relative z-10">
-              <div>
-                <span className="font-luxury-title text-[#111111]/30 text-xs tracking-widest block uppercase">LUXZERA EDIT</span>
-                <span className="font-luxury-title text-[#111111] text-2xl font-light uppercase tracking-wide mt-2 block">
-                  TRENDS <br />STYLE <br />SHIRT SPRING
-                </span>
-              </div>
-              <div>
-                <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#111111]/60 mt-1 block">William R.</span>
-                <span className="text-[8px] font-light text-[#111111]/50 block mt-0.5">LuxZera, which is creative and colorful at the same time.</span>
-              </div>
-            </div>
-            {/* Right Image crop */}
-            <div className="w-full md:w-44 h-full relative overflow-hidden bg-[#E8E3DA] border-l border-[#E8E3DA]/60 shrink-0 select-none">
-              <img 
-                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" 
-                alt="William R styling" 
-                className="w-full h-full object-cover object-top img-luxury-zoom" 
-              />
-            </div>
-          </div>
+            View All <ArrowRight size={12} strokeWidth={2.5} />
+          </button>
+        </div>
 
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {trendingProducts.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ═══ 7. DESIGNER OUTFIT SECTION ═══ */}
-      <section className="max-w-7xl mx-auto px-8 lg:px-16 py-24 relative">
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8 mb-12">
-          
-          <div className="w-full lg:w-1/2 text-left">
-            <h2 className="font-luxury-title text-6xl md:text-7xl font-light uppercase tracking-tight text-[#111111] leading-[0.95]">
-              Designer <br />
-              Outfit <span className="text-[#C9A86A]">—</span>
-            </h2>
-          </div>
+      {/* ════════════════════════════════════════════
+          4. FEATURED DESIGNERS — Bold two-card layout
+      ════════════════════════════════════════════ */}
+      <section className="w-full bg-[#F2EFEA] border-b border-[#E7E3DD]">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-20 pb-20">
 
-          <div className="w-full lg:w-1/2 flex flex-col sm:flex-row items-start justify-between gap-6 text-left">
-            <div className="flex items-center gap-3">
-              <span className="font-luxury-title text-4xl text-[#C9A86A] font-light leading-none">LZ</span>
-              <p className="text-xs text-[#2A2A2A]/70 max-w-xs font-light leading-relaxed">
-                TIMELESS VARIANTS OF STYLE AND COLOURS MADE FROM HIGH QUALITY MATERIAL.
-              </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#C6A15B] block mb-3">
+                — Independent Creators
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-[#2B2B2B] leading-[0.9]">
+                Featured<br />Designers
+              </h2>
             </div>
             <button
               onClick={onShopNow}
-              className="btn-luxury-outline px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-semibold shrink-0"
+              className="shrink-0 bg-[#2B2B2B] hover:bg-[#5B6EF5] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.28em] px-6 py-3.5 rounded-full transition-all duration-300 flex items-center gap-2"
             >
-              View Collection
+              See All Designers <ArrowRight size={12} strokeWidth={2.5} />
             </button>
           </div>
 
-        </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {DESIGNERS.map((d) => (
+              <div
+                key={d.name}
+                onClick={onShopNow}
+                className="group relative overflow-hidden rounded-2xl cursor-pointer border border-[#E7E3DD] bg-[#FAF9F7] flex flex-col md:flex-row h-72"
+              >
+                {/* Image */}
+                <div className="w-full md:w-[42%] h-48 md:h-full overflow-hidden bg-[#F2EFEA] shrink-0 relative">
+                  <img
+                    src={d.img}
+                    alt={d.name}
+                    className="w-full h-full object-cover object-top transition-transform duration-[1.4s] group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#FAF9F7]/20 md:to-[#FAF9F7]/30" />
+                </div>
 
-        {/* 3-column product cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {designerProducts.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
+                {/* Content */}
+                <div className="flex-1 p-7 flex flex-col justify-between">
+                  <div>
+                    <span
+                      className="text-[7.5px] font-extrabold uppercase tracking-[0.35em] block mb-2"
+                      style={{ color: d.accent }}
+                    >
+                      {d.role} · {d.location}
+                    </span>
+                    <h3 className="text-2xl font-black uppercase tracking-tight text-[#2B2B2B] leading-tight">
+                      {d.name}
+                    </h3>
+                  </div>
+                  <blockquote className="text-[12px] text-[#2B2B2B]/55 leading-[1.65] font-medium italic border-l-2 border-[#E7E3DD] pl-3 mt-2" style={{ borderColor: d.accent + "60" }}>
+                    "{d.quote}"
+                  </blockquote>
+                  <div
+                    className="mt-4 flex items-center gap-2 text-[9px] font-extrabold uppercase tracking-[0.25em] group-hover:gap-3 transition-all"
+                    style={{ color: d.accent }}
+                  >
+                    View Collection <ArrowRight size={10} strokeWidth={2.5} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          5. LUXURY BRAND EDITORIAL BANNERS
+      ════════════════════════════════════════════ */}
+      <section className="w-full border-b border-[#E7E3DD] overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+
+          {/* Banner 1 — Royal Blue */}
+          <div
+            onClick={onShopNow}
+            className="group relative overflow-hidden bg-[#5B6EF5] px-12 py-16 cursor-pointer flex flex-col justify-between min-h-[18rem] border-r border-[#4a5de0]"
+          >
+            <div
+              className="absolute inset-0 opacity-8 pointer-events-none"
+              style={{
+                backgroundImage: "repeating-linear-gradient(-45deg, #FAF9F7 0, #FAF9F7 1px, transparent 0, transparent 50%)",
+                backgroundSize: "14px 14px",
+                opacity: 0.07,
+              }}
+            />
+            <div className="relative z-10">
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.4em] text-[#FAF9F7]/45 block mb-4">// Nocturne Studio · London</span>
+              <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-[#FAF9F7] leading-[0.88]">
+                TRENDS<br />FASHION<br />VIBES
+              </h3>
+            </div>
+            <div className="relative z-10 flex items-end justify-between">
+              <div>
+                <span className="text-[8.5px] font-extrabold uppercase tracking-[0.28em] text-[#FAF9F7]/55 block">SS26 Capsule Drop</span>
+                <span className="text-[10.5px] font-extrabold uppercase tracking-[0.2em] text-[#FAF9F7] mt-1 block group-hover:text-[#C6A15B] transition-colors">
+                  Shop Now →
+                </span>
+              </div>
+              {/* Right image overlay */}
+              <div className="w-28 h-32 rounded-xl overflow-hidden border border-[#FAF9F7]/20 opacity-80 group-hover:opacity-100 transition-opacity">
+                <img src={MODEL_B} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
+              </div>
+            </div>
+          </div>
+
+          {/* Banner 2 — Terracotta */}
+          <div
+            onClick={onShopNow}
+            className="group relative overflow-hidden bg-[#C97A5A] px-12 py-16 cursor-pointer flex flex-col justify-between min-h-[18rem]"
+          >
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: "repeating-linear-gradient(-45deg, #FAF9F7 0, #FAF9F7 1px, transparent 0, transparent 50%)",
+                backgroundSize: "14px 14px",
+                opacity: 0.07,
+              }}
+            />
+            <div className="relative z-10">
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.4em] text-[#FAF9F7]/45 block mb-4">// Voidwear · Paris Atelier</span>
+              <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-[#FAF9F7] leading-[0.88]">
+                STYLE<br />SHIRT<br />SPRING
+              </h3>
+            </div>
+            <div className="relative z-10 flex items-end justify-between">
+              <div>
+                <span className="text-[8.5px] font-extrabold uppercase tracking-[0.28em] text-[#FAF9F7]/55 block">Limited Edition</span>
+                <span className="text-[10.5px] font-extrabold uppercase tracking-[0.2em] text-[#FAF9F7] mt-1 block group-hover:text-[#FAF9F7]/70 transition-colors">
+                  Shop Now →
+                </span>
+              </div>
+              <div className="w-28 h-32 rounded-xl overflow-hidden border border-[#FAF9F7]/20 opacity-80 group-hover:opacity-100 transition-opacity">
+                <img src={MODEL_D} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          6. EDITOR'S PICKS — Clean Showcase Grid
+      ════════════════════════════════════════════ */}
+      <section className="w-full border-b border-[#E7E3DD]">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-20 pb-20">
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#5B6EF5] block mb-3">
+                — Seasonal Selects
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-[#2B2B2B] leading-[0.9]">
+                Editor's<br />Picks
+              </h2>
+            </div>
+            <button
+              onClick={onShopNow}
+              className="shrink-0 flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.28em] text-[#2B2B2B]/50 hover:text-[#5B6EF5] transition-colors"
+            >
+              See All <ArrowRight size={12} strokeWidth={2.5} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {editorPicks.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          7. COMMUNITY SPOTLIGHT — Big Quote + Categories
+      ════════════════════════════════════════════ */}
+      <section className="w-full bg-[#5B6EF5] border-b border-[#4a5de0]">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-20 text-center">
+          <span className="text-[8px] font-extrabold uppercase tracking-[0.4em] text-[#FAF9F7]/45 block mb-6">
+            — LuxZera Community
+          </span>
+          <blockquote className="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#FAF9F7] leading-[0.88] max-w-4xl mx-auto">
+            "Fashion is not just<br />what you wear.<br />It's who you are."
+          </blockquote>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            {["Shirts", "Hot Summer", "Conceptual", "Denim Blazer", "Streetwear", "Luxury"].map((tag) => (
+              <button
+                key={tag}
+                onClick={onShopNow}
+                className="border border-[#FAF9F7]/25 hover:border-[#FAF9F7]/60 text-[#FAF9F7]/70 hover:text-[#FAF9F7] text-[8.5px] font-extrabold uppercase tracking-[0.28em] px-5 py-2.5 rounded-full transition-all duration-200 hover:bg-[#FAF9F7]/10"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={onShopNow}
+            className="mt-10 bg-[#FAF9F7] hover:bg-[#F2EFEA] text-[#5B6EF5] text-[10px] font-extrabold uppercase tracking-[0.3em] px-8 py-4 rounded-full transition-all duration-300 inline-flex items-center gap-2"
+          >
+            Start Exploring <ArrowRight size={12} strokeWidth={2.5} />
+          </button>
         </div>
       </section>
 

@@ -1,147 +1,204 @@
 // src/components/Hero.jsx
 import { ArrowRight } from "lucide-react";
 
+const IMG_1 = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=85"; // fashion model standing
+const IMG_2 = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80"; // editorial female fashion
+const IMG_3 = "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80"; // denim jacket close-up
+const IMG_4 = "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80"; // blazer product
+
 export default function Hero({ onShopNow }) {
-  // Use hero.png (daisy sunglasses girl) and a premium male model portrait
-  const modelLeft = "/hero.png"; 
-  const modelRight = "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=80"; 
-
   return (
-    <section className="w-full bg-[#F8F6F2] bg-luxury-grid text-[#111111] select-none overflow-hidden relative border-b border-[#E8E3DA] font-luxury-body">
-      <div className="max-w-7xl mx-auto min-h-[calc(100svh-4.5rem)] flex flex-col lg:flex-row items-center relative">
-        
-        {/* Decorative Grid Lines / Accents */}
-        <div className="absolute top-0 right-0 w-24 h-full border-l border-[#E8E3DA]/20 pointer-events-none hidden lg:block" />
+    <section className="w-full bg-[#FAF9F7] font-sans select-none overflow-hidden border-b border-[#E7E3DD]">
 
-        {/* ─── LEFT COLUMN: BOLD EDITORIAL TYPOGRAPHY & CTA ─── */}
-        <div className="w-full lg:w-1/2 px-6 lg:px-12 py-16 lg:py-24 flex flex-col justify-center items-start z-10">
-          
-          {/* Luxury Label */}
-          <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#C9A86A] mb-4 border border-[#C9A86A]/40 px-3.5 py-1 rounded-full bg-[#C9A86A]/5">
-            LuxZera Season 2026
-          </span>
+      {/* ═══ TOP HERO CANVAS ═══ */}
+      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-14 pb-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-8 lg:gap-12 items-start min-h-[82vh]">
 
-          {/* Elegant Cormorant Headline */}
-          <h1 className="font-luxury-title text-6xl md:text-7xl lg:text-[5.5rem] font-light leading-[0.95] tracking-tight text-[#111111] uppercase text-left">
-            Bringing <br />
-            every man <br />
-            in style<span className="text-[#C9A86A]">.</span>
-          </h1>
+          {/* ── LEFT: Massive Typography Block ── */}
+          <div className="flex flex-col justify-between h-full pt-2 pb-16 lg:pb-24">
 
-          {/* Subtext Paragraph */}
-          <p className="mt-8 text-xs md:text-sm text-[#2A2A2A]/75 leading-relaxed max-w-sm font-light">
-            If you're heading into the office or onto the street, you need to look the part. 
-            These sharp jackets, shirts, and pants are perfect for a polished, phenomenal look.
-          </p>
+            {/* Top eyebrow */}
+            <div className="flex items-center gap-2 mb-8">
+              <span className="h-px w-5 bg-[#C6A15B]" />
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#C6A15B]">
+                SS26 · New Collection
+              </span>
+            </div>
 
-          {/* Start Finding Button - Quiet Luxury Outlined Button */}
-          <div className="mt-10 w-full sm:w-auto">
-            <button
+            {/* Campaign Headline — inspired by reference massive type */}
+            <div className="flex-1">
+              <h1
+                className="text-[3.8rem] sm:text-[5rem] lg:text-[6.2rem] xl:text-[7rem] font-black uppercase leading-[0.86] tracking-[-0.025em]"
+                style={{ fontStretch: "condensed" }}
+              >
+                <span style={{ color: "#F07020" }}>WEAR</span><br />
+                <span className="text-[#2B2B2B]">THE</span><br />
+                <span style={{ color: "#1E2D4A" }}>UNCOMMON.</span>
+              </h1>
+
+              {/* Supporting line */}
+              <p className="mt-7 text-[13px] text-[#2B2B2B]/60 leading-[1.7] max-w-[300px] font-medium">
+                Discover premium original fashion from established labels,
+                independent brands &amp; emerging designers.
+              </p>
+
+              {/* CTA */}
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <button
+                  onClick={onShopNow}
+                  className="bg-[#5B6EF5] hover:bg-[#4a5de0] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.3em] px-8 py-4 flex items-center gap-3 transition-all duration-300 rounded-full shadow-[0_6px_20px_rgba(91,110,245,0.35)] group"
+                >
+                  Start Shopping
+                  <ArrowRight size={13} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom category label — like reference "Activewear ↗" */}
+            <div className="mt-10 flex items-center gap-2 group cursor-pointer" onClick={onShopNow}>
+              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#2B2B2B]/50 group-hover:text-[#C97A5A] transition-colors italic">
+                Trending Now
+              </span>
+              <svg width="28" height="16" viewBox="0 0 28 16" fill="none" className="text-[#C97A5A]">
+                <path d="M0 8 Q10 8 18 2" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                <path d="M15 0 L20 3 L16 7" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
+          </div>
+
+          {/* ── RIGHT: Asymmetric Multi-Image Editorial Collage ── */}
+          <div className="relative w-full h-[70vh] lg:h-auto lg:min-h-[85vh]">
+
+            {/* MAIN tall model image — top-center, large */}
+            <div className="absolute top-0 left-[12%] w-[52%] h-[68%] rounded-2xl overflow-hidden border border-[#E7E3DD] shadow-sm bg-[#F2EFEA] z-20">
+              <img
+                src={IMG_1}
+                alt="Fashion campaign model"
+                className="w-full h-full object-cover object-top transition-transform duration-[2s] ease-out hover:scale-105"
+                loading="eager"
+              />
+              {/* Category tag on image */}
+              <div className="absolute bottom-3 left-3 bg-[#FAF9F7]/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#E7E3DD]">
+                <span className="text-[7.5px] font-extrabold uppercase tracking-[0.28em] text-[#2B2B2B]">Editorial</span>
+              </div>
+            </div>
+
+            {/* TOP-RIGHT smaller image */}
+            <div className="absolute top-3 right-0 w-[38%] h-[42%] rounded-2xl overflow-hidden border border-[#E7E3DD] shadow-sm bg-[#F2EFEA] z-10">
+              <img
+                src={IMG_2}
+                alt="Designer fashion"
+                className="w-full h-full object-cover object-top transition-transform duration-[2s] hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+
+            {/* BOTTOM-LEFT product card — denim */}
+            <div className="absolute bottom-[14%] left-0 w-[34%] h-[38%] rounded-2xl overflow-hidden border border-[#E7E3DD] shadow-sm bg-[#F2EFEA] z-30">
+              <img
+                src={IMG_3}
+                alt="Denim jacket"
+                className="w-full h-full object-cover object-center transition-transform duration-[2s] hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+
+            {/* BOTTOM-RIGHT — blazer + label */}
+            <div className="absolute bottom-[4%] right-0 w-[40%] h-[36%] rounded-2xl overflow-hidden border border-[#E7E3DD] shadow-sm bg-[#FAF9F7] z-20 group cursor-pointer" onClick={onShopNow}>
+              <img
+                src={IMG_4}
+                alt="Designer blazer"
+                className="w-full h-full object-cover object-top transition-transform duration-[2s] group-hover:scale-105"
+                loading="lazy"
+              />
+              {/* Price tag floating */}
+              <div className="absolute top-3 right-3 bg-[#C6A15B] px-3 py-1.5 rounded-full">
+                <span className="text-[7.5px] font-extrabold uppercase tracking-[0.25em] text-[#FAF9F7]">New Drop</span>
+              </div>
+            </div>
+
+            {/* Floating "Shop Casual" badge — like reference circular badge */}
+            <div
               onClick={onShopNow}
-              className="w-full sm:w-auto btn-luxury-outline px-8 py-4 text-[10px] uppercase tracking-[0.25em] font-semibold flex items-center justify-center gap-2.5"
+              className="absolute top-[38%] left-[3%] z-40 w-14 h-14 rounded-full bg-[#C97A5A] flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-200 shadow-md"
             >
-              Start Shopping
-              <ArrowRight size={13} strokeWidth={1.5} />
-            </button>
-          </div>
+              <ArrowRight size={12} className="text-[#FAF9F7] rotate-[-45deg]" strokeWidth={2.5} />
+              <span className="text-[5.5px] font-extrabold uppercase tracking-[0.2em] text-[#FAF9F7] mt-0.5 text-center leading-tight">Shop</span>
+            </div>
 
+          </div>
         </div>
-
-        {/* ─── RIGHT COLUMN: DOUBLE MODEL COMPOSITION COLLAGE ─── */}
-        <div className="w-full lg:w-1/2 relative min-h-[550px] lg:min-h-[650px] flex items-center justify-center p-6 select-none">
-          
-          {/* Slanted Matte Black Block */}
-          <div className="absolute top-[18%] left-[8%] w-[260px] md:w-[320px] h-[340px] md:h-[420px] bg-[#111111] transform -rotate-6 rounded-[36px] flex flex-col justify-end p-6 border border-[#C9A86A]/20 shadow-[0_20px_45px_rgba(0,0,0,0.12)]">
-            <span className="font-luxury-title text-[#F8F6F2] text-3xl font-light uppercase tracking-tight leading-none max-w-[180px]">
-              A true style <br />of indulgence.
-            </span>
-          </div>
-
-          {/* Soft Stone Backdrop Circle */}
-          <div className="absolute bottom-[10%] right-[10%] w-[220px] md:w-[280px] h-[220px] md:h-[280px] rounded-full bg-[#E8E3DA]/60 border border-[#E8E3DA] shadow-inner transform rotate-12" />
-
-          {/* Model Container 1 (Left Portrait: Daisy Sunglasses Girl / hero.png) */}
-          <div className="absolute top-[8%] left-[22%] w-[210px] md:w-[270px] h-[290px] md:h-[370px] rounded-[100px] overflow-hidden border-[6px] border-[#F8F6F2] shadow-[0_15px_35px_rgba(0,0,0,0.06)] z-20 group transition-all duration-500 hover:-translate-y-2">
-            <img 
-              src={modelLeft} 
-              alt="Streetwear styling collections" 
-              className="w-full h-full object-cover object-top img-luxury-zoom"
-              loading="eager"
-            />
-          </div>
-
-          {/* Custom Handwritten Activewear Annotation */}
-          <div className="absolute top-[52%] left-[4%] z-30 hidden md:flex flex-col items-center rotate-[-12deg] pointer-events-none font-['Caveat'] text-2xl text-[#111111]/85">
-            <span className="font-bold tracking-wide">Activewear</span>
-            <svg width="55" height="25" viewBox="0 0 55 25" fill="none" className="text-[#111111]/60 mt-1 scale-x-[-1] rotate-[15deg]">
-              <path d="M5,5 C18,22 42,18 48,8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-              <path d="M40,10 L48,8 L46,15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-            </svg>
-          </div>
-
-          {/* Model Container 2 (Right Portrait: Male Model) */}
-          <div className="absolute bottom-[6%] right-[16%] w-[190px] md:w-[250px] h-[250px] md:h-[320px] rounded-[80px] overflow-hidden border-[6px] border-[#F8F6F2] shadow-[0_15px_35px_rgba(0,0,0,0.06)] z-30 group transition-all duration-500 hover:-translate-y-2">
-            <img 
-              src={modelRight} 
-              alt="High fashion models" 
-              className="w-full h-full object-cover object-top img-luxury-zoom"
-              loading="eager"
-            />
-          </div>
-
-        </div>
-
       </div>
 
-      {/* ─── BOTTOM BLOCK BANNER GRID (Luxury Color Treatment) ─── */}
-      <div className="w-full border-t border-[#E8E3DA] flex flex-col md:flex-row h-auto md:h-40">
-        
-        {/* Left Side: Matte Black Brand block */}
-        <div className="flex-1 bg-[#111111] text-[#F8F6F2] flex items-center justify-between px-8 py-8 md:py-0 border-b md:border-b-0 md:border-r border-[#E8E3DA]/20">
-          <div className="flex items-center gap-6">
-            
-            {/* Minimal crop model silhouettes */}
-            <div className="flex -space-x-4">
-              <div className="w-12 h-12 rounded-full overflow-hidden border border-[#E8E3DA]/30 bg-[#F8F6F2]/10">
-                <img src="/hero.png" alt="" className="w-full h-full object-cover object-top scale-110" />
-              </div>
-              <div className="w-12 h-12 rounded-full overflow-hidden border border-[#E8E3DA]/30 bg-[#F8F6F2]/10">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80" alt="" className="w-full h-full object-cover object-top scale-110" />
-              </div>
+      {/* ═══ BOTTOM BOLD BLOCKS — like reference blue + yellow strip ═══ */}
+      <div className="w-full grid grid-cols-1 md:grid-cols-[1.6fr_1fr_0.9fr] min-h-[9rem]">
+
+        {/* Block 1 — Brand Blue */}
+        <div className="bg-[#5B6EF5] px-10 py-8 flex flex-col justify-between relative overflow-hidden group cursor-pointer" onClick={onShopNow}>
+          {/* Diagonal texture lines */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: "repeating-linear-gradient(-45deg, #FAF9F7 0, #FAF9F7 1px, transparent 0, transparent 50%)",
+              backgroundSize: "12px 12px"
+            }}
+          />
+          <div className="flex items-start justify-between relative z-10">
+            <div>
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#FAF9F7]/50 block mb-1">// Curated Drop</span>
+              <span className="text-[#FAF9F7] text-2xl md:text-3xl font-black uppercase tracking-tight leading-tight block">
+                A True Style<br />of Indulgence.
+              </span>
             </div>
-
-            <div className="text-left">
-              <span className="font-['Caveat'] text-2xl text-[#C9A86A] block leading-none">casual</span>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#F8F6F2]/60 mt-1 block">Capsule Wardrobe</span>
+            <div className="w-10 h-10 rounded-full border border-[#FAF9F7]/30 flex items-center justify-center flex-shrink-0 mt-1 group-hover:bg-[#FAF9F7]/10 transition-colors">
+              <ArrowRight size={14} className="text-[#FAF9F7]" strokeWidth={2} />
             </div>
-
           </div>
-
-          {/* Shop Casual Gold Circle Badge */}
-          <button 
-            onClick={onShopNow}
-            className="w-16 h-16 rounded-full bg-[#C9A86A] text-[#111111] hover:bg-[#F8F6F2] hover:text-[#111111] transition-all flex flex-col items-center justify-center border border-[#C9A86A] hover:scale-105"
-          >
-            <ArrowRight size={14} className="-rotate-45" />
-            <span className="text-[8px] font-semibold uppercase tracking-wider mt-0.5">Shop</span>
-          </button>
-
-          {/* Indulgence Motto */}
-          <div className="hidden lg:block text-right">
-            <span className="font-luxury-title text-xl uppercase tracking-wider text-[#F8F6F2]">
-              A true style of indulgence.
-            </span>
-          </div>
-
+          <span className="text-[8.5px] font-extrabold uppercase tracking-[0.3em] text-[#FAF9F7]/45 mt-4 block relative z-10">
+            Shop Exclusive Drops
+          </span>
         </div>
 
-        {/* Right Side: Scroll Down Block in Soft Stone */}
-        <div className="w-full md:w-56 bg-[#E8E3DA]/40 text-[#111111] flex flex-col items-center justify-center py-6 md:py-0 select-none">
-          <span className="text-[9px] font-semibold uppercase tracking-[0.3em] mb-2 text-[#111111]/60">Scroll Down</span>
-          
-          {/* Luxury mouse indicator */}
-          <div className="w-4 h-7 border border-[#111111]/45 rounded-full p-1 flex justify-center">
-            <div className="w-1 h-1.5 bg-[#C9A86A] rounded-full animate-bounce" />
+        {/* Block 2 — Gold Accent */}
+        <div className="bg-[#C6A15B] px-8 py-8 flex flex-col justify-between relative overflow-hidden group cursor-pointer" onClick={onShopNow}>
+          <div className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              backgroundImage: "repeating-linear-gradient(-45deg, #FAF9F7 0, #FAF9F7 1px, transparent 0, transparent 50%)",
+              backgroundSize: "12px 12px"
+            }}
+          />
+          <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#FAF9F7]/60 block relative z-10">// New Arrivals</span>
+          <div className="relative z-10">
+            <span className="text-[#FAF9F7] text-xl font-black uppercase tracking-tight leading-tight block">
+              Explore<br />Collections
+            </span>
+            <div className="mt-3 flex items-center gap-2 text-[#FAF9F7]/80 group-hover:gap-3 transition-all">
+              <span className="text-[8.5px] font-extrabold uppercase tracking-[0.25em]">Browse Now</span>
+              <ArrowRight size={11} strokeWidth={2.5} />
+            </div>
+          </div>
+        </div>
+
+        {/* Block 3 — Soft Stone with scroll indicator */}
+        <div className="bg-[#F2EFEA] px-8 py-8 flex flex-col justify-between border-l border-[#E7E3DD]">
+          <div>
+            <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#2B2B2B]/35 block mb-3">Scroll Down</span>
+            {/* Scroll indicator */}
+            <div className="w-7 h-11 rounded-full border-2 border-[#2B2B2B]/20 flex items-start justify-center pt-1.5">
+              <div className="w-1 h-2.5 bg-[#5B6EF5] rounded-full animate-bounce" />
+            </div>
+          </div>
+          {/* Stats */}
+          <div className="space-y-1.5">
+            {[
+              { num: "150+", label: "Designers" },
+              { num: "2500+", label: "Silhouettes" },
+            ].map(({ num, label }) => (
+              <div key={label} className="flex items-center gap-2">
+                <span className="text-lg font-black text-[#5B6EF5] leading-none">{num}</span>
+                <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#2B2B2B]/45">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
 

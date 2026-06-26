@@ -53,6 +53,7 @@ export default function Navbar({
 
   return (
     <>
+
       {/* ════════════════════════════════════════════
           DESKTOP — floating glassmorphism navbar
       ════════════════════════════════════════════ */}
@@ -71,7 +72,7 @@ export default function Navbar({
             <img 
               src="/LuxZera.png" 
               alt="LuxZera Logo" 
-              className="h-6 w-auto object-contain" 
+              className="h-7 w-auto object-contain" 
             />
           </button>
 
@@ -106,7 +107,7 @@ export default function Navbar({
                 className="text-[#2B2B2B]/75 hover:text-[#5B6EF5] transition-colors duration-150"
                 aria-label="Search items"
               >
-                <Search size={17} strokeWidth={1.5} />
+                <Search size={16} strokeWidth={1.5} />
               </button>
             </div>
 
@@ -118,7 +119,7 @@ export default function Navbar({
               }`}
               aria-label="Shopping cart"
             >
-              <ShoppingBag size={17} strokeWidth={1.5} />
+              <ShoppingBag size={16} strokeWidth={1.5} />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#5B6EF5] text-[7px] font-bold text-[#FAF9F7] leading-none">
                   {cartCount}
@@ -189,7 +190,7 @@ export default function Navbar({
                 onClick={onAuthClick}
                 className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#2B2B2B]/85 hover:text-[#5B6EF5] transition-colors"
               >
-                <User size={15} strokeWidth={1.5} />
+                <User size={16} strokeWidth={1.5} />
                 <span className="hidden sm:inline">Sign in</span>
               </button>
             )}
@@ -208,7 +209,7 @@ export default function Navbar({
           <img 
             src="/LuxZera.png" 
             alt="LuxZera" 
-            className="h-5 w-auto object-contain" 
+            className="h-6 w-auto object-contain" 
           />
         </button>
         <div className="flex items-center gap-5">

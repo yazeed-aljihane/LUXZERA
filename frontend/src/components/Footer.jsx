@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 export default function Footer({ onShopNow }) {
   const navigate = useNavigate();
@@ -15,162 +16,158 @@ export default function Footer({ onShopNow }) {
   };
 
   return (
-    <div className="w-full font-luxury-body">
-      
-      {/* ═══ MAIN LUXURY FOOTER ═══ */}
-      <footer className="w-full bg-[#111111] text-[#F8F6F2] pt-20 pb-12 px-8 lg:px-16 select-none border-t border-[#E8E3DA]/10">
-        <div className="max-w-7xl mx-auto">
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-16 pb-20">
-            
-            {/* Column 1: Brand / Manifesto */}
-            <div className="lg:col-span-4 flex flex-col items-start text-left">
-              <button 
-                onClick={() => handleLinkClick("/")}
-                className="mb-5 hover:opacity-85 transition-opacity flex items-center shrink-0"
-              >
-                <img 
-                  src="/LuxZera.png" 
-                  alt="LuxZera Logo" 
-                  className="h-5 w-auto object-contain" 
-                  style={{ filter: "brightness(0) invert(1)" }} 
-                />
-              </button>
-              <p className="text-[10px] text-[#F8F6F2]/50 leading-relaxed font-light uppercase tracking-[0.25em] mt-3 max-w-xs">
-                Refined wardrobe essentials, engineered with meticulous attention to detail. Built on quiet luxury and timeless craftsmanship.
-              </p>
-              <p className="text-[9px] text-[#F8F6F2]/30 font-mono mt-4 tracking-tight">
-                Flagship Studio — Paris / Milan
-              </p>
-            </div>
- 
-            {/* Column 2: Company Links */}
-            <div className="lg:col-span-2 flex flex-col items-start text-left">
-              <h4 className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#C9A86A] mb-6">
-                Company
-              </h4>
-              <div className="flex flex-col space-y-3.5">
+    <div className="w-full font-sans">
+
+      {/* ════════════════════════════════════════════
+          NEWSLETTER STRIP — Royal Blue
+      ════════════════════════════════════════════ */}
+      <div className="w-full bg-[#5B6EF5] px-6 md:px-14 py-10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <span className="text-[8px] font-extrabold uppercase tracking-[0.4em] text-[#FAF9F7]/45 block mb-2">
+              — Stay In The Loop
+            </span>
+            <p className="text-2xl md:text-3xl font-black uppercase tracking-tight text-[#FAF9F7] leading-tight">
+              Get Exclusive<br />Drop Alerts
+            </p>
+          </div>
+          <form onSubmit={(e) => e.preventDefault()} className="flex w-full max-w-md bg-[#FAF9F7]/12 border border-[#FAF9F7]/25 rounded-full overflow-hidden p-1">
+            <input
+              type="email"
+              placeholder="YOUR EMAIL"
+              className="flex-1 bg-transparent text-[10px] px-5 outline-none text-[#FAF9F7] font-semibold tracking-[0.22em] placeholder-[#FAF9F7]/40 uppercase"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-[#FAF9F7] hover:bg-[#F2EFEA] text-[#5B6EF5] px-6 py-2.5 text-[9px] font-extrabold uppercase tracking-[0.28em] rounded-full transition-all duration-200 shrink-0"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════
+          MAIN FOOTER BODY — Soft Stone
+      ════════════════════════════════════════════ */}
+      <footer className="w-full bg-[#F2EFEA] text-[#2B2B2B] select-none border-t border-[#E7E3DD]">
+
+        {/* ── Top link grid ── */}
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-16 pb-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+
+            {/* Shop */}
+            <div>
+              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Shop</h4>
+              <div className="flex flex-col gap-3">
                 {[
-                  { label: "About Us", path: "/about" },
-                  { label: "Careers", path: "/about" },
-                  { label: "Contact Us", path: "/about" },
-                  { label: "Privacy Policy", path: "/" }
-                ].map((link) => (
-                  <button
-                    key={link.label}
-                    onClick={() => handleLinkClick(link.path)}
-                    className="text-[11px] font-medium text-[#F8F6F2]/60 hover:text-[#F8F6F2] hover:translate-x-0.5 transition-all uppercase tracking-[0.15em] text-left"
-                  >
-                    {link.label}
+                  { label: "Men",        path: "/men" },
+                  { label: "Women",      path: "/women" },
+                  { label: "Unisex",     path: "/unisex" },
+                  { label: "Designers",  path: "/market" },
+                  { label: "New Drops",  path: "/market" },
+                ].map((l) => (
+                  <button key={l.label} onClick={() => handleLinkClick(l.path)}
+                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] text-left">
+                    {l.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Column 3: Service Links */}
-            <div className="lg:col-span-2 flex flex-col items-start text-left">
-              <h4 className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#C9A86A] mb-6">
-                Service
-              </h4>
-              <div className="flex flex-col space-y-3.5">
+            {/* Company */}
+            <div>
+              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Company</h4>
+              <div className="flex flex-col gap-3">
                 {[
-                  { label: "Payments", path: "/faqs" },
-                  { label: "Refunds", path: "/faqs" },
-                  { label: "Returns", path: "/faqs" },
-                  { label: "Voucher Info", path: "/faqs" }
-                ].map((link) => (
-                  <button
-                    key={link.label}
-                    onClick={() => handleLinkClick(link.path)}
-                    className="text-[11px] font-medium text-[#F8F6F2]/60 hover:text-[#F8F6F2] hover:translate-x-0.5 transition-all uppercase tracking-[0.15em] text-left"
-                  >
-                    {link.label}
+                  { label: "About Us",       path: "/about" },
+                  { label: "Careers",        path: "/about" },
+                  { label: "Contact",        path: "/about" },
+                  { label: "Press",          path: "/about" },
+                  { label: "Privacy Policy", path: "/" },
+                ].map((l) => (
+                  <button key={l.label} onClick={() => handleLinkClick(l.path)}
+                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] text-left">
+                    {l.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Column 4: Newsletter & Social links */}
-            <div className="lg:col-span-4 flex flex-col items-start text-left">
-              <h4 className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#C9A86A] mb-6">
-                Newsletter
-              </h4>
-              <p className="text-[10px] text-[#F8F6F2]/50 tracking-[0.15em] uppercase font-light mb-4">
-                Subscribe to receive private collection previews.
-              </p>
-              
-              {/* Minimal text-only form */}
-              <form onSubmit={(e) => e.preventDefault()} className="flex w-full max-w-sm border-b border-[#E8E3DA]/30 mb-8">
-                <input
-                  type="email"
-                  placeholder="YOUR EMAIL"
-                  className="flex-1 bg-transparent text-[10px] py-3 outline-none text-[#F8F6F2] font-medium tracking-[0.2em] placeholder-[#F8F6F2]/30 focus:placeholder-[#F8F6F2]/10 transition-all uppercase"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="text-[#F8F6F2] hover:text-[#C9A86A] px-4 font-semibold text-[10px] uppercase tracking-[0.25em] transition-colors duration-300 flex items-center justify-center gap-1.5"
-                  aria-label="Subscribe to newsletter"
-                >
-                  Submit
-                </button>
-              </form>
-
-              {/* Social icons row */}
-              <div className="flex items-center gap-6">
+            {/* Service */}
+            <div>
+              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Service</h4>
+              <div className="flex flex-col gap-3">
                 {[
-                  { 
-                    icon: (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                      </svg>
-                    ), 
-                    url: "https://instagram.com" 
-                  },
-                  { 
-                    icon: (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
-                        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor"/>
-                      </svg>
-                    ), 
-                    url: "https://youtube.com" 
-                  },
-                  { 
-                    icon: (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                      </svg>
-                    ), 
-                    url: "https://facebook.com" 
-                  }
-                ].map((social, idx) => (
-                  <a
-                    key={idx}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#F8F6F2]/50 hover:text-[#C9A86A] flex items-center justify-center transition-colors duration-200"
-                  >
-                    {social.icon}
+                  { label: "Payments",     path: "/faqs" },
+                  { label: "Refunds",      path: "/faqs" },
+                  { label: "Returns",      path: "/faqs" },
+                  { label: "Voucher Info", path: "/faqs" },
+                ].map((l) => (
+                  <button key={l.label} onClick={() => handleLinkClick(l.path)}
+                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] text-left">
+                    {l.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Connect */}
+            <div>
+              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Connect</h4>
+              <div className="flex flex-col gap-3">
+                {[
+                  { label: "Instagram", url: "https://instagram.com" },
+                  { label: "YouTube",   url: "https://youtube.com" },
+                  { label: "Facebook",  url: "https://facebook.com" },
+                ].map((s) => (
+                  <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer"
+                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] flex items-center gap-1.5 group">
+                    {s.label}
+                    <ArrowRight size={9} className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" strokeWidth={2.5} />
                   </a>
                 ))}
               </div>
             </div>
 
           </div>
-
-          {/* ─── BOTTOM ROW: COPYRIGHT & METADATA ─── */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#E8E3DA]/10 text-[9px] font-medium uppercase tracking-[0.2em] text-[#F8F6F2]/30">
-            <p>© {currentYear} LuxZera. All rights reserved.</p>
-            <p className="tracking-widest">Designed at Flagship Studio</p>
-          </div>
-
         </div>
-      </footer>
 
+        {/* ── Thin divider ── */}
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+          <div className="h-px bg-[#E7E3DD]" />
+        </div>
+
+        {/* ════════════════════════════════════════════
+            GIANT LUXZERA WORDMARK — full-bleed brand statement
+        ════════════════════════════════════════════ */}
+        <div className="w-full overflow-hidden py-4 relative">
+          {/* Subtle gradient overlay on sides */}
+          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
+
+          {/* Giant wordmark */}
+          <div className="flex items-center justify-center px-6">
+            {/* Split the wordmark using brand logo colors */}
+            <span
+              className="font-black uppercase select-none leading-none tracking-[-0.04em] whitespace-nowrap"
+              style={{ fontSize: "clamp(4.5rem, 16vw, 14rem)" }}
+            >
+              <span style={{ color: "#F07020" }}>Lux</span><span style={{ color: "#1E2D4A" }}>Zera</span>
+            </span>
+          </div>
+        </div>
+
+        {/* ── Bottom copyright bar ── */}
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pb-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#E7E3DD] text-[8.5px] font-extrabold uppercase tracking-[0.22em] text-[#2B2B2B]/35">
+            <p>© {currentYear} LuxZera. All rights reserved.</p>
+            <p>Marketplace · Discovery · Fashion · Independence</p>
+          </div>
+        </div>
+
+      </footer>
     </div>
   );
 }

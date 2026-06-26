@@ -139,7 +139,7 @@ export default function App() {
   const showNavbar = true;
 
   return (
-    <div className="min-h-screen bg-[#F8F6F2] relative">
+    <div className="min-h-screen bg-[#FAF9F7] relative">
       {showNavbar && (
         <Navbar
           cartCount={cartCount}
@@ -208,7 +208,7 @@ export default function App() {
         <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">
           <button
             onClick={() => navigate("/cart")}
-            className="h-12 px-6 bg-[#111111] hover:bg-[#C9A86A] text-[#F8F6F2] font-semibold uppercase text-[10px] tracking-[0.25em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.15)] border border-[#C9A86A]/40 group"
+            className="h-12 px-6 bg-[#5B6EF5] hover:bg-[#4a5de0] text-[#FAF9F7] font-extrabold uppercase text-[10px] tracking-[0.25em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_8px_24px_rgba(91,110,245,0.35)] group"
           >
             View Bag ({cartCount})
             <ArrowRight

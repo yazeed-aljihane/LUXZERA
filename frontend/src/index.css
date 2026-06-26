@@ -1,31 +1,123 @@
 /* src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Plus+Jakarta+Sans:ital,wght@1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Rest of your custom CSS classes below */
-.font-logo-lux {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-.font-logo-zera {
-  font-family: 'Fredoka', sans-serif;
-}
-/* src/index.css */
-.text-brutal-huge {
-  font-family: 'Impact', 'Arial Black', sans-serif;
-  letter-spacing: -0.05em;
-  line-height: 0.8;
+/* Custom Font Utilities for Quiet Luxury Design */
+.font-luxury-title {
+  font-family: 'Cormorant Garamond', serif;
 }
 
-.text-mask-brand-asset {
-  /* Using your exact font file structure layout as the text boundary clip mask */
-  background-image: url('/LuxZera.jpg'); 
-  background-size: cover;
-  background-position: center;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* Soft fallback opacity layer to mimic the raw visual depth */
-  opacity: 0.95;
+.font-luxury-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Global body override */
+body {
+  background-color: #F8F6F2;
+  color: #111111;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Luxury Color System Classes */
+.bg-luxury-black {
+  background-color: #111111;
+}
+
+.bg-luxury-ivory {
+  background-color: #F8F6F2;
+}
+
+.bg-luxury-stone {
+  background-color: #E8E3DA;
+}
+
+.text-luxury-black {
+  color: #111111;
+}
+
+.text-luxury-charcoal {
+  color: #2A2A2A;
+}
+
+.text-luxury-gold {
+  color: #C9A86A;
+}
+
+.border-luxury-stone {
+  border-color: #E8E3DA;
+}
+
+/* Luxury Line Animations & Micro-Interactions */
+.hover-underline-luxury {
+  position: relative;
+}
+
+.hover-underline-luxury::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: #111111;
+  transform-origin: bottom right;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-underline-luxury:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Quiet luxury button transition */
+.btn-luxury-outline {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #111111;
+  background-color: transparent;
+  color: #111111;
+  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-luxury-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #111111;
+  transform: translateY(101%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: -1;
+}
+
+.btn-luxury-outline:hover {
+  color: #F8F6F2;
+}
+
+.btn-luxury-outline:hover::before {
+  transform: translateY(0);
+}
+
+/* Editorial subtle image zoom on hover */
+.img-luxury-zoom {
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.img-luxury-zoom:hover {
+  transform: scale(1.04);
+}
+
+/* Custom Grid Background Overlay for Quiet Luxury */
+.bg-luxury-grid {
+  background-image: 
+    linear-gradient(rgba(201, 168, 106, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 168, 106, 0.05) 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
 }

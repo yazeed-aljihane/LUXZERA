@@ -1,12 +1,10 @@
 // src/components/Navbar.jsx
 import { useState } from "react";
-import { ShoppingBag, User, ShoppingBasket, Heart, LogOut, ChevronDown, X, Menu } from "lucide-react";
+import { ShoppingBag, User, ShoppingBasket, Heart, LogOut, ChevronDown, X, Menu, Search } from "lucide-react";
 
-const LEFT_LINKS = [
+const NAV_LINKS = [
   { label: "Men",   value: "men"   },
   { label: "Women", value: "women" },
-];
-const RIGHT_LINKS = [
   { label: "Unisex", value: "unisex" },
   { label: "Kids",   value: "kids"   },
 ];
@@ -29,6 +27,7 @@ export default function Navbar({
 }) {
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileOpen,  setMobileOpen]  = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const handlers = {
     men:    onMenClick,
@@ -38,7 +37,6 @@ export default function Navbar({
   };
 
   const profileImage    = currentUser?.profilePicture || currentUser?.avatarUrl || null;
-  const profileName     = currentUser?.firstName || "Account";
   const profileFullName = currentUser?.firstName
     ? `${currentUser.firstName} ${currentUser.lastName || ""}`.trim()
     : "My Account";
@@ -47,25 +45,40 @@ export default function Navbar({
   const handleLogout = () => { onLogout?.(); setProfileOpen(false); setMobileOpen(false); };
 
   const navLink = (active) =>
-    `text-[13px] tracking-wide transition-colors duration-150 font-medium ${
-      active ? "text-[#ff5700]" : "text-[#1a1a1a]/70 hover:text-[#1a1a1a]"
+    `text-[11px] uppercase tracking-[0.25em] font-medium transition-all duration-300 relative py-1 ${
+      active 
+        ? "text-[#111111] font-semibold border-b border-[#C9A86A]" 
+        : "text-[#111111]/60 hover:text-[#111111] hover-underline-luxury"
     }`;
 
   return (
     <>
       {/* ════════════════════════════════════════════
-          DESKTOP — full-width, same bg as hero
+          DESKTOP — quiet luxury sticky glassmorphism header
       ════════════════════════════════════════════ */}
       <header
-        className="hidden md:block w-full bg-[#f0efeb] select-none relative"
-        style={{ height: "4rem" }}
+        className="hidden md:block w-full bg-[#F8F6F2]/80 backdrop-blur-md border-b border-[#E8E3DA] select-none sticky top-0 z-50 font-luxury-body text-[#111111] transition-all duration-300"
+        style={{ height: "4.5rem" }}
       >
-        {/* Absolute-fill inner row so logo is always mathematically centred */}
-        <div className="absolute inset-0 flex items-center px-10">
+        <div className="h-full max-w-7xl mx-auto flex items-center justify-between px-10">
 
-          {/* LEFT: Men · Women */}
-          <nav className="flex items-center gap-7">
-            {LEFT_LINKS.map(({ label, value }) => (
+          {/* LEFT LOGO — Official LuxZera Image Logo with Matte Black Filter */}
+          <button 
+            onClick={onLogoClick} 
+            aria-label="LuxZera home" 
+            className="hover:opacity-80 transition-opacity flex items-center shrink-0"
+          >
+            <img 
+              src="/LuxZera.png" 
+              alt="LuxZera Logo" 
+              className="h-6 w-auto object-contain" 
+              style={{ filter: "brightness(0)" }} 
+            />
+          </button>
+
+          {/* CENTER: Navigation Links */}
+          <nav className="flex items-center gap-10">
+            {NAV_LINKS.map(({ label, value }) => (
               <button
                 key={value}
                 onClick={() => handlers[value]?.()}
@@ -76,97 +89,98 @@ export default function Navbar({
             ))}
           </nav>
 
-          {/* CENTER LOGO — true centre via absolute positioning inside the row */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <button onClick={onLogoClick} aria-label="LuxZera home" className="active:opacity-60 transition-opacity">
-              <img src="/LuxZera.png" alt="LuxZera" className="h-[1.75rem] w-auto object-contain" />
-            </button>
-          </div>
-
-          {/* RIGHT: Unisex · Kids · divider · cart · auth */}
-          <div className="ml-auto flex items-center gap-7">
-            {RIGHT_LINKS.map(({ label, value }) => (
+          {/* RIGHT: Search · Cart · Profile/Auth */}
+          <div className="flex items-center gap-6 text-[#111111] h-full">
+            {/* Search Toggle */}
+            <div className="relative flex items-center">
+              {searchOpen && (
+                <input
+                  type="text"
+                  placeholder="Search collection..."
+                  className="bg-transparent border-b border-[#111111]/30 text-[11px] uppercase tracking-wider px-2 py-1 outline-none text-[#111111] font-medium animate-in slide-in-from-right-3 duration-200 w-36 mr-2 placeholder-[#111111]/40"
+                  autoFocus
+                  onBlur={() => setSearchOpen(false)}
+                />
+              )}
               <button
-                key={value}
-                onClick={() => handlers[value]?.()}
-                className={navLink(currentPage === value)}
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="text-[#111111]/70 hover:text-[#C9A86A] transition-colors duration-150"
+                aria-label="Search items"
               >
-                {label}
+                <Search size={17} strokeWidth={1.5} />
               </button>
-            ))}
+            </div>
 
-            {/* hairline divider */}
-            <span className="h-[14px] w-px bg-[#1a1a1a]/15" />
-
-            {/* Cart */}
+            {/* Cart Icon */}
             <button
               onClick={onCartClick}
-              className={`relative flex items-center justify-center w-8 h-8 transition-colors duration-150 ${
-                currentPage === "cart" ? "text-[#ff5700]" : "text-[#1a1a1a]/60 hover:text-[#1a1a1a]"
+              className={`relative flex items-center justify-center transition-colors duration-150 ${
+                currentPage === "cart" ? "text-[#C9A86A]" : "text-[#111111]/70 hover:text-[#C9A86A]"
               }`}
+              aria-label="Shopping cart"
             >
-              <ShoppingBag size={19} strokeWidth={1.6} />
+              <ShoppingBag size={17} strokeWidth={1.5} />
               {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-[15px] min-w-[15px] items-center justify-center rounded-full bg-[#ff5700] px-1 text-[8px] font-black text-white leading-none">
+                <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#111111] text-[7px] font-bold text-[#F8F6F2] leading-none">
                   {cartCount}
                 </span>
               )}
             </button>
 
-            {/* Auth / Profile */}
+            {/* Auth / Profile dropdown */}
             {currentUser ? (
               <div className="relative">
                 <button
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2 group"
+                  className="flex items-center gap-1 group"
                 >
-                  <div className="w-[30px] h-[30px] rounded-full overflow-hidden bg-slate-200 border border-slate-200 flex items-center justify-center text-[11px] font-bold text-slate-600">
+                  <div className="w-[24px] h-[24px] rounded-full overflow-hidden bg-[#E8E3DA] border border-[#111111]/10 flex items-center justify-center text-[9px] font-bold text-[#2A2A2A]">
                     {profileImage
                       ? <img src={profileImage} alt="" className="w-full h-full object-cover" />
                       : (currentUser.firstName?.[0] || "U")}
                   </div>
                   <ChevronDown
-                    size={12}
-                    strokeWidth={2.5}
-                    className="text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors"
+                    size={10}
+                    strokeWidth={2}
+                    className="text-[#111111]/40 group-hover:text-[#C9A86A] transition-colors"
                   />
                 </button>
 
                 {profileOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                    <div className="absolute right-0 mt-3 w-60 z-50 rounded-2xl border border-slate-100 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden animate-in fade-in zoom-in-95 duration-100 origin-top-right">
+                    <div className="absolute right-0 mt-3 w-56 z-50 border border-[#E8E3DA] bg-[#F8F6F2] shadow-[0_10px_30px_rgba(0,0,0,0.05)] overflow-hidden animate-in fade-in zoom-in-95 duration-100 origin-top-right">
                       {/* Profile header */}
-                      <div className="flex items-center gap-3 px-4 pt-4 pb-3 border-b border-slate-100">
-                        <div className="w-9 h-9 rounded-full bg-[#0b2240] flex items-center justify-center text-white text-xs font-black overflow-hidden shrink-0">
-                          {profileImage ? <img src={profileImage} alt="" className="w-full h-full object-cover" /> : (currentUser.firstName?.[0] || "U")}
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-[13px] font-semibold text-slate-900 truncate leading-tight">{profileFullName}</p>
-                          <p className="text-[11px] text-slate-400 truncate mt-0.5">{profileEmail}</p>
-                        </div>
+                      <div className="flex flex-col px-4 pt-4 pb-3 border-b border-[#E8E3DA]">
+                        <p className="text-[12px] uppercase tracking-wider font-semibold text-[#111111] leading-tight truncate">{profileFullName}</p>
+                        <p className="text-[10px] text-[#111111]/55 truncate mt-1 font-mono tracking-tight">{profileEmail}</p>
                       </div>
                       {/* Menu */}
-                      <div className="py-2 px-2 space-y-0.5">
+                      <div className="py-1 px-1">
                         {[
-                          { icon: <User size={13} />,          label: "My Account", action: () => { onAccountClick?.(); setProfileOpen(false); } },
-                          { icon: <ShoppingBasket size={13} />, label: "Orders",     action: () => { onOrdersClick?.();  setProfileOpen(false); } },
-                          { icon: <Heart size={13} />,          label: "Wishlist",   action: () => setProfileOpen(false) },
+                          { icon: <User size={12} strokeWidth={1.5} />,          label: "My Account", action: () => { onAccountClick?.(); setProfileOpen(false); } },
+                          { icon: <ShoppingBasket size={12} strokeWidth={1.5} />, label: "Orders",     action: () => { onOrdersClick?.();  setProfileOpen(false); } },
+                          { icon: <Heart size={12} strokeWidth={1.5} />,          label: "Wishlist",   action: () => setProfileOpen(false) },
                         ].map(({ icon, label, action }) => (
                           <button key={label} onClick={action}
-                            className="w-full flex items-center gap-2.5 px-3 py-[9px] text-left text-[12px] font-medium text-slate-600 hover:text-[#1a1a1a] hover:bg-slate-50 rounded-xl transition-colors">
-                            <span className="text-slate-300">{icon}</span>{label}
+                            className="w-full flex items-center gap-2.5 px-3 py-2 text-left text-[11px] uppercase tracking-wider font-medium text-[#111111]/70 hover:text-[#111111] hover:bg-[#E8E3DA]/40 transition-colors">
+                            <span className="text-[#111111]/40">{icon}</span>{label}
                           </button>
                         ))}
-                        <div className="h-px bg-slate-100 mx-1 my-1" />
+                        <div className="h-px bg-[#E8E3DA] my-1" />
                         <button onClick={handleLogout}
-                          className="w-full flex items-center gap-2.5 px-3 py-[9px] text-left text-[12px] font-medium text-red-500 hover:bg-red-50 rounded-xl transition-colors">
-                          <LogOut size={13} className="text-red-400" />Logout
+                          className="w-full flex items-center gap-2.5 px-3 py-2 text-left text-[11px] uppercase tracking-wider font-semibold text-red-700 hover:bg-red-50/50 transition-colors">
+                          <LogOut size={12} strokeWidth={1.5} className="text-red-600" />Logout
                         </button>
                       </div>
                       {/* Footer */}
-                      <div className="border-t border-slate-100 h-10 bg-slate-50 flex items-center justify-center">
-                        <img src="/LuxZera.png" alt="" className="h-5 w-auto object-contain opacity-40" />
+                      <div className="border-t border-[#E8E3DA] h-10 bg-[#E8E3DA]/20 flex items-center justify-center">
+                        <img 
+                          src="/LuxZera.png" 
+                          alt="LuxZera" 
+                          className="h-3 w-auto object-contain opacity-40" 
+                          style={{ filter: "brightness(0)" }} 
+                        />
                       </div>
                     </div>
                   </>
@@ -175,9 +189,10 @@ export default function Navbar({
             ) : (
               <button
                 onClick={onAuthClick}
-                className="text-[13px] font-medium text-[#1a1a1a]/70 hover:text-[#1a1a1a] transition-colors tracking-wide"
+                className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#111111]/85 hover:text-[#C9A86A] transition-colors"
               >
-                Sign in
+                <User size={15} strokeWidth={1.5} />
+                <span className="hidden sm:inline">Sign in</span>
               </button>
             )}
           </div>
@@ -185,43 +200,48 @@ export default function Navbar({
       </header>
 
       {/* ════════════════════════════════════════════
-          MOBILE
+          MOBILE — quiet luxury mobile header
       ════════════════════════════════════════════ */}
       <header
-        className="md:hidden flex w-full items-center justify-between px-5 bg-[#f0efeb]"
+        className="md:hidden flex w-full items-center justify-between px-6 bg-[#F8F6F2]/90 backdrop-blur-md border-b border-[#E8E3DA] sticky top-0 z-50 font-luxury-body text-[#111111]"
         style={{ height: "3.5rem" }}
       >
-        <button onClick={onLogoClick}>
-          <img src="/LuxZera.png" alt="LuxZera" className="h-6 w-auto object-contain" />
+        <button onClick={onLogoClick} className="flex items-center shrink-0">
+          <img 
+            src="/LuxZera.png" 
+            alt="LuxZera" 
+            className="h-5 w-auto object-contain" 
+            style={{ filter: "brightness(0)" }} 
+          />
         </button>
-        <div className="flex items-center gap-4">
-          <button onClick={onCartClick} className="relative text-[#1a1a1a]/60">
-            <ShoppingBag size={19} strokeWidth={1.6} />
+        <div className="flex items-center gap-5">
+          <button onClick={onCartClick} className="relative text-[#111111]/80 hover:text-[#C9A86A] transition-colors">
+            <ShoppingBag size={17} strokeWidth={1.5} />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#ff5700] text-[8px] font-black text-white">
+              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#111111] text-[7px] font-bold text-[#F8F6F2]">
                 {cartCount}
               </span>
             )}
           </button>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-[#1a1a1a]/60">
-            {mobileOpen ? <X size={19} strokeWidth={1.6} /> : <Menu size={19} strokeWidth={1.6} />}
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-[#111111]/80 hover:text-[#C9A86A] transition-colors">
+            {mobileOpen ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
           </button>
         </div>
       </header>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#f0efeb] border-t border-[#1a1a1a]/8 px-5 py-5 flex flex-col gap-4">
-          {[...LEFT_LINKS, ...RIGHT_LINKS].map(({ label, value }) => (
+        <div className="md:hidden bg-[#F8F6F2] border-b border-[#E8E3DA] px-6 py-6 flex flex-col gap-4 z-40 font-luxury-body text-[#111111] animate-in fade-in duration-200">
+          {NAV_LINKS.map(({ label, value }) => (
             <button key={value}
               onClick={() => { handlers[value]?.(); setMobileOpen(false); }}
-              className={`text-left text-[15px] font-medium ${currentPage === value ? "text-[#ff5700]" : "text-[#1a1a1a]/70"}`}>
+              className={`text-left text-xs uppercase tracking-[0.2em] font-medium ${currentPage === value ? "text-[#C9A86A] font-semibold" : "text-[#111111]/70"}`}>
               {label}
             </button>
           ))}
-          <div className="h-px bg-[#1a1a1a]/10 my-1" />
+          <div className="h-px bg-[#E8E3DA] my-2" />
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
-            className="w-full bg-[#1a1a1a] text-white text-[12px] font-semibold tracking-wide py-3 rounded-2xl">
+            className="w-full bg-[#111111] text-[#F8F6F2] text-[10px] uppercase tracking-[0.2em] font-medium py-3 hover:bg-[#C9A86A] transition-colors">
             {currentUser ? "Sign out" : "Sign in"}
           </button>
         </div>

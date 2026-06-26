@@ -1,24 +1,15 @@
 // src/components/ProductCard.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ShoppingBag, Eye } from "lucide-react";
+import { Star } from "lucide-react";
 import { useCart } from "../context/CartContext.jsx";
 
-/**
- * ProductCard
- * Props:
- *  - product    : object { id, name, brand, price, originalPrice, image, badge, sizes }
- */
 export default function ProductCard({ product, onViewProduct }) {
   const [added, setAdded] = useState(false);
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const specs = product.specs ?? [];
-  const defaultSize = product.size ?? product.sizes?.[1] ?? product.sizes?.[0] ?? "OS";
-
-  const discount = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : null;
+  
+  const defaultSize = product.sizes?.[0] ?? "M";
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -33,132 +24,68 @@ export default function ProductCard({ product, onViewProduct }) {
       onViewProduct(product);
       return;
     }
-
     navigate(`/product/${product.id}`);
   };
 
   return (
     <article
       onClick={handleView}
-      className="group relative flex flex-col bg-white overflow-hidden border border-slate-100 hover:border-[#0b2240] transition-colors duration-300 cursor-pointer"
+      className="group relative flex flex-col bg-transparent cursor-pointer text-left font-luxury-body"
     >
-      {/* ── Image container ── */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-slate-50">
+      {/* ── Image container with subtle warm stone backdrop ── */}
+      <div className="relative aspect-[3/4.2] overflow-hidden bg-[#E8E3DA]/20 border border-[#E8E3DA]/40 select-none flex items-center justify-center">
         <img
           src={product.images?.[0] || product.image}
           alt={product.name}
-          className="w-full h-full object-cover object-top transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-105"
+          className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-103"
           loading="lazy"
         />
 
-        {/* Grid overlay on hover */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(#0b2240 1px,transparent 1px),linear-gradient(90deg,#0b2240 1px,transparent 1px)",
-            backgroundSize: "2rem 2rem",
-          }}
-        />
+        {/* Quiet Luxury Hover Quick Add Panel */}
+        <div className="absolute bottom-0 left-0 right-0 bg-[#111111] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-20">
+          <button
+            onClick={handleAdd}
+            className="w-full py-3.5 text-[9px] uppercase tracking-[0.25em] font-semibold text-[#F8F6F2] hover:bg-[#C9A86A] transition-colors duration-200"
+          >
+            {added ? "Added to Bag" : "Quick Add to Bag"}
+          </button>
+        </div>
 
-        {/* Badge (New Drop / Sale) */}
+        {/* Editorial Badge */}
         {product.badge && (
-          <span className="absolute top-3 left-3 bg-[#ff5700] text-white text-[10px] font-black uppercase tracking-widest px-2 py-1 z-10">
+          <span className="absolute top-3 left-3 bg-[#111111]/90 text-[#F8F6F2] border border-[#C9A86A] text-[8px] font-semibold uppercase tracking-[0.2em] px-2.5 py-1 z-10">
             {product.badge}
           </span>
         )}
-
-        {/* Discount badge */}
-        {discount && (
-          <span className="absolute top-3 right-3 bg-[#0b2240] text-white text-[10px] font-black px-2 py-1 z-10">
-            -{discount}%
-          </span>
-        )}
-
-        {specs.length > 0 && (
-          <div className="absolute inset-0 z-10 flex flex-col justify-end bg-[#0b2240]/88 p-4 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100">
-            <div className="mb-3 space-y-1.5 translate-y-2 transition-transform duration-300 ease-in-out group-hover:translate-y-0">
-              {specs.map(([label, value]) => (
-                <p key={`${label}-${value}`} className="text-[10px] font-black uppercase tracking-[0.18em] text-white">
-                  <span className="text-[#3b82f6]">{label.toUpperCase()}</span> // {value.toUpperCase()}
-                </p>
-              ))}
-            </div>
-            <button
-              onClick={handleAdd}
-              className="bg-[#ff5700] px-4 py-3 text-center text-[10px] font-black uppercase tracking-[0.24em] text-white transition-all duration-300 ease-in-out hover:bg-white hover:text-[#0b2240]"
-            >
-              {added ? "COPPED" : "COP NOW"}
-            </button>
-          </div>
-        )}
-
-        {specs.length === 0 && (
-          <div className="absolute bottom-0 inset-x-0 flex translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
-            <button
-              onClick={handleAdd}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 font-black uppercase text-xs tracking-widest transition-colors duration-200 ${
-                added
-                  ? "bg-[#0b2240] text-white"
-                  : "bg-[#ff5700] hover:bg-[#e04e00] text-white"
-              }`}
-            >
-              <ShoppingBag size={14} strokeWidth={2.5} />
-              {added ? "Added!" : "Add to Bag"}
-            </button>
-            <button
-              onClick={handleView}
-              className="w-12 flex items-center justify-center bg-white border-l border-slate-200 text-[#0b2240] hover:bg-slate-50 transition-colors"
-            >
-              <Eye size={15} strokeWidth={2} />
-            </button>
-          </div>
-        )}
       </div>
 
-      {/* ── Product info ── */}
-      <div className="p-4 flex flex-col gap-1">
-        {/* Brand */}
-        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#3b82f6]">
-          {product.brand}
-        </span>
+      {/* ── Product details ── */}
+      <div className="pt-3.5 flex flex-col flex-1 justify-between">
+        <div>
+          {/* Brand */}
+          <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#C9A86A]">
+            {product.brand || "LUXZERA ARCHIVE"}
+          </span>
 
-        {/* Name */}
-        <h3 className="text-sm font-extrabold uppercase text-[#0b2240] leading-tight tracking-tight line-clamp-2">
-          {product.name}
-        </h3>
+          {/* Name in uppercase sans-serif style */}
+          <h3 className="font-luxury-body text-xs font-medium text-[#111111] uppercase tracking-[0.12em] mt-1 group-hover:text-[#C9A86A] transition-colors leading-tight line-clamp-1">
+            {product.name}
+          </h3>
+        </div>
 
-        {/* Size pills */}
-        {product.sizes?.length > 0 && (
-          <div className="flex gap-1 mt-1 flex-wrap">
-            {product.sizes.slice(0, 4).map((s) => (
-              <span
-                key={s}
-                className="text-[9px] font-bold border border-slate-300 px-1.5 py-0.5 text-slate-500 uppercase"
-              >
-                {s}
-              </span>
-            ))}
-            {product.sizes.length > 4 && (
-              <span className="text-[9px] font-bold text-slate-400 px-1.5 py-0.5">
-                +{product.sizes.length - 4}
-              </span>
-            )}
-          </div>
-        )}
-
-        {/* Price */}
-        <div className="flex items-baseline gap-2 mt-2">
-          <span className="text-base font-black text-[#0b2240]">
+        {/* Price & Rating */}
+        <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-[#E8E3DA]/30 font-luxury-body">
+          <span className="text-[11px] font-semibold text-[#111111] tracking-wider">
             ${product.price.toFixed(2)}
           </span>
-          {product.originalPrice && (
-            <span className="text-xs text-slate-400 line-through">
-              ${product.originalPrice.toFixed(2)}
-            </span>
-          )}
+          <span className="text-[9px] text-[#111111]/40 flex items-center gap-0.5">
+            <Star size={8} className="text-[#C9A86A]" fill="currentColor" stroke="none" />
+            {(4.7 + (product.id % 3) * 0.1).toFixed(1)}
+          </span>
         </div>
       </div>
     </article>
   );
 }
+
+

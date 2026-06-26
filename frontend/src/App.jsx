@@ -136,10 +136,10 @@ export default function App() {
   })();
 
   const showFloatingCart = cartCount > 0 && location.pathname !== "/cart";
-  const showNavbar = location.pathname !== "/";
+  const showNavbar = true;
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-[#F8F6F2] relative">
       {showNavbar && (
         <Navbar
           cartCount={cartCount}
@@ -208,12 +208,12 @@ export default function App() {
         <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">
           <button
             onClick={() => navigate("/cart")}
-            className="h-12 px-6 bg-[#ff5700] hover:bg-[#0b2240] text-white font-black uppercase text-[11px] tracking-[0.25em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.16)] border border-white/10 group"
+            className="h-12 px-6 bg-[#111111] hover:bg-[#C9A86A] text-[#F8F6F2] font-semibold uppercase text-[10px] tracking-[0.25em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.15)] border border-[#C9A86A]/40 group"
           >
             View Bag ({cartCount})
             <ArrowRight
-              size={13}
-              strokeWidth={3}
+              size={12}
+              strokeWidth={1.5}
               className="transition-transform duration-200 group-hover:translate-x-0.5"
             />
           </button>

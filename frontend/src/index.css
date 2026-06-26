@@ -1,123 +1,85 @@
 /* src/index.css */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Font Utilities for Quiet Luxury Design */
-.font-luxury-title {
-  font-family: 'Cormorant Garamond', serif;
-}
-
-.font-luxury-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-/* Global body override */
+/* Global body override - Modern Premium Fashion Marketplace */
 body {
-  background-color: #F8F6F2;
-  color: #111111;
+  background-color: #FAF9F7;
+  color: #2B2B2B;
   font-family: 'Plus Jakarta Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-
-/* Luxury Color System Classes */
-.bg-luxury-black {
-  background-color: #111111;
-}
-
-.bg-luxury-ivory {
-  background-color: #F8F6F2;
-}
-
-.bg-luxury-stone {
-  background-color: #E8E3DA;
-}
-
-.text-luxury-black {
-  color: #111111;
-}
-
-.text-luxury-charcoal {
-  color: #2A2A2A;
-}
-
-.text-luxury-gold {
-  color: #C9A86A;
-}
-
-.border-luxury-stone {
-  border-color: #E8E3DA;
-}
-
-/* Luxury Line Animations & Micro-Interactions */
-.hover-underline-luxury {
+/* Modern navigation link hover underline animation */
+.hover-underline-modern {
   position: relative;
 }
 
-.hover-underline-luxury::after {
+.hover-underline-modern::after {
   content: '';
   position: absolute;
   width: 100%;
   transform: scaleX(0);
-  height: 1px;
+  height: 2px;
   bottom: -4px;
   left: 0;
-  background-color: #111111;
+  background-color: #5B6EF5;
   transform-origin: bottom right;
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.hover-underline-luxury:hover::after {
+.hover-underline-modern:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-/* Quiet luxury button transition */
-.btn-luxury-outline {
+/* Refined Premium CTA buttons */
+.btn-premium-action {
   position: relative;
   overflow: hidden;
-  border: 1px solid #111111;
+  border: 1px solid #2B2B2B;
   background-color: transparent;
-  color: #111111;
-  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #2B2B2B;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.btn-luxury-outline::before {
+.btn-premium-action::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #111111;
+  background-color: #2B2B2B;
   transform: translateY(101%);
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: -1;
 }
 
-.btn-luxury-outline:hover {
-  color: #F8F6F2;
+.btn-premium-action:hover {
+  color: #FAF9F7;
+  border-color: #2B2B2B;
 }
 
-.btn-luxury-outline:hover::before {
+.btn-premium-action:hover::before {
   transform: translateY(0);
 }
 
-/* Editorial subtle image zoom on hover */
-.img-luxury-zoom {
-  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* Soft transition image hover reveals */
+.img-premium-reveal {
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
 }
 
-.img-luxury-zoom:hover {
-  transform: scale(1.04);
+.img-premium-reveal:hover {
+  transform: scale(1.03);
 }
 
-/* Custom Grid Background Overlay for Quiet Luxury */
-.bg-luxury-grid {
+/* Subtle Grid Background Overlay */
+.bg-premium-grid {
   background-image: 
-    linear-gradient(rgba(201, 168, 106, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201, 168, 106, 0.05) 1px, transparent 1px);
-  background-size: 2.5rem 2.5rem;
+    linear-gradient(rgba(43, 43, 43, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43, 43, 43, 0.03) 1px, transparent 1px);
+  background-size: 3rem 3rem;
 }

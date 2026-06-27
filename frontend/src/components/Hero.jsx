@@ -17,14 +17,6 @@ export default function Hero({ onShopNow }) {
           {/* ── LEFT: Massive Typography Block ── */}
           <div className="flex flex-col justify-between h-full pt-2 pb-16 lg:pb-24">
 
-            {/* Top eyebrow */}
-            <div className="flex items-center gap-2 mb-8">
-              <span className="h-px w-5 bg-[#C6A15B]" />
-              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#C6A15B]">
-                SS26 · New Collection
-              </span>
-            </div>
-
             {/* Campaign Headline — inspired by reference massive type */}
             <div className="flex-1">
               <h1

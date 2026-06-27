@@ -147,15 +147,12 @@ export default function Footer({ onShopNow }) {
           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
 
-          {/* Giant wordmark */}
-          <div className="flex items-center justify-center px-6">
-            {/* Split the wordmark using brand logo colors */}
-            <span
-              className="font-black uppercase select-none leading-none tracking-[-0.04em] whitespace-nowrap"
-              style={{ fontSize: "clamp(4.5rem, 16vw, 14rem)" }}
-            >
-              <span style={{ color: "#F07020" }}>Lux</span><span style={{ color: "#1E2D4A" }}>Zera</span>
-            </span>
+          <div className="flex items-center justify-center px-6 py-8">
+            <img 
+              src="/LuxZera.png" 
+              alt="LuxZera Logo" 
+              className="w-full max-w-[400px] md:max-w-[650px] h-auto object-contain select-none opacity-95" 
+            />
           </div>
         </div>
 

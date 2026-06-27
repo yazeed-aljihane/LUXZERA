@@ -72,7 +72,7 @@ export default function Navbar({
             <img 
               src="/LuxZera.png" 
               alt="LuxZera Logo" 
-              className="h-9 w-auto object-contain" 
+              className="h-8 w-auto object-contain" 
             />
           </button>
 
@@ -209,7 +209,7 @@ export default function Navbar({
           <img 
             src="/LuxZera.png" 
             alt="LuxZera" 
-            className="h-8 w-auto object-contain" 
+            className="h-6 w-auto object-contain" 
           />
         </button>
         <div className="flex items-center gap-5">

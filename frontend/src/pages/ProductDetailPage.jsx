@@ -1,12 +1,17 @@
 // src/pages/ProductDetailPage.jsx
+// ──────────────────────────────────────────────────────────────────────────
+// LUXZERA — Viewport-Bounded Luxury Product Detail Page
+// Design: Lyst × SSENSE. Bounded to one screen frame (no page scroll on desktop).
+// Left Column multi-image layout fits exactly within the viewport (no scroll).
+// ──────────────────────────────────────────────────────────────────────────
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import RelatedProducts from "../components/RelatedProducts";
-import ImageModal from "../components/ImageModal";
 import ProductReviews from "../components/ProductReviews";
 import { PRODUCTS } from "../data/products";
 import { useCart } from "../context/CartContext";
-import { Plus, Send, Star } from "lucide-react";
+import { Plus, Send, Star, ShoppingBag, Truck, Store, ChevronDown, X } from "lucide-react";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -14,38 +19,49 @@ export default function ProductDetailPage() {
   const { addToCart } = useCart();
   const product = PRODUCTS.find((p) => p.id === Number(id));
 
-  if (!product) {
-    return (
-      <div className="p-20 text-center text-3xl font-black uppercase tracking-tighter text-[#0b2240]">
-        Product not found
-      </div>
-    );
-  }
-
-  const [activeImage, setActiveImage] = useState(product?.images?.[0] || product?.image);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] ?? "M");
+  // State
+  const [selectedSize, setSelectedSize] = useState("");
   const [inputText, setInputText] = useState("");
   const [selectedRating, setSelectedRating] = useState(5);
   const [attachedMedia, setAttachedMedia] = useState(null);
   const [mediaType, setMediaType] = useState(null);
   const [showRatingMenu, setShowRatingMenu] = useState(false);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
-  useEffect(() => {
-    setActiveImage(product?.images?.[0] || product?.image);
-    setSelectedSize(product?.sizes?.[0] ?? "M");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [id, product]);
+  // Accordion Toggles
+  const [descOpen, setDescOpen] = useState(true);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [commitmentOpen, setCommitmentOpen] = useState(false);
 
   const [reviews, setReviews] = useState([
     {
       name: "Alex M.",
       rating: 5,
-      review: "Amazing quality and fit. Material feels incredibly premium and heavy. The oversized fit is perfectly structured.",
+      review: "Remarkable drape and texture. The heavy loopback cotton feels built to endure. The fit runs exactly as intended for a relaxed high-fashion drop shoulder silhouette.",
       image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900&q=80",
       video: null,
     },
   ]);
+
+  useEffect(() => {
+    if (product) {
+      setSelectedSize(product.sizes?.[0] ?? "M");
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id, product]);
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-[#FAF9F7] flex items-center justify-center font-sans">
+        <div className="text-center">
+          <p className="text-2xl font-black uppercase text-[#2B2B2B]">Product Not Found</p>
+          <button onClick={() => navigate("/market")} className="mt-4 text-[#5B6EF5] font-extrabold uppercase text-[10px] tracking-wider">
+            Go Back Shop
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const relatedProducts = PRODUCTS.filter(
     (p) => p.category === product.category && p.id !== product.id
@@ -63,7 +79,7 @@ export default function ProductDetailPage() {
     e.preventDefault();
     if (!inputText.trim()) return;
     const newReview = {
-      name: "Anonymous Cop",
+      name: "Verified Patron",
       rating: selectedRating,
       review: inputText.trim(),
       image: mediaType === "image" ? attachedMedia : null,
@@ -77,208 +93,214 @@ export default function ProductDetailPage() {
     setShowRatingMenu(false);
   };
 
+  // Split images for grid layout:
+  // - Top Row: 2 large images (image index 0 and 1)
+  // - Bottom Row: 3 smaller thumbnail/detail shots (remaining images)
+  const mainImages = product.images?.slice(0, 2) || [product.image];
+  const detailImages = product.images?.slice(2, 5) || [];
+
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans">
+    <div className="min-h-[calc(100vh-4.5rem)] bg-[#FAF9F7] font-sans flex flex-col justify-between select-none">
       
-      {/* Upper fold */}
-      <section className="w-full lg:h-[calc(100vh-5rem)] min-h-0 bg-[#FAF9F7] border-b border-[#E7E3DD] flex flex-col justify-between px-6 py-4 lg:py-6 max-w-7xl mx-auto overflow-hidden">
+      {/* ── Core Two-Column Product Layout Workspace — Viewport Bounded on Desktop ── */}
+      <main className="max-w-[1380px] mx-auto w-full px-6 md:px-10 py-5 grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-10 items-stretch flex-1 lg:h-[calc(100vh-7rem)] lg:overflow-hidden">
         
-        {/* Navigation Step History Indicator */}
-        <div className="h-6 flex items-center mb-4 shrink-0">
-          <button
-            onClick={() => navigate(-1)}
-            className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B]/45 hover:text-[#5B6EF5] transition-colors"
-          >
-            ← Back To Shop
-          </button>
-        </div>
-
-        {/* Core Media + Variant Configuration Workspace Area Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[90px_1fr_420px] gap-8 items-stretch flex-1 min-h-0 overflow-hidden">
-          
-          {/* Column 01: Viewport Bound Vertical Thumb Rail Track Panel */}
-          <div className="hidden lg:flex flex-col gap-3 overflow-y-auto pr-1 select-none scrollbar-none max-h-full">
-            {product.images?.map((img, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveImage(img)}
-                className={`aspect-[3/4] w-full bg-[#F2EFEA] border transition-all duration-200 shrink-0 overflow-hidden rounded-xl ${
-                  activeImage === img ? "border-[#5B6EF5] ring-2 ring-[#5B6EF5]/30" : "border-[#E7E3DD] hover:border-[#2B2B2B]/30"
-                }`}
-              >
-                <img src={img} alt="" className="w-full h-full object-cover object-top" />
-              </button>
+        {/* LEFT COLUMN: Image collage fitting EXACTLY in the height frame (No scrollbar) */}
+        <div className="flex flex-col justify-between lg:h-full gap-4 min-h-0">
+          {/* Top Row: Two Large Images Side-by-Side (72% height) */}
+          <div className="flex gap-4 h-[71%] min-h-0">
+            {mainImages.map((img, i) => (
+              <div key={i} className="h-full w-1/2 bg-[#F2EFEA] border border-[#E7E3DD] rounded-2xl overflow-hidden shadow-xs">
+                <img src={img} alt={`${product.name} View ${i + 1}`} className="w-full h-full object-cover object-top" />
+              </div>
             ))}
+            {/* If only 1 image exists, fill the second slot with detail image or placeholder to maintain symmetry */}
+            {mainImages.length === 1 && (
+              <div className="h-full w-1/2 bg-[#F2EFEA] border border-[#E7E3DD] rounded-2xl overflow-hidden shadow-xs flex items-center justify-center">
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#2B2B2B]/20">LUXZERA EDITORIAL</span>
+              </div>
+            )}
           </div>
 
-          {/* Column 02: Fully Bound Flexible Responsive Image Layout Canvas Box */}
-          <div className="flex flex-col min-h-0 justify-center items-center w-full relative h-full">
-            <div
-              onClick={() => setOpenModal(true)}
-              className="w-full h-full max-h-[50vh] lg:max-h-full aspect-[3/4] bg-[#F2EFEA] border border-[#E7E3DD] cursor-zoom-in group relative overflow-hidden flex items-center justify-center rounded-2xl"
-            >
-              <img 
-                src={activeImage} 
-                alt={product.name} 
-                className="w-full h-full object-contain lg:object-cover object-top transition-transform duration-500 group-hover:scale-[1.01]" 
-              />
-              {product.badge && (
-                <span className="absolute top-4 left-4 bg-[#5B6EF5] text-[#FAF9F7] text-[9px] font-extrabold uppercase tracking-[0.25em] px-3 py-1.5 z-10 rounded-full">
-                  {product.badge}
-                </span>
-              )}
-            </div>
-
-            {/* Micro Mobile Horizontal Thumb Strip (Ignored on Desktop View) */}
-            <div className="w-full flex gap-2 mt-3 overflow-x-auto pb-1 shrink-0 lg:hidden">
-              {product.images?.map((img, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveImage(img)}
-                  className={`flex-shrink-0 w-14 aspect-[3/4] bg-[#F2EFEA] border overflow-hidden rounded-lg ${
-                    activeImage === img ? "border-[#5B6EF5]" : "border-[#E7E3DD]"
-                  }`}
-                >
-                  <img src={img} alt="" className="w-full h-full object-cover object-top" />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Column 03: Viewport Safe Configuration Sidebar (Scrolls internally if crowded) */}
-          <div className="flex flex-col h-full overflow-y-auto pr-1 justify-between scrollbar-none pb-2 lg:pb-0">
-            <div className="space-y-6">
-              <div>
-                <p className="text-[9px] font-extrabold uppercase tracking-[0.28em] text-[#C6A15B] mb-1">
-                  {product.brand} // {product.department}
-                </p>
-                <h1 className="text-2xl md:text-3xl font-black uppercase leading-[0.95] tracking-tight text-[#2B2B2B]">
-                  {product.name}
-                </h1>
-                <div className="flex items-baseline gap-3 mt-3">
-                  <span className="text-3xl font-black text-[#2B2B2B]">${product.price.toFixed(2)}</span>
+          {/* Bottom Row: Three Smaller Detail Shots Side-by-Side (26% height) */}
+          <div className="flex gap-4 h-[26%] min-h-0">
+            {detailImages.length > 0 ? (
+              detailImages.map((img, i) => (
+                <div key={i} className="h-full w-1/3 bg-[#F2EFEA] border border-[#E7E3DD] rounded-xl overflow-hidden shadow-xs">
+                  <img src={img} alt={`${product.name} Detail ${i + 1}`} className="w-full h-full object-cover object-top" />
                 </div>
-              </div>
-
-              <div className="h-px bg-[#E7E3DD]" />
-
-              <p className="text-[12.5px] leading-relaxed text-[#2B2B2B]/50 font-medium">
-                Premium ultra-heavyweight streetwear silhouette engineered with custom loose cuts, dense low-shrink loops, brushed comfort interior, and highly resilient structural styling.
-              </p>
-
-              {/* Sizing Interactive Block Selection Rows */}
-              <div className="space-y-2">
-                <p className="text-[9px] font-extrabold uppercase tracking-[0.3em] text-[#2B2B2B]/40">Select Size</p>
-                <div className="grid grid-cols-4 gap-2">
-                  {product.sizes?.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`h-11 border text-[11px] font-extrabold uppercase tracking-wider rounded-xl transition-all ${
-                        selectedSize === size ? "bg-[#C6A15B] text-[#FAF9F7] border-[#C6A15B]" : "border-[#E7E3DD] text-[#2B2B2B]/60 hover:border-[#C6A15B]"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+              ))
+            ) : (
+              // Symmetrical placeholder panels if detail images are not populated
+              [1, 2, 3].map((_, i) => (
+                <div key={i} className="h-full w-1/3 bg-[#F2EFEA]/40 border border-[#E7E3DD]/60 rounded-xl overflow-hidden flex items-center justify-center">
+                  <span className="text-[8px] font-extrabold uppercase tracking-widest text-[#2B2B2B]/15">DETAIL VIEW 0{i+1}</span>
                 </div>
-              </div>
-
-              <button
-                onClick={() => addToCart({ ...product, size: selectedSize })}
-                className="w-full h-14 bg-[#2B2B2B] hover:bg-[#1a1a1a] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.3em] transition-colors duration-300 shadow-sm flex items-center justify-center rounded-xl"
-              >
-                Add To Bag
-              </button>
-            </div>
-
-            <div className="pt-4 mt-6 border-t border-[#E7E3DD] shrink-0">
-              <div className="flex items-center gap-3 bg-[#F2EFEA] p-3 border border-[#E7E3DD] rounded-xl">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#C6A15B] shrink-0 animate-pulse" />
-                <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#2B2B2B]/70">
-                  Exchangeable within 5 days of delivery
-                </p>
-              </div>
-            </div>
+              ))
+            )}
           </div>
-
         </div>
-      </section>
 
-      {/*   LOWER FLOWING STANDARD BLOCK: ACCESSIBLE ON DESKTOP SCROLL ACTION ONLY   */}
-      <div className="max-w-7xl mx-auto px-6">
-        <RelatedProducts products={relatedProducts} />
+        {/* RIGHT COLUMN: Scrollable Purchase & Spec Details Panel */}
+        <div className="flex flex-col justify-between bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-6 md:p-8 shadow-xs lg:h-full lg:overflow-y-auto scrollbar-none">
+          
+          <div className="flex flex-col gap-5">
+            {/* Eyebrow Label & Brand info */}
+            <div className="flex items-center justify-between">
+              <span className="text-[8.5px] font-extrabold uppercase tracking-[0.3em] text-[#C6A15B]">
+                New Season Drop
+              </span>
+              <span className="text-[9.5px] font-extrabold uppercase tracking-[0.2em] text-[#2B2B2B]/40">
+                {product.brand}
+              </span>
+            </div>
 
-        <section className="mt-20 border-t border-[#E7E3DD] pt-16 pb-24 max-w-3xl mx-auto">
-          <div className="mb-6 flex items-baseline justify-between">
-            <h2 className="text-2xl font-black uppercase tracking-tighter text-[#2B2B2B]">
-              Drop Feedback
-            </h2>
-          </div>
+            {/* Title & Price */}
+            <div className="flex flex-col gap-1.5">
+              <h1 className="text-xl md:text-2xl font-black uppercase tracking-tight text-[#2B2B2B] leading-[1.1]">
+                {product.name}
+              </h1>
+              <div className="flex items-baseline gap-4 mt-1">
+                <span className="text-xl font-black text-[#2B2B2B]">${product.price.toFixed(2)}</span>
+                {product.originalPrice && (
+                  <span className="text-xs font-bold text-[#C97A5A] line-through">${product.originalPrice.toFixed(2)}</span>
+                )}
+              </div>
+              <p className="text-[9.5px] text-[#2B2B2B]/45 font-medium leading-relaxed">
+                or 4 interest-free payments of ${(product.price / 4).toFixed(2)} by <span className="font-extrabold text-[#2B2B2B]/60">Klarna</span> or <span className="font-extrabold text-[#2B2B2B]/60">Afterpay</span>
+              </p>
+            </div>
 
-          {/* Fast Interactive Miniature Feedback Capture Strip Form Row */}
-          <div className="bg-[#F2EFEA] border border-[#E7E3DD] p-2 mb-10 rounded-full pl-4 pr-2">
-            <form onSubmit={handleSendReview} className="flex items-center gap-2 relative">
-              <label className="flex items-center justify-center w-10 h-10 text-[#2B2B2B]/40 hover:text-[#C6A15B] hover:bg-[#F2EFEA] rounded-full cursor-pointer transition-colors shrink-0">
-                <Plus size={20} strokeWidth={2.5} />
-                <input type="file" accept="image/*,video/*" onChange={handleMediaUpload} className="hidden" />
-              </label>
+            <div className="h-px bg-[#E7E3DD]" />
 
-              <div className="relative shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setShowRatingMenu(!showRatingMenu)}
-                  className="flex items-center gap-1 px-3 h-10 bg-[#FAF9F7] border border-[#E7E3DD] rounded-full text-[11px] font-extrabold text-[#2B2B2B] hover:border-[#C6A15B]/50 transition-colors"
+            {/* Sizing block */}
+            <div className="flex flex-col gap-2.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B]/50">Size</span>
+                <button 
+                  onClick={() => setSizeGuideOpen(true)}
+                  className="text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#5B6EF5] hover:underline"
                 >
-                  <Star size={13} className="fill-[#C6A15B] text-[#C6A15B]" />
-                  {selectedRating}
+                  Size Guide
                 </button>
-                
-                {showRatingMenu && (
-                  <div className="absolute left-0 bottom-full mb-3 bg-[#FAF9F7] border border-[#E7E3DD] p-1.5 shadow-xl flex gap-1 z-30 rounded-full">
-                    {[1, 2, 3, 4, 5].map((score) => (
-                      <button
-                        key={score}
-                        type="button"
-                        onClick={() => { setSelectedRating(score); setShowRatingMenu(false); }}
-                        className={`w-8 h-8 rounded-full text-xs font-extrabold transition-colors ${selectedRating === score ? "bg-[#C6A15B] text-[#FAF9F7]" : "hover:bg-[#F2EFEA] text-[#2B2B2B]/60"}`}
-                      >
-                        {score}
-                      </button>
-                    ))}
-                  </div>
+              </div>
+              <div className="grid grid-cols-6 gap-1.5">
+                {product.sizes?.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`h-10 border text-[10px] font-extrabold uppercase tracking-wider rounded-xl transition-all ${
+                      selectedSize === size
+                        ? "bg-[#2B2B2B] text-[#FAF9F7] border-[#2B2B2B]"
+                        : "border-[#E7E3DD] text-[#2B2B2B]/60 hover:border-[#2B2B2B]/45 hover:text-[#2B2B2B]"
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Add to Bag CTA Button */}
+            <button
+              onClick={() => addToCart({ ...product, size: selectedSize })}
+              className="w-full h-12 bg-[#2B2B2B] hover:bg-[#1e1e1e] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.3em] transition-colors duration-300 flex items-center justify-center gap-2 rounded-xl shadow-xs"
+            >
+              <ShoppingBag size={12} strokeWidth={2} />
+              Add To Bag
+            </button>
+
+            {/* Delivery details */}
+            <div className="flex flex-col gap-2.5 pt-1">
+              <div className="flex items-start gap-2.5">
+                <Truck size={13} className="text-[#2B2B2B]/55 shrink-0 mt-0.5" />
+                <p className="text-[10px] font-semibold text-[#2B2B2B]/60 leading-normal">
+                  Order now, complimentary express delivery by next Tuesday.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <Store size={13} className="text-[#2B2B2B]/55 shrink-0 mt-0.5" />
+                <p className="text-[10px] font-semibold text-[#2B2B2B]/60 leading-normal">
+                  Order now, complimentary collect in store available.
+                </p>
+              </div>
+            </div>
+
+            {/* Accordions */}
+            <div className="flex flex-col border-t border-[#E7E3DD] mt-2">
+              
+              {/* Description */}
+              <div className="border-b border-[#E7E3DD]">
+                <button 
+                  onClick={() => setDescOpen(!descOpen)}
+                  className="w-full py-3.5 flex items-center justify-between text-left text-[9.5px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B]"
+                >
+                  Description
+                  <ChevronDown size={11} className={`transition-transform duration-200 ${descOpen ? "rotate-180" : ""}`} />
+                </button>
+                {descOpen && (
+                  <p className="text-[11px] leading-relaxed text-[#2B2B2B]/50 font-medium pb-3 pr-2">
+                    Premium heavyweight silhouette featuring signature drop shoulder cuts, dense double-stitched loopback cotton construct, brushed inner refinement, and structural high-fashion geometry.
+                  </p>
                 )}
               </div>
 
-              <div className="flex-1 min-w-0">
-                <input
-                  type="text"
-                  placeholder="Drop a quick fit review..."
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  className="w-full h-10 bg-transparent text-sm font-medium outline-none border-none px-2 text-[#2B2B2B] placeholder:text-[#2B2B2B]/30"
-                />
+              {/* Details */}
+              <div className="border-b border-[#E7E3DD]">
+                <button 
+                  onClick={() => setDetailsOpen(!detailsOpen)}
+                  className="w-full py-3.5 flex items-center justify-between text-left text-[9.5px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B]"
+                >
+                  Product Details
+                  <ChevronDown size={11} className={`transition-transform duration-200 ${detailsOpen ? "rotate-180" : ""}`} />
+                </button>
+                {detailsOpen && (
+                  <ul className="text-[11px] text-[#2B2B2B]/50 font-semibold list-disc pl-5 pb-3 space-y-1">
+                    <li>100% Organic Heavyweight Cotton Blend</li>
+                    <li>480 GSM Loopback Construction</li>
+                    <li>Double-needle structural seams</li>
+                    <li>Designed in Seoul, fabric milled in Japan</li>
+                  </ul>
+                )}
               </div>
 
-              <button
-                type="submit"
-                disabled={!inputText.trim()}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0 ${inputText.trim() ? "bg-[#5B6EF5] text-[#FAF9F7] hover:bg-[#4a5de0]" : "bg-transparent text-[#2B2B2B]/20 cursor-not-allowed"}`}
-              >
-                <Send size={15} strokeWidth={2.5} />
-              </button>
-            </form>
+            </div>
           </div>
 
-          <div className="w-full">
-            <ProductReviews reviews={reviews} />
-          </div>
-        </section>
-      </div>
+        </div>
+      </main>
 
-      {openModal && (
-        <ImageModal image={activeImage} onClose={() => setOpenModal(false)} />
+      {/* ── Size Guide Modal ── */}
+      {sizeGuideOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-[#2B2B2B]/40 backdrop-blur-sm" onClick={() => setSizeGuideOpen(false)} />
+          <div className="relative bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl w-full max-w-md p-6 shadow-2xl z-10">
+            <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#E7E3DD]">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#2B2B2B]">Size Guide (Inches)</span>
+              <button onClick={() => setSizeGuideOpen(false)} className="text-[#2B2B2B]/40 hover:text-[#2B2B2B]"><X size={16} /></button>
+            </div>
+            <table className="w-full text-left text-xs text-[#2B2B2B] border-collapse">
+              <thead>
+                <tr className="border-b border-[#E7E3DD]">
+                  <th className="py-2 text-[9px] font-extrabold uppercase tracking-wider text-[#C6A15B]">Size</th>
+                  <th className="py-2 text-[9px] font-extrabold uppercase tracking-wider text-[#C6A15B]">Chest</th>
+                  <th className="py-2 text-[9px] font-extrabold uppercase tracking-wider text-[#C6A15B]">Waist</th>
+                </tr>
+              </thead>
+              <tbody>
+                {["XS", "S", "M", "L", "XL"].map((sz, idx) => (
+                  <tr key={sz} className="border-b border-[#E7E3DD]/40 last:border-none">
+                    <td className="py-2.5 font-bold">{sz}</td>
+                    <td className="py-2.5 text-[#2B2B2B]/60">{32 + idx * 2} - {34 + idx * 2}</td>
+                    <td className="py-2.5 text-[#2B2B2B]/60">{26 + idx * 2} - {28 + idx * 2}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
+
     </div>
   );
 }

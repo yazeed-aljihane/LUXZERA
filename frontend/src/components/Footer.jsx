@@ -147,11 +147,14 @@ export default function Footer({ onShopNow }) {
           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
 
-          <div className="flex items-center justify-center px-6 py-8">
+          <div className="flex items-center justify-center px-6 md:px-10 py-6">
             <img 
               src="/LuxZera.png" 
               alt="LuxZera Logo" 
-              className="w-full max-w-[400px] md:max-w-[650px] h-auto object-contain select-none opacity-95" 
+              width="1200"
+              height="343"
+              style={{ imageRendering: "auto" }}
+              className="w-full max-w-[1200px] h-auto object-contain select-none opacity-95 transition-opacity" 
             />
           </div>
         </div>

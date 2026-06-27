@@ -39,8 +39,10 @@ export default function ProductCard({ product, onViewProduct }) {
   const { origin, season } = getDesignerDetails(product.brand);
 
   return (
-    <article
-      onClick={handleView}
+    <a
+      href={`/product/${product.id}`}
+      target="_blank"
+      rel="noopener noreferrer"
       className="group relative flex flex-col bg-transparent cursor-pointer text-left font-sans select-none"
     >
       {/* ── Image container with clean Warm White background and light gray border ── */}
@@ -90,6 +92,6 @@ export default function ProductCard({ product, onViewProduct }) {
         </div>
 
       </div>
-    </article>
+    </a>
   );
 }

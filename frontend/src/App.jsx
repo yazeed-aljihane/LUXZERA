@@ -21,6 +21,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 import FaqPage from "./pages/FaqPage.jsx";
 import AccountPage from "./pages/AccountPage.jsx";
 import OrdersPage from "./pages/OrdersPage.jsx";
+import KidsPage from "./pages/KidsPage.jsx";
 
 export default function App() {
   const navigate = useNavigate();
@@ -150,6 +151,7 @@ export default function App() {
           onMenClick={() => navigate("/men")}
           onWomenClick={() => navigate("/women")}
           onUnisexClick={() => navigate("/unisex")}
+          onKidsClick={() => navigate("/kids")}
           onFaqClick={() => navigate("/faqs")}
           onCartClick={() => navigate("/cart")}
           onAuthClick={() => setAuthOpen(true)} // Opens our exact minimalist double-button screen
@@ -186,6 +188,7 @@ export default function App() {
           <Route path="/men" element={<MenPage />} />
           <Route path="/women" element={<WomenPage />} />
           <Route path="/unisex" element={<UnisexPage />} />
+          <Route path="/kids" element={<KidsPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/about" element={<AboutPage onShopNow={() => navigate("/market")} />} />

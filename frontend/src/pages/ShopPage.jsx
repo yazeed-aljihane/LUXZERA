@@ -133,14 +133,31 @@ export default function ShopPage({ initialDepartment = "All" }) {
         {/* Product Grid Content area */}
         <div className="flex-1 min-w-0">
           {displayed.length === 0 ? (
-            <div className="flex flex-col items-center justify-center min-h-[45vh] text-center">
-              <p className="text-[13px] font-extrabold text-[#2B2B2B]/25 uppercase tracking-[0.25em]">No results</p>
-              <p className="text-[12px] text-[#2B2B2B]/30 mt-1.5 font-medium">Try a different category or reset filters.</p>
+            <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4 py-8 select-none">
+              {/* Custom Vector High-Fashion Hanger SVG */}
+              <svg className="w-24 h-24 text-[#C6A15B]/30 mb-8" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
+                {/* Hook */}
+                <path d="M50 35 C48 20, 38 18, 48 12 C58 6, 62 16, 54 22" strokeLinecap="round" />
+                {/* Shoulders */}
+                <path d="M10 58 L50 35 L90 58" strokeLinecap="round" strokeLinejoin="round" />
+                {/* Pants bar */}
+                <path d="M12 58 C50 54 50 54 88 58" strokeLinecap="round" />
+                {/* Floating Brand Sparkles */}
+                <path d="M76 22 L78 27 L83 29 L78 31 L76 36 L74 31 L69 29 L74 27 Z" fill="#5B6EF5" stroke="none" />
+                <path d="M24 16 L25.5 20 L29.5 21.5 L25.5 23 L24 27 L22.5 23 L18.5 21.5 L22.5 20 Z" fill="#F07020" stroke="none" />
+              </svg>
+              
+              <h3 className="text-[13px] font-extrabold tracking-[0.35em] uppercase text-[#C6A15B] mb-2.5">
+                The Archives are Silent
+              </h3>
+              <p className="text-[12px] text-[#2B2B2B]/45 font-medium max-w-xs leading-relaxed mb-6">
+                No items match your active filters. Modify your search configuration to reveal the drop.
+              </p>
               <button
                 onClick={clearAll}
-                className="mt-5 inline-flex items-center gap-1.5 text-[9.5px] font-extrabold uppercase tracking-[0.22em] text-[#5B6EF5] hover:text-[#2B2B2B] transition-colors"
+                className="bg-[#2B2B2B] hover:bg-[#5B6EF5] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.25em] px-7 py-3.5 rounded-full transition-all duration-300 shadow-sm"
               >
-                Clear filters
+                Reset Search
               </button>
             </div>
           ) : (

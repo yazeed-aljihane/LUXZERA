@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ShoppingBag, User, ShoppingBasket, Heart, LogOut, ChevronDown, X, Menu, Search } from "lucide-react";
 
 const NAV_LINKS = [
+  { label: "All Collections", value: "shop" },
   { label: "Men",   value: "men"   },
   { label: "Women", value: "women" },
   { label: "Unisex", value: "unisex" },
@@ -16,6 +17,7 @@ export default function Navbar({
   onMenClick,
   onWomenClick,
   onUnisexClick,
+  onKidsClick,
   onFaqClick,
   onCartClick,
   onAuthClick,
@@ -30,10 +32,11 @@ export default function Navbar({
   const [searchOpen, setSearchOpen] = useState(false);
 
   const handlers = {
+    shop:   onShopClick,
     men:    onMenClick,
     women:  onWomenClick,
     unisex: onUnisexClick,
-    kids:   onShopClick,
+    kids:   onKidsClick,
   };
 
   const profileImage = currentUser?.profilePicture || currentUser?.avatarUrl || null;

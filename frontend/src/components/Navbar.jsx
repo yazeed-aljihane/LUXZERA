@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ShoppingBag, User, ShoppingBasket, Heart, LogOut, ChevronDown, X, Menu, Search } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "All Collections", value: "shop" },
+  { label: "For You", value: "shop" },
   { label: "Men",   value: "men"   },
   { label: "Women", value: "women" },
   { label: "Unisex", value: "unisex" },

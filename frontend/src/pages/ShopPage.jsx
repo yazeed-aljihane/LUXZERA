@@ -32,7 +32,7 @@ const DEPT_CATEGORY_LABELS = {
 };
 
 const DEPT_META = {
-  All:    { title: "ALL",       suffix: "COLLECTIONS" },
+  All:    { title: "FOR",       suffix: "YOU" },
   Men:    { title: "MEN'S",     suffix: "EDIT" },
   Women:  { title: "WOMEN'S",   suffix: "EDIT" },
   Unisex: { title: "UNISEX'S",  suffix: "EDIT" },

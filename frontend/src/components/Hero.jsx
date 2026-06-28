@@ -1,10 +1,10 @@
 // src/components/Hero.jsx
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
-const IMG_1 = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=85"; // fashion model standing
-const IMG_2 = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80"; // editorial female fashion
-const IMG_3 = "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80"; // denim jacket close-up
-const IMG_4 = "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80"; // blazer product
+const IMG_1 = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=85";
+const IMG_2 = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80";
+const IMG_3 = "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80";
+const IMG_4 = "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80";
 
 export default function Hero({ onShopNow }) {
   return (
@@ -17,36 +17,45 @@ export default function Hero({ onShopNow }) {
           {/* ── LEFT: Massive Typography Block ── */}
           <div className="flex flex-col justify-between h-full pt-2 pb-16 lg:pb-24">
 
-            {/* Campaign Headline — inspired by reference massive type */}
+
+
+            {/* Campaign Headline */}
             <div className="flex-1">
               <h1
                 className="text-[3.8rem] sm:text-[5rem] lg:text-[6.2rem] xl:text-[7rem] font-black uppercase leading-[0.86] tracking-[-0.025em]"
                 style={{ fontStretch: "condensed" }}
               >
-                <span style={{ color: "#F07020" }}>WEAR</span><br />
-                <span className="text-[#2B2B2B]">THE</span><br />
-                <span style={{ color: "#1E2D4A" }}>UNCOMMON.</span>
+                <span style={{ color: "#F07020" }}>FIND</span><br />
+                <span className="text-[#2B2B2B]">WHAT</span><br />
+                <span style={{ color: "#1E2D4A" }}>SUITS YOU.</span>
               </h1>
 
               {/* Supporting line */}
-              <p className="mt-7 text-[13px] text-[#2B2B2B]/60 leading-[1.7] max-w-[300px] font-medium">
-                Discover premium original fashion from established labels,
-                independent brands &amp; emerging designers.
+              <p className="mt-7 text-[13px] text-[#2B2B2B]/60 leading-[1.7] max-w-[320px] font-medium">
+                Thousands of products. One personalized experience designed to help you discover clothing that truly suits your style—not everyone else.
               </p>
 
-              {/* CTA */}
+              {/* CTAs */}
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <button
                   onClick={onShopNow}
                   className="bg-[#5B6EF5] hover:bg-[#4a5de0] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.3em] px-8 py-4 flex items-center gap-3 transition-all duration-300 rounded-full shadow-[0_6px_20px_rgba(91,110,245,0.35)] group"
                 >
-                  Start Shopping
+                  <Sparkles size={11} className="fill-[#FAF9F7] text-[#FAF9F7]" />
+                  Find What Suits You
                   <ArrowRight size={13} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
+                </button>
+                <button
+                  onClick={onShopNow}
+                  className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B]/50 hover:text-[#2B2B2B] transition-colors flex items-center gap-1.5"
+                >
+                  Browse Collection
+                  <ArrowRight size={11} strokeWidth={2} />
                 </button>
               </div>
             </div>
 
-            {/* Bottom category label — like reference "Activewear ↗" */}
+            {/* Bottom trending label */}
             <div className="mt-10 flex items-center gap-2 group cursor-pointer" onClick={onShopNow}>
               <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#2B2B2B]/50 group-hover:text-[#C97A5A] transition-colors italic">
                 Trending Now
@@ -62,7 +71,7 @@ export default function Hero({ onShopNow }) {
           {/* ── RIGHT: Asymmetric Multi-Image Editorial Collage ── */}
           <div className="relative w-full h-[70vh] lg:h-auto lg:min-h-[85vh]">
 
-            {/* MAIN tall model image — top-center, large */}
+            {/* MAIN tall model image */}
             <div className="absolute top-0 left-[12%] w-[52%] h-[68%] rounded-2xl overflow-hidden border border-[#E7E3DD] shadow-sm bg-[#F2EFEA] z-20">
               <img
                 src={IMG_1}
@@ -70,7 +79,6 @@ export default function Hero({ onShopNow }) {
                 className="w-full h-full object-cover object-top transition-transform duration-[2s] ease-out hover:scale-105"
                 loading="eager"
               />
-              {/* Category tag on image */}
               <div className="absolute bottom-3 left-3 bg-[#FAF9F7]/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#E7E3DD]">
                 <span className="text-[7.5px] font-extrabold uppercase tracking-[0.28em] text-[#2B2B2B]">Editorial</span>
               </div>
@@ -86,7 +94,7 @@ export default function Hero({ onShopNow }) {
               />
             </div>
 
-            {/* BOTTOM-LEFT product card — denim */}
+            {/* BOTTOM-LEFT */}
             <div className="absolute bottom-[14%] left-0 w-[34%] h-[38%] rounded-2xl overflow-hidden border border-[#E7E3DD] shadow-sm bg-[#F2EFEA] z-30">
               <img
                 src={IMG_3}
@@ -96,7 +104,7 @@ export default function Hero({ onShopNow }) {
               />
             </div>
 
-            {/* BOTTOM-RIGHT — blazer + label */}
+            {/* BOTTOM-RIGHT */}
             <div className="absolute bottom-[4%] right-0 w-[40%] h-[36%] rounded-2xl overflow-hidden border border-[#E7E3DD] shadow-sm bg-[#FAF9F7] z-20 group cursor-pointer" onClick={onShopNow}>
               <img
                 src={IMG_4}
@@ -104,13 +112,12 @@ export default function Hero({ onShopNow }) {
                 className="w-full h-full object-cover object-top transition-transform duration-[2s] group-hover:scale-105"
                 loading="lazy"
               />
-              {/* Price tag floating */}
               <div className="absolute top-3 right-3 bg-[#C6A15B] px-3 py-1.5 rounded-full">
                 <span className="text-[7.5px] font-extrabold uppercase tracking-[0.25em] text-[#FAF9F7]">New Drop</span>
               </div>
             </div>
 
-            {/* Floating "Shop Casual" badge — like reference circular badge */}
+            {/* Floating Shop badge */}
             <div
               onClick={onShopNow}
               className="absolute top-[38%] left-[3%] z-40 w-14 h-14 rounded-full bg-[#C97A5A] flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-200 shadow-md"
@@ -123,12 +130,11 @@ export default function Hero({ onShopNow }) {
         </div>
       </div>
 
-      {/* ═══ BOTTOM BOLD BLOCKS — like reference blue + yellow strip ═══ */}
+      {/* ═══ BOTTOM BOLD BLOCKS ═══ */}
       <div className="w-full grid grid-cols-1 md:grid-cols-[1.6fr_1fr_0.9fr] min-h-[9rem]">
 
         {/* Block 1 — Brand Blue */}
         <div className="bg-[#5B6EF5] px-10 py-8 flex flex-col justify-between relative overflow-hidden group cursor-pointer" onClick={onShopNow}>
-          {/* Diagonal texture lines */}
           <div className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
               backgroundImage: "repeating-linear-gradient(-45deg, #FAF9F7 0, #FAF9F7 1px, transparent 0, transparent 50%)",
@@ -137,9 +143,9 @@ export default function Hero({ onShopNow }) {
           />
           <div className="flex items-start justify-between relative z-10">
             <div>
-              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#FAF9F7]/50 block mb-1">// Curated Drop</span>
+              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#FAF9F7]/50 block mb-1">// Curated For You</span>
               <span className="text-[#FAF9F7] text-2xl md:text-3xl font-black uppercase tracking-tight leading-tight block">
-                A True Style<br />of Indulgence.
+                Style Made<br />For You Alone.
               </span>
             </div>
             <div className="w-10 h-10 rounded-full border border-[#FAF9F7]/30 flex items-center justify-center flex-shrink-0 mt-1 group-hover:bg-[#FAF9F7]/10 transition-colors">
@@ -147,7 +153,7 @@ export default function Hero({ onShopNow }) {
             </div>
           </div>
           <span className="text-[8.5px] font-extrabold uppercase tracking-[0.3em] text-[#FAF9F7]/45 mt-4 block relative z-10">
-            Shop Exclusive Drops
+            Discover Your Edit
           </span>
         </div>
 
@@ -171,16 +177,14 @@ export default function Hero({ onShopNow }) {
           </div>
         </div>
 
-        {/* Block 3 — Soft Stone with scroll indicator */}
+        {/* Block 3 — Stone with scroll indicator */}
         <div className="bg-[#F2EFEA] px-8 py-8 flex flex-col justify-between border-l border-[#E7E3DD]">
           <div>
             <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#2B2B2B]/35 block mb-3">Scroll Down</span>
-            {/* Scroll indicator */}
             <div className="w-7 h-11 rounded-full border-2 border-[#2B2B2B]/20 flex items-start justify-center pt-1.5">
               <div className="w-1 h-2.5 bg-[#5B6EF5] rounded-full animate-bounce" />
             </div>
           </div>
-          {/* Stats */}
           <div className="space-y-1.5">
             {[
               { num: "150+", label: "Designers" },

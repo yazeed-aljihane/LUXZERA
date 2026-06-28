@@ -24,6 +24,7 @@ import AccountPage  from "./pages/AccountPage.jsx";
 import OrdersPage   from "./pages/OrdersPage.jsx";
 import KidsPage     from "./pages/KidsPage.jsx";
 import WardrobePage from "./pages/WardrobePage.jsx";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage.jsx";
 
 export default function App() {
   const navigate = useNavigate();
@@ -200,6 +201,7 @@ export default function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/about" element={<AboutPage onShopNow={() => navigate("/market")} />} />
           <Route path="/faqs" element={<FaqPage onShopNow={() => navigate("/market")} />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
 
           <Route
             path="*"

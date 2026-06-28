@@ -85,7 +85,7 @@ export default function Footer({ onShopNow }) {
                   { label: "Careers",        path: "/about" },
                   { label: "Contact",        path: "/about" },
                   { label: "Press",          path: "/about" },
-                  { label: "Privacy Policy", path: "/" },
+                  { label: "Privacy Policy", path: "/privacy" },
                 ].map((l) => (
                   <button key={l.label} onClick={() => handleLinkClick(l.path)}
                     className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] text-left">

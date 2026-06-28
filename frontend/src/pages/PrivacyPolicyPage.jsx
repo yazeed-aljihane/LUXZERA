@@ -3,31 +3,37 @@ import { ArrowRight, Clock, ShieldCheck, HelpCircle } from "lucide-react";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans pb-20">
+    <div className="min-h-screen bg-[#FAF9F7] font-sans pb-20 select-none">
       
-      {/* CSS Animations */}
+      {/* Subtle, Professional Animations */}
       <style>{`
-        @keyframes doodle-wiggle {
-          0%, 100% { transform: rotate(-3deg) scale(1); }
-          50% { transform: rotate(3deg) scale(1.03); }
-        }
-        @keyframes doodle-float {
+        @keyframes float-gentle {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-6px) rotate(1deg); }
+          50% { transform: translateY(-4px) rotate(0.5deg); }
         }
-        @keyframes pulse-ring {
-          0% { transform: scale(0.97); opacity: 0.4; }
-          50% { transform: scale(1.03); opacity: 0.8; }
-          100% { transform: scale(0.97); opacity: 0.4; }
+        @keyframes pulse-soft {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 0.9; }
         }
-        .doodle-wiggle:hover {
-          animation: doodle-wiggle 0.5s ease-in-out infinite;
+        .animate-float {
+          animation: float-gentle 6s ease-in-out infinite;
         }
-        .doodle-float {
-          animation: doodle-float 3s ease-in-out infinite;
+        .animate-pulse-soft {
+          animation: pulse-soft 4s ease-in-out infinite;
         }
-        .pulse-accent {
-          animation: pulse-ring 2s ease-in-out infinite;
+        .doodle-card {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .doodle-card:hover {
+          transform: translateY(-2px);
+          border-color: rgba(91, 110, 245, 0.3);
+        }
+        .svg-container {
+          transition: all 0.3s ease;
+        }
+        .doodle-card:hover .svg-container {
+          transform: scale(1.03);
+          background-color: #FAF9F7;
         }
       `}</style>
 
@@ -46,23 +52,23 @@ export default function PrivacyPolicyPage() {
               <span style={{ color: "#F07020" }}>Vow.</span>
             </h1>
             <p className="mt-8 text-[13px] text-[#2B2B2B]/55 leading-[1.75] max-w-lg font-medium">
-              We hate boring 10,000-word legalese walls of text. Here is our promise to you in plain English, with a tiny bit of lawyer-approved translation next to it.
+              We believe in clarity and minimalism. Here is our promise to you in plain English, with a formal legalese translation next to it.
             </p>
           </div>
 
-          {/* Large Hero Doodle (Padlock with Sparkles) */}
-          <div className="relative shrink-0 w-44 h-44 bg-[#F2EFEA] rounded-full border border-[#E7E3DD] flex items-center justify-center doodle-float">
-            <div className="absolute inset-2 border border-dashed border-[#2B2B2B]/10 rounded-full pulse-accent" />
-            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          {/* Large Hero Illustration (Padlock with Sparkles) */}
+          <div className="relative shrink-0 w-44 h-44 bg-[#F2EFEA] rounded-full border border-[#E7E3DD] flex items-center justify-center animate-float">
+            <div className="absolute inset-2 border border-dashed border-[#2B2B2B]/10 rounded-full animate-pulse-soft" />
+            <svg width="72" height="72" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
               {/* Shackle */}
-              <path d="M30 45 V32 C30 20 40 15 50 15 C60 15 70 20 70 32 V45" />
+              <path d="M36 45 V34 C36 24 42 18 50 18 C58 18 64 24 64 34 V45" stroke="#2B2B2B" />
               {/* Body */}
-              <rect x="22" y="45" width="56" height="40" rx="8" fill="white" />
+              <rect x="25" y="45" width="50" height="38" rx="3.5" fill="white" />
               {/* Keyhole */}
-              <circle cx="50" cy="62" r="4" />
-              <path d="M50 66 L50 74 M47 74 L53 74" />
+              <circle cx="50" cy="62" r="3.5" />
+              <path d="M50 65.5 L50 73 M47.5 73 L52.5 73" />
               {/* Sparkle */}
-              <path d="M80 20 L83 26 L89 29 L83 32 L80 38 L77 32 L71 29 L77 26 Z" fill="#F07020" stroke="#F07020" strokeWidth="0.5" />
+              <path d="M80 20 L82 24 L86 26 L82 28 L80 32 L78 28 L74 26 L78 24 Z" fill="#F07020" stroke="#F07020" strokeWidth="0.5" />
             </svg>
           </div>
         </div>
@@ -70,27 +76,21 @@ export default function PrivacyPolicyPage() {
 
       {/* ── Core Promises Grid ── */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           
           {/* Promise 1 — No Sneaky Trackers */}
-          <div className="border border-[#E7E3DD] rounded-3xl p-8 bg-[#FAF9F7] flex flex-col md:flex-row gap-6 items-start hover:border-[#5B6EF5]/40 transition-colors group">
-            <div className="shrink-0 w-24 h-24 bg-[#F2EFEA] rounded-2xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
-              <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="doodle-float">
-                {/* Flashlight Beam */}
-                <path d="M10 20 L40 35 L30 65 L10 20 Z" fill="#F07020" fillOpacity="0.08" stroke="#F07020" strokeDasharray="3 3" />
-                {/* Flashlight */}
-                <path d="M5 10 L15 15 L22 30 L10 25 Z" />
-                {/* Ghost running away */}
-                <path d="M60 40 C60 30 75 30 75 40 C75 50 65 55 65 65 C62 65 60 62 60 60 Z" fill="white" />
-                <circle cx="65" cy="40" r="1.5" fill="#2B2B2B" />
-                <circle cx="70" cy="40" r="1.5" fill="#2B2B2B" />
-                <path d="M63 48 Q67 52 71 48" />
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+            <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
+              <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 50 C30 33, 70 33, 80 50 C70 67, 30 67, 20 50 Z" fill="white" />
+                <circle cx="50" cy="50" r="8" stroke="#F07020" fill="white" />
+                <line x1="18" y1="22" x2="82" y2="78" stroke="#2B2B2B" strokeWidth="1.5" />
               </svg>
             </div>
             <div className="flex-1">
               <span className="text-[7.5px] font-extrabold uppercase tracking-[0.3em] text-[#5B6EF5] bg-[#5B6EF5]/10 px-2 py-0.5 rounded">01 / Cookies &amp; Trackers</span>
-              <h3 className="text-xl font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">No Sneaky Trackers</h3>
-              <p className="text-[12.5px] text-[#2B2B2B]/60 leading-relaxed font-medium">
+              <h3 className="text-lg font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">No Sneaky Trackers</h3>
+              <p className="text-[12px] text-[#2B2B2B]/60 leading-relaxed font-medium">
                 We only use cookies to keep you logged in and save your wardrobe layout. No cross-site ad retargeting, no tracking what you buy elsewhere.
               </p>
               <div className="mt-4 border-t border-[#E7E3DD] pt-3 text-[10px] text-[#2B2B2B]/40 font-mono italic leading-relaxed">
@@ -100,27 +100,22 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Promise 2 — We Don't Sell Data */}
-          <div className="border border-[#E7E3DD] rounded-3xl p-8 bg-[#FAF9F7] flex flex-col md:flex-row gap-6 items-start hover:border-[#5B6EF5]/40 transition-colors group">
-            <div className="shrink-0 w-24 h-24 bg-[#F2EFEA] rounded-2xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
-              <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="doodle-wiggle">
-                {/* Piggy body */}
-                <path d="M30 40 C20 40 15 50 15 60 C15 70 25 80 40 80 C60 80 75 75 75 60 C75 45 60 40 50 40 Z" fill="white" />
-                {/* Snout */}
-                <path d="M10 55 C8 55 5 57 5 60 C5 63 8 65 10 65 Z" />
-                {/* Ears */}
-                <path d="M45 40 L50 25 L55 40 Z" fill="white" />
-                {/* Crossed dollar bill */}
-                <g transform="translate(50, 5)">
-                  <rect x="-10" y="5" width="20" height="12" rx="2" transform="rotate(15)" stroke="#5B6EF5" fill="white" />
-                  <text x="0" y="14" fill="#5B6EF5" fontSize="8" fontWeight="black" textAnchor="middle" transform="rotate(15)">$</text>
-                  <path d="M-12 2 L12 18" stroke="#F07020" strokeWidth="2" />
-                </g>
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+            <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
+              <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="30" y="24" width="40" height="12" rx="2" fill="white" />
+                <rect x="30" y="44" width="40" height="12" rx="2" fill="white" />
+                <rect x="30" y="64" width="40" height="12" rx="2" fill="white" />
+                <circle cx="38" cy="30" r="1.5" fill="#F07020" stroke="none" />
+                <circle cx="38" cy="50" r="1.5" fill="#F07020" stroke="none" />
+                <circle cx="38" cy="70" r="1.5" fill="#F07020" stroke="none" />
+                <path d="M68 28 L82 32 V44 C82 54 75 60 68 64 C61 60 54 54 54 44 V32 Z" fill="white" stroke="#2B2B2B" />
               </svg>
             </div>
             <div className="flex-1">
               <span className="text-[7.5px] font-extrabold uppercase tracking-[0.3em] text-[#5B6EF5] bg-[#5B6EF5]/10 px-2 py-0.5 rounded">02 / Third Parties</span>
-              <h3 className="text-xl font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">We Don't Sell Data</h3>
-              <p className="text-[12.5px] text-[#2B2B2B]/60 leading-relaxed font-medium">
+              <h3 className="text-lg font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">We Don't Sell Data</h3>
+              <p className="text-[12px] text-[#2B2B2B]/60 leading-relaxed font-medium">
                 Your details belong to you. We do not sell your preferences, email, or order history to data brokers or third-party marketing companies. Period.
               </p>
               <div className="mt-4 border-t border-[#E7E3DD] pt-3 text-[10px] text-[#2B2B2B]/40 font-mono italic leading-relaxed">
@@ -130,25 +125,23 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Promise 3 — Secret Wardrobe */}
-          <div className="border border-[#E7E3DD] rounded-3xl p-8 bg-[#FAF9F7] flex flex-col md:flex-row gap-6 items-start hover:border-[#5B6EF5]/40 transition-colors group">
-            <div className="shrink-0 w-24 h-24 bg-[#F2EFEA] rounded-2xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
-              <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="doodle-float">
-                {/* Cabinet Base */}
-                <rect x="25" y="20" width="50" height="65" rx="4" fill="white" />
-                {/* Center split line */}
-                <line x1="50" y1="20" x2="50" y2="85" />
-                {/* Drawer handles */}
-                <circle cx="45" cy="52" r="2.5" />
-                <circle cx="55" cy="52" r="2.5" />
-                {/* Lock overlay */}
-                <circle cx="50" cy="52" r="8" fill="white" stroke="#F07020" />
-                <path d="M48 52 L52 52 M50 50 L50 54" stroke="#F07020" />
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+            <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
+              <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="25" y="25" width="50" height="50" rx="2.5" fill="white" />
+                <line x1="50" y1="25" x2="50" y2="75" />
+                <line x1="25" y1="50" x2="75" y2="50" />
+                <path d="M33 40 h10 L38 35 Z" stroke="#F07020" strokeWidth="1.2" />
+                <path d="M38 35 q0-3 3-2" stroke="#F07020" strokeWidth="1.2" />
+                <circle cx="62" cy="38" r="3" stroke="#2B2B2B" />
+                <circle cx="37" cy="62" r="2" fill="#2B2B2B" />
+                <path d="M59 62 L65 62 M62 59 L62 65" stroke="#F07020" />
               </svg>
             </div>
             <div className="flex-1">
               <span className="text-[7.5px] font-extrabold uppercase tracking-[0.3em] text-[#5B6EF5] bg-[#5B6EF5]/10 px-2 py-0.5 rounded">03 / Security &amp; Customization</span>
-              <h3 className="text-xl font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">Secret Wardrobe</h3>
-              <p className="text-[12.5px] text-[#2B2B2B]/60 leading-relaxed font-medium">
+              <h3 className="text-lg font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">Secret Wardrobe</h3>
+              <p className="text-[12px] text-[#2B2B2B]/60 leading-relaxed font-medium">
                 The items, collections, and outfits you plan in your Wardrobe are stored securely. We only analyze layout patterns anonymously to make features better.
               </p>
               <div className="mt-4 border-t border-[#E7E3DD] pt-3 text-[10px] text-[#2B2B2B]/40 font-mono italic leading-relaxed">
@@ -158,22 +151,19 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Promise 4 — Full Control */}
-          <div className="border border-[#E7E3DD] rounded-3xl p-8 bg-[#FAF9F7] flex flex-col md:flex-row gap-6 items-start hover:border-[#5B6EF5]/40 transition-colors group">
-            <div className="shrink-0 w-24 h-24 bg-[#F2EFEA] rounded-2xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
-              <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="doodle-wiggle">
-                <circle cx="40" cy="50" r="14" />
-                <path d="M40 32 L40 35 M40 65 L40 68 M22 50 L25 50 M55 50 L58 50" />
-                {/* Small gear */}
-                <circle cx="65" cy="65" r="9" stroke="#5B6EF5" />
-                {/* Toggle slider */}
-                <rect x="22" y="15" width="56" height="8" rx="4" fill="white" />
-                <circle cx="60" cy="19" r="6" fill="#F07020" />
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+            <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
+              <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="25" y="32" width="50" height="12" rx="6" fill="white" />
+                <circle cx="63" cy="38" r="8" fill="#F07020" />
+                <rect x="25" y="56" width="50" height="12" rx="6" fill="white" />
+                <circle cx="37" cy="62" r="8" fill="#2B2B2B" />
               </svg>
             </div>
             <div className="flex-1">
               <span className="text-[7.5px] font-extrabold uppercase tracking-[0.3em] text-[#5B6EF5] bg-[#5B6EF5]/10 px-2 py-0.5 rounded">04 / User Rights</span>
-              <h3 className="text-xl font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">Full Control</h3>
-              <p className="text-[12.5px] text-[#2B2B2B]/60 leading-relaxed font-medium">
+              <h3 className="text-lg font-black uppercase tracking-tight text-[#2B2B2B] mt-2.5 mb-2">Full Control</h3>
+              <p className="text-[12px] text-[#2B2B2B]/60 leading-relaxed font-medium">
                 Want to clear your profile, delete your photos, or wipe your wardrobe history? You can do it with one click inside your account panel. No questions asked.
               </p>
               <div className="mt-4 border-t border-[#E7E3DD] pt-3 text-[10px] text-[#2B2B2B]/40 font-mono italic leading-relaxed">

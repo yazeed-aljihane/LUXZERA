@@ -1,5 +1,5 @@
 // src/pages/AboutPage.jsx
-import { ArrowRight, Zap, Shield, Globe, Users } from "lucide-react";
+import { ArrowRight, Zap, Shield, Globe, Users, Mail } from "lucide-react";
 
 const STATS = [
   { value: "600+", label: "Orders Shipped" },
@@ -13,7 +13,9 @@ const TEAM = [
     name: "Saketh Chokkapu", 
     role: "Founder & CTO", 
     bio: "The technical mind and strategist behind LuxZera. Building the future of curated digital fashion.",
-    img: "/saketh_ch.jpeg" 
+    img: "/saketh_ch.jpeg",
+    email: "chokkapusaketh@gmail.com",
+    github: "https://github.com/Ch-saketh"
   },
   { 
     name: "Vivek", 
@@ -149,7 +151,7 @@ export default function AboutPage({ onShopNow }) {
           <span style={{ color: "#F07020" }}>Drop.</span>
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl">
-          {TEAM.map(({ name, role, bio, img }) => (
+          {TEAM.map(({ name, role, bio, img, email, github }) => (
             <div key={name} className="border border-[#E7E3DD] rounded-2xl p-8 hover:border-[#5B6EF5]/40 transition-all duration-300 bg-[#FAF9F7] group flex flex-col md:flex-row gap-6 items-center md:items-start">
               {/* Image */}
               <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden shrink-0 border border-[#E7E3DD] bg-[#F2EFEA]">
@@ -160,6 +162,26 @@ export default function AboutPage({ onShopNow }) {
                 <p className="text-[14px] font-extrabold uppercase tracking-[0.2em] text-[#2B2B2B]">{name}</p>
                 <p className="text-[11px] text-[#F07020] font-black uppercase tracking-widest mt-1">{role}</p>
                 <p className="text-[12.5px] text-[#2B2B2B]/55 mt-3 font-medium leading-relaxed">{bio}</p>
+                
+                {/* Social Links */}
+                {(email || github) && (
+                  <div className="flex items-center justify-center md:justify-start gap-4 mt-4">
+                    {email && (
+                      <a href={`mailto:${email}`} className="text-[#2B2B2B]/55 hover:text-[#F07020] transition-colors flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider">
+                        <Mail size={12} /> Email
+                      </a>
+                    )}
+                    {github && (
+                      <a href={github} target="_blank" rel="noopener noreferrer" className="text-[#2B2B2B]/55 hover:text-[#5B6EF5] transition-colors flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                          <path d="M9 18c-4.51 2-5-2-7-2" />
+                        </svg>
+                        GitHub
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ))}

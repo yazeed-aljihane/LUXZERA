@@ -82,6 +82,7 @@ export default function Footer({ onShopNow }) {
               <div className="flex flex-col gap-3">
                 {[
                   { label: "About Us",       path: "/about" },
+                  { label: "Become a Designer", path: "/become-designer" },
                   { label: "Careers",        path: "/about" },
                   { label: "Contact",        path: "/about" },
                   { label: "Press",          path: "/about" },

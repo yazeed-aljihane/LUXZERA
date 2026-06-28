@@ -2,10 +2,10 @@
 import { ArrowRight, Zap, Shield, Globe, Users, Mail } from "lucide-react";
 
 const STATS = [
-  { value: "600+", label: "Orders Shipped" },
-  { value: "4.9★", label: "Avg Rating" },
-  { value: "30",   label: "Day Returns" },
-  { value: "150+", label: "Designers" },
+  { value: "0", label: "Middlemen (Direct to Consumer)" },
+  { value: "100%", label: "Curated Wardrobes" },
+  { value: "NO", label: "Artificial Markups" },
+  { value: "Emerging", label: "Independent Creators Only" },
 ];
 
 const TEAM = [
@@ -15,45 +15,139 @@ const TEAM = [
     bio: "The technical mind and strategist behind LuxZera. Building the future of curated digital fashion.",
     img: "/saketh_ch.jpeg",
     email: "chokkapusaketh@gmail.com",
-    github: "https://github.com/Ch-saketh"
+    github: "https://github.com/Ch-saketh",
+    username: "ch-saketh"
   },
   { 
     name: "Vivek", 
     role: "Co-Founder & CFO", 
     bio: "Heading business operations, finance, and logistics to make seamless designer commerce possible.",
-    img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" 
+    img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    email: "vivek@luxzera.com",
+    github: "https://github.com",
+    username: "vivek-cfo"
   },
 ];
 
 const VALUES = [
-  { icon: <Zap size={18} strokeWidth={2.5} />,    title: "Discovery First",   body: "Every piece on LuxZera is curated. We surface fashion you won't find anywhere else — from independent designers to exclusive drops." },
-  { icon: <Shield size={18} strokeWidth={2.5} />, title: "Verified Quality",  body: "No fake reviews, no inflated prices. Every designer on the platform is verified. Every product is what it says it is." },
-  { icon: <Globe size={18} strokeWidth={2.5} />,  title: "Global Reach",      body: "Designers from London, Paris, Tokyo, and beyond — all accessible in one marketplace. World-class fashion, wherever you are." },
-  { icon: <Users size={18} strokeWidth={2.5} />,  title: "Creator Ecosystem", body: "Built for both shoppers and creators. Independent designers, fashion students, and emerging labels can launch and grow here." },
+  { 
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="animate-float">
+        <circle cx="10" cy="10" r="6" />
+        <line x1="14.5" y1="14.5" x2="20" y2="20" />
+        <path d="M10 6 L10 14 M6 10 L14 10" stroke="#F07020" strokeWidth="1" />
+      </svg>
+    ),
+    title: "Discovery First",
+    body: "Every piece on LuxZera is curated. We surface fashion you won't find anywhere else — from independent designers to exclusive drops." 
+  },
+  { 
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="animate-float">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M9 11l2 2 4-4" stroke="#F07020" />
+      </svg>
+    ),
+    title: "Verified Quality",
+    body: "No fake reviews, no inflated prices. Every designer on the platform is verified. Every product is what it says it is." 
+  },
+  { 
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="animate-float">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3.6 9h16.8 M3.6 15h16.8" />
+        <path d="M12 3a15.3 15.3 0 0 1 4 9 15.3 15.3 0 0 1-4 9 15.3 15.3 0 0 1-4-9 15.3 15.3 0 0 1 4-9z" stroke="#F07020" />
+      </svg>
+    ),
+    title: "Global Reach",
+    body: "Designers from London, Paris, Tokyo, and beyond — all accessible in one marketplace. World-class fashion, wherever you are." 
+  },
+  { 
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="animate-float">
+        <circle cx="6" cy="6" r="3" fill="currentColor" fillOpacity="0.1" />
+        <circle cx="18" cy="18" r="3" fill="currentColor" fillOpacity="0.1" stroke="#F07020" />
+        <circle cx="18" cy="6" r="2" />
+        <circle cx="6" cy="18" r="2" />
+        <line x1="9" y1="6" x2="16" y2="6" />
+        <line x1="6" y1="9" x2="6" y2="16" />
+        <line x1="8" y1="8" x2="16" y2="16" stroke="#F07020" strokeDasharray="2 2" />
+      </svg>
+    ),
+    title: "Creator Ecosystem",
+    body: "Built for both shoppers and creators. Independent designers, fashion students, and emerging labels can launch and grow here." 
+  },
 ];
 
 export default function AboutPage({ onShopNow }) {
   return (
     <div className="min-h-screen bg-[#FAF9F7] font-sans">
 
+      {/* Subtle, Professional Animations */}
+      <style>{`
+        @keyframes float-gentle {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-4px) rotate(0.5deg); }
+        }
+        @keyframes pulse-soft {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 0.9; }
+        }
+        .animate-float {
+          animation: float-gentle 6s ease-in-out infinite;
+        }
+        .animate-pulse-soft {
+          animation: pulse-soft 4s ease-in-out infinite;
+        }
+        .doodle-card {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .doodle-card:hover {
+          transform: translateY(-2px);
+          border-color: rgba(91, 110, 245, 0.3);
+        }
+        .svg-container {
+          transition: all 0.3s ease;
+        }
+        .doodle-card:hover .svg-container {
+          transform: scale(1.03);
+          background-color: #FAF9F7;
+        }
+      `}</style>
+
       {/* ── Hero ── */}
       <div className="relative bg-[#FAF9F7] border-b border-[#E7E3DD] py-20 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-premium-grid opacity-[0.025] pointer-events-none" />
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-2 mb-5">
-            <span className="h-px w-5 bg-[#C6A15B]" />
-            <p className="text-[8.5px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B]">
-              Who We Are
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-2 mb-5">
+              <span className="h-px w-5 bg-[#C6A15B]" />
+              <p className="text-[8.5px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B]">
+                Who We Are
+              </p>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black uppercase leading-[0.88] tracking-[-0.025em] text-[#2B2B2B]">
+              Built<br />
+              <span style={{ color: "#5B6EF5" }}>Different.</span><br />
+              <span style={{ color: "#1E2D4A" }}>Always.</span>
+            </h1>
+            <p className="mt-8 text-[13px] text-[#2B2B2B]/55 leading-[1.75] max-w-lg font-medium">
+              LuxZera is a premium fashion marketplace built for discovery — where independent designers, established labels, and emerging talent meet modern shoppers who want something real.
             </p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black uppercase leading-[0.88] tracking-[-0.025em] text-[#2B2B2B]">
-            Built<br />
-            <span style={{ color: "#5B6EF5" }}>Different.</span><br />
-            <span style={{ color: "#1E2D4A" }}>Always.</span>
-          </h1>
-          <p className="mt-8 text-[13px] text-[#2B2B2B]/55 leading-[1.75] max-w-lg font-medium">
-            LuxZera is a premium fashion marketplace built for discovery — where independent designers, established labels, and emerging talent meet modern shoppers who want something real.
-          </p>
+
+          {/* Large Hero Illustration (Orbit & Diamond) */}
+          <div className="relative shrink-0 w-44 h-44 bg-[#F2EFEA] rounded-full border border-[#E7E3DD] flex items-center justify-center animate-float hidden lg:flex">
+            <div className="absolute inset-2 border border-dashed border-[#2B2B2B]/10 rounded-full animate-pulse-soft" />
+            <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="50" cy="50" r="32" strokeDasharray="4 4" className="text-[#2B2B2B]/20" />
+              <circle cx="50" cy="50" r="20" />
+              {/* Intersecting diamond */}
+              <path d="M50 15 L80 50 L50 85 L20 50 Z" stroke="#F07020" />
+              {/* Central node */}
+              <circle cx="50" cy="50" r="4" fill="#2B2B2B" />
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -110,7 +204,7 @@ export default function AboutPage({ onShopNow }) {
             />
           </div>
           {/* Accent block */}
-          <div className="absolute right-[39%] top-8 w-10 h-10 rounded-xl z-10" style={{ backgroundColor: "#F07020" }} />
+          <div className="absolute right-[39%] top-8 w-10 h-10 rounded-xl z-10 animate-float" style={{ backgroundColor: "#F07020" }} />
         </div>
       </section>
 
@@ -127,9 +221,9 @@ export default function AboutPage({ onShopNow }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(({ icon, title, body }) => (
               <div key={title}
-                className="bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-7 hover:border-[#5B6EF5]/40 transition-all duration-300 group"
+                className="doodle-card bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-7 transition-all duration-300"
               >
-                <div className="w-10 h-10 bg-[#5B6EF5] group-hover:bg-[#F07020] rounded-xl flex items-center justify-center text-[#FAF9F7] mb-5 transition-colors duration-300">
+                <div className="svg-container w-11 h-11 bg-[#F2EFEA] rounded-xl flex items-center justify-center text-[#2B2B2B] mb-5 border border-[#E7E3DD] shrink-0">
                   {icon}
                 </div>
                 <h3 className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B] mb-2">{title}</h3>
@@ -150,39 +244,42 @@ export default function AboutPage({ onShopNow }) {
           Behind the<br />
           <span style={{ color: "#F07020" }}>Drop.</span>
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 max-w-3xl mt-16 mx-auto">
           {TEAM.map(({ name, role, bio, img, email, github }) => (
-            <div key={name} className="border border-[#E7E3DD] rounded-2xl p-8 hover:border-[#5B6EF5]/40 transition-all duration-300 bg-[#FAF9F7] group flex flex-col md:flex-row gap-6 items-center md:items-start">
-              {/* Image */}
-              <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden shrink-0 border border-[#E7E3DD] bg-[#F2EFEA]">
-                <img src={img} alt={name} className="w-full h-full object-cover object-top transition-transform duration-[1.4s] group-hover:scale-105" />
+            <div key={name} className="flex flex-col group text-left">
+              
+              {/* Profile Image (Aspect Ratio 4/5) */}
+              <div className="aspect-[4/5] w-full rounded-2xl overflow-hidden bg-[#F5F5F7] relative border border-black/[0.04]">
+                <img src={img} alt={name} className="w-full h-full object-cover object-center transition-transform duration-[1.2s] ease-out group-hover:scale-[1.015]" />
               </div>
-              {/* Details */}
-              <div className="flex-1 text-center md:text-left">
-                <p className="text-[14px] font-extrabold uppercase tracking-[0.2em] text-[#2B2B2B]">{name}</p>
-                <p className="text-[11px] text-[#F07020] font-black uppercase tracking-widest mt-1">{role}</p>
-                <p className="text-[12.5px] text-[#2B2B2B]/55 mt-3 font-medium leading-relaxed">{bio}</p>
+
+              {/* Founder Details */}
+              <div className="pt-6 flex flex-col items-start">
+                <h3 className="text-[20px] font-bold text-[#1D1D1F] tracking-tight">{name}</h3>
+                <p className="text-[12px] font-semibold text-[#86868B] uppercase tracking-[0.08em] mt-1">{role}</p>
+                <p className="text-[13.5px] text-[#515154] mt-3.5 leading-relaxed font-normal">{bio}</p>
                 
-                {/* Social Links */}
-                {(email || github) && (
-                  <div className="flex items-center justify-center md:justify-start gap-4 mt-4">
-                    {email && (
-                      <a href={`mailto:${email}`} className="text-[#2B2B2B]/55 hover:text-[#F07020] transition-colors flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider">
-                        <Mail size={12} /> Email
-                      </a>
-                    )}
-                    {github && (
-                      <a href={github} target="_blank" rel="noopener noreferrer" className="text-[#2B2B2B]/55 hover:text-[#5B6EF5] transition-colors flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                          <path d="M9 18c-4.51 2-5-2-7-2" />
-                        </svg>
-                        GitHub
-                      </a>
-                    )}
-                  </div>
-                )}
+                {/* Text-Based Contact Links (Apple signature style) */}
+                <div className="flex items-center gap-5 mt-5">
+                  {email && (
+                    <a href={`mailto:${email}`} className="text-[12px] font-semibold text-[#0066CC] hover:underline flex items-center gap-1">
+                      Email
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </a>
+                  )}
+                  {github && (
+                    <a href={github} target="_blank" rel="noopener noreferrer" className="text-[12px] font-semibold text-[#0066CC] hover:underline flex items-center gap-1">
+                      GitHub
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
               </div>
+
             </div>
           ))}
         </div>

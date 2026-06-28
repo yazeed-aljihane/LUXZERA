@@ -9,9 +9,18 @@ const STATS = [
 ];
 
 const TEAM = [
-  { initials: "SR", name: "Saketh R.", role: "Founder & Creative Dir.", accent: "#F07020" },
-  { initials: "AK", name: "Aanya K.",  role: "Head of Curation",        accent: "#5B6EF5" },
-  { initials: "MV", name: "Mihir V.",  role: "Platform & Operations",   accent: "#1E2D4A" },
+  { 
+    name: "Saketh Chokkapu", 
+    role: "Founder & CTO", 
+    bio: "The technical mind and strategist behind LuxZera. Building the future of curated digital fashion.",
+    img: "/saketh_ch.jpeg" 
+  },
+  { 
+    name: "Vivek", 
+    role: "Co-Founder & CFO", 
+    bio: "Heading business operations, finance, and logistics to make seamless designer commerce possible.",
+    img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" 
+  },
 ];
 
 const VALUES = [
@@ -139,17 +148,19 @@ export default function AboutPage({ onShopNow }) {
           Behind the<br />
           <span style={{ color: "#F07020" }}>Drop.</span>
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {TEAM.map(({ initials, name, role, accent }) => (
-            <div key={name} className="border border-[#E7E3DD] rounded-2xl p-8 hover:border-[#5B6EF5]/40 transition-colors bg-[#FAF9F7] group">
-              <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center text-[#FAF9F7] text-lg font-black mb-5 transition-all duration-300"
-                style={{ backgroundColor: accent }}
-              >
-                {initials}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl">
+          {TEAM.map(({ name, role, bio, img }) => (
+            <div key={name} className="border border-[#E7E3DD] rounded-2xl p-8 hover:border-[#5B6EF5]/40 transition-all duration-300 bg-[#FAF9F7] group flex flex-col md:flex-row gap-6 items-center md:items-start">
+              {/* Image */}
+              <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden shrink-0 border border-[#E7E3DD] bg-[#F2EFEA]">
+                <img src={img} alt={name} className="w-full h-full object-cover object-top transition-transform duration-[1.4s] group-hover:scale-105" />
               </div>
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.2em] text-[#2B2B2B]">{name}</p>
-              <p className="text-[11px] text-[#2B2B2B]/45 mt-1 font-medium">{role}</p>
+              {/* Details */}
+              <div className="flex-1 text-center md:text-left">
+                <p className="text-[14px] font-extrabold uppercase tracking-[0.2em] text-[#2B2B2B]">{name}</p>
+                <p className="text-[11px] text-[#F07020] font-black uppercase tracking-widest mt-1">{role}</p>
+                <p className="text-[12.5px] text-[#2B2B2B]/55 mt-3 font-medium leading-relaxed">{bio}</p>
+              </div>
             </div>
           ))}
         </div>

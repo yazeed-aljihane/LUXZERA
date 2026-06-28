@@ -1,7 +1,7 @@
 // src/components/ProductCard.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bookmark } from "lucide-react";
+import AlmirahIcon from "./AlmirahIcon.jsx";
 import { useCart }     from "../context/CartContext.jsx";
 import { useWardrobe } from "../context/WardrobeContext.jsx";
 
@@ -87,7 +87,7 @@ export default function ProductCard({ product, onViewProduct }) {
           }`}
           title={saved ? "Remove from Wardrobe" : "Save to Wardrobe"}
         >
-          <Bookmark size={12} strokeWidth={2} className={saved ? "fill-[#FAF9F7]" : ""} />
+          <AlmirahIcon size={12} strokeWidth={2} className={saved ? "fill-[#FAF9F7]" : ""} />
         </button>
       </div>
 

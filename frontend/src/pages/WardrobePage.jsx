@@ -1,7 +1,7 @@
 // src/pages/WardrobePage.jsx
 // ─────────────────────────────────────────────────────────────────
 // LUXZERA WARDROBE — Pinterest meets Apple Photos
-// A personal fashion space: save → organize → build outfits
+// Primary theme: Brand Orange (#F07020)
 // ─────────────────────────────────────────────────────────────────
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { useWardrobe } from "../context/WardrobeContext.jsx";
 import { useCart }     from "../context/CartContext.jsx";
 
 const COLLECTION_COLORS = {
-  "Casual":     "#5B6EF5",
+  "Casual":     "#F07020",
   "Office":     "#2B2B2B",
   "Streetwear": "#C97A5A",
   "Date Night": "#C6A15B",
@@ -31,7 +31,7 @@ export default function WardrobePage() {
   const [activeCollection, setActiveCollection] = useState("All");
   const [newColName, setNewColName]             = useState("");
   const [showNewCol, setShowNewCol]             = useState(false);
-  const [moveTarget, setMoveTarget]             = useState(null); // productId being moved
+  const [moveTarget, setMoveTarget]             = useState(null);
 
   const displayed = activeCollection === "All"
     ? wardrobeItems
@@ -55,27 +55,17 @@ export default function WardrobePage() {
 
       {/* ── PAGE HEADER ── */}
       <div className="border-b border-[#E7E3DD] bg-[#FAF9F7]">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tight text-[#2B2B2B] leading-[0.9]">
-                My<br />Wardrobe
-              </h1>
-              <p className="mt-4 text-[13px] text-[#2B2B2B]/50 font-medium max-w-sm leading-relaxed">
-                Save outfits, build collections, and curate your personal style—before you buy.
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B]/35">
-                {wardrobeCount} {wardrobeCount === 1 ? "piece" : "pieces"} saved
-              </span>
-              <button
-                onClick={() => navigate("/market")}
-                className="bg-[#5B6EF5] hover:bg-[#4a5de0] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.25em] px-6 py-3 rounded-full transition-all duration-300 flex items-center gap-2"
-              >
-                Add More <ArrowRight size={11} strokeWidth={2.5} />
-              </button>
-            </div>
+        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-10">
+          <div className="flex items-center justify-between">
+            <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tight leading-none">
+              <span className="text-[#F07020]">Wardrobe</span>
+            </h1>
+            <button
+              onClick={() => navigate("/market")}
+              className="bg-[#F07020] hover:bg-[#d45e10] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.25em] px-6 py-3 rounded-full transition-all duration-300 flex items-center gap-2 shrink-0"
+            >
+              Browse Drops <ArrowRight size={11} strokeWidth={2.5} />
+            </button>
           </div>
         </div>
       </div>
@@ -85,7 +75,7 @@ export default function WardrobePage() {
 
           {/* ── SIDEBAR: Collection Manager ── */}
           <aside className="lg:w-56 shrink-0 space-y-1">
-            <p className="text-[8.5px] font-extrabold uppercase tracking-[0.3em] text-[#2B2B2B]/35 mb-4">
+            <p className="text-[11px] font-black uppercase tracking-[0.25em] text-[#2B2B2B] mb-4">
               Collections
             </p>
 
@@ -94,8 +84,8 @@ export default function WardrobePage() {
               onClick={() => setActiveCollection("All")}
               className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all duration-150 group ${
                 activeCollection === "All"
-                  ? "bg-[#2B2B2B] text-[#FAF9F7]"
-                  : "text-[#2B2B2B]/60 hover:bg-[#F2EFEA] hover:text-[#2B2B2B]"
+                  ? "bg-[#F07020] text-[#FAF9F7]"
+                  : "text-[#2B2B2B]/60 hover:bg-[#FFF3ED] hover:text-[#F07020]"
               }`}
             >
               <div className="flex items-center gap-2.5">
@@ -120,7 +110,7 @@ export default function WardrobePage() {
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all duration-150 group ${
                     active
                       ? "text-[#FAF9F7]"
-                      : "text-[#2B2B2B]/60 hover:bg-[#F2EFEA] hover:text-[#2B2B2B]"
+                      : "text-[#2B2B2B]/60 hover:bg-[#FFF3ED] hover:text-[#F07020]"
                   }`}
                   style={active ? { backgroundColor: getColor(col) } : {}}
                 >
@@ -158,10 +148,10 @@ export default function WardrobePage() {
                   onChange={(e) => setNewColName(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleCreateCollection()}
                   placeholder="Collection name..."
-                  className="flex-1 bg-transparent border-b border-[#5B6EF5] text-[10px] uppercase tracking-wider font-bold text-[#2B2B2B] outline-none py-0.5 placeholder-[#2B2B2B]/30"
+                  className="flex-1 bg-transparent border-b border-[#F07020] text-[10px] uppercase tracking-wider font-bold text-[#2B2B2B] outline-none py-0.5 placeholder-[#2B2B2B]/30"
                   autoFocus
                 />
-                <button onClick={handleCreateCollection} className="text-[#5B6EF5] hover:text-[#4a5de0]">
+                <button onClick={handleCreateCollection} className="text-[#F07020] hover:text-[#d45e10]">
                   <Check size={13} strokeWidth={2.5} />
                 </button>
                 <button onClick={() => setShowNewCol(false)} className="text-[#2B2B2B]/30 hover:text-[#2B2B2B]">
@@ -171,7 +161,7 @@ export default function WardrobePage() {
             ) : (
               <button
                 onClick={() => setShowNewCol(true)}
-                className="w-full flex items-center gap-2 px-3 py-2.5 text-[#2B2B2B]/35 hover:text-[#5B6EF5] transition-colors group"
+                className="w-full flex items-center gap-2 px-3 py-2.5 text-[#2B2B2B]/35 hover:text-[#F07020] transition-colors group"
               >
                 <Plus size={11} strokeWidth={2} />
                 <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]">New Collection</span>
@@ -183,8 +173,8 @@ export default function WardrobePage() {
           <div className="flex-1 min-w-0">
             {displayed.length === 0 ? (
               <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
-                <div className="w-16 h-16 rounded-2xl bg-[#F2EFEA] border border-[#E7E3DD] flex items-center justify-center mb-6">
-                  <Folder size={24} strokeWidth={1.2} className="text-[#2B2B2B]/25" />
+                <div className="w-16 h-16 rounded-2xl bg-[#FFF3ED] border border-[#F07020]/20 flex items-center justify-center mb-6">
+                  <Folder size={24} strokeWidth={1.2} className="text-[#F07020]/40" />
                 </div>
                 <h3 className="text-xs font-extrabold tracking-[0.3em] uppercase text-[#2B2B2B]/40 mb-2">
                   {activeCollection === "All" ? "Your Wardrobe is Empty" : `${activeCollection} is Empty`}
@@ -196,7 +186,7 @@ export default function WardrobePage() {
                 </p>
                 <button
                   onClick={() => navigate("/market")}
-                  className="bg-[#2B2B2B] hover:bg-[#5B6EF5] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.25em] px-7 py-3.5 rounded-full transition-all duration-300"
+                  className="bg-[#F07020] hover:bg-[#d45e10] text-[#FAF9F7] text-[10px] font-extrabold uppercase tracking-[0.25em] px-7 py-3.5 rounded-full transition-all duration-300"
                 >
                   Browse Drops
                 </button>
@@ -226,7 +216,7 @@ export default function WardrobePage() {
                         {/* Add to bag button */}
                         <button
                           onClick={() => handleAddToBag(item)}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity w-full bg-[#FAF9F7]/95 backdrop-blur-sm text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#2B2B2B] py-2.5 rounded-xl flex items-center justify-center gap-1.5 hover:bg-[#5B6EF5] hover:text-[#FAF9F7] transition-colors duration-200"
+                          className="opacity-0 group-hover:opacity-100 transition-opacity w-full bg-[#FAF9F7]/95 backdrop-blur-sm text-[9px] font-extrabold uppercase tracking-[0.2em] text-[#2B2B2B] py-2.5 rounded-xl flex items-center justify-center gap-1.5 hover:bg-[#F07020] hover:text-[#FAF9F7] transition-colors duration-200"
                         >
                           <ShoppingBag size={10} strokeWidth={2} />
                           Add to Bag
@@ -271,7 +261,7 @@ export default function WardrobePage() {
                       ) : (
                         <button
                           onClick={() => setMoveTarget(item.id)}
-                          className="mt-1.5 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.15em] text-[#2B2B2B]/30 hover:text-[#5B6EF5] transition-colors"
+                          className="mt-1.5 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.15em] text-[#2B2B2B]/30 hover:text-[#F07020] transition-colors"
                         >
                           <span
                             className="w-1.5 h-1.5 rounded-full"

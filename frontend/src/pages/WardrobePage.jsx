@@ -58,9 +58,6 @@ export default function WardrobePage() {
         <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <span className="text-[8px] font-extrabold uppercase tracking-[0.35em] text-[#C6A15B] block mb-3">
-                — Your Personal Space
-              </span>
               <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tight text-[#2B2B2B] leading-[0.9]">
                 My<br />Wardrobe
               </h1>

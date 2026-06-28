@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import { useState } from "react";
-import { ShoppingBag, User, ShoppingBasket, Heart, LogOut, ChevronDown, X, Menu, Search } from "lucide-react";
+import { ShoppingBag, User, ShoppingBasket, LogOut, ChevronDown, X, Menu, Search, Bookmark } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "For You", value: "shop" },
@@ -12,6 +12,7 @@ const NAV_LINKS = [
 
 export default function Navbar({
   cartCount = 0,
+  wardrobeCount = 0,
   onLogoClick,
   onShopClick,
   onMenClick,
@@ -20,6 +21,7 @@ export default function Navbar({
   onKidsClick,
   onFaqClick,
   onCartClick,
+  onWardrobeClick,
   onAuthClick,
   currentPage,
   currentUser,
@@ -114,6 +116,23 @@ export default function Navbar({
               </button>
             </div>
 
+            {/* Wardrobe Icon */}
+            <button
+              onClick={onWardrobeClick}
+              className={`relative flex items-center justify-center transition-colors duration-150 ${
+                currentPage === "wardrobe" ? "text-[#C6A15B]" : "text-[#2B2B2B]/75 hover:text-[#C6A15B]"
+              }`}
+              aria-label="My Wardrobe"
+              title="My Wardrobe"
+            >
+              <Bookmark size={16} strokeWidth={1.5} />
+              {wardrobeCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#C6A15B] text-[7px] font-bold text-[#FAF9F7] leading-none">
+                  {wardrobeCount}
+                </span>
+              )}
+            </button>
+
             {/* Cart Icon */}
             <button
               onClick={onCartClick}
@@ -163,7 +182,7 @@ export default function Navbar({
                         {[
                           { icon: <User size={12} strokeWidth={1.5} />,          label: "My Account", action: () => { onAccountClick?.(); setProfileOpen(false); } },
                           { icon: <ShoppingBasket size={12} strokeWidth={1.5} />, label: "Orders",     action: () => { onOrdersClick?.();  setProfileOpen(false); } },
-                          { icon: <Heart size={12} strokeWidth={1.5} />,          label: "Wishlist",   action: () => setProfileOpen(false) },
+                          { icon: <Bookmark size={12} strokeWidth={1.5} />,       label: "Wardrobe",   action: () => { onWardrobeClick?.(); setProfileOpen(false); } },
                         ].map(({ icon, label, action }) => (
                           <button key={label} onClick={action}
                             className="w-full flex items-center gap-2.5 px-3 py-2 text-left text-[11px] uppercase tracking-wider font-medium text-[#2B2B2B]/75 hover:text-[#5B6EF5] hover:bg-[#F2EFEA]/60 transition-colors">
@@ -216,6 +235,14 @@ export default function Navbar({
           />
         </button>
         <div className="flex items-center gap-5">
+          <button onClick={onWardrobeClick} className="relative text-[#2B2B2B]/80 hover:text-[#C6A15B] transition-colors" title="My Wardrobe">
+            <Bookmark size={17} strokeWidth={1.5} />
+            {wardrobeCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#C6A15B] text-[7px] font-bold text-[#FAF9F7]">
+                {wardrobeCount}
+              </span>
+            )}
+          </button>
           <button onClick={onCartClick} className="relative text-[#2B2B2B]/80 hover:text-[#5B6EF5] transition-colors">
             <ShoppingBag size={17} strokeWidth={1.5} />
             {cartCount > 0 && (

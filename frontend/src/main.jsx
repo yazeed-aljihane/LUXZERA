@@ -4,7 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import App from "./App.jsx";
-import { CartProvider } from "./context/CartContext.jsx";
+import { CartProvider }     from "./context/CartContext.jsx";
+import { WardrobeProvider } from "./context/WardrobeContext.jsx";
 
 import "./index.css";
 
@@ -17,7 +18,9 @@ ReactDOM.createRoot(
     >
       <BrowserRouter>
         <CartProvider>
-          <App />
+          <WardrobeProvider>
+            <App />
+          </WardrobeProvider>
         </CartProvider>
       </BrowserRouter>
     </GoogleOAuthProvider>

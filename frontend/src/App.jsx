@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-import { useCart } from "./context/CartContext.jsx";
+import { useCart }     from "./context/CartContext.jsx";
+import { useWardrobe } from "./context/WardrobeContext.jsx";
 
 import Hero from "./components/Hero.jsx";
 import Navbar from "./components/Navbar.jsx";
@@ -19,14 +20,16 @@ import ProductDetailPage from "./pages/ProductDetailPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import FaqPage from "./pages/FaqPage.jsx";
-import AccountPage from "./pages/AccountPage.jsx";
-import OrdersPage from "./pages/OrdersPage.jsx";
-import KidsPage from "./pages/KidsPage.jsx";
+import AccountPage  from "./pages/AccountPage.jsx";
+import OrdersPage   from "./pages/OrdersPage.jsx";
+import KidsPage     from "./pages/KidsPage.jsx";
+import WardrobePage from "./pages/WardrobePage.jsx";
 
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cartCount } = useCart();
+  const { cartCount }      = useCart();
+  const { wardrobeCount }  = useWardrobe();
 
   const [currentUser, setCurrentUser] = useState(null);
   const [authOpen, setAuthOpen] = useState(false);
@@ -126,7 +129,8 @@ export default function App() {
   }, []);
 
   const currentPage = (() => {
-    if (location.pathname.startsWith("/product")) return "product";
+    if (location.pathname.startsWith("/product"))  return "product";
+    if (location.pathname === "/wardrobe")          return "wardrobe";
     if (
       location.pathname.startsWith("/market") ||
       location.pathname.startsWith("/shop")
@@ -144,6 +148,7 @@ export default function App() {
       {showNavbar && (
         <Navbar
           cartCount={cartCount}
+          wardrobeCount={wardrobeCount}
           currentPage={currentPage}
           currentUser={currentUser}
           onLogoClick={() => navigate("/")}
@@ -154,7 +159,8 @@ export default function App() {
           onKidsClick={() => navigate("/kids")}
           onFaqClick={() => navigate("/faqs")}
           onCartClick={() => navigate("/cart")}
-          onAuthClick={() => setAuthOpen(true)} // Opens our exact minimalist double-button screen
+          onWardrobeClick={() => navigate("/wardrobe")}
+          onAuthClick={() => setAuthOpen(true)}
           onAccountClick={() => navigate("/account")}
           onOrdersClick={() => navigate("/orders")}
           onLogout={handleLogout}
@@ -185,10 +191,11 @@ export default function App() {
           />
           <Route path="/market" element={<MarketPage />} />
           <Route path="/shop" element={<Navigate to="/market" replace />} />
-          <Route path="/men" element={<MenPage />} />
-          <Route path="/women" element={<WomenPage />} />
-          <Route path="/unisex" element={<UnisexPage />} />
-          <Route path="/kids" element={<KidsPage />} />
+          <Route path="/men"      element={<MenPage />} />
+          <Route path="/women"    element={<WomenPage />} />
+          <Route path="/unisex"   element={<UnisexPage />} />
+          <Route path="/kids"     element={<KidsPage />} />
+          <Route path="/wardrobe" element={<WardrobePage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/about" element={<AboutPage onShopNow={() => navigate("/market")} />} />

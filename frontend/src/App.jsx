@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-import { useCart }     from "./context/CartContext.jsx";
+import { useCart } from "./context/CartContext.jsx";
 import { useWardrobe } from "./context/WardrobeContext.jsx";
 
 import Hero from "./components/Hero.jsx";
@@ -20,18 +20,20 @@ import ProductDetailPage from "./pages/ProductDetailPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import FaqPage from "./pages/FaqPage.jsx";
-import AccountPage  from "./pages/AccountPage.jsx";
-import OrdersPage   from "./pages/OrdersPage.jsx";
-import KidsPage     from "./pages/KidsPage.jsx";
+import AccountPage from "./pages/AccountPage.jsx";
+import OrdersPage from "./pages/OrdersPage.jsx";
+import KidsPage from "./pages/KidsPage.jsx";
 import WardrobePage from "./pages/WardrobePage.jsx";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage.jsx";
 import BecomeDesignerPage from "./pages/BecomeDesignerPage.jsx";
+import DesignerOnboardingPage from "./pages/DesignerOnboardingPage.jsx";
+import DesignerStudioPage from "./pages/DesignerStudioPage.jsx";
 
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cartCount }      = useCart();
-  const { wardrobeCount }  = useWardrobe();
+  const { cartCount } = useCart();
+  const { wardrobeCount } = useWardrobe();
 
   const [currentUser, setCurrentUser] = useState(null);
   const [authOpen, setAuthOpen] = useState(false);
@@ -131,8 +133,8 @@ export default function App() {
   }, []);
 
   const currentPage = (() => {
-    if (location.pathname.startsWith("/product"))  return "product";
-    if (location.pathname === "/wardrobe")          return "wardrobe";
+    if (location.pathname.startsWith("/product")) return "product";
+    if (location.pathname === "/wardrobe") return "wardrobe";
     if (
       location.pathname.startsWith("/market") ||
       location.pathname.startsWith("/shop")
@@ -142,8 +144,9 @@ export default function App() {
     return location.pathname.split("/")[1] || "";
   })();
 
-  const showFloatingCart = cartCount > 0 && location.pathname !== "/cart";
-  const showNavbar = true;
+  const isHideLayout = location.pathname === "/designer-onboarding" || location.pathname === "/designer-studio";
+  const showFloatingCart = cartCount > 0 && location.pathname !== "/cart" && !isHideLayout;
+  const showNavbar = !isHideLayout;
 
   return (
     <div className="min-h-screen bg-[#FAF9F7] relative">
@@ -193,10 +196,10 @@ export default function App() {
           />
           <Route path="/market" element={<MarketPage />} />
           <Route path="/shop" element={<Navigate to="/market" replace />} />
-          <Route path="/men"      element={<MenPage />} />
-          <Route path="/women"    element={<WomenPage />} />
-          <Route path="/unisex"   element={<UnisexPage />} />
-          <Route path="/kids"     element={<KidsPage />} />
+          <Route path="/men" element={<MenPage />} />
+          <Route path="/women" element={<WomenPage />} />
+          <Route path="/unisex" element={<UnisexPage />} />
+          <Route path="/kids" element={<KidsPage />} />
           <Route path="/wardrobe" element={<WardrobePage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
@@ -204,6 +207,8 @@ export default function App() {
           <Route path="/faqs" element={<FaqPage onShopNow={() => navigate("/market")} />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/become-designer" element={<BecomeDesignerPage />} />
+          <Route path="/designer-onboarding" element={<DesignerOnboardingPage />} />
+          <Route path="/designer-studio" element={<DesignerStudioPage />} />
 
           <Route
             path="*"
@@ -216,7 +221,7 @@ export default function App() {
         </Routes>
       </main>
 
-      <Footer onShopNow={() => navigate("/market")} />
+      {!isHideLayout && <Footer onShopNow={() => navigate("/market")} />}
 
       {showFloatingCart && (
         <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">

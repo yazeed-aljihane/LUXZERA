@@ -1,5 +1,6 @@
 // src/pages/BecomeDesignerPage.jsx
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowRight, Play, CheckCircle2, ChevronDown, ChevronRight, ChevronLeft,
   Shield, Star, TrendingUp, Users, Package, BarChart2, CreditCard,
@@ -85,17 +86,13 @@ const FAQS = [
    MAIN COMPONENT
 ═══════════════════════════════════════════════════ */
 export default function BecomeDesignerPage() {
+  const navigate = useNavigate();
   const [activeFaq, setActiveFaq]           = useState(null);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [modalOpen, setModalOpen]           = useState(false);
-  const [submitted, setSubmitted]           = useState(false);
   const successRef = useRef(null);
 
-  const [form, setForm] = useState({ brand:"", designer:"", email:"", website:"", category:"Haute Couture", pitch:"" });
-  const patch = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
-
-  const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true); };
-  const closeModal   = () => { setModalOpen(false); setSubmitted(false); setForm({ brand:"", designer:"", email:"", website:"", category:"Haute Couture", pitch:"" }); };
+  const closeModal   = () => { setModalOpen(false); };
 
   const t = TESTIMONIALS[testimonialIdx];
 
@@ -125,7 +122,7 @@ export default function BecomeDesignerPage() {
 
           <div className="flex flex-wrap gap-4 mt-3">
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => navigate("/designer-onboarding")}
               className="px-6 py-3.5 rounded-full bg-[#F07020] hover:bg-[#1D1D1F] text-white text-[12px] font-extrabold uppercase tracking-[0.18em] transition-all duration-300 shadow-[0_6px_20px_rgba(240,112,32,0.25)] flex items-center gap-2"
             >
               Register as a Designer <ArrowRight size={13} />
@@ -759,7 +756,7 @@ export default function BecomeDesignerPage() {
             
             <div className="flex flex-wrap gap-4 mt-1">
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={() => navigate("/designer-onboarding")}
                 className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#F07020] hover:bg-[#1D1D1F] text-white text-[12px] font-extrabold uppercase tracking-[0.18em] transition-all duration-300 shadow-[0_6px_20px_rgba(240,112,32,0.2)]"
               >
                 Register as a Designer <ArrowRight size={13} />
@@ -840,73 +837,64 @@ export default function BecomeDesignerPage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          APPLICATION MODAL
+          EARNINGS MODEL MODAL
       ══════════════════════════════════════════ */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-[520px] rounded-3xl overflow-hidden shadow-2xl border border-[#F0EDE8]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-[500px] rounded-3xl overflow-hidden shadow-2xl border border-[#F0EDE8] animate-fade-in-up">
 
             {/* header */}
-            <div className="bg-[#FAFAF8] px-6 py-4 border-b border-[#F0EDE8] flex items-center justify-between">
+            <div className="bg-[#FAFAF8] px-6 py-5 border-b border-[#F0EDE8] flex items-center justify-between">
               <div>
-                <p className="text-[14px] font-black text-[#1D1D1F] uppercase tracking-wide">Designer Application</p>
-                <p className="text-[10px] text-[#86868B] font-bold uppercase tracking-wider mt-0.5">LuxZera Curation Hub</p>
+                <p className="text-[14px] font-black text-[#1D1D1F] uppercase tracking-wide">Earnings Model</p>
+                <p className="text-[10px] text-[#86868B] font-bold uppercase tracking-wider mt-0.5">Fair, transparent payouts</p>
               </div>
-              <button onClick={closeModal} className="text-[11px] font-bold uppercase tracking-wider text-[#86868B] hover:text-[#1D1D1F]">Close</button>
+              <button onClick={closeModal} className="text-[11px] font-bold uppercase tracking-wider text-[#86868B] hover:text-[#1D1D1F] transition-colors">Close</button>
             </div>
 
-            <div className="p-6 max-h-[78vh] overflow-y-auto">
-              {submitted ? (
-                <div className="py-10 flex flex-col items-center text-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-[#10B981]/10 text-[#10B981] flex items-center justify-center">
-                    <CheckCircle2 size={30} />
-                  </div>
-                  <h3 className="text-[18px] font-extrabold text-[#1D1D1F]">Application Submitted!</h3>
-                  <p className="text-[13px] text-[#515154] leading-relaxed max-w-sm">
-                    Thank you! Our team will review your lookbooks and reach out to <strong>{form.email}</strong> within 48–72 hours.
-                  </p>
-                  <button onClick={closeModal} className="mt-4 px-6 py-3 rounded-full bg-[#1D1D1F] hover:bg-[#F07020] text-white text-[11px] font-extrabold uppercase tracking-wider transition-colors">Done</button>
+            <div className="p-6 flex flex-col gap-5">
+              <div className="flex items-center justify-between p-4 bg-[#FFF5EE] rounded-2xl border border-[#F07020]/15">
+                <div>
+                  <p className="text-[11px] font-black uppercase tracking-wider text-[#F07020]">Your Share</p>
+                  <p className="text-[26px] font-black text-[#1D1D1F]">85%</p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    {[["Brand / Atelier Name", "brand", "text", "e.g. ROSTOVA STUDIO"], ["Designer Name", "designer", "text", "e.g. Elena Rostova"]].map(([label, key, type, ph]) => (
-                      <div key={key}>
-                        <label className="block text-[9.5px] font-black text-[#86868B] uppercase tracking-wider mb-1.5">{label}</label>
-                        <input required type={type} value={form[key]} onChange={patch(key)} placeholder={ph}
-                          className="w-full bg-[#F5F5F7] border border-[#E7E3DD] rounded-xl px-4 py-2.5 text-[12px] font-semibold text-[#1D1D1F] outline-none focus:border-[#1D1D1F]" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[["Contact Email", "email", "email", "email@brand.com"], ["Website / Instagram", "website", "text", "instagram.com/atelier"]].map(([label, key, type, ph]) => (
-                      <div key={key}>
-                        <label className="block text-[9.5px] font-black text-[#86868B] uppercase tracking-wider mb-1.5">{label}</label>
-                        <input required type={type} value={form[key]} onChange={patch(key)} placeholder={ph}
-                          className="w-full bg-[#F5F5F7] border border-[#E7E3DD] rounded-xl px-4 py-2.5 text-[12px] font-semibold text-[#1D1D1F] outline-none focus:border-[#1D1D1F]" />
-                      </div>
-                    ))}
-                  </div>
-                  <div>
-                    <label className="block text-[9.5px] font-black text-[#86868B] uppercase tracking-wider mb-1.5">Fashion Category</label>
-                    <select value={form.category} onChange={patch("category")}
-                      className="w-full bg-[#F5F5F7] border border-[#E7E3DD] rounded-xl px-4 py-2.5 text-[12px] font-semibold text-[#1D1D1F] outline-none focus:border-[#1D1D1F]">
-                      <option>Haute Couture</option>
-                      <option>Ready-to-Wear</option>
-                      <option>Avant-Garde</option>
-                      <option>Streetwear</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-[9.5px] font-black text-[#86868B] uppercase tracking-wider mb-1.5">Tell us about your brand</label>
-                    <textarea required rows={4} value={form.pitch} onChange={patch("pitch")} placeholder="Describe your inspiration, materials, and ethics..."
-                      className="w-full bg-[#F5F5F7] border border-[#E7E3DD] rounded-xl px-4 py-2.5 text-[12px] font-semibold text-[#1D1D1F] outline-none focus:border-[#1D1D1F] resize-none" />
-                  </div>
-                  <button type="submit" className="w-full py-3.5 rounded-full bg-[#1D1D1F] hover:bg-[#F07020] text-white text-[11px] font-black uppercase tracking-[0.18em] transition-colors mt-1">
-                    Submit Application
-                  </button>
-                </form>
-              )}
+                <div className="text-right">
+                  <p className="text-[11px] font-black uppercase tracking-wider text-[#86868B]">Platform Fee</p>
+                  <p className="text-[26px] font-black text-[#86868B]">15%</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <p className="text-[12px] text-[#515154] leading-relaxed font-semibold">
+                  What does the 15% platform fee cover?
+                </p>
+                <div className="flex flex-col gap-2.5">
+                  {[
+                    "Secure payment processing & merchant fees",
+                    "Targeted marketing & social media showcases",
+                    "Global logistics support & shipping facilitation",
+                    "Dedicated designer support team available 24/7"
+                  ].map((text, i) => (
+                    <div key={i} className="flex items-start gap-2.5 text-[11.5px] text-[#86868B] font-medium">
+                      <span className="w-4 h-4 rounded-full bg-[#10B981]/10 text-[#10B981] flex items-center justify-center shrink-0 mt-0.5 text-[9px] font-bold">✓</span>
+                      <span>{text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-[#F0EDE8] pt-4 mt-1">
+                <p className="text-[11.5px] text-[#86868B] leading-relaxed font-medium">
+                  <strong>Payout Schedule:</strong> Earnings are automatically deposited directly to your bank account weekly. Payments are triggered exactly 7 days after lookup order delivery confirmation.
+                </p>
+              </div>
+
+              <button
+                onClick={closeModal}
+                className="w-full py-3.5 rounded-full bg-[#1D1D1F] hover:bg-[#F07020] text-white text-[11px] font-black uppercase tracking-[0.18em] transition-colors mt-2"
+              >
+                Got It
+              </button>
             </div>
           </div>
         </div>

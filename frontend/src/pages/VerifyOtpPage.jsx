@@ -77,10 +77,9 @@ export default function VerifyOtpPage() {
         
         {/* Brand Header */}
         <div className="flex flex-col items-center">
-          <div onClick={() => navigate("/")} className="cursor-pointer flex items-center gap-1 font-serif text-[24px] tracking-tight font-extrabold text-[#0D1B2A] select-none">
-            <span>Lux</span>
-            <span className="text-[#FF6A00]">Zera</span>
-          </div>
+          <button onClick={() => navigate("/?openLogin=true")} className="cursor-pointer flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
+            <img src="/LuxZera.png" alt="LuxZera" className="h-10 w-auto object-contain" />
+          </button>
           <h2 className="text-[26px] font-black text-[#0D1B2A] font-serif mt-5 tracking-tight">Verify Account</h2>
           <p className="text-[12.5px] text-[#515154] font-medium leading-relaxed mt-2 max-w-[280px]">
             Enter the 6-digit verification code sent to <strong className="text-[#0D1B2A]">{email}</strong>.

@@ -7,15 +7,16 @@
 // ──────────────────────────────────────────────────────────────────────────
 
 import { useState, useMemo, useEffect, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import { SlidersHorizontal, X } from "lucide-react";
 import ProductCard from "../components/ProductCard.jsx";
 import FiltersSidebar from "../components/FiltersSidebar.jsx";
 import { PRODUCTS } from "../data/products.js";
+import { getProducts } from "../services/products.js";
 
 const CATEGORIES = ["All", "Tops", "Bottoms", "Outerwear"];
 const SIZES      = ["XS", "S", "M", "L", "XL", "XXL"];
-const BRANDS     = ["All", "Nocturne", "Voidwear", "Axle Studio"];
-const PRICE_STEPS = [50, 75, 100, 125, 150, 200];
+const PRICE_STEPS = [50, 75, 100, 125, 150, 200, 500, 1000, 5000];
 const SORT_OPTIONS = [
   { label: "Featured",          value: "featured"   },
   { label: "Price: Low → High", value: "price_asc"  },
@@ -40,13 +41,19 @@ const DEPT_META = {
 };
 
 export default function ShopPage({ initialDepartment = "All" }) {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("q")?.trim() || "";
+
   // ── State ──────────────────────────────────────────────────────────────────
   const [activeCat,    setActiveCat]    = useState("All");
   const [activeSizes,  setActiveSizes]  = useState([]);
   const [activeBrand,  setActiveBrand]  = useState("All");
-  const [priceMax,     setPriceMax]     = useState(200);
+  const [priceMax,     setPriceMax]     = useState(5000);
   const [sortBy,       setSortBy]       = useState("featured");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [productError, setProductError] = useState("");
 
   // Reset category when department changes
   useEffect(() => { setActiveCat("All"); }, [initialDepartment]);
@@ -56,22 +63,63 @@ export default function ShopPage({ initialDepartment = "All" }) {
   }, []);
 
   const clearAll = useCallback(() => {
-    setActiveCat("All"); setActiveSizes([]); setActiveBrand("All"); setPriceMax(200);
+    setActiveCat("All"); setActiveSizes([]); setActiveBrand("All"); setPriceMax(5000);
+  }, []);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const loadProducts = async () => {
+      setLoadingProducts(true);
+      setProductError("");
+      try {
+        const backendProducts = await getProducts();
+        if (!ignore) {
+          setProducts(backendProducts);
+        }
+      } catch (error) {
+        console.error("Product API unavailable, using temporary image-backed catalog:", error);
+        if (!ignore) {
+          setProducts(PRODUCTS);
+          setProductError("Live product API is unavailable. Showing temporary catalog photos.");
+        }
+      } finally {
+        if (!ignore) {
+          setLoadingProducts(false);
+        }
+      }
+    };
+
+    loadProducts();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   // ── Filtered & sorted products ─────────────────────────────────────────────
   const displayed = useMemo(() => {
-    let list = [...PRODUCTS].filter((p) => p.price <= priceMax);
+    const normalizedQuery = query.toLowerCase();
+    let list = [...products].filter((p) => p.price <= priceMax);
     if (initialDepartment !== "All") list = list.filter((p) => p.department === initialDepartment);
     if (activeCat  !== "All") list = list.filter((p) => p.category === activeCat);
     if (activeBrand !== "All") list = list.filter((p) => p.brand   === activeBrand);
     if (activeSizes.length)   list = list.filter((p) => activeSizes.some((s) => p.sizes.includes(s)));
+    if (normalizedQuery) {
+      list = list.filter((p) => [
+        p.name,
+        p.brand,
+        p.category,
+        p.department,
+        p.description,
+      ].filter(Boolean).some((value) => String(value).toLowerCase().includes(normalizedQuery)));
+    }
     if (sortBy === "price_asc")  list.sort((a, b) => a.price - b.price);
     if (sortBy === "price_desc") list.sort((a, b) => b.price - a.price);
     return list;
-  }, [initialDepartment, activeCat, activeBrand, activeSizes, priceMax, sortBy]);
+  }, [products, query, initialDepartment, activeCat, activeBrand, activeSizes, priceMax, sortBy]);
 
-  const filterCount = (activeCat !== "All" ? 1 : 0) + activeSizes.length + (activeBrand !== "All" ? 1 : 0) + (priceMax < 200 ? 1 : 0);
+  const brands = useMemo(() => ["All", ...Array.from(new Set(products.map((p) => p.brand).filter(Boolean))).sort()], [products]);
+  const filterCount = (activeCat !== "All" ? 1 : 0) + activeSizes.length + (activeBrand !== "All" ? 1 : 0) + (priceMax < 5000 ? 1 : 0);
   const categoryLabels = DEPT_CATEGORY_LABELS[initialDepartment] || DEPT_CATEGORY_LABELS.All;
   const meta = DEPT_META[initialDepartment] || DEPT_META.All;
 
@@ -89,6 +137,16 @@ export default function ShopPage({ initialDepartment = "All" }) {
             <span style={{ color: "#F07020" }}>{meta.title}</span>{" "}
             <span style={{ color: "#1E2D4A" }}>{meta.suffix}</span>
           </h1>
+          {query && (
+            <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#2B2B2B]/50">
+              Search: <span className="text-[#5B6EF5]">{query}</span>
+            </p>
+          )}
+          {productError && (
+            <p className="mt-3 text-[11px] font-semibold text-[#C97A5A]">
+              {productError}
+            </p>
+          )}
         </div>
       </div>
 
@@ -113,7 +171,7 @@ export default function ShopPage({ initialDepartment = "All" }) {
             activeCat={activeCat}
             setActiveCat={setActiveCat}
             categoryLabels={categoryLabels}
-            brands={BRANDS}
+            brands={brands}
             activeBrand={activeBrand}
             setActiveBrand={setActiveBrand}
             sizes={SIZES}
@@ -132,7 +190,17 @@ export default function ShopPage({ initialDepartment = "All" }) {
 
         {/* Product Grid Content area */}
         <div className="flex-1 min-w-0">
-          {displayed.length === 0 ? (
+          {loadingProducts ? (
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                <div key={item} className="animate-pulse">
+                  <div className="aspect-[3/4.2] rounded-2xl bg-[#F2EFEA] border border-[#E7E3DD]" />
+                  <div className="mt-4 h-3 w-2/3 rounded-full bg-[#E7E3DD]" />
+                  <div className="mt-2 h-3 w-1/2 rounded-full bg-[#E7E3DD]" />
+                </div>
+              ))}
+            </div>
+          ) : displayed.length === 0 ? (
             <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4 py-8 select-none">
               {/* Custom Vector High-Fashion Hanger SVG */}
               <svg className="w-24 h-24 text-[#C6A15B]/30 mb-8" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.2">
@@ -151,7 +219,7 @@ export default function ShopPage({ initialDepartment = "All" }) {
                 The Archives are Silent
               </h3>
               <p className="text-[12px] text-[#2B2B2B]/45 font-medium max-w-xs leading-relaxed mb-6">
-                No items match your active filters. Modify your search configuration to reveal the drop.
+                No live products match your active filters yet. This section is ready for backend inventory.
               </p>
               <button
                 onClick={clearAll}
@@ -191,7 +259,7 @@ export default function ShopPage({ initialDepartment = "All" }) {
                 activeCat={activeCat}
                 setActiveCat={setActiveCat}
                 categoryLabels={categoryLabels}
-                brands={BRANDS}
+                brands={brands}
                 activeBrand={activeBrand}
                 setActiveBrand={setActiveBrand}
                 sizes={SIZES}

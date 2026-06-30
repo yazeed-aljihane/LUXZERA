@@ -34,7 +34,6 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import VerifyOtpPage from "./pages/VerifyOtpPage.jsx";
 import CompleteGoogleSignupPage from "./pages/CompleteGoogleSignupPage.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
-import { googleLogin } from "./services/auth.js";
 
 
 export default function App() {
@@ -45,69 +44,29 @@ export default function App() {
 
   const { user: currentUser, logout: handleLogout, setUser: setCurrentUser } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
+  const [authInitialView, setAuthInitialView] = useState("login");
 
-  // ── ⚡ SPRING BOOT GOOGLE CREDENTIAL HANDLER ──
-  const handleCallbackResponse = async (response) => {
-    console.log("Encoded JWT ID token received from Google selector");
-
-    if (!response?.credential) {
-      console.error("Google credential response did not include an ID token.");
-      return;
-    }
-
-    try {
-      const data = await googleLogin(response.credential);
-      console.log("BACKEND RESPONSE:", data);
-
-      if (data.requiresSignup) {
-        // CASE 2: First-time Google user -> complete signup page
-        setAuthOpen(false);
-        navigate(`/complete-google-signup?email=${encodeURIComponent(data.email || "")}`);
-      } else {
-        // CASE 1: Existing Google user -> Redirect to login page
-        setAuthOpen(false);
-        alert("Google account successfully verified. Please sign in with your credentials.");
-        navigate("/");
-      }
-    } catch (err) {
-      console.error("Network error talking to backend server:", err);
-      alert(err.message || "Google Login failed. Please check backend status.");
-    }
-  };
-
-  // ── 🔒 STRICT SINGLE INITIALIZATION SYSTEM (WITH LATE-LOAD POLLING) ──
+  // Auto-open login modal if redirect query parameter exists
   useEffect(() => {
-    /* global google */
-    const initGsi = () => {
-      if (typeof google !== "undefined" && !window.gsiInitialized) {
-        google.accounts.id.initialize({
-          client_id: "404546324859-b29lgq8vjkpvf7tkov149dpc9sr8hia4.apps.googleusercontent.com", // 🔴 Google Client ID
-          callback: handleCallbackResponse,
-          ux_mode: "popup",
-          context: "signin",
-          auto_select: false,
-        });
-        window.gsiInitialized = true;
-        console.log("Google Sign-In script initialized successfully.");
-      }
-    };
-
-    initGsi();
-
-    // Fallback polling for late script loading
-    const timer = setInterval(() => {
-      if (window.gsiInitialized) {
-        clearInterval(timer);
-      } else {
-        initGsi();
-      }
-    }, 100);
-
-    return () => clearInterval(timer);
-  }, []);
+    const params = new URLSearchParams(location.search);
+    if (params.get("openLogin") === "true") {
+      setAuthInitialView("login");
+      setAuthOpen(true);
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, navigate]);
 
   const handleAppleSignInAction = () => {
     console.log("Apple secure token identity handshake triggered.");
+  };
+
+  const openAuthModal = (view = "login") => {
+    setAuthInitialView(view);
+    setAuthOpen(true);
+  };
+
+  const handleSearch = (query) => {
+    navigate(`/market?q=${encodeURIComponent(query)}`);
   };
 
   const currentPage = (() => {
@@ -143,10 +102,11 @@ export default function App() {
           onFaqClick={() => navigate("/faqs")}
           onCartClick={() => navigate("/cart")}
           onWardrobeClick={() => navigate("/wardrobe")}
-          onAuthClick={() => setAuthOpen(true)}
+          onAuthClick={() => openAuthModal("login")}
           onAccountClick={() => navigate("/account")}
           onOrdersClick={() => navigate("/orders")}
           onLogout={handleLogout}
+          onSearch={handleSearch}
         />
       )}
 
@@ -226,6 +186,7 @@ export default function App() {
       <AuthModal
         isOpen={authOpen}
         onClose={() => setAuthOpen(false)}
+        initialView={authInitialView}
         onAppleSignIn={handleAppleSignInAction}
       />
     </div>

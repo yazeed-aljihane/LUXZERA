@@ -48,6 +48,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithToken = async (jwtToken) => {
+    setLoading(true);
+    try {
+      setToken(jwtToken);
+      const profile = await apiGetCurrentUser();
+      setUser(profile);
+      setLoading(false);
+      return profile;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
+  };
+
   const logout = async () => {
     setLoading(true);
     try {
@@ -79,6 +93,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         isAuthenticated: !!user,
         login,
+        loginWithToken,
         logout,
         refreshUser,
         setUser

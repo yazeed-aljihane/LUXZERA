@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { completeGoogleSignup } from "../services/auth";
+import { removeToken } from "../utils/token";
 
 export default function CompleteGoogleSignupPage() {
   const navigate = useNavigate();
@@ -23,10 +24,11 @@ export default function CompleteGoogleSignupPage() {
     setSuccessMsg("");
     try {
       await completeGoogleSignup(username, password, email);
-      setSuccessMsg("Google registration completed successfully! Redirecting you to login page...");
+      removeToken();
+      setSuccessMsg("Account setup completed successfully! Redirecting to login portal...");
       setTimeout(() => {
-        navigate("/");
-      }, 2000);
+        window.location.href = "/?openLogin=true";
+      }, 1500);
     } catch (err) {
       console.error(err);
       setErrorMsg(err.message || "Failed to complete Google registration. Please try another username.");

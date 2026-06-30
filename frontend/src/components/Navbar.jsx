@@ -29,10 +29,11 @@ export default function Navbar({
   onAccountClick,
   onOrdersClick,
   onLogout,
+  onSearch,
 }) {
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileOpen,  setMobileOpen]  = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handlers = {
     shop:   onShopClick,
@@ -49,6 +50,14 @@ export default function Navbar({
   const profileEmail = currentUser?.email || "";
 
   const handleLogout = () => { onLogout?.(); setProfileOpen(false); setMobileOpen(false); };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const query = searchQuery.trim();
+    if (!query) return;
+    onSearch?.(query);
+    setMobileOpen(false);
+  };
 
   const navLink = (active) =>
     `text-[11px] uppercase tracking-[0.25em] font-semibold transition-all duration-300 relative py-1 ${
@@ -97,25 +106,19 @@ export default function Navbar({
 
           {/* RIGHT: Search · Cart · Profile/Auth */}
           <div className="flex items-center gap-6 text-[#2B2B2B] h-full">
-            {/* Search Toggle */}
-            <div className="relative flex items-center">
-              {searchOpen && (
-                <input
-                  type="text"
-                  placeholder="Search collection..."
-                  className="bg-transparent border-b border-[#2B2B2B]/30 text-[11px] uppercase tracking-wider px-2 py-1 outline-none text-[#2B2B2B] font-medium animate-in slide-in-from-right-3 duration-200 w-36 mr-2 placeholder-[#2B2B2B]/40"
-                  autoFocus
-                  onBlur={() => setSearchOpen(false)}
-                />
-              )}
-              <button
-                onClick={() => setSearchOpen(!searchOpen)}
-                className="text-[#2B2B2B]/75 hover:text-[#5B6EF5] transition-colors duration-150"
-                aria-label="Search items"
-              >
-                <Search size={16} strokeWidth={1.5} />
-              </button>
-            </div>
+            <form
+              onSubmit={handleSearchSubmit}
+              className="hidden lg:flex items-center gap-2 h-9 w-[280px] rounded-full border border-[#E7E3DD] bg-white/70 px-3 focus-within:border-[#5B6EF5]/50 focus-within:bg-white transition-colors"
+            >
+              <Search size={15} strokeWidth={1.7} className="text-[#5B6EF5] shrink-0" />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search winter fits, linen shirts..."
+                className="min-w-0 flex-1 bg-transparent outline-none text-[11px] font-semibold text-[#2B2B2B] placeholder:text-[#2B2B2B]/35"
+              />
+            </form>
 
             {/* Wardrobe Icon */}
             <button
@@ -268,6 +271,16 @@ export default function Navbar({
             </button>
           ))}
           <div className="h-px bg-[#E7E3DD] my-2" />
+          <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 h-11 rounded-full border border-[#E7E3DD] bg-white px-4">
+            <Search size={15} strokeWidth={1.7} className="text-[#5B6EF5] shrink-0" />
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search with LuxZera AI"
+              className="min-w-0 flex-1 bg-transparent outline-none text-[12px] font-semibold text-[#2B2B2B] placeholder:text-[#2B2B2B]/35"
+            />
+          </form>
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
             className="w-full bg-[#2B2B2B] text-[#FAF9F7] text-[10px] uppercase tracking-[0.2em] font-medium py-3 hover:bg-[#5B6EF5] transition-colors">

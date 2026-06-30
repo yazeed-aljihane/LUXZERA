@@ -15,7 +15,7 @@ export default function LoginModal({
     try {
 
       const response = await fetch(
-        "http://localhost:8080/api/auth/google",
+        "http://localhost:8081/api/auth/google",
         {
           method: "POST",
           headers: {
@@ -35,7 +35,7 @@ export default function LoginModal({
       );
 
       const profileResponse = await fetch(
-        "http://localhost:8080/api/users/me",
+        "http://localhost:8081/api/users/me",
         {
           headers: {
             Authorization: `Bearer ${data.accessToken}`

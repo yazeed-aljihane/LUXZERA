@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 import { useCart } from "./context/CartContext.jsx";
 import { useWardrobe } from "./context/WardrobeContext.jsx";
+import { useAuth } from "./hooks/useAuth.js";
 
 import Hero from "./components/Hero.jsx";
 import Navbar from "./components/Navbar.jsx";
@@ -29,28 +30,21 @@ import BecomeDesignerPage from "./pages/BecomeDesignerPage.jsx";
 import DesignerOnboardingPage from "./pages/DesignerOnboardingPage.jsx";
 import DesignerStudioPage from "./pages/DesignerStudioPage.jsx";
 
+import RegisterPage from "./pages/RegisterPage.jsx";
+import VerifyOtpPage from "./pages/VerifyOtpPage.jsx";
+import CompleteGoogleSignupPage from "./pages/CompleteGoogleSignupPage.jsx";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
+import { googleLogin } from "./services/auth.js";
+
+
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount } = useCart();
   const { wardrobeCount } = useWardrobe();
 
-  const [currentUser, setCurrentUser] = useState(null);
+  const { user: currentUser, logout: handleLogout, setUser: setCurrentUser } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
-
-  const fetchCurrentUser = async (accessToken) => {
-    const response = await fetch("http://localhost:8080/api/users/me", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error("Unable to load authenticated user profile");
-    }
-
-    return response.json();
-  };
 
   // ── ⚡ SPRING BOOT GOOGLE CREDENTIAL HANDLER ──
   const handleCallbackResponse = async (response) => {
@@ -62,75 +56,59 @@ export default function App() {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/google", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken: response.credential }),
-      });
+      const data = await googleLogin(response.credential);
+      console.log("BACKEND RESPONSE:", data);
 
-      if (res.ok) {
-        const data = await res.json();
-        console.log(data);
-
-        console.log("BACKEND RESPONSE:", data);
-
-        localStorage.setItem("token", data.accessToken);
-
-        const profile = await fetchCurrentUser(data.accessToken);
-        setCurrentUser(profile);
+      if (data.requiresSignup) {
+        // CASE 2: First-time Google user -> complete signup page
         setAuthOpen(false);
+        navigate(`/complete-google-signup?email=${encodeURIComponent(data.email || "")}`);
       } else {
-        console.error("Spring Boot rejected the token authorization check.");
+        // CASE 1: Existing Google user -> Redirect to login page
+        setAuthOpen(false);
+        alert("Google account successfully verified. Please sign in with your credentials.");
+        navigate("/");
       }
     } catch (err) {
       console.error("Network error talking to backend server:", err);
+      alert(err.message || "Google Login failed. Please check backend status.");
     }
   };
 
-  // ── 🔒 STRICT SINGLE INITIALIZATION SYSTEM ──
+  // ── 🔒 STRICT SINGLE INITIALIZATION SYSTEM (WITH LATE-LOAD POLLING) ──
   useEffect(() => {
     /* global google */
-    if (typeof google !== "undefined" && !window.gsiInitialized) {
-      google.accounts.id.initialize({
-        client_id: "404546324859-b29lgq8vjkpvf7tkov149dpc9sr8hia4.apps.googleusercontent.com", // 🔴 Put your Google Console Client ID here!
-        callback: handleCallbackResponse,
-        ux_mode: "popup",
-        context: "signin",
-        auto_select: false, // ⚡ STOPS Google from trying to automatically sign in or send background requests
-      });
-      window.gsiInitialized = true;
-    }
+    const initGsi = () => {
+      if (typeof google !== "undefined" && !window.gsiInitialized) {
+        google.accounts.id.initialize({
+          client_id: "404546324859-b29lgq8vjkpvf7tkov149dpc9sr8hia4.apps.googleusercontent.com", // 🔴 Google Client ID
+          callback: handleCallbackResponse,
+          ux_mode: "popup",
+          context: "signin",
+          auto_select: false,
+        });
+        window.gsiInitialized = true;
+        console.log("Google Sign-In script initialized successfully.");
+      }
+    };
+
+    initGsi();
+
+    // Fallback polling for late script loading
+    const timer = setInterval(() => {
+      if (window.gsiInitialized) {
+        clearInterval(timer);
+      } else {
+        initGsi();
+      }
+    }, 100);
+
+    return () => clearInterval(timer);
   }, []);
 
   const handleAppleSignInAction = () => {
     console.log("Apple secure token identity handshake triggered.");
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setCurrentUser(null);
-    setAuthOpen(false);
-  };
-
-  useEffect(() => {
-    const loadUser = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
-      try {
-        const profile = await fetchCurrentUser(token);
-        setCurrentUser(profile);
-      } catch (error) {
-        console.error(error);
-        localStorage.removeItem("token");
-        setCurrentUser(null);
-      }
-    };
-
-    loadUser();
-  }, []);
 
   const currentPage = (() => {
     if (location.pathname.startsWith("/product")) return "product";
@@ -209,6 +187,11 @@ export default function App() {
           <Route path="/become-designer" element={<BecomeDesignerPage />} />
           <Route path="/designer-onboarding" element={<DesignerOnboardingPage />} />
           <Route path="/designer-studio" element={<DesignerStudioPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/verify-otp" element={<VerifyOtpPage />} />
+          <Route path="/complete-google-signup" element={<CompleteGoogleSignupPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ForgotPasswordPage />} />
 
           <Route
             path="*"

@@ -204,11 +204,9 @@ export default function DesignerOnboardingPage() {
       
       {/* HEADER SECTION */}
       <div className="w-full max-w-[560px] flex flex-col items-center text-center">
-        {/* Logo */}
-        <div onClick={() => navigate("/")} className="cursor-pointer mb-6 flex items-center gap-1 font-serif text-[26px] tracking-tight">
-          <span className="font-extrabold text-[#0D1B2A]">Lux</span>
-          <span className="font-black text-[#FF6A00]">Zera</span>
-        </div>
+        <button onClick={() => navigate("/")} className="cursor-pointer mb-6 flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
+          <img src="/LuxZera.png" alt="LuxZera" className="h-10 w-auto object-contain" />
+        </button>
 
         {/* Title & Subtitle */}
         {step <= 7 && (
@@ -263,7 +261,8 @@ export default function DesignerOnboardingPage() {
       </div>
 
       {/* CORE FORM CONTAINER */}
-      <div className="w-full max-w-[560px] bg-white rounded-[24px] border border-[#EBE8E2] shadow-[0_6px_30px_rgba(13,27,42,0.02)] p-6 sm:p-10 relative overflow-hidden transition-all duration-300 flex flex-col">
+      <div className="auth-surface w-full max-w-[560px] rounded-[24px] p-6 sm:p-10 relative transition-all duration-300 flex flex-col">
+        <div className="auth-content">
         
         {/* STEP 1: Personal Information */}
         {step === 1 && (
@@ -1029,6 +1028,7 @@ export default function DesignerOnboardingPage() {
           </div>
         )}
 
+        </div>
       </div>
 
       {/* FOOTER */}

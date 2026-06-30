@@ -42,6 +42,112 @@ body {
   animation: fadeInUp 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
+@keyframes formSurfaceIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes formViewIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-surface {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(231, 227, 221, 0.95);
+  box-shadow: 0 22px 52px rgba(13, 27, 42, 0.11), 0 1px 0 rgba(255, 255, 255, 0.82) inset;
+  backdrop-filter: blur(10px);
+  animation: formSurfaceIn 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  will-change: transform, opacity;
+}
+
+.auth-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), transparent 42%),
+    radial-gradient(circle at 50% 0%, rgba(91, 110, 245, 0.08), transparent 36%);
+}
+
+.auth-content {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-view {
+  animation: formViewIn 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  will-change: transform, opacity;
+}
+
+.auth-input {
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.9rem;
+  border: 1px solid #E2DFD8;
+  background: rgba(250, 249, 247, 0.78);
+  color: #0D1B2A;
+  font-size: 13px;
+  font-weight: 650;
+  outline: none;
+  transition: border-color 240ms ease, background-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+}
+
+.auth-input::placeholder {
+  color: rgba(134, 134, 139, 0.82);
+}
+
+.auth-input:focus {
+  border-color: rgba(91, 110, 245, 0.6);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 0 0 4px rgba(91, 110, 245, 0.09), 0 12px 26px rgba(13, 27, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.auth-cta {
+  height: 3rem;
+  border-radius: 0.9rem;
+  background: #0D1B2A;
+  color: white;
+  font-size: 13px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  transition: transform 240ms ease, background-color 240ms ease, box-shadow 240ms ease, opacity 240ms ease;
+  box-shadow: 0 12px 28px rgba(13, 27, 42, 0.16);
+}
+
+.auth-cta:hover:not(:disabled) {
+  background: #FF6A00;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(255, 106, 0, 0.20);
+}
+
+.auth-cta:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.auth-alert {
+  animation: formViewIn 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ── Fade-in animation ── */
 @keyframes fadeIn {
   from { opacity: 0; }

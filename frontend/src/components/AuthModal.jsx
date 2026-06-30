@@ -185,13 +185,14 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/55 backdrop-blur-[2px] animate-fade-in select-none">
       
       {/* Click outside backdrop */}
       <div className="absolute inset-0 z-0 cursor-default" onClick={closeAndReset} />
 
       {/* PORTAL FORM CARD */}
-      <div className="relative z-10 w-full max-w-[460px] bg-white rounded-[24px] border border-[#E7E3DD] shadow-2xl p-8 sm:p-10 animate-fade-in-up flex flex-col gap-6 text-center max-h-[90vh] overflow-y-auto">
+      <div className="auth-surface relative z-10 w-full max-w-[460px] rounded-[24px] p-8 sm:p-10 flex flex-col gap-6 text-center max-h-[90vh] overflow-y-auto">
+        <div className="auth-content flex flex-col gap-6">
         
         {/* Close Button */}
         <button 
@@ -223,19 +224,19 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         {/* Notifications */}
         {errorMsg && (
-          <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-left">
+          <div className="auth-alert p-3.5 bg-red-50 border border-red-200 rounded-xl text-left">
             <p className="text-[11.5px] text-red-600 font-bold leading-normal">{errorMsg}</p>
           </div>
         )}
         {successMsg && (
-          <div className="p-3.5 bg-green-50 border border-green-200 rounded-xl text-left">
+          <div className="auth-alert p-3.5 bg-green-50 border border-green-200 rounded-xl text-left">
             <p className="text-[11.5px] text-green-600 font-bold leading-normal">{successMsg}</p>
           </div>
         )}
 
         {/* ── 1. SIGNUP VIEW ── */}
         {view === "register" && (
-          <form onSubmit={handleSignUpSubmit} className="flex flex-col gap-4 text-left">
+          <form onSubmit={handleSignUpSubmit} className="auth-view flex flex-col gap-4 text-left">
             
             {/* Full Name */}
             <div className="flex flex-col gap-1.5">
@@ -247,7 +248,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. John Doe"
-                  className="w-full h-12 bg-[#FAF9F7] border border-[#E2DFD8] focus:border-[#0D1B2A] focus:bg-white rounded-xl px-4 pr-11 text-[13px] font-semibold text-[#0D1B2A] outline-none transition-colors placeholder-[#86868B]"
+                  className="auth-input px-4 pr-11"
                 />
                 <span className="absolute right-4 text-[#86868B] pointer-events-none">
                   <User size={16} />
@@ -265,7 +266,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
-                  className="w-full h-12 bg-[#FAF9F7] border border-[#E2DFD8] focus:border-[#0D1B2A] focus:bg-white rounded-xl px-4 pr-11 text-[13px] font-semibold text-[#0D1B2A] outline-none transition-colors placeholder-[#86868B]"
+                  className="auth-input px-4 pr-11"
                 />
                 <span className="absolute right-4 text-[#86868B] pointer-events-none">
                   <Mail size={16} />
@@ -286,7 +287,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Create a secure password"
-                  className="w-full h-12 bg-[#FAF9F7] border border-[#E2DFD8] focus:border-[#0D1B2A] focus:bg-white rounded-xl pl-11 pr-11 text-[13px] font-semibold text-[#0D1B2A] outline-none transition-colors placeholder-[#86868B]"
+                  className="auth-input pl-11 pr-11"
                 />
                 <button
                   type="button"
@@ -301,7 +302,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-12 bg-[#0D1B2A] hover:bg-[#FF6A00] disabled:bg-[#0D1B2A]/40 text-white rounded-xl text-[13px] font-extrabold uppercase tracking-widest transition-all cursor-pointer border-none flex items-center justify-center mt-2 shadow-sm"
+              className="auth-cta w-full border-none flex items-center justify-center mt-2"
             >
               {isSubmitting ? "Sending OTP..." : "Continue"}
             </button>
@@ -322,7 +323,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         {/* ── 2. OTP VERIFICATION VIEW ── */}
         {view === "verify_signup" && (
-          <form onSubmit={handleOtpSubmit} className="flex flex-col gap-5 text-left">
+          <form onSubmit={handleOtpSubmit} className="auth-view flex flex-col gap-5 text-left">
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Verification Code</label>
               <div className="w-full relative flex items-center">
@@ -336,7 +337,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                   placeholder="e.g. 123456"
-                  className="w-full h-12 bg-[#FAF9F7] border border-[#E2DFD8] focus:border-[#0D1B2A] focus:bg-white rounded-xl pl-11 pr-4 text-[16px] font-black tracking-[0.2em] text-[#0D1B2A] outline-none transition-colors placeholder-[#86868B]/40 placeholder:tracking-normal"
+                  className="auth-input pl-11 pr-4 text-[16px] font-black tracking-[0.2em] placeholder:tracking-normal"
                 />
               </div>
             </div>
@@ -344,7 +345,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             <button
               type="submit"
               disabled={isSubmitting || successMsg.includes("verified")}
-              className="w-full h-12 bg-[#0D1B2A] hover:bg-[#FF6A00] disabled:bg-[#0D1B2A]/40 text-white rounded-xl text-[13px] font-extrabold uppercase tracking-widest transition-all cursor-pointer border-none flex items-center justify-center mt-2 shadow-sm"
+              className="auth-cta w-full border-none flex items-center justify-center mt-2"
             >
               {isSubmitting ? "Verifying..." : "Verify Code"}
             </button>
@@ -369,7 +370,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         {/* ── 3. LOGIN VIEW ── */}
         {view === "login" && (
-          <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4 text-left">
+          <form onSubmit={handleLoginSubmit} className="auth-view flex flex-col gap-4 text-left">
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Email Address</label>
               <div className="w-full relative flex items-center">
@@ -379,7 +380,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
-                  className="w-full h-12 bg-[#FAF9F7] border border-[#E2DFD8] focus:border-[#0D1B2A] focus:bg-white rounded-xl px-4 pr-11 text-[13px] font-semibold text-[#0D1B2A] outline-none transition-colors placeholder-[#86868B]"
+                  className="auth-input px-4 pr-11"
                 />
                 <span className="absolute right-4 text-[#86868B] pointer-events-none">
                   <Mail size={16} />
@@ -399,7 +400,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full h-12 bg-[#FAF9F7] border border-[#E2DFD8] focus:border-[#0D1B2A] focus:bg-white rounded-xl pl-11 pr-11 text-[13px] font-semibold text-[#0D1B2A] outline-none transition-colors placeholder-[#86868B]"
+                  className="auth-input pl-11 pr-11"
                 />
                 <button
                   type="button"
@@ -423,7 +424,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-12 bg-[#0D1B2A] hover:bg-[#FF6A00] disabled:bg-[#0D1B2A]/40 text-white rounded-xl text-[13px] font-extrabold uppercase tracking-widest transition-all cursor-pointer border-none flex items-center justify-center mt-2 shadow-sm"
+              className="auth-cta w-full border-none flex items-center justify-center mt-2"
             >
               {isSubmitting ? "Signing in..." : "Sign In"}
             </button>
@@ -451,6 +452,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <span className="text-[#FF6A00] cursor-pointer hover:underline font-semibold">Privacy Policy</span>.
         </div>
 
+        </div>
       </div>
     </div>
   );

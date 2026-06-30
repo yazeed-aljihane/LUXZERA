@@ -73,7 +73,8 @@ export default function VerifyOtpPage() {
 
   return (
     <div className="min-h-screen bg-[#FAF9F7] text-[#0D1B2A] flex items-center justify-center p-6" style={{ fontFamily: "'Inter', sans-serif" }}>
-      <div className="w-full max-w-[440px] bg-white rounded-[24px] border border-[#E7E3DD] shadow-xl p-8 sm:p-10 text-center flex flex-col gap-6">
+      <div className="auth-surface w-full max-w-[440px] rounded-[24px] p-8 sm:p-10 text-center flex flex-col gap-6">
+        <div className="auth-content flex flex-col gap-6">
         
         {/* Brand Header */}
         <div className="flex flex-col items-center">
@@ -88,17 +89,17 @@ export default function VerifyOtpPage() {
 
         {/* Notifications */}
         {errorMsg && (
-          <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-left">
+          <div className="auth-alert p-3.5 bg-red-50 border border-red-200 rounded-xl text-left">
             <p className="text-[11.5px] text-red-600 font-bold leading-normal">{errorMsg}</p>
           </div>
         )}
         {successMsg && (
-          <div className="p-3.5 bg-green-50 border border-green-200 rounded-xl text-left">
+          <div className="auth-alert p-3.5 bg-green-50 border border-green-200 rounded-xl text-left">
             <p className="text-[11.5px] text-green-600 font-bold leading-normal">{successMsg}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-left">
+        <form onSubmit={handleSubmit} className="auth-view flex flex-col gap-5 text-left">
           
           <div className="flex flex-col gap-1.5">
             <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Verification Code</label>
@@ -109,14 +110,14 @@ export default function VerifyOtpPage() {
               value={otp}
               onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
               placeholder="e.g. 123456"
-              className="w-full h-12 bg-[#FAF9F7] border border-[#E2DFD8] focus:border-[#0D1B2A] focus:bg-white rounded-xl px-4 text-[15px] font-black tracking-[0.2em] text-center text-[#0D1B2A] outline-none transition-colors placeholder-[#86868B]/40 placeholder:tracking-normal"
+              className="auth-input px-4 text-[15px] font-black tracking-[0.2em] text-center placeholder:tracking-normal"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading || successMsg.includes("Redirecting")}
-            className="w-full h-12 bg-[#0D1B2A] hover:bg-[#FF6A00] disabled:bg-[#0D1B2A]/40 text-white rounded-xl text-[13px] font-extrabold uppercase tracking-widest transition-all cursor-pointer border-none flex items-center justify-center mt-2 shadow-sm"
+            className="auth-cta w-full border-none flex items-center justify-center mt-2"
           >
             {loading ? "Verifying..." : "Verify Code"}
           </button>
@@ -137,6 +138,7 @@ export default function VerifyOtpPage() {
           </p>
         </div>
 
+        </div>
       </div>
     </div>
   );

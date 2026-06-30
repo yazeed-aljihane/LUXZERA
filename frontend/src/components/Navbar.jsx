@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShoppingBag, User, ShoppingBasket, LogOut, ChevronDown, X, Menu, Search } from "lucide-react";
 import AlmirahIcon from "./AlmirahIcon.jsx";
 
@@ -33,7 +33,10 @@ export default function Navbar({
 }) {
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileOpen,  setMobileOpen]  = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const desktopSearchInputRef = useRef(null);
+  const mobileSearchInputRef = useRef(null);
 
   const handlers = {
     shop:   onShopClick,
@@ -51,12 +54,42 @@ export default function Navbar({
 
   const handleLogout = () => { onLogout?.(); setProfileOpen(false); setMobileOpen(false); };
 
+  useEffect(() => {
+    if (searchOpen) {
+      window.setTimeout(() => {
+        const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+        const input = isDesktop ? desktopSearchInputRef.current : mobileSearchInputRef.current;
+        input?.focus();
+      }, 180);
+    }
+  }, [searchOpen]);
+
+  const openSearch = () => {
+    setSearchOpen(true);
+    setProfileOpen(false);
+    setMobileOpen(false);
+  };
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+  };
+
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     const query = searchQuery.trim();
-    if (!query) return;
+    if (!query) {
+      openSearch();
+      return;
+    }
     onSearch?.(query);
+    setSearchOpen(false);
     setMobileOpen(false);
+  };
+
+  const handleSearchKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeSearch();
+    }
   };
 
   const navLink = (active) =>
@@ -92,7 +125,9 @@ export default function Navbar({
           </button>
 
           {/* CENTER: Navigation Links */}
-          <nav className="flex items-center gap-12">
+          <nav className={`flex items-center gap-12 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            searchOpen ? "opacity-0 scale-[0.98] pointer-events-none -translate-y-0.5" : "opacity-100 scale-100"
+          }`}>
             {NAV_LINKS.map(({ label, value }) => (
               <button
                 key={value}
@@ -108,16 +143,44 @@ export default function Navbar({
           <div className="flex items-center gap-6 text-[#2B2B2B] h-full">
             <form
               onSubmit={handleSearchSubmit}
-              className="hidden lg:flex items-center gap-2 h-9 w-[280px] rounded-full border border-[#E7E3DD] bg-white/70 px-3 focus-within:border-[#5B6EF5]/50 focus-within:bg-white transition-colors"
+              onKeyDown={handleSearchKeyDown}
+              className={`hidden lg:flex items-center h-10 overflow-hidden rounded-full border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                searchOpen
+                  ? "w-[390px] gap-2 border-[#E7E3DD] bg-white/90 px-3 shadow-[0_16px_40px_rgba(13,27,42,0.10)] ring-1 ring-white/80 backdrop-blur-xl"
+                  : "w-10 gap-0 border-transparent bg-transparent px-0 shadow-none"
+              }`}
             >
-              <Search size={15} strokeWidth={1.7} className="text-[#5B6EF5] shrink-0" />
+              <button
+                type="button"
+                onClick={searchOpen ? undefined : openSearch}
+                className={`h-10 w-10 shrink-0 rounded-full flex items-center justify-center transition-colors ${
+                  searchOpen ? "text-[#5B6EF5]" : "text-[#2B2B2B]/75 hover:text-[#5B6EF5] hover:bg-white/60"
+                }`}
+                aria-label="Open search"
+              >
+                <Search size={16} strokeWidth={1.7} />
+              </button>
               <input
+                ref={desktopSearchInputRef}
                 type="search"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
+                onFocus={() => setSearchOpen(true)}
                 placeholder="Search winter fits, linen shirts..."
-                className="min-w-0 flex-1 bg-transparent outline-none text-[11px] font-semibold text-[#2B2B2B] placeholder:text-[#2B2B2B]/35"
+                className={`min-w-0 flex-1 bg-transparent outline-none text-[12px] font-semibold text-[#2B2B2B] placeholder:text-[#2B2B2B]/35 transition-all duration-300 ${
+                  searchOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2 pointer-events-none"
+                }`}
               />
+              <button
+                type="button"
+                onClick={closeSearch}
+                className={`h-7 w-7 shrink-0 rounded-full bg-[#F2EFEA] text-[#2B2B2B]/55 hover:text-[#2B2B2B] flex items-center justify-center transition-all duration-300 ${
+                  searchOpen ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"
+                }`}
+                aria-label="Close search"
+              >
+                <X size={13} strokeWidth={2} />
+              </button>
             </form>
 
             {/* Wardrobe Icon */}
@@ -239,6 +302,13 @@ export default function Navbar({
           />
         </button>
         <div className="flex items-center gap-5">
+          <button
+            onClick={searchOpen ? closeSearch : openSearch}
+            className="relative text-[#2B2B2B]/80 hover:text-[#5B6EF5] transition-colors"
+            aria-label={searchOpen ? "Close search" : "Open search"}
+          >
+            {searchOpen ? <X size={17} strokeWidth={1.7} /> : <Search size={17} strokeWidth={1.7} />}
+          </button>
           <button onClick={onWardrobeClick} className="relative text-[#2B2B2B]/80 hover:text-[#C6A15B] transition-colors" title="My Wardrobe">
             <AlmirahIcon size={17} strokeWidth={1.5} />
             {wardrobeCount > 0 && (
@@ -261,6 +331,24 @@ export default function Navbar({
         </div>
       </header>
 
+      <div className={`md:hidden sticky top-[3.5rem] z-40 overflow-hidden border-b border-[#E7E3DD] bg-[#FAF9F7]/95 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        searchOpen ? "max-h-20 opacity-100 shadow-[0_18px_35px_rgba(13,27,42,0.08)]" : "max-h-0 opacity-0"
+      }`}>
+        <form onSubmit={handleSearchSubmit} onKeyDown={handleSearchKeyDown} className="px-5 py-3">
+          <div className="flex items-center gap-2 h-11 rounded-full border border-[#E7E3DD] bg-white/90 px-4 ring-1 ring-white/80">
+            <Search size={15} strokeWidth={1.7} className="text-[#5B6EF5] shrink-0" />
+            <input
+              ref={mobileSearchInputRef}
+              type="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search with LuxZera AI"
+              className="min-w-0 flex-1 bg-transparent outline-none text-[12px] font-semibold text-[#2B2B2B] placeholder:text-[#2B2B2B]/35"
+            />
+          </div>
+        </form>
+      </div>
+
       {mobileOpen && (
         <div className="md:hidden bg-[#FAF9F7] border-b border-[#E7E3DD] px-6 py-6 flex flex-col gap-4 z-40 text-[#2B2B2B] animate-in fade-in duration-200">
           {NAV_LINKS.map(({ label, value }) => (
@@ -271,16 +359,6 @@ export default function Navbar({
             </button>
           ))}
           <div className="h-px bg-[#E7E3DD] my-2" />
-          <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 h-11 rounded-full border border-[#E7E3DD] bg-white px-4">
-            <Search size={15} strokeWidth={1.7} className="text-[#5B6EF5] shrink-0" />
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Search with LuxZera AI"
-              className="min-w-0 flex-1 bg-transparent outline-none text-[12px] font-semibold text-[#2B2B2B] placeholder:text-[#2B2B2B]/35"
-            />
-          </form>
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
             className="w-full bg-[#2B2B2B] text-[#FAF9F7] text-[10px] uppercase tracking-[0.2em] font-medium py-3 hover:bg-[#5B6EF5] transition-colors">

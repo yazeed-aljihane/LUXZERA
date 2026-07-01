@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AlmirahIcon from "./AlmirahIcon.jsx";
 import { useCart }     from "../context/CartContext.jsx";
 import { useWardrobe } from "../context/WardrobeContext.jsx";
+import MobileProductCard from "../mobile/MobileProductCard.jsx";
 
 export default function ProductCard({ product, onViewProduct }) {
   const [added, setAdded] = useState(false);
@@ -45,11 +46,15 @@ export default function ProductCard({ product, onViewProduct }) {
   const { origin, season } = getDesignerDetails(product.brand);
 
   return (
+    <>
+    <div className="sm:hidden">
+      <MobileProductCard product={product} onViewProduct={onViewProduct} />
+    </div>
     <a
       href={`/product/${product.id}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col bg-transparent cursor-pointer text-left font-sans select-none"
+      className="hidden sm:flex group relative flex-col bg-transparent cursor-pointer text-left font-sans select-none"
     >
       {/* Image */}
       <div className="relative aspect-[3/4.2] overflow-hidden bg-[#FAF9F7] border border-[#E7E3DD] select-none flex items-center justify-center rounded-2xl shadow-sm">
@@ -107,5 +112,6 @@ export default function ProductCard({ product, onViewProduct }) {
         </div>
       </div>
     </a>
+    </>
   );
 }

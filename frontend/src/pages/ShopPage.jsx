@@ -131,9 +131,9 @@ export default function ShopPage({ initialDepartment = "All" }) {
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{ backgroundImage: "radial-gradient(#2B2B2B 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
         
-        <div className="max-w-[1380px] mx-auto px-6 md:px-12 pt-10 pb-4 relative z-10">
+        <div className="max-w-[1380px] mx-auto px-5 sm:px-6 md:px-12 pt-7 md:pt-10 pb-4 relative z-10">
           {/* Custom logo themed header: First word Orange (Lux theme), second word Navy (Zera theme) */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black uppercase leading-[0.88] tracking-[-0.025em]">
+          <h1 className="text-[3.2rem] min-[390px]:text-[3.8rem] sm:text-5xl md:text-6xl font-black uppercase leading-[0.86] tracking-[-0.055em] md:tracking-[-0.025em]">
             <span style={{ color: "#F07020" }}>{meta.title}</span>{" "}
             <span style={{ color: "#1E2D4A" }}>{meta.suffix}</span>
           </h1>
@@ -151,10 +151,10 @@ export default function ShopPage({ initialDepartment = "All" }) {
       </div>
 
       {/* ── MOBILE TRIGGER row (Only visible on mobile screens) ── */}
-      <div className="md:hidden px-6 pb-4">
+      <div className="md:hidden px-5 pb-4">
         <button
           onClick={() => setMobileFilterOpen(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#E7E3DD] text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#2B2B2B] bg-[#FAF9F7] w-full justify-center shadow-xs"
+          className="inline-flex h-12 items-center gap-2 px-4 rounded-full border border-[#E7E3DD] text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#2B2B2B] bg-white w-full justify-center shadow-sm"
         >
           <SlidersHorizontal size={12} />
           Filters & Sort {filterCount > 0 && `(${filterCount})`}
@@ -162,7 +162,7 @@ export default function ShopPage({ initialDepartment = "All" }) {
       </div>
 
       {/* ── TWO-COLUMN CONTENT GRID ────────────────────────────────────────── */}
-      <div className="max-w-[1380px] mx-auto px-6 md:px-12 py-4 flex gap-10 items-start">
+      <div className="max-w-[1380px] mx-auto px-5 sm:px-6 md:px-12 py-4 flex gap-10 items-start">
         
         {/* Permanent Left Sidebar (Hidden on mobile) */}
         <aside className="hidden md:block w-64 shrink-0 sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-3 scrollbar-none">
@@ -191,7 +191,7 @@ export default function ShopPage({ initialDepartment = "All" }) {
         {/* Product Grid Content area */}
         <div className="flex-1 min-w-0">
           {loadingProducts ? (
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-6 sm:gap-y-10">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
                 <div key={item} className="animate-pulse">
                   <div className="aspect-[3/4.2] rounded-2xl bg-[#F2EFEA] border border-[#E7E3DD]" />
@@ -229,7 +229,7 @@ export default function ShopPage({ initialDepartment = "All" }) {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-5 gap-y-6 sm:gap-y-10">
               {displayed.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

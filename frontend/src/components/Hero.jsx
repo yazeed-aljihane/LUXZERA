@@ -1,5 +1,6 @@
 // src/components/Hero.jsx
 import { ArrowRight, Sparkles } from "lucide-react";
+import MobileHero from "../mobile/MobileHero.jsx";
 
 const IMG_1 = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=85";
 const IMG_2 = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80";
@@ -8,7 +9,11 @@ const IMG_4 = "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=50
 
 export default function Hero({ onShopNow }) {
   return (
-    <section className="w-full bg-[#FAF9F7] font-sans select-none overflow-hidden border-b border-[#E7E3DD]">
+    <>
+    <div className="md:hidden">
+      <MobileHero onShopNow={onShopNow} />
+    </div>
+    <section className="hidden md:block w-full bg-[#FAF9F7] font-sans select-none overflow-hidden border-b border-[#E7E3DD]">
 
       {/* ═══ TOP HERO CANVAS ═══ */}
       <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-14 pb-0">
@@ -200,5 +205,6 @@ export default function Hero({ onShopNow }) {
 
       </div>
     </section>
+    </>
   );
 }

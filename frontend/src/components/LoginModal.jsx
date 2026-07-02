@@ -1,4 +1,6 @@
 import { GoogleLogin } from "@react-oauth/google";
+import { googleLogin, getCurrentUser } from "../services/auth";
+import { setToken } from "../utils/token";
 
 export default function LoginModal({
   isOpen,
@@ -13,38 +15,9 @@ export default function LoginModal({
   ) => {
 
     try {
-
-      const response = await fetch(
-        "http://localhost:8081/api/auth/google",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            idToken: credentialResponse.credential
-          })
-        }
-      );
-
-      const data = await response.json();
-
-      localStorage.setItem(
-        "token",
-        data.accessToken
-      );
-
-      const profileResponse = await fetch(
-        "http://localhost:8081/api/users/me",
-        {
-          headers: {
-            Authorization: `Bearer ${data.accessToken}`
-          }
-        }
-      );
-
-      const profile =
-        await profileResponse.json();
+      const data = await googleLogin(credentialResponse.credential);
+      setToken(data.accessToken || data.token);
+      const profile = await getCurrentUser();
 
       onLoginSuccess(profile);
 

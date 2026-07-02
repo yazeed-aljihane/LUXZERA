@@ -1,6 +1,5 @@
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:8081/api';
+import axios from "axios";
+import { API_BASE_URL } from "./axios";
 
 export const searchProductsAi = async (query) => {
     try {

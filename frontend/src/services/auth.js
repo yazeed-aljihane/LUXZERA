@@ -39,7 +39,6 @@ export const completeGoogleSignup = async (username, password, email) => {
   const response = await axiosInstance.post("/auth/complete-google-signup", {
     username,
     password,
-    email,
   });
   return response.data;
 };

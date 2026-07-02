@@ -2,7 +2,7 @@
 import axios from "axios";
 import { getToken, removeToken } from "../utils/token";
 
-const API_BASE_URL = "http://localhost:8081/api";
+export const API_BASE_URL = "https://zera-server.onrender.com/api";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -15,8 +15,18 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = getToken();
-    if (token) {
+    const url = config.url || "";
+    const isAuthEndpoint = url.startsWith("/auth/");
+    const isSearchEndpoint = url.startsWith("/search/");
+    const requiresToken =
+      token &&
+      (!isAuthEndpoint || url.startsWith("/auth/complete-google-signup")) &&
+      !isSearchEndpoint;
+
+    if (requiresToken) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      delete config.headers.Authorization;
     }
     return config;
   },

@@ -1,7 +1,7 @@
 // src/components/AuthModal.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { X, Mail, Lock, Eye, EyeOff, User, Hash } from "lucide-react";
+import { X, Mail, Eye, EyeOff, User, Hash } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import { register as apiRegister, verifyOtp as apiVerifyOtp, resendOtp as apiResendOtp } from "../services/auth";
 
@@ -278,16 +278,13 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Password</label>
               <div className="w-full relative flex items-center">
-                <span className="absolute left-4 text-[#86868B] pointer-events-none">
-                  <Lock size={16} />
-                </span>
                 <input
                   required
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Create a secure password"
-                  className="auth-input pl-11 pr-11"
+                  className="auth-input px-4 pr-11"
                 />
                 <button
                   type="button"
@@ -391,16 +388,13 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             <div className="flex flex-col gap-1.5 relative">
               <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Password</label>
               <div className="w-full relative flex items-center">
-                <span className="absolute left-4 text-[#86868B] pointer-events-none">
-                  <Lock size={16} />
-                </span>
                 <input
                   required
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="auth-input pl-11 pr-11"
+                  className="auth-input px-4 pr-11"
                 />
                 <button
                   type="button"

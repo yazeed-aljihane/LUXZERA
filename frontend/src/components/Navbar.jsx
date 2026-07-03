@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag, User, ShoppingBasket, LogOut, ChevronDown, X, Menu, Search } from "lucide-react";
+import { ShoppingBag, User, ShoppingBasket, LogOut, ChevronDown, X, Menu, Search, Sparkles } from "lucide-react";
 import AlmirahIcon from "./AlmirahIcon.jsx";
 
 const NAV_LINKS = [
@@ -30,6 +30,7 @@ export default function Navbar({
   onOrdersClick,
   onLogout,
   onSearch,
+  onDesignerClick,
 }) {
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileOpen,  setMobileOpen]  = useState(false);
@@ -218,61 +219,122 @@ export default function Navbar({
 
             {/* Auth / Profile dropdown */}
             {currentUser ? (
-              <div className="relative">
+              <div className="flex items-center gap-4">
+                {/* Premium Creator Pill Button */}
                 <button
-                  onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-1 group"
+                  onClick={onDesignerClick}
+                  className="group flex items-center gap-2.5 pl-1 pr-3.5 py-1.5 rounded-full bg-[#1d1d1f] hover:bg-[#F07020] transition-all duration-200 active:scale-[0.98] shrink-0"
                 >
-                  <div className="w-[24px] h-[24px] rounded-full overflow-hidden bg-[#F2EFEA] border border-[#2B2B2B]/10 flex items-center justify-center text-[9px] font-bold text-[#2B2B2B]">
-                    {profileImage
-                      ? <img src={profileImage} alt="" className="w-full h-full object-cover" />
-                      : (currentUser.firstName?.[0] || "U")}
+                  <div className="w-[20px] h-[20px] rounded-full bg-[#F07020] group-hover:bg-[#1d1d1f] flex items-center justify-center transition-colors duration-200">
+                    <Sparkles size={10} strokeWidth={2.2} className="text-white fill-white/10 group-hover:text-white" />
                   </div>
-                  <ChevronDown
-                    size={10}
-                    strokeWidth={2}
-                    className="text-[#2B2B2B]/40 group-hover:text-[#5B6EF5] transition-colors"
-                  />
+                  <span className="text-[10px] font-bold text-[#FAF9F7] tracking-wide select-none">
+                    {currentUser?.role === "DESIGNER" || currentUser?.isDesigner ? "Studio Pro" : "Become Creator"}
+                  </span>
                 </button>
 
-                {profileOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                    <div className="absolute right-0 mt-3 w-56 z-50 border border-[#E7E3DD] bg-[#FAF9F7] shadow-[0_10px_30px_rgba(0,0,0,0.04)] overflow-hidden animate-in fade-in zoom-in-95 duration-100 origin-top-right">
-                      {/* Profile header */}
-                      <div className="flex flex-col px-4 pt-4 pb-3 border-b border-[#E7E3DD]">
-                        <p className="text-[12px] uppercase tracking-wider font-semibold text-[#2B2B2B] leading-tight truncate">{profileFullName}</p>
-                        <p className="text-[10px] text-[#2B2B2B]/55 truncate mt-1 font-mono tracking-tight">{profileEmail}</p>
-                      </div>
-                      {/* Menu */}
-                      <div className="py-1 px-1">
-                        {[
-                          { icon: <User size={12} strokeWidth={1.5} />,          label: "My Account", action: () => { onAccountClick?.(); setProfileOpen(false); } },
-                          { icon: <ShoppingBasket size={12} strokeWidth={1.5} />, label: "Orders",     action: () => { onOrdersClick?.();  setProfileOpen(false); } },
-                          { icon: <AlmirahIcon size={12} strokeWidth={1.5} />,       label: "Wardrobe",   action: () => { onWardrobeClick?.(); setProfileOpen(false); } },
-                        ].map(({ icon, label, action }) => (
-                          <button key={label} onClick={action}
-                            className="w-full flex items-center gap-2.5 px-3 py-2 text-left text-[11px] uppercase tracking-wider font-medium text-[#2B2B2B]/75 hover:text-[#5B6EF5] hover:bg-[#F2EFEA]/60 transition-colors">
-                            <span className="text-[#2B2B2B]/40">{icon}</span>{label}
-                          </button>
-                        ))}
-                        <div className="h-px bg-[#E7E3DD] my-1" />
-                        <button onClick={handleLogout}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 text-left text-[11px] uppercase tracking-wider font-semibold text-red-700 hover:bg-red-50/50 transition-colors">
-                          <LogOut size={12} strokeWidth={1.5} className="text-red-600" />Logout
-                        </button>
-                      </div>
-                      {/* Footer */}
-                      <div className="border-t border-[#E7E3DD] h-10 bg-[#F2EFEA]/30 flex items-center justify-center">
-                        <img 
-                          src="/LuxZera.png" 
-                          alt="LuxZera" 
-                          className="h-3 w-auto object-contain opacity-60" 
-                        />
-                      </div>
+                {/* Profile Trigger */}
+                <div className="relative">
+                  <button
+                    onClick={() => setProfileOpen(!profileOpen)}
+                    className="flex items-center focus:outline-none"
+                    aria-label="User profile menu"
+                  >
+                    <div className={`w-8 h-8 rounded-full overflow-hidden bg-[#FAF9F7] border border-[#1d1d1f]/10 flex items-center justify-center transition-all duration-200 ${
+                      profileOpen ? "ring-2 ring-[#F07020] ring-offset-2 ring-offset-[#FAF9F7]" : "hover:scale-102 hover:border-[#F07020]/30"
+                    }`}>
+                      {profileImage ? (
+                        <img src={profileImage} alt="" className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-[11px] font-bold text-[#1d1d1f]">{currentUser.firstName?.[0] || "U"}</span>
+                      )}
                     </div>
-                  </>
-                )}
+                  </button>
+
+                  {profileOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
+                      <div className="absolute right-0 mt-2.5 w-56 z-50 border border-[#1d1d1f]/10 bg-white/95 backdrop-blur-md shadow-[0_12px_30px_rgba(0,0,0,0.08)] rounded-xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150 origin-top-right">
+                        {/* Profile header */}
+                        <div className="px-4 py-3 border-b border-[#1d1d1f]/5 bg-[#1d1d1f]/[0.02]">
+                          <div className="flex items-center gap-1.5 justify-between">
+                            <span className="text-[12px] font-semibold text-[#1d1d1f] truncate leading-tight">
+                              {profileFullName}
+                            </span>
+                            {(currentUser?.role === "DESIGNER" || currentUser?.isDesigner) && (
+                              <span className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-[#F07020]/10 text-[#F07020] border border-[#F07020]/10 shrink-0">
+                                Pro
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[10px] text-[#1d1d1f]/45 truncate mt-1 font-mono tracking-tight leading-none">
+                            {profileEmail}
+                          </p>
+                        </div>
+
+                        {/* Menu */}
+                        <div className="p-1 flex flex-col gap-0.5">
+                          {[
+                            { 
+                              icon: <User size={14} strokeWidth={1.5} />, 
+                              label: "My Account", 
+                              action: () => { onAccountClick?.(); setProfileOpen(false); } 
+                            },
+                            { 
+                              icon: <ShoppingBag size={14} strokeWidth={1.5} />, 
+                              label: "Orders", 
+                              action: () => { onOrdersClick?.(); setProfileOpen(false); } 
+                            },
+                            { 
+                              icon: <AlmirahIcon size={14} strokeWidth={1.5} />, 
+                              label: "Wardrobe", 
+                              action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
+                            },
+                            (currentUser?.role === "DESIGNER" || currentUser?.isDesigner) ? {
+                              icon: <Sparkles size={14} strokeWidth={1.5} />,
+                              label: "Designer Studio",
+                              action: () => { onDesignerClick?.(); setProfileOpen(false); }
+                            } : {
+                              icon: <Sparkles size={14} strokeWidth={1.5} />,
+                              label: "Become Creator",
+                              action: () => { onDesignerClick?.(); setProfileOpen(false); }
+                            }
+                          ].map(({ icon, label, action }) => (
+                            <button 
+                              key={label} 
+                              onClick={action}
+                              className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-normal rounded-lg text-[#1d1d1f] hover:text-white hover:bg-[#F07020] transition-colors duration-100"
+                            >
+                              <span className="text-[#1d1d1f]/45 group-hover:text-white transition-colors duration-100">
+                                {icon}
+                              </span>
+                              {label}
+                            </button>
+                          ))}
+                          <div className="h-[1px] bg-[#1d1d1f]/5 my-1 mx-1" />
+                          <button 
+                            onClick={handleLogout}
+                            className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-medium rounded-lg text-red-600 hover:text-white hover:bg-[#F07020] transition-colors duration-100"
+                          >
+                            <span className="text-red-500/85 group-hover:text-white transition-colors duration-100">
+                              <LogOut size={14} strokeWidth={1.5} />
+                            </span>
+                            Sign out
+                          </button>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="border-t border-[#1d1d1f]/5 py-3 bg-[#1d1d1f]/[0.02] flex items-center justify-center">
+                          <img 
+                            src="/LuxZera.png" 
+                            alt="LuxZera" 
+                            className="h-3.5 w-auto object-contain transition-all duration-300 filter drop-shadow-[0_0_8px_rgba(240,112,32,0.45)] hover:scale-105 hover:drop-shadow-[0_0_12px_rgba(240,112,32,0.65)]" 
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             ) : (
               <button

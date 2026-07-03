@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   // Auto-login on mount if a token is present
   useEffect(() => {
     const initAuth = async () => {
+      const startTime = Date.now();
       const token = getToken();
       if (token) {
         try {
@@ -25,7 +26,14 @@ export const AuthProvider = ({ children }) => {
           console.error("Auto-login failed:", error);
         }
       }
-      setLoading(false);
+      
+      const elapsed = Date.now() - startTime;
+      const minDelay = 800; // Enforce 800ms minimum loader display duration for smooth transitions
+      const remaining = Math.max(0, minDelay - elapsed);
+      
+      setTimeout(() => {
+        setLoading(false);
+      }, remaining);
     };
 
     initAuth();

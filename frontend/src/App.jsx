@@ -42,7 +42,7 @@ export default function App() {
   const { cartCount } = useCart();
   const { wardrobeCount } = useWardrobe();
 
-  const { user: currentUser, logout: handleLogout, setUser: setCurrentUser } = useAuth();
+  const { user: currentUser, loading: authLoading, logout: handleLogout, setUser: setCurrentUser } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
   const [authInitialView, setAuthInitialView] = useState("login");
 
@@ -107,6 +107,10 @@ export default function App() {
           onOrdersClick={() => navigate("/orders")}
           onLogout={handleLogout}
           onSearch={handleSearch}
+          onDesignerClick={() => {
+            const isDesigner = currentUser?.role === "DESIGNER" || currentUser?.isDesigner;
+            navigate(isDesigner ? "/designer-studio" : "/become-designer");
+          }}
         />
       )}
 
@@ -117,6 +121,7 @@ export default function App() {
             element={
               <AccountPage
                 currentUser={currentUser}
+                authLoading={authLoading}
                 onUserChange={setCurrentUser}
               />
             }

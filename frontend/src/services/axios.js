@@ -2,7 +2,7 @@
 import axios from "axios";
 import { getToken, removeToken } from "../utils/token";
 
-export const API_BASE_URL = "https://zera-server.onrender.com/api";
+export const API_BASE_URL = "http://localhost:8081/api";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,

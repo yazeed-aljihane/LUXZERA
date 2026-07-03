@@ -4,6 +4,7 @@ import AccountSidebar from "../components/account/AccountSidebar";
 import AccountView from "../components/account/AccountView";
 import AddressManagementView from "../components/account/AddressManagementView";
 import MeasurementsView from "../components/account/MeasurementsView";
+import PaymentMethodsView from "../components/account/PaymentMethodsView";
 import { getProfileDetails, updateProfile, updateUserDetails, getMeasurements } from "../services/userService";
 
 const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
@@ -273,6 +274,10 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
                   initialMeasurements={initialMeasurements}
                   onSaveSuccess={(updated) => setInitialMeasurements(updated)}
                 />
+              )}
+
+              {activeTab === "payments" && (
+                <PaymentMethodsView userId={user.id} />
               )}
 
             </div>

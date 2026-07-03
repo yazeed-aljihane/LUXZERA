@@ -5,6 +5,8 @@ import AccountView from "../components/account/AccountView";
 import AddressManagementView from "../components/account/AddressManagementView";
 import MeasurementsView from "../components/account/MeasurementsView";
 import PaymentMethodsView from "../components/account/PaymentMethodsView";
+import OrdersView from "../components/account/OrdersView";
+import CustomerCareView from "../components/account/CustomerCareView";
 import { getProfileDetails, updateProfile, updateUserDetails, getMeasurements } from "../services/userService";
 
 const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
@@ -278,6 +280,17 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
 
               {activeTab === "payments" && (
                 <PaymentMethodsView userId={user.id} />
+              )}
+
+              {activeTab === "orders" && (
+                <OrdersView 
+                  userId={user.id} 
+                  onNavigateToTab={(tab) => setActiveTab(tab)} 
+                />
+              )}
+
+              {activeTab === "support" && (
+                <CustomerCareView userId={user.id} />
               )}
 
             </div>

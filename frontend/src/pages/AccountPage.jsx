@@ -244,55 +244,55 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
 
           {/* Premium Right Dynamic Content Card Panel */}
           <div className="col-span-12 md:col-span-8">
-            <div className="w-full bg-white rounded-2xl border border-slate-200/60 pt-5 px-6 pb-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] relative">
-              
-              {/* Conditional view rendering depending on active tab */}
-              {activeTab === "profile" && (
-                <>
-                  {loading ? (
-                    <CreativeLoader />
-                  ) : (
-                    <AccountView 
-                      formData={formData}
-                      user={user} 
-                      profile={profile}
-                      onFormChange={handleFormChange}
-                      onSave={handleSave}
-                      saving={saving}
-                      successMsg={successMsg}
-                      errorMsg={errorMsg}
-                    />
-                  )}
-                </>
-              )}
+            <div className="w-full bg-white rounded-2xl border border-slate-200/60 pt-5 px-6 pb-5 shadow-[0_4px_24px_rgba(0,0,0,0.02)] h-[440px] flex flex-col relative overflow-hidden">
+              <div className="flex-1 overflow-y-auto pr-1">
+                {/* Conditional view rendering depending on active tab */}
+                {activeTab === "profile" && (
+                  <>
+                    {loading ? (
+                      <CreativeLoader />
+                    ) : (
+                      <AccountView 
+                        formData={formData}
+                        user={user} 
+                        profile={profile}
+                        onFormChange={handleFormChange}
+                        onSave={handleSave}
+                        saving={saving}
+                        successMsg={successMsg}
+                        errorMsg={errorMsg}
+                      />
+                    )}
+                  </>
+                )}
 
-              {activeTab === "addresses" && (
-                <AddressManagementView userId={user.id} />
-              )}
+                {activeTab === "addresses" && (
+                  <AddressManagementView userId={user.id} />
+                )}
 
-              {activeTab === "measurements" && (
-                <MeasurementsView 
-                  userId={user.id} 
-                  initialMeasurements={initialMeasurements}
-                  onSaveSuccess={(updated) => setInitialMeasurements(updated)}
-                />
-              )}
+                {activeTab === "measurements" && (
+                  <MeasurementsView 
+                    userId={user.id} 
+                    initialMeasurements={initialMeasurements}
+                    onSaveSuccess={(updated) => setInitialMeasurements(updated)}
+                  />
+                )}
 
-              {activeTab === "payments" && (
-                <PaymentMethodsView userId={user.id} />
-              )}
+                {activeTab === "payments" && (
+                  <PaymentMethodsView userId={user.id} />
+                )}
 
-              {activeTab === "orders" && (
-                <OrdersView 
-                  userId={user.id} 
-                  onNavigateToTab={(tab) => setActiveTab(tab)} 
-                />
-              )}
+                {activeTab === "orders" && (
+                  <OrdersView 
+                    userId={user.id} 
+                    onNavigateToTab={(tab) => setActiveTab(tab)} 
+                  />
+                )}
 
-              {activeTab === "support" && (
-                <CustomerCareView userId={user.id} />
-              )}
-
+                {activeTab === "support" && (
+                  <CustomerCareView userId={user.id} />
+                )}
+              </div>
             </div>
           </div>
 

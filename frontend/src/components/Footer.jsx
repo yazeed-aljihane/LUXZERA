@@ -16,7 +16,7 @@ export default function Footer({ onShopNow }) {
   };
 
   return (
-    <footer className="w-full bg-[#FAF9F7] text-[#2B2B2B] select-none border-t border-[#E7E3DD] font-sans">
+    <footer className="w-full bg-[#FFFFFF] text-[#2B2B2B] border-t border-[#E7E3DD] font-sans">
       <div className="max-w-7xl mx-auto px-6 md:px-10 pt-20 pb-16">
         
         {/* 12-Column Grid System with Optical Offsets */}
@@ -82,7 +82,7 @@ export default function Footer({ onShopNow }) {
                   <button
                     key={item.label}
                     onClick={() => handleLinkClick(item.path)}
-                    className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
+                    className="text-[13.5px] text-[#111111] font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                   >
                     {item.label}
                   </button>
@@ -106,7 +106,7 @@ export default function Footer({ onShopNow }) {
                   <button
                     key={item.label}
                     onClick={() => handleLinkClick(item.path)}
-                    className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
+                    className="text-[13.5px] text-[#111111] font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                   >
                     {item.label}
                   </button>
@@ -132,7 +132,7 @@ export default function Footer({ onShopNow }) {
                   <button
                     key={item.label}
                     onClick={() => handleLinkClick(item.path)}
-                    className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
+                    className="text-[13.5px] text-[#111111] font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                   >
                     {item.label}
                   </button>
@@ -155,7 +155,7 @@ export default function Footer({ onShopNow }) {
                     <button
                       key={item.label}
                       onClick={() => handleLinkClick(item.path)}
-                      className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
+                      className="text-[13.5px] text-[#111111] font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                     >
                       {item.label}
                     </button>

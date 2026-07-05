@@ -206,7 +206,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         {/* Brand Header */}
         <div className="flex flex-col items-center mt-2">
           <button onClick={() => { closeAndReset(); navigate("/"); }} className="cursor-pointer flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
-            <img src="/LuxZera.png" alt="LuxZera" className="h-10 w-auto object-contain" />
+            <img src="/logo.png" alt="LuxZera" className="h-10 w-auto object-contain" />
           </button>
           
           <h2 className="text-[28px] font-black text-[#0D1B2A] font-serif mt-5 tracking-tight leading-tight">

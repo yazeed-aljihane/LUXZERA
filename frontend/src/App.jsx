@@ -172,15 +172,15 @@ export default function App() {
       {!isHideLayout && <Footer onShopNow={() => navigate("/market")} />}
 
       {showFloatingCart && (
-        <div className="fixed bottom-6 right-6 z-50 animate-fade-in-up">
+        <div className="fixed bottom-8 right-8 z-50 animate-fade-in-up">
           <button
             onClick={() => navigate("/cart")}
-            className="h-12 px-6 bg-[#5B6EF5] hover:bg-[#4a5de0] text-[#FAF9F7] font-extrabold uppercase text-[10px] tracking-[0.25em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_8px_24px_rgba(91,110,245,0.35)] group"
+            className="h-11 px-5 bg-[#F07020] hover:bg-[#e05f10] text-[#FAF9F7] font-bold uppercase text-[10px] tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_12px_24px_-6px_rgba(240,112,32,0.4)] group hover:scale-[1.03] active:scale-[0.98] cursor-pointer border-none"
           >
             View Bag ({cartCount})
             <ArrowRight
               size={12}
-              strokeWidth={1.5}
+              strokeWidth={1.7}
               className="transition-transform duration-200 group-hover:translate-x-0.5"
             />
           </button>

@@ -205,7 +205,7 @@ export default function DesignerOnboardingPage() {
       {/* HEADER SECTION */}
       <div className="w-full max-w-[560px] flex flex-col items-center text-center">
         <button onClick={() => navigate("/")} className="cursor-pointer mb-6 flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
-          <img src="/LuxZera.png" alt="LuxZera" className="h-10 w-auto object-contain" />
+          <img src="/logo.png" alt="LuxZera" className="h-10 w-auto object-contain" />
         </button>
 
         {/* Title & Subtitle */}

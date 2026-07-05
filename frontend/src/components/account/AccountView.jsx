@@ -1,5 +1,6 @@
 import React from 'react';
 import { Camera } from "lucide-react";
+import Loader from "../Loader";
 
 const AccountView = ({ 
   formData, 
@@ -50,15 +51,8 @@ const AccountView = ({
 
       {/* Saving / Loading Spinner Overlay */}
       {saving && (
-        <div className="absolute inset-0 bg-transparent rounded-2xl flex flex-col items-center justify-center z-20 animate-fade-in">
-          <div className="relative w-20 h-16 flex items-center justify-center animate-pulse-glow">
-            <svg className="w-full h-full text-[#FF8C33]" viewBox="0 0 100 80" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path 
-                className="animate-draw-path"
-                d="M 46 22 C 46 15, 54 13, 54 22 C 54 28, 50 30, 50 36 L 15 60 L 85 60 Z"
-              />
-            </svg>
-          </div>
+        <div className="absolute inset-0 bg-[#FAF9F7]/70 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-20 animate-fade-in">
+          <Loader size="w-10 h-10" />
         </div>
       )}
 

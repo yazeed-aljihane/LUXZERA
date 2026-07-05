@@ -8,6 +8,7 @@ import PaymentMethodsView from "../components/account/PaymentMethodsView";
 import OrdersView from "../components/account/OrdersView";
 import CustomerCareView from "../components/account/CustomerCareView";
 import { getProfileDetails, updateProfile, updateUserDetails, getMeasurements } from "../services/userService";
+import Loader from "../components/Loader";
 
 const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
   const navigate = useNavigate();
@@ -156,44 +157,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
   };
 
   const CreativeLoader = () => (
-    <div className="flex flex-col items-center justify-center py-16 animate-fade-in">
-      <style>{`
-        .animate-draw-path {
-          stroke-dasharray: 300;
-          animation: path-draw 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-        .animate-pulse-glow {
-          animation: pulse-glow 2.5s ease-in-out infinite;
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        @keyframes path-draw {
-          0% { stroke-dashoffset: 300; }
-          50% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: -300; }
-        }
-        @keyframes pulse-glow {
-          0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 140, 51, 0.15)); opacity: 0.8; }
-          50% { filter: drop-shadow(0 0 10px rgba(255, 140, 51, 0.6)); opacity: 1; }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
-      <div className="relative w-28 h-24 flex items-center justify-center animate-pulse-glow">
-        <svg className="w-full h-full text-[#FF8C33]" viewBox="0 0 100 80" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path 
-            className="animate-draw-path"
-            d="M 46 22 C 46 15, 54 13, 54 22 C 54 28, 50 30, 50 36 L 15 60 L 85 60 Z"
-          />
-        </svg>
-      </div>
-      <div className="text-[9px] tracking-[0.45em] font-semibold text-slate-400/80 mt-5 uppercase animate-pulse pl-[0.45em]">
-        LuxZera
-      </div>
-    </div>
+    <Loader className="py-16" />
   );
 
   if (authLoading) {

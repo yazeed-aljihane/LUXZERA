@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Edit2, Trash2, Copy, Check, Star, MapPin } from "lucide-react";
 import { getAddresses, createAddress, updateAddress, deleteAddress, setDefaultAddress } from "../../services/userService";
+import Loader from "../Loader";
 
 const AddressManagementView = ({ userId }) => {
   const [addresses, setAddresses] = useState([]);
@@ -115,7 +116,7 @@ const AddressManagementView = ({ userId }) => {
   if (loading) {
     return (
       <div className="py-10 text-center">
-        <div className="w-8 h-8 border-4 border-[#FF8C33] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <Loader size="w-8 h-8" className="mb-4" />
         <p className="text-sm text-slate-500 font-medium">Loading your addresses...</p>
       </div>
     );

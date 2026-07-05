@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Sliders } from "lucide-react";
 import { getMeasurements, saveMeasurements } from "../../services/userService";
+import Loader from "../Loader";
 
 const MeasurementsView = ({ userId, initialMeasurements, onSaveSuccess }) => {
   const [measurements, setMeasurements] = useState(initialMeasurements || {
@@ -67,41 +68,9 @@ const MeasurementsView = ({ userId, initialMeasurements, onSaveSuccess }) => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 animate-fade-in">
-        <style>{`
-          .animate-draw-path {
-            stroke-dasharray: 300;
-            animation: path-draw 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-          }
-          .animate-pulse-glow {
-            animation: pulse-glow 2.5s ease-in-out infinite;
-          }
-          .animate-fade-in {
-            animation: fadeIn 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-          }
-          @keyframes path-draw {
-            0% { stroke-dashoffset: 300; }
-            50% { stroke-dashoffset: 0; }
-            100% { stroke-dashoffset: -300; }
-          }
-          @keyframes pulse-glow {
-            0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 140, 51, 0.15)); opacity: 0.8; }
-            50% { filter: drop-shadow(0 0 10px rgba(255, 140, 51, 0.6)); opacity: 1; }
-          }
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-        `}</style>
-        <div className="relative w-28 h-24 flex items-center justify-center animate-pulse-glow">
-          <svg className="w-full h-full text-[#FF8C33]" viewBox="0 0 100 80" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path 
-              className="animate-draw-path"
-              d="M 46 22 C 46 15, 54 13, 54 22 C 54 28, 50 30, 50 36 L 15 60 L 85 60 Z"
-            />
-          </svg>
-        </div>
-        <div className="text-[9px] tracking-[0.45em] font-semibold text-slate-400/80 mt-5 uppercase animate-pulse pl-[0.45em]">
+      <div className="flex flex-col items-center justify-center py-24 select-none">
+        <Loader size="w-12 h-12" />
+        <div className="text-[10px] tracking-[0.45em] font-semibold text-slate-400/80 mt-5 uppercase animate-pulse pl-[0.45em]">
           LuxZera
         </div>
       </div>
@@ -145,15 +114,8 @@ const MeasurementsView = ({ userId, initialMeasurements, onSaveSuccess }) => {
 
       {/* Saving Overlay */}
       {saving && (
-        <div className="absolute inset-0 bg-transparent rounded-2xl flex flex-col items-center justify-center z-20 animate-fade-in">
-          <div className="relative w-20 h-16 flex items-center justify-center animate-pulse-glow">
-            <svg className="w-full h-full text-[#FF8C33]" viewBox="0 0 100 80" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path 
-                className="animate-draw-path"
-                d="M 46 22 C 46 15, 54 13, 54 22 C 54 28, 50 30, 50 36 L 15 60 L 85 60 Z"
-              />
-            </svg>
-          </div>
+        <div className="absolute inset-0 bg-[#FAF9F7]/70 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-20 animate-fade-in">
+          <Loader size="w-10 h-10" />
         </div>
       )}
 

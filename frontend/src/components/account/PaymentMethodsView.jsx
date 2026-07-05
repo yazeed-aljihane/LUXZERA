@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CreditCard, Plus, Trash2, CheckCircle2, Lock, X } from "lucide-react";
+import Loader from "../Loader";
 
 const PaymentMethodsView = ({ userId }) => {
   const [cards, setCards] = useState([]);
@@ -224,17 +225,8 @@ const PaymentMethodsView = ({ userId }) => {
 
       {/* Saving Overlay */}
       {saving && (
-        <div className="absolute inset-0 bg-transparent rounded-2xl flex flex-col items-center justify-center z-20 animate-fade-in">
-          <div className="flex flex-col items-center justify-center p-6 bg-white border border-slate-100/60 rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.06)] animate-scale-up">
-            <div className="relative w-20 h-16 flex items-center justify-center animate-pulse-glow">
-              <svg className="w-full h-full text-[#FF8C33]" viewBox="0 0 100 80" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path 
-                  className="animate-draw-path"
-                  d="M 46 22 C 46 15, 54 13, 54 22 C 54 28, 50 30, 50 36 L 15 60 L 85 60 Z"
-                />
-              </svg>
-            </div>
-          </div>
+        <div className="absolute inset-0 bg-[#FAF9F7]/70 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-20 animate-fade-in">
+          <Loader size="w-10 h-10" />
         </div>
       )}
 

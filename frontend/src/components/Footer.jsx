@@ -16,7 +16,7 @@ export default function Footer({ onShopNow }) {
   };
 
   const linkClass =
-    "text-[14px] font-normal text-[#37352F] hover:text-[#F07020] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 leading-[28px]";
+    "text-[14px] font-medium text-[#37352F] hover:text-[#F07020] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 leading-[28px]";
 
   return (
     <footer className="w-full bg-[#FAFAF9] border-t border-[#ECECEC] font-sans">
@@ -64,7 +64,7 @@ export default function Footer({ onShopNow }) {
             </div>
 
             {/* ── NAVIGATION COLUMNS ── */}
-            <div className="w-full lg:flex-1 flex flex-wrap lg:flex-nowrap gap-[70px] items-start mt-[32px] lg:mt-0 lg:pl-[96px]">
+            <div className="w-full lg:flex-1 flex flex-wrap lg:flex-nowrap gap-[70px] items-start mt-[32px] lg:mt-0 lg:pl-[46px]">
 
               {/* Company */}
               <div className="flex flex-col">

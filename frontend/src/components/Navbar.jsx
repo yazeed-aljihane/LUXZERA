@@ -96,8 +96,8 @@ export default function Navbar({
   const navLink = (active) =>
     `text-[11px] uppercase tracking-[0.25em] font-semibold transition-all duration-300 relative py-1 ${
       active 
-        ? "text-[#5B6EF5] border-b border-[#5B6EF5]" 
-        : "text-[#2B2B2B]/75 hover:text-[#5B6EF5] hover-underline-modern"
+        ? "text-[#F07020] border-b border-[#F07020]" 
+        : "text-[#2B2B2B]/75 hover:text-[#F07020] hover-underline-modern"
     }`;
 
   return (
@@ -155,7 +155,7 @@ export default function Navbar({
                 type="button"
                 onClick={searchOpen ? undefined : openSearch}
                 className={`h-10 w-10 shrink-0 rounded-full flex items-center justify-center transition-colors ${
-                  searchOpen ? "text-[#5B6EF5]" : "text-[#2B2B2B]/75 hover:text-[#5B6EF5] hover:bg-white/60"
+                  searchOpen ? "text-[#F07020]" : "text-[#2B2B2B]/75 hover:text-[#F07020] hover:bg-white/60"
                 }`}
                 aria-label="Open search"
               >
@@ -205,13 +205,13 @@ export default function Navbar({
             <button
               onClick={onCartClick}
               className={`relative flex items-center justify-center transition-colors duration-150 ${
-                currentPage === "cart" ? "text-[#5B6EF5]" : "text-[#2B2B2B]/75 hover:text-[#5B6EF5]"
+                currentPage === "cart" ? "text-[#F07020]" : "text-[#2B2B2B]/75 hover:text-[#F07020]"
               }`}
               aria-label="Shopping cart"
             >
               <ShoppingBag size={16} strokeWidth={1.5} />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#5B6EF5] text-[7px] font-bold text-[#FAF9F7] leading-none">
+                <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#F07020] text-[7px] font-bold text-[#FAF9F7] leading-none">
                   {cartCount}
                 </span>
               )}
@@ -339,7 +339,7 @@ export default function Navbar({
             ) : (
               <button
                 onClick={onAuthClick}
-                className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#2B2B2B]/85 hover:text-[#5B6EF5] transition-colors"
+                className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#2B2B2B]/85 hover:text-[#F07020] transition-colors"
               >
                 <User size={16} strokeWidth={1.5} />
                 <span className="hidden sm:inline">Sign in</span>
@@ -366,7 +366,7 @@ export default function Navbar({
         <div className="flex items-center gap-5">
           <button
             onClick={searchOpen ? closeSearch : openSearch}
-            className="relative text-[#2B2B2B]/80 hover:text-[#5B6EF5] transition-colors"
+            className="relative text-[#2B2B2B]/80 hover:text-[#F07020] transition-colors"
             aria-label={searchOpen ? "Close search" : "Open search"}
           >
             {searchOpen ? <X size={17} strokeWidth={1.7} /> : <Search size={17} strokeWidth={1.7} />}
@@ -379,15 +379,15 @@ export default function Navbar({
               </span>
             )}
           </button>
-          <button onClick={onCartClick} className="relative text-[#2B2B2B]/80 hover:text-[#5B6EF5] transition-colors">
+          <button onClick={onCartClick} className="relative text-[#2B2B2B]/80 hover:text-[#F07020] transition-colors">
             <ShoppingBag size={17} strokeWidth={1.5} />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#5B6EF5] text-[7px] font-bold text-[#FAF9F7]">
+              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#F07020] text-[7px] font-bold text-[#FAF9F7]">
                 {cartCount}
               </span>
             )}
           </button>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-[#2B2B2B]/80 hover:text-[#5B6EF5] transition-colors">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-[#2B2B2B]/80 hover:text-[#F07020] transition-colors">
             {mobileOpen ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
           </button>
         </div>
@@ -398,7 +398,7 @@ export default function Navbar({
       }`}>
         <form onSubmit={handleSearchSubmit} onKeyDown={handleSearchKeyDown} className="px-5 py-3">
           <div className="flex items-center gap-2 h-11 rounded-full border border-[#E7E3DD] bg-white/90 px-4 ring-1 ring-white/80">
-            <Search size={15} strokeWidth={1.7} className="text-[#5B6EF5] shrink-0" />
+            <Search size={15} strokeWidth={1.7} className="text-[#F07020] shrink-0" />
             <input
               ref={mobileSearchInputRef}
               type="search"
@@ -416,14 +416,14 @@ export default function Navbar({
           {NAV_LINKS.map(({ label, value }) => (
             <button key={value}
               onClick={() => { handlers[value]?.(); setMobileOpen(false); }}
-              className={`text-left text-xs uppercase tracking-[0.2em] font-medium ${currentPage === value ? "text-[#5B6EF5] font-semibold" : "text-[#2B2B2B]/75"}`}>
+              className={`text-left text-xs uppercase tracking-[0.2em] font-medium ${currentPage === value ? "text-[#F07020] font-semibold" : "text-[#2B2B2B]/75"}`}>
               {label}
             </button>
           ))}
           <div className="h-px bg-[#E7E3DD] my-2" />
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
-            className="w-full bg-[#2B2B2B] text-[#FAF9F7] text-[10px] uppercase tracking-[0.2em] font-medium py-3 hover:bg-[#5B6EF5] transition-colors">
+            className="w-full bg-[#2B2B2B] text-[#FAF9F7] text-[10px] uppercase tracking-[0.2em] font-medium py-3 hover:bg-[#F07020] transition-colors">
             {currentUser ? "Sign out" : "Sign in"}
           </button>
         </div>

@@ -108,7 +108,7 @@ export default function Navbar({
       ════════════════════════════════════════════ */}
       <header
         className="hidden md:block w-full bg-[#FAF9F7]/80 backdrop-blur-md border-b border-[#E7E3DD] select-none sticky top-0 z-50 text-[#2B2B2B] transition-all duration-300"
-        style={{ height: "4.5rem" }}
+        style={{ height: "5rem" }}
       >
         <div className="h-full max-w-7xl mx-auto flex items-center justify-between px-10">
 
@@ -116,18 +116,18 @@ export default function Navbar({
           <button 
             onClick={onLogoClick} 
             aria-label="LuxZera home" 
-            className="hover:opacity-85 transition-opacity flex items-center gap-[4px] shrink-0"
+            className="hover:opacity-85 transition-opacity flex items-center gap-[5px] shrink-0"
           >
             <img 
               src="/logo.png" 
               alt="LuxZera Icon" 
-              style={{ height: "28px" }} 
-              className="w-auto object-contain" 
+              style={{ height: "30px" }} 
+              className="w-auto object-contain translate-y-[1px]" 
             />
             <img 
               src="/LuxZera.png" 
               alt="LuxZera Wordmark" 
-              style={{ height: "22px" }} 
+              style={{ height: "24px" }} 
               className="w-auto object-contain" 
             />
           </button>
@@ -365,18 +365,18 @@ export default function Navbar({
       >
         <button 
           onClick={onLogoClick} 
-          className="hover:opacity-85 transition-opacity flex items-center gap-[4px] shrink-0"
+          className="hover:opacity-85 transition-opacity flex items-center gap-[5px] shrink-0"
         >
           <img 
             src="/logo.png" 
             alt="LuxZera Icon" 
-            style={{ height: "28px" }} 
-            className="w-auto object-contain" 
+            style={{ height: "30px" }} 
+            className="w-auto object-contain translate-y-[1px]" 
           />
           <img 
             src="/LuxZera.png" 
             alt="LuxZera Wordmark" 
-            style={{ height: "22px" }} 
+            style={{ height: "24px" }} 
             className="w-auto object-contain" 
           />
         </button>

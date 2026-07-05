@@ -17,56 +17,60 @@ export default function Footer({ onShopNow }) {
 
   return (
     <footer className="w-full bg-[#FAF9F7] text-[#2B2B2B] select-none border-t border-[#E7E3DD] font-sans">
-      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 pt-24 pb-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 pt-20 pb-16">
         
-        {/* 12-Column Grid System */}
-        <div className="grid grid-cols-12 gap-8 lg:gap-12">
+        {/* 12-Column Grid System with Optical Offsets */}
+        <div className="grid grid-cols-12 gap-y-12 lg:gap-x-8">
           
-          {/* LEFT 3 COLUMNS: Integrated Brand Block & Copyright */}
-          <div className="col-span-12 lg:col-span-3 flex flex-col items-start justify-between gap-12 lg:gap-0 min-h-[220px]">
+          {/* LEFT COLUMN: Brand Block & Settings (Columns 1-3) */}
+          <div className="col-span-12 lg:col-span-3 flex flex-col items-start">
             
             {/* Unified Brand Block */}
-            <button 
-              onClick={() => handleLinkClick("/")}
-              className="hover:opacity-85 transition-opacity flex items-center gap-3 cursor-pointer border-none bg-transparent p-0"
-              aria-label="LuxZera home"
-            >
-              <img 
-                src="/logo.png" 
-                alt="LuxZera Symbol" 
-                className="h-9 w-auto object-contain" 
-              />
-              <img 
-                src="/LuxZera.png" 
-                alt="LuxZera Wordmark" 
-                className="h-6.5 w-auto object-contain mt-0.5" 
-              />
-            </button>
-
-            {/* Cookie & Copyright Info */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col items-start">
+              <button 
+                onClick={() => handleLinkClick("/")}
+                className="hover:opacity-85 transition-opacity flex items-center gap-[4px] cursor-pointer border-none bg-transparent p-0 align-top"
+                aria-label="LuxZera home"
+              >
+                <img 
+                  src="/logo.png" 
+                  alt="LuxZera Symbol" 
+                  style={{ height: "28px" }} 
+                  className="w-auto object-contain" 
+                />
+                <img 
+                  src="/LuxZera.png" 
+                  alt="LuxZera Wordmark" 
+                  style={{ height: "22px" }} 
+                  className="w-auto object-contain" 
+                />
+              </button>
+              
+              {/* Cookie Settings directly below the logo with compact spacing */}
               <button
                 onClick={() => navigate("/privacy")}
-                className="text-[12px] text-[#8F8F8F] hover:text-[#2B2B2B] text-left transition-colors font-normal cursor-pointer border-none bg-transparent p-0"
+                className="text-[12px] text-[#8F8F8F] hover:text-[#2B2B2B] text-left transition-colors font-normal cursor-pointer border-none bg-transparent p-0 leading-none mt-6"
               >
                 Cookie settings
               </button>
-              <p className="text-[12px] text-[#8F8F8F] leading-none">
-                © {currentYear} LuxZera, Inc.
-              </p>
             </div>
+
+            {/* Copyright Info aligned below */}
+            <p className="text-[12px] text-[#8F8F8F] leading-none mt-3">
+              © {currentYear} LuxZera, Inc.
+            </p>
 
           </div>
 
-          {/* RIGHT 9 COLUMNS: Grid of Links */}
-          <div className="col-span-12 lg:col-span-9 grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+          {/* RIGHT COLUMNS: Links aligned to column 4 (Columns 4-12) */}
+          <div className="col-span-12 lg:col-span-9 lg:col-start-4 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
             
             {/* Column 1: Company */}
             <div className="flex flex-col">
-              <h4 className="text-[13px] font-semibold text-[#8F8F8F] tracking-[0.05em] mb-5 select-none">
+              <h4 className="text-[11.5px] font-medium text-[#5E5E5E] tracking-[0.08em] uppercase mb-6 select-none leading-none">
                 Company
               </h4>
-              <div className="flex flex-col gap-3.5">
+              <div className="flex flex-col gap-[11px] items-start">
                 {[
                   { label: "About us", path: "/about" },
                   { label: "Careers", path: "/about" },
@@ -78,7 +82,7 @@ export default function Footer({ onShopNow }) {
                   <button
                     key={item.label}
                     onClick={() => handleLinkClick(item.path)}
-                    className="text-[13px] text-[#2B2B2B]/80 font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-relaxed"
+                    className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                   >
                     {item.label}
                   </button>
@@ -88,10 +92,10 @@ export default function Footer({ onShopNow }) {
 
             {/* Column 2: Shop */}
             <div className="flex flex-col">
-              <h4 className="text-[13px] font-semibold text-[#8F8F8F] tracking-[0.05em] mb-5 select-none">
+              <h4 className="text-[11.5px] font-medium text-[#5E5E5E] tracking-[0.08em] uppercase mb-6 select-none leading-none">
                 Shop
               </h4>
-              <div className="flex flex-col gap-3.5">
+              <div className="flex flex-col gap-[11px] items-start">
                 {[
                   { label: "Men's Fashion", path: "/men" },
                   { label: "Women's Fashion", path: "/women" },
@@ -102,7 +106,7 @@ export default function Footer({ onShopNow }) {
                   <button
                     key={item.label}
                     onClick={() => handleLinkClick(item.path)}
-                    className="text-[13px] text-[#2B2B2B]/85 font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-relaxed"
+                    className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                   >
                     {item.label}
                   </button>
@@ -112,10 +116,10 @@ export default function Footer({ onShopNow }) {
 
             {/* Column 3: Resources */}
             <div className="flex flex-col">
-              <h4 className="text-[13px] font-semibold text-[#8F8F8F] tracking-[0.05em] mb-5 select-none">
+              <h4 className="text-[11.5px] font-medium text-[#5E5E5E] tracking-[0.08em] uppercase mb-6 select-none leading-none">
                 Resources
               </h4>
-              <div className="flex flex-col gap-3.5">
+              <div className="flex flex-col gap-[11px] items-start">
                 {[
                   { label: "Help center", path: "/faqs" },
                   { label: "Pricing", path: "/faqs" },
@@ -128,7 +132,7 @@ export default function Footer({ onShopNow }) {
                   <button
                     key={item.label}
                     onClick={() => handleLinkClick(item.path)}
-                    className="text-[13px] text-[#2B2B2B]/80 font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-relaxed"
+                    className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                   >
                     {item.label}
                   </button>
@@ -137,12 +141,12 @@ export default function Footer({ onShopNow }) {
             </div>
 
             {/* Column 4: LuxZera for */}
-            <div className="flex flex-col justify-between h-full">
+            <div className="flex flex-col justify-between h-full min-h-[190px]">
               <div className="flex flex-col">
-                <h4 className="text-[13px] font-semibold text-[#8F8F8F] tracking-[0.05em] mb-5 select-none">
+                <h4 className="text-[11.5px] font-medium text-[#5E5E5E] tracking-[0.08em] uppercase mb-6 select-none leading-none">
                   LuxZera for
                 </h4>
-                <div className="flex flex-col gap-3.5">
+                <div className="flex flex-col gap-[11px] items-start">
                   {[
                     { label: "Enterprise", path: "/about" },
                     { label: "Small business", path: "/about" },
@@ -151,7 +155,7 @@ export default function Footer({ onShopNow }) {
                     <button
                       key={item.label}
                       onClick={() => handleLinkClick(item.path)}
-                      className="text-[13px] text-[#2B2B2B]/80 font-medium hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-relaxed"
+                      className="text-[13.5px] text-[#2B2B2B]/80 font-normal hover:text-[#F07020] transition-colors text-left cursor-pointer border-none bg-transparent p-0 leading-[1.65]"
                     >
                       {item.label}
                     </button>
@@ -162,10 +166,10 @@ export default function Footer({ onShopNow }) {
               {/* Explore more aligned cleanly at the bottom */}
               <button
                 onClick={() => handleLinkClick("/market")}
-                className="mt-6 text-[13px] font-bold text-[#2B2B2B] hover:text-[#F07020] flex items-center gap-1.5 transition-colors text-left cursor-pointer border-none bg-transparent p-0 group"
+                className="mt-6 text-[13px] font-medium text-[#2B2B2B]/75 hover:text-[#F07020] flex items-center gap-1.5 transition-colors text-left cursor-pointer border-none bg-transparent p-0 group"
               >
                 Explore more
-                <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
             </div>
 

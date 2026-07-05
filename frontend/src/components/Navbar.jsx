@@ -116,17 +116,19 @@ export default function Navbar({
           <button 
             onClick={onLogoClick} 
             aria-label="LuxZera home" 
-            className="hover:opacity-85 transition-opacity flex items-center gap-3 shrink-0"
+            className="hover:opacity-85 transition-opacity flex items-center gap-[4px] shrink-0"
           >
             <img 
               src="/logo.png" 
               alt="LuxZera Icon" 
-              className="h-8 w-auto object-contain" 
+              style={{ height: "28px" }} 
+              className="w-auto object-contain" 
             />
             <img 
               src="/LuxZera.png" 
               alt="LuxZera Wordmark" 
-              className="h-6 w-auto object-contain" 
+              style={{ height: "22px" }} 
+              className="w-auto object-contain" 
             />
           </button>
 
@@ -363,17 +365,19 @@ export default function Navbar({
       >
         <button 
           onClick={onLogoClick} 
-          className="hover:opacity-85 transition-opacity flex items-center gap-2 shrink-0"
+          className="hover:opacity-85 transition-opacity flex items-center gap-[3px] shrink-0"
         >
           <img 
             src="/logo.png" 
             alt="LuxZera Icon" 
-            className="h-6 w-auto object-contain" 
+            style={{ height: "24px" }} 
+            className="w-auto object-contain" 
           />
           <img 
             src="/LuxZera.png" 
             alt="LuxZera Wordmark" 
-            className="h-4.5 w-auto object-contain" 
+            style={{ height: "19px" }} 
+            className="w-auto object-contain" 
           />
         </button>
         <div className="flex items-center gap-5">

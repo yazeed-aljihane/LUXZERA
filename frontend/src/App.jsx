@@ -56,6 +56,24 @@ export default function App() {
     }
   }, [location, navigate]);
 
+  const [isNearBottom, setIsNearBottom] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollHeight - scrollTop - clientHeight < 320) {
+        setIsNearBottom(true);
+      } else {
+        setIsNearBottom(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [location]);
+
   const handleAppleSignInAction = () => {
     console.log("Apple secure token identity handshake triggered.");
   };
@@ -172,7 +190,9 @@ export default function App() {
       {!isHideLayout && <Footer onShopNow={() => navigate("/market")} />}
 
       {showFloatingCart && (
-        <div className="fixed bottom-8 right-8 z-50 animate-fade-in-up">
+        <div className={`fixed bottom-8 right-8 z-50 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isNearBottom ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0"
+        }`}>
           <button
             onClick={() => navigate("/cart")}
             className="h-11 px-5 bg-[#F07020] hover:bg-[#e05f10] text-[#FAF9F7] font-bold uppercase text-[10px] tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_12px_24px_-6px_rgba(240,112,32,0.4)] group hover:scale-[1.03] active:scale-[0.98] cursor-pointer border-none"

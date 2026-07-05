@@ -1,10 +1,13 @@
 // src/components/Footer.jsx
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { Globe, ChevronDown, ArrowRight } from "lucide-react";
 
 export default function Footer({ onShopNow }) {
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
+  const [langOpen, setLangOpen] = useState(false);
+  const [language, setLanguage] = useState("English (US)");
 
   const handleLinkClick = (path) => {
     if (path === "/market" && onShopNow) {
@@ -16,159 +19,209 @@ export default function Footer({ onShopNow }) {
   };
 
   return (
-    <div className="w-full font-sans">
-
-      {/* ════════════════════════════════════════════
-          NEWSLETTER STRIP — Royal Blue
-      ════════════════════════════════════════════ */}
-      <div className="w-full bg-[#5B6EF5] px-6 md:px-14 py-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <span className="text-[8px] font-extrabold uppercase tracking-[0.4em] text-[#FAF9F7]/45 block mb-2">
-              — Stay In The Loop
-            </span>
-            <p className="text-2xl md:text-3xl font-black uppercase tracking-tight text-[#FAF9F7] leading-tight">
-              Get Exclusive<br />Drop Alerts
-            </p>
-          </div>
-          <form onSubmit={(e) => e.preventDefault()} className="flex w-full max-w-md bg-[#FAF9F7]/12 border border-[#FAF9F7]/25 rounded-full overflow-hidden p-1">
-            <input
-              type="email"
-              placeholder="YOUR EMAIL"
-              className="flex-1 bg-transparent text-[10px] px-5 outline-none text-[#FAF9F7] font-semibold tracking-[0.22em] placeholder-[#FAF9F7]/40 uppercase"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-[#FAF9F7] hover:bg-[#F2EFEA] text-[#5B6EF5] px-6 py-2.5 text-[9px] font-extrabold uppercase tracking-[0.28em] rounded-full transition-all duration-200 shrink-0"
+    <footer className="w-full bg-white text-[#2B2B2B] select-none border-t border-[#E7E3DD] font-sans">
+      <div className="max-w-7xl mx-auto px-6 md:px-14 py-16">
+        <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8">
+          
+          {/* LEFT COLUMN: Brand, Socials, Language, Copyright */}
+          <div className="flex flex-col items-start gap-5 max-w-xs shrink-0">
+            {/* Logo */}
+            <button 
+              onClick={() => handleLinkClick("/")}
+              className="hover:opacity-85 transition-opacity flex items-center gap-2"
+              aria-label="LuxZera home"
             >
-              Subscribe
+              <img 
+                src="/LuxZera.png" 
+                alt="LuxZera Logo" 
+                className="h-6 w-auto object-contain filter drop-shadow-[0_0_2px_rgba(240,112,32,0.15)]" 
+              />
             </button>
-          </form>
+
+            {/* Social Icons (Custom SVGs) */}
+            <div className="flex items-center gap-4.5 text-[#8F8F8F]">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F07020] transition-colors" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F07020] transition-colors" aria-label="X (Twitter)">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" className="w-[17px] h-[17px]">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F07020] transition-colors" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F07020] transition-colors" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#F07020] transition-colors" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px]">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2C5.12 19.5 12 19.5 12 19.5s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Language Selector Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen(!langOpen)}
+                className="text-[12px] text-[#2B2B2B] border border-[#E7E3DD] bg-white rounded-lg px-3 py-1.5 flex items-center gap-1.5 hover:bg-[#FAF9F7]/50 hover:border-[#1d1d1f]/20 transition-colors"
+                aria-label="Language selector"
+              >
+                <Globe size={13} strokeWidth={1.8} className="text-[#2B2B2B]/60" />
+                <span>{language}</span>
+                <ChevronDown size={12} strokeWidth={1.8} className="text-[#2B2B2B]/40" />
+              </button>
+
+              {langOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
+                  <div className="absolute left-0 bottom-full mb-2 w-36 z-50 border border-[#1d1d1f]/10 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.08)] rounded-lg overflow-hidden py-1">
+                    {["English (US)", "Español", "Français", "Deutsch", "日本語"].map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => {
+                          setLanguage(lang);
+                          setLangOpen(false);
+                        }}
+                        className="w-full text-left px-3 py-1.5 text-xs text-[#2B2B2B]/80 hover:text-white hover:bg-[#F07020] transition-colors"
+                      >
+                        {lang}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Cookie Settings & Copyright */}
+            <div className="flex flex-col gap-1.5 mt-2">
+              <button
+                onClick={() => navigate("/privacy")}
+                className="text-[12px] text-[#8F8F8F] hover:text-[#2B2B2B] text-left transition-colors"
+              >
+                Cookie settings
+              </button>
+              <p className="text-[12px] text-[#8F8F8F]">
+                © {currentYear} LuxZera, Inc.
+              </p>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMNS: Links */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 flex-1">
+            {/* Column 1: Company */}
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#8F8F8F] mb-4">Company</h4>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: "About us", path: "/about" },
+                  { label: "Careers", path: "/about" },
+                  { label: "Security", path: "/privacy" },
+                  { label: "Status", path: "/faqs" },
+                  { label: "Terms & privacy", path: "/privacy" },
+                  { label: "Your privacy rights", path: "/privacy" },
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => handleLinkClick(item.path)}
+                    className="text-[13px] text-[#2B2B2B]/85 font-medium hover:text-[#F07020] transition-colors text-left"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2: Shop */}
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#8F8F8F] mb-4">Shop</h4>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: "Men's Fashion", path: "/men" },
+                  { label: "Women's Fashion", path: "/women" },
+                  { label: "Unisex Collection", path: "/unisex" },
+                  { label: "Designer Brands", path: "/market" },
+                  { label: "New Drops", path: "/market" },
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => handleLinkClick(item.path)}
+                    className="text-[13px] text-[#2B2B2B]/85 font-medium hover:text-[#F07020] transition-colors text-left"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3: Resources */}
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#8F8F8F] mb-4">Resources</h4>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: "Help center", path: "/faqs" },
+                  { label: "Pricing", path: "/faqs" },
+                  { label: "Blog", path: "/about" },
+                  { label: "Community", path: "/about" },
+                  { label: "Connections", path: "/about" },
+                  { label: "FAQs & Support", path: "/faqs" },
+                  { label: "Partner programs", path: "/about" },
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => handleLinkClick(item.path)}
+                    className="text-[13px] text-[#2B2B2B]/85 font-medium hover:text-[#F07020] transition-colors text-left"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 4: LuxZera for */}
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#8F8F8F] mb-4">LuxZera for</h4>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: "Enterprise", path: "/about" },
+                  { label: "Small business", path: "/about" },
+                  { label: "Personal", path: "/about" },
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => handleLinkClick(item.path)}
+                    className="text-[13px] text-[#2B2B2B]/85 font-medium hover:text-[#F07020] transition-colors text-left"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                
+                {/* Explore more button at the bottom */}
+                <button
+                  onClick={() => handleLinkClick("/market")}
+                  className="mt-2 text-[13px] font-bold text-[#2B2B2B] hover:text-[#F07020] flex items-center gap-1.5 transition-colors text-left group"
+                >
+                  Explore more
+                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      {/* ════════════════════════════════════════════
-          MAIN FOOTER BODY — Soft Stone
-      ════════════════════════════════════════════ */}
-      <footer className="w-full bg-[#F2EFEA] text-[#2B2B2B] select-none border-t border-[#E7E3DD]">
-
-        {/* ── Top link grid ── */}
-        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-16 pb-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
-
-            {/* Shop */}
-            <div>
-              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Shop</h4>
-              <div className="flex flex-col gap-3">
-                {[
-                  { label: "Men",        path: "/men" },
-                  { label: "Women",      path: "/women" },
-                  { label: "Unisex",     path: "/unisex" },
-                  { label: "Designers",  path: "/market" },
-                  { label: "New Drops",  path: "/market" },
-                ].map((l) => (
-                  <button key={l.label} onClick={() => handleLinkClick(l.path)}
-                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] text-left">
-                    {l.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Company</h4>
-              <div className="flex flex-col gap-3">
-                {[
-                  { label: "About Us",       path: "/about" },
-                  { label: "Become a Designer", path: "/become-designer" },
-                  { label: "Careers",        path: "/about" },
-                  { label: "Contact",        path: "/about" },
-                  { label: "Press",          path: "/about" },
-                  { label: "Privacy Policy", path: "/privacy" },
-                ].map((l) => (
-                  <button key={l.label} onClick={() => handleLinkClick(l.path)}
-                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] text-left">
-                    {l.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Service */}
-            <div>
-              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Service</h4>
-              <div className="flex flex-col gap-3">
-                {[
-                  { label: "Payments",     path: "/faqs" },
-                  { label: "Refunds",      path: "/faqs" },
-                  { label: "Returns",      path: "/faqs" },
-                  { label: "Voucher Info", path: "/faqs" },
-                ].map((l) => (
-                  <button key={l.label} onClick={() => handleLinkClick(l.path)}
-                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] text-left">
-                    {l.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Connect */}
-            <div>
-              <h4 className="text-[8px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-6">Connect</h4>
-              <div className="flex flex-col gap-3">
-                {[
-                  { label: "Instagram", url: "https://instagram.com" },
-                  { label: "YouTube",   url: "https://youtube.com" },
-                  { label: "Facebook",  url: "https://facebook.com" },
-                ].map((s) => (
-                  <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer"
-                    className="text-[11px] font-bold text-[#2B2B2B]/60 hover:text-[#5B6EF5] transition-colors uppercase tracking-[0.15em] flex items-center gap-1.5 group">
-                    {s.label}
-                    <ArrowRight size={9} className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" strokeWidth={2.5} />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* ── Thin divider ── */}
-        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
-          <div className="h-px bg-[#E7E3DD]" />
-        </div>
-
-        {/* ════════════════════════════════════════════
-            GIANT LUXZERA WORDMARK — full-bleed brand statement
-        ════════════════════════════════════════════ */}
-        <div className="w-full overflow-hidden py-4 relative">
-          {/* Subtle gradient overlay on sides */}
-          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#F2EFEA] to-transparent z-10 pointer-events-none" />
-
-          <div className="flex items-center justify-center px-6 md:px-10 py-6">
-            <img 
-              src="/LuxZera.png" 
-              alt="LuxZera Logo" 
-              width="1200"
-              height="343"
-              style={{ imageRendering: "auto" }}
-              className="w-full max-w-[1200px] h-auto object-contain select-none opacity-95 transition-opacity" 
-            />
-          </div>
-        </div>
-
-        {/* ── Bottom copyright bar ── */}
-        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pb-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#E7E3DD] text-[8.5px] font-extrabold uppercase tracking-[0.22em] text-[#2B2B2B]/35">
-            <p>© {currentYear} LuxZera. All rights reserved.</p>
-            <p>Marketplace · Discovery · Fashion · Independence</p>
-          </div>
-        </div>
-
-      </footer>
-    </div>
+    </footer>
   );
 }

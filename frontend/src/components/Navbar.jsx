@@ -26,6 +26,7 @@ export default function Navbar({
   onAuthClick,
   currentPage,
   currentUser,
+  authLoading,
   onAccountClick,
   onOrdersClick,
   onLogout,
@@ -61,7 +62,28 @@ export default function Navbar({
     designers: onDesignerClick,
   };
 
-  const profileImage = currentUser?.profilePicture || currentUser?.avatarUrl || null;
+  const storageKey = currentUser?.id ? `luxzera_avatar_${currentUser.id}` : null;
+  const [localAvatar, setLocalAvatar] = useState(() => {
+    return storageKey ? localStorage.getItem(storageKey) : null;
+  });
+
+  useEffect(() => {
+    if (storageKey) {
+      setLocalAvatar(localStorage.getItem(storageKey));
+    }
+  }, [storageKey]);
+
+  useEffect(() => {
+    const handleAvatarUpdate = () => {
+      if (storageKey) {
+        setLocalAvatar(localStorage.getItem(storageKey));
+      }
+    };
+    window.addEventListener('avatar-updated', handleAvatarUpdate);
+    return () => window.removeEventListener('avatar-updated', handleAvatarUpdate);
+  }, [storageKey]);
+
+  const profileImage = localAvatar || currentUser?.profilePicture || currentUser?.avatarUrl || null;
   const profileFullName = currentUser?.firstName
     ? `${currentUser.firstName} ${currentUser.lastName || ""}`.trim()
     : "My Account";
@@ -306,7 +328,9 @@ export default function Navbar({
             </button>
 
             {/* Auth / Profile dropdown */}
-            {currentUser ? (
+            {authLoading ? (
+              <div className="w-8 h-8 rounded-full bg-[#FAFAF9] animate-pulse border border-[#ECECEC]" />
+            ) : currentUser ? (
               <div className="relative">
                 <button
                   onClick={() => setProfileOpen(!profileOpen)}

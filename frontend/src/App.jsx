@@ -113,6 +113,7 @@ export default function App() {
           wardrobeCount={wardrobeCount}
           currentPage={currentPage}
           currentUser={currentUser}
+          authLoading={authLoading}
           onLogoClick={() => navigate("/")}
           onShopClick={() => navigate("/market")}
           onMenClick={() => navigate("/men")}

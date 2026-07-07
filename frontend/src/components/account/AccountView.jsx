@@ -47,6 +47,13 @@ const AccountView = ({
 
   return (
     <div className="relative">
+      {/* Non-blocking Authentic Apple iOS/macOS Spinner (No Background) */}
+      {saving && (
+        <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none animate-fade-in">
+          <Loader />
+        </div>
+      )}
+
       <style>{`
         @keyframes draw-circle {
           to { stroke-dashoffset: 0; }
@@ -77,13 +84,6 @@ const AccountView = ({
           50% { filter: drop-shadow(0 0 10px rgba(255, 140, 51, 0.6)); opacity: 1; }
         }
       `}</style>
-
-      {/* Saving / Loading Spinner Overlay */}
-      {saving && (
-        <div className="absolute inset-0 bg-[#FAF9F7]/70 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-20 animate-fade-in">
-          <Loader size="w-10 h-10" />
-        </div>
-      )}
 
       {errorMsg && (
         <div className="p-3 mb-4 bg-red-50 border border-red-100 rounded-xl text-[11px] font-semibold text-red-600">
@@ -224,7 +224,13 @@ const AccountView = ({
                 }`}
               >
                 {saving ? (
-                  <span>Saving...</span>
+                  <span className="flex items-center gap-2">
+                    <svg className="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="3" />
+                      <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="3" strokeLinecap="round" className="animate-draw-path origin-center" />
+                    </svg>
+                    Saving...
+                  </span>
                 ) : successMsg ? (
                   <>
                     <svg className="w-3.5 h-3.5 stroke-current" fill="none" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag, User, LogOut, X, Menu, Search, Sparkles, Settings } from "lucide-react";
+import { ShoppingBag, User, LogOut, X, Menu, Search, Sparkles, Settings, ChevronDown } from "lucide-react";
 import AlmirahIcon from "./AlmirahIcon.jsx";
 
 const NAV_LINKS = [
@@ -130,10 +130,10 @@ export default function Navbar({
   };
 
   const navLink = (active) =>
-    `text-[14px] font-medium transition-colors duration-[180ms] ease-out relative py-1.5 ${
+    `text-[14px] font-bold transition-colors duration-[200ms] ease-out py-1.5 ${
       active 
-        ? "text-[#1D1D1F] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#1D1D1F] after:rounded-full" 
-        : "text-[#6B7280] hover:text-[#1D1D1F]"
+        ? "text-[#F07020]" 
+        : "text-[#6B7280] hover:text-[#F07020]"
     }`;
 
   const isHome = window.location.pathname === "/";
@@ -184,9 +184,14 @@ export default function Navbar({
                     >
                       <button
                         onClick={() => handlers[value]?.()}
-                        className={navLink(isActive)}
+                        className={`${navLink(isActive)} flex items-center gap-1 group`}
                       >
                         {label}
+                        <ChevronDown 
+                          size={13} 
+                          strokeWidth={2.5}
+                          className={`transition-transform duration-[250ms] ease-out opacity-60 ${collectionsOpen ? "-rotate-180" : "rotate-0"}`} 
+                        />
                       </button>
 
                       {/* Mega Menu Dropdown */}

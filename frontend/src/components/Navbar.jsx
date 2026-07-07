@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import { useEffect, useRef, useState } from "react";
-import { ShoppingBag, User, LogOut, X, Menu, Search, Sparkles } from "lucide-react";
+import { ShoppingBag, User, LogOut, X, Menu, Search, Sparkles, Settings } from "lucide-react";
 import AlmirahIcon from "./AlmirahIcon.jsx";
 
 const NAV_LINKS = [
@@ -8,9 +8,7 @@ const NAV_LINKS = [
   { label: "Men",   value: "men"   },
   { label: "Women", value: "women" },
   { label: "Unisex", value: "unisex" },
-  { label: "Kids",   value: "kids"   },
   { label: "Collections", value: "collections" },
-  { label: "Designers", value: "designers" },
 ];
 
 export default function Navbar({
@@ -38,6 +36,8 @@ export default function Navbar({
   const [mobileOpen,  setMobileOpen]  = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
+  
   const desktopSearchInputRef = useRef(null);
   const mobileSearchInputRef = useRef(null);
 
@@ -57,7 +57,6 @@ export default function Navbar({
     men:    onMenClick,
     women:  onWomenClick,
     unisex: onUnisexClick,
-    kids:   onKidsClick,
     collections: onShopClick,
     designers: onDesignerClick,
   };
@@ -109,10 +108,10 @@ export default function Navbar({
   };
 
   const navLink = (active) =>
-    `text-[12px] uppercase tracking-[0.2em] font-semibold transition-all duration-300 relative py-1 ${
+    `text-[14px] font-medium transition-colors duration-[180ms] ease-out relative py-1.5 ${
       active 
-        ? "text-[#5B6EF5] border-b border-[#5B6EF5]" 
-        : "text-[#1D1D1F]/70 hover:text-[#5B6EF5] hover-underline-modern"
+        ? "text-[#1D1D1F] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#1D1D1F] after:rounded-full" 
+        : "text-[#6B7280] hover:text-[#1D1D1F]"
     }`;
 
   const isHome = window.location.pathname === "/";
@@ -124,51 +123,119 @@ export default function Navbar({
       ════════════════════════════════════════════ */}
       <header
         className={`hidden md:block w-full select-none sticky top-0 z-50 transition-all duration-300 ease-out ${
-          isHome && !isScrolled
+          !isScrolled
             ? "bg-transparent border-b border-transparent text-[#1D1D1F]"
             : "bg-white/95 backdrop-blur-md border-b border-[#ECECEC] text-[#1D1D1F]"
         }`}
-        style={{ height: "80px" }}
+        style={{ height: "64px" }}
       >
-        <div className="h-full max-w-7xl mx-auto flex items-center justify-between px-8">
+        <div className="h-full w-full relative flex items-center justify-between px-8">
 
-          {/* LEFT LOGO — Wordmark only */}
+          {/* Logo — left edge */}
           <button 
             onClick={onLogoClick} 
             aria-label="LuxZera home" 
-            className="hover:opacity-85 transition-opacity flex items-center shrink-0"
+            className="hover:opacity-85 transition-opacity flex items-center shrink-0 z-10"
           >
             <img 
               src="/LuxZera.png" 
               alt="LuxZera Wordmark" 
-              style={{ height: "26px" }} 
+              style={{ height: "38px" }} 
               className="w-auto object-contain" 
             />
           </button>
 
-          {/* CENTER: Navigation Links */}
-          <nav className={`flex items-center gap-8 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            searchOpen ? "opacity-0 scale-[0.98] pointer-events-none -translate-y-0.5" : "opacity-100 scale-100"
-          }`}>
-            {NAV_LINKS.map(({ label, value }) => (
-              <button
-                key={value}
-                onClick={() => handlers[value]?.()}
-                className={navLink(currentPage === value)}
-              >
-                {label}
-              </button>
-            ))}
+          {/* Nav — absolutely centered on viewport */}
+          <nav className={`absolute left-1/2 -translate-x-1/2 flex items-center gap-[24px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              searchOpen ? "opacity-0 scale-[0.98] pointer-events-none -translate-y-0.5" : "opacity-100 scale-100"
+            }`}>
+              {NAV_LINKS.map(({ label, value }) => {
+                const isActive = currentPage === value || (currentPage === "" && value === "shop");
+
+                if (value === "collections") {
+                  return (
+                    <div 
+                      key={value}
+                      className="relative py-3 flex items-center"
+                      onMouseEnter={() => setCollectionsOpen(true)}
+                      onMouseLeave={() => setCollectionsOpen(false)}
+                    >
+                      <button
+                        onClick={() => handlers[value]?.()}
+                        className={navLink(isActive)}
+                      >
+                        {label}
+                      </button>
+
+                      {/* Mega Menu Dropdown */}
+                      <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[520px] bg-white border border-[#ECECEC] rounded-2xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.03)] z-50 flex gap-12 transition-all duration-[200ms] ease-out ${
+                        collectionsOpen 
+                          ? "opacity-100 translate-y-0 pointer-events-auto" 
+                          : "opacity-0 translate-y-1 pointer-events-none"
+                      }`}>
+                        {/* Column 1: Category */}
+                        <div className="flex-1 flex flex-col gap-3">
+                          <span className="px-2.5 text-[12px] font-medium text-[#86868B]">Category</span>
+                          <div className="flex flex-col gap-1">
+                            <button onClick={onMenClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Men</button>
+                            <button onClick={onWomenClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Women</button>
+                            <button onClick={onUnisexClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Unisex</button>
+                          </div>
+                        </div>
+
+                        {/* Column 2: Collections */}
+                        <div className="flex-1 flex flex-col gap-3">
+                          <span className="px-2.5 text-[12px] font-medium text-[#86868B]">Collections</span>
+                          <div className="flex flex-col gap-1">
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">New Arrivals</button>
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Trending</button>
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Summer</button>
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Winter</button>
+                          </div>
+                        </div>
+
+                        {/* Column 3: Designers */}
+                        <div className="flex-1 flex flex-col gap-3">
+                          <span className="px-2.5 text-[12px] font-medium text-[#86868B]">Designers</span>
+                          <div className="flex flex-col gap-1">
+                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Featured Designers</button>
+                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Emerging Designers</button>
+                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Independent Brands</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <button
+                    key={value}
+                    onClick={() => handlers[value]?.()}
+                    className={navLink(isActive)}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
           </nav>
 
-          {/* RIGHT: Search · Cart · Profile/Auth */}
-          <div className="flex items-center gap-6 text-[#1D1D1F] h-full">
+          {/* Right icons — right edge, z-10 to sit above the absolute nav if they ever overlap */}
+          <div className="flex items-center gap-5 text-[#1D1D1F] z-10">
+            {/* Designers CTA — like Notion's 'Get Notion free' */}
+            <button
+              onClick={onDesignerClick}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1D1D1F] text-white text-[13px] font-medium tracking-[0.01em] hover:bg-[#2B2B2B] transition-colors duration-[180ms] ease-out shrink-0"
+            >
+              For Designers
+            </button>
+
             <form
               onSubmit={handleSearchSubmit}
               onKeyDown={handleSearchKeyDown}
               className={`hidden lg:flex items-center h-10 overflow-hidden rounded-full border transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                 searchOpen
-                  ? "w-[320px] gap-2 border-[#ECECEC] bg-white/90 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.03)]"
+                  ? "w-[280px] gap-2 border-[#ECECEC] bg-white/90 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.03)]"
                   : "w-10 gap-0 border-transparent bg-transparent px-0 shadow-none"
               }`}
             >
@@ -176,7 +243,7 @@ export default function Navbar({
                 type="button"
                 onClick={searchOpen ? undefined : openSearch}
                 className={`h-10 w-10 shrink-0 rounded-full flex items-center justify-center transition-colors ${
-                  searchOpen ? "text-[#5B6EF5]" : "text-[#1D1D1F]/70 hover:text-[#5B6EF5] hover:bg-white/60"
+                  searchOpen ? "text-[#1D1D1F]" : "text-[#6B7280] hover:text-[#1D1D1F] hover:bg-white/60"
                 }`}
                 aria-label="Open search"
               >
@@ -209,14 +276,14 @@ export default function Navbar({
             <button
               onClick={onWardrobeClick}
               className={`relative flex items-center justify-center transition-colors duration-150 ${
-                currentPage === "wardrobe" ? "text-[#5B6EF5]" : "text-[#1D1D1F]/70 hover:text-[#5B6EF5]"
+                currentPage === "wardrobe" ? "text-[#1D1D1F]" : "text-[#6B7280] hover:text-[#1D1D1F]"
               }`}
               aria-label="My Wardrobe"
               title="My Wardrobe"
             >
               <AlmirahIcon size={18} strokeWidth={1.5} />
               {wardrobeCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#5B6EF5] text-[12px] font-bold text-[#FAFAF9] leading-none scale-75">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#1D1D1F] text-[9px] font-medium text-white leading-none">
                   {wardrobeCount}
                 </span>
               )}
@@ -226,13 +293,13 @@ export default function Navbar({
             <button
               onClick={onCartClick}
               className={`relative flex items-center justify-center transition-colors duration-150 ${
-                currentPage === "cart" ? "text-[#5B6EF5]" : "text-[#1D1D1F]/70 hover:text-[#5B6EF5]"
+                currentPage === "cart" ? "text-[#1D1D1F]" : "text-[#6B7280] hover:text-[#1D1D1F]"
               }`}
               aria-label="Shopping cart"
             >
               <ShoppingBag size={18} strokeWidth={1.5} />
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#5B6EF5] text-[12px] font-bold text-[#FAFAF9] leading-none scale-75">
+                <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#1D1D1F] text-[9px] font-medium text-white leading-none">
                   {cartCount}
                 </span>
               )}
@@ -240,131 +307,109 @@ export default function Navbar({
 
             {/* Auth / Profile dropdown */}
             {currentUser ? (
-              <div className="flex items-center gap-4">
-                {/* Premium Creator Pill Button */}
+              <div className="relative">
                 <button
-                  onClick={onDesignerClick}
-                  className="group flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-[#1D1D1F] hover:bg-[#5B6EF5] transition-all duration-200 active:scale-[0.98] shrink-0"
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="flex items-center focus:outline-none"
+                  aria-label="User profile menu"
                 >
-                  <div className="w-[18px] h-[18px] rounded-full bg-[#5B6EF5] group-hover:bg-[#1D1D1F] flex items-center justify-center transition-colors duration-200">
-                    <Sparkles size={8} strokeWidth={2.2} className="text-white fill-white/10" />
+                  <div className={`w-8 h-8 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center transition-all duration-200 ${
+                    profileOpen ? "ring-1 ring-[#1D1D1F] ring-offset-2 ring-offset-[#FAFAF9]" : "hover:scale-[1.02] hover:border-[#1D1D1F]/30"
+                  }`}>
+                    {profileImage ? (
+                      <img src={profileImage} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-[12px] font-bold text-[#1D1D1F]">{currentUser.firstName?.[0] || "U"}</span>
+                    )}
                   </div>
-                  <span className="text-[12px] font-semibold text-[#FAFAF9] tracking-wide select-none">
-                    {currentUser?.role === "DESIGNER" || currentUser?.isDesigner ? "Studio Pro" : "Become Creator"}
-                  </span>
                 </button>
 
-                {/* Profile Trigger */}
-                <div className="relative">
-                  <button
-                    onClick={() => setProfileOpen(!profileOpen)}
-                    className="flex items-center focus:outline-none"
-                    aria-label="User profile menu"
-                  >
-                    <div className={`w-8 h-8 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center transition-all duration-200 ${
-                      profileOpen ? "ring-1 ring-[#5B6EF5] ring-offset-2 ring-offset-[#FAFAF9]" : "hover:scale-[1.02] hover:border-[#5B6EF5]/30"
-                    }`}>
-                      {profileImage ? (
-                        <img src={profileImage} alt="" className="w-full h-full object-cover" />
-                      ) : (
-                        <span className="text-[12px] font-bold text-[#1D1D1F]">{currentUser.firstName?.[0] || "U"}</span>
-                      )}
-                    </div>
-                  </button>
-
-                  {profileOpen && (
-                    <>
-                      <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                      <div className="absolute right-0 mt-2.5 w-56 z-50 border border-[#ECECEC] bg-white/95 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.04)] rounded-xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150 origin-top-right">
-                        {/* Profile header */}
-                        <div className="px-4 py-3 border-b border-[#ECECEC] bg-[#FAFAF9]">
-                          <div className="flex items-center gap-1.5 justify-between">
-                            <span className="text-[12px] font-semibold text-[#1D1D1F] truncate leading-tight">
-                              {profileFullName}
-                            </span>
-                            {(currentUser?.role === "DESIGNER" || currentUser?.isDesigner) && (
-                              <span className="px-1.5 py-0.5 rounded text-[12px] scale-75 font-bold uppercase tracking-wider bg-[#5B6EF5]/10 text-[#5B6EF5] border border-[#5B6EF5]/10 shrink-0">
-                                Pro
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-[12px] text-[#86868B] truncate mt-1 font-mono tracking-tight leading-none">
-                            {profileEmail}
-                          </p>
-                        </div>
-
-                        {/* Menu */}
-                        <div className="p-1 flex flex-col gap-0.5">
-                          {[
-                            { 
-                              icon: <User size={14} strokeWidth={1.5} />, 
-                              label: "My Account", 
-                              action: () => { onAccountClick?.(); setProfileOpen(false); } 
-                            },
-                            { 
-                              icon: <ShoppingBag size={14} strokeWidth={1.5} />, 
-                              label: "Orders", 
-                              action: () => { onOrdersClick?.(); setProfileOpen(false); } 
-                            },
-                            { 
-                              icon: <AlmirahIcon size={14} strokeWidth={1.5} />, 
-                              label: "Wardrobe", 
-                              action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
-                            },
-                            (currentUser?.role === "DESIGNER" || currentUser?.isDesigner) ? {
-                              icon: <Sparkles size={14} strokeWidth={1.5} />,
-                              label: "Designer Studio",
-                              action: () => { onDesignerClick?.(); setProfileOpen(false); }
-                            } : {
-                              icon: <Sparkles size={14} strokeWidth={1.5} />,
-                              label: "Become Creator",
-                              action: () => { onDesignerClick?.(); setProfileOpen(false); }
-                            }
-                          ].map(({ icon, label, action }) => (
-                            <button 
-                              key={label} 
-                              onClick={action}
-                              className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-normal rounded-lg text-[#1D1D1F] hover:text-white hover:bg-[#5B6EF5] transition-colors duration-100"
-                            >
-                              <span className="text-[#86868B] group-hover:text-white transition-colors duration-100">
-                                {icon}
-                              </span>
-                              {label}
-                            </button>
-                          ))}
-                          <div className="h-[1px] bg-[#ECECEC] my-1 mx-1" />
-                          <button 
-                            onClick={handleLogout}
-                            className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-medium rounded-lg text-red-600 hover:text-white hover:bg-[#5B6EF5] transition-colors duration-100"
-                          >
-                            <span className="text-red-500/85 group-hover:text-white transition-colors duration-100">
-                              <LogOut size={14} strokeWidth={1.5} className="inline-block" />
-                            </span>
-                            Sign out
-                          </button>
-                        </div>
-
-                        {/* Dropdown Footer */}
-                        <div className="border-t border-[#ECECEC] py-3 bg-[#FAFAF9] flex items-center justify-center">
-                          <img 
-                            src="/LuxZera.png" 
-                            alt="LuxZera" 
-                            style={{ height: "14px" }}
-                            className="w-auto object-contain" 
-                          />
-                        </div>
+                {profileOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
+                    <div className="absolute right-0 mt-2.5 w-56 z-50 border border-[#ECECEC] bg-white/95 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.04)] rounded-xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150 origin-top-right">
+                      {/* Profile header */}
+                      <div className="px-4 py-3 border-b border-[#ECECEC] bg-[#FAFAF9]">
+                        <span className="text-[12px] font-semibold text-[#1D1D1F] truncate leading-tight block">
+                          {profileFullName}
+                        </span>
+                        <p className="text-[11px] text-[#86868B] truncate mt-1 font-mono tracking-tight leading-none">
+                          {profileEmail}
+                        </p>
                       </div>
-                    </>
-                  )}
-                </div>
+
+                      {/* Menu */}
+                      <div className="p-1 flex flex-col gap-0.5">
+                        {[
+                          { 
+                            icon: <User size={14} strokeWidth={1.5} />, 
+                            label: "Profile", 
+                            action: () => { onAccountClick?.(); setProfileOpen(false); } 
+                          },
+                          { 
+                            icon: <ShoppingBag size={14} strokeWidth={1.5} />, 
+                            label: "Orders", 
+                            action: () => { onOrdersClick?.(); setProfileOpen(false); } 
+                          },
+                          { 
+                            icon: <AlmirahIcon size={14} strokeWidth={1.5} />, 
+                            label: "Wishlist", 
+                            action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
+                          },
+                          { 
+                            icon: <Sparkles size={14} strokeWidth={1.5} />, 
+                            label: "Saved Styles", 
+                            action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
+                          },
+                          { 
+                            icon: <Settings size={14} strokeWidth={1.5} />, 
+                            label: "Settings", 
+                            action: () => { onAccountClick?.(); setProfileOpen(false); } 
+                          }
+                        ].map(({ icon, label, action }) => (
+                          <button 
+                            key={label} 
+                            onClick={action}
+                            className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-normal rounded-lg text-[#1D1D1F] hover:bg-[#F5F5F5] transition-colors duration-100"
+                          >
+                            <span className="text-[#86868B] group-hover:text-[#1D1D1F] transition-colors duration-100">
+                              {icon}
+                            </span>
+                            {label}
+                          </button>
+                        ))}
+                        <div className="h-[1px] bg-[#ECECEC] my-1 mx-1" />
+                        <button 
+                          onClick={handleLogout}
+                          className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-medium rounded-lg text-red-600 hover:bg-[#F5F5F5] transition-colors duration-100"
+                        >
+                          <span className="text-red-500/85 group-hover:text-red-600 transition-colors duration-100">
+                            <LogOut size={14} strokeWidth={1.5} className="inline-block" />
+                          </span>
+                          Sign Out
+                        </button>
+                      </div>
+
+                      {/* Dropdown Footer */}
+                      <div className="border-t border-[#ECECEC] py-2.5 bg-[#FAFAF9] flex items-center justify-center">
+                        <img 
+                          src="/LuxZera.png" 
+                          alt="LuxZera" 
+                          style={{ height: "14px" }}
+                          className="w-auto object-contain" 
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             ) : (
               <button
                 onClick={onAuthClick}
-                className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#1D1D1F]/80 hover:text-[#5B6EF5] transition-colors"
+                className="flex items-center gap-1.5 text-[14px] font-medium text-[#6B7280] hover:text-[#1D1D1F] transition-colors"
               >
                 <User size={18} strokeWidth={1.5} />
-                <span className="hidden sm:inline">Sign in</span>
+                <span>Sign In</span>
               </button>
             )}
           </div>
@@ -376,7 +421,7 @@ export default function Navbar({
       ════════════════════════════════════════════ */}
       <header
         className={`md:hidden flex w-full items-center justify-between px-6 sticky top-0 z-50 transition-all duration-300 ease-out ${
-          isHome && !isScrolled
+          !isScrolled && !mobileOpen
             ? "bg-transparent border-b border-transparent text-[#1D1D1F]"
             : "bg-white/95 backdrop-blur-md border-b border-[#ECECEC] text-[#1D1D1F]"
         }`}
@@ -390,35 +435,35 @@ export default function Navbar({
           <img 
             src="/LuxZera.png" 
             alt="LuxZera Wordmark" 
-            style={{ height: "22px" }} 
+            style={{ height: "28px" }} 
             className="w-auto object-contain" 
           />
         </button>
         <div className="flex items-center gap-5">
           <button
             onClick={searchOpen ? closeSearch : openSearch}
-            className="relative text-[#1D1D1F]/80 hover:text-[#5B6EF5] transition-colors"
+            className="relative text-[#6B7280] hover:text-[#1D1D1F] transition-colors"
             aria-label={searchOpen ? "Close search" : "Open search"}
           >
             {searchOpen ? <X size={18} strokeWidth={1.5} /> : <Search size={18} strokeWidth={1.5} />}
           </button>
-          <button onClick={onWardrobeClick} className="relative text-[#1D1D1F]/80 hover:text-[#5B6EF5] transition-colors" title="My Wardrobe">
+          <button onClick={onWardrobeClick} className="relative text-[#6B7280] hover:text-[#1D1D1F] transition-colors" title="My Wardrobe">
             <AlmirahIcon size={18} strokeWidth={1.5} />
             {wardrobeCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#5B6EF5] text-[12px] font-bold text-[#FAFAF9] leading-none scale-75">
+              <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#1D1D1F] text-[9px] font-medium text-white leading-none">
                 {wardrobeCount}
               </span>
             )}
           </button>
-          <button onClick={onCartClick} className="relative text-[#1D1D1F]/80 hover:text-[#5B6EF5] transition-colors">
+          <button onClick={onCartClick} className="relative text-[#6B7280] hover:text-[#1D1D1F] transition-colors">
             <ShoppingBag size={18} strokeWidth={1.5} />
             {cartCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#5B6EF5] text-[12px] font-bold text-[#FAFAF9] leading-none scale-75">
+              <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#1D1D1F] text-[9px] font-medium text-white leading-none">
                 {cartCount}
               </span>
             )}
           </button>
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-[#1D1D1F]/80 hover:text-[#5B6EF5] transition-colors">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="text-[#6B7280] hover:text-[#1D1D1F] transition-colors">
             {mobileOpen ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
           </button>
         </div>
@@ -429,7 +474,7 @@ export default function Navbar({
       }`}>
         <form onSubmit={handleSearchSubmit} onKeyDown={handleSearchKeyDown} className="px-5 py-3">
           <div className="flex items-center gap-2 h-11 rounded-full border border-[#ECECEC] bg-white/90 px-4 ring-1 ring-white/80">
-            <Search size={16} strokeWidth={1.5} className="text-[#5B6EF5] shrink-0" />
+            <Search size={16} strokeWidth={1.5} className="text-[#1D1D1F] shrink-0" />
             <input
               ref={mobileSearchInputRef}
               type="search"
@@ -447,15 +492,21 @@ export default function Navbar({
           {NAV_LINKS.map(({ label, value }) => (
             <button key={value}
               onClick={() => { handlers[value]?.(); setMobileOpen(false); }}
-              className={`text-left text-[12px] uppercase tracking-[0.2em] font-medium ${currentPage === value ? "text-[#5B6EF5] font-semibold" : "text-[#1D1D1F]/75"}`}>
+              className={`text-left text-[14px] font-medium px-3 py-2 rounded-lg transition-colors ${currentPage === value ? "text-[#1D1D1F]" : "text-[#6B7280]"}`}>
               {label}
             </button>
           ))}
           <div className="h-px bg-[#ECECEC] my-2" />
+          {/* For Designers CTA */}
+          <button
+            onClick={() => { onDesignerClick?.(); setMobileOpen(false); }}
+            className="w-full bg-[#1D1D1F] text-white text-[13px] font-medium py-3 hover:bg-[#2B2B2B] transition-colors rounded-full">
+            For Designers
+          </button>
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
-            className="w-full bg-[#1D1D1F] text-[#FAFAF9] text-[12px] uppercase tracking-[0.2em] font-medium py-3 hover:bg-[#5B6EF5] transition-colors rounded-xl">
-            {currentUser ? "Sign out" : "Sign in"}
+            className="w-full border border-[#ECECEC] text-[#1D1D1F] text-[13px] font-medium py-3 hover:bg-[#F5F5F5] transition-colors rounded-full">
+            {currentUser ? "Sign Out" : "Sign In"}
           </button>
         </div>
       )}

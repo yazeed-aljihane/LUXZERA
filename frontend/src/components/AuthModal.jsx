@@ -191,13 +191,13 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
       <div className="absolute inset-0 z-0 cursor-default" onClick={closeAndReset} />
 
       {/* PORTAL FORM CARD */}
-      <div className="auth-surface relative z-10 w-full max-w-[460px] rounded-[24px] p-8 sm:p-10 flex flex-col gap-6 text-center max-h-[90vh] overflow-y-auto">
+      <div className="auth-surface relative z-10 w-full max-w-[460px] rounded-2xl p-8 sm:p-10 flex flex-col gap-6 text-center max-h-[90vh] overflow-y-auto bg-white border border-[#ECECEC] shadow-sm">
         <div className="auth-content flex flex-col gap-6">
         
         {/* Close Button */}
         <button 
           onClick={closeAndReset}
-          className="absolute top-6 right-6 text-[#86868B] hover:text-[#0D1B2A] transition-colors duration-150 p-2 rounded-full hover:bg-[#FAF9F7] cursor-pointer border-none flex items-center justify-center"
+          className="absolute top-6 right-6 text-[#86868B] hover:text-[#1D1D1F] transition-colors duration-150 p-2 rounded-full hover:bg-[#FAFAF9] cursor-pointer border-none flex items-center justify-center"
           aria-label="Close authentication window"
         >
           <X size={18} strokeWidth={2.5} />
@@ -206,10 +206,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         {/* Brand Header */}
         <div className="flex flex-col items-center mt-2">
           <button onClick={() => { closeAndReset(); navigate("/"); }} className="cursor-pointer flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
-            <img src="/logo.png" alt="LuxZera" className="h-10 w-auto object-contain" />
+            <img src="/LuxZera.png" alt="LuxZera" className="h-7 w-auto object-contain" />
           </button>
           
-          <h2 className="text-[28px] font-black text-[#0D1B2A] font-serif mt-5 tracking-tight leading-tight">
+          <h2 className="text-[28px] font-black text-[#1D1D1F] font-serif mt-5 tracking-tight leading-tight">
             {view === "register" && "Create Account"}
             {view === "verify_signup" && "Verify Email"}
             {view === "login" && "Welcome Back"}

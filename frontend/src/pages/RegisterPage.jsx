@@ -32,16 +32,16 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] text-[#0D1B2A] flex items-center justify-center p-6" style={{ fontFamily: "'Inter', sans-serif" }}>
-      <div className="auth-surface w-full max-w-[440px] rounded-[24px] p-8 sm:p-10 text-center flex flex-col gap-6">
+    <div className="min-h-screen bg-[#FAFAF9] text-[#1D1D1F] flex items-center justify-center p-6" style={{ fontFamily: "'Inter', sans-serif" }}>
+      <div className="auth-surface w-full max-w-[440px] rounded-2xl p-8 sm:p-10 text-center flex flex-col gap-6 bg-white border border-[#ECECEC] shadow-sm">
         <div className="auth-content flex flex-col gap-6">
         
         {/* Brand Header */}
         <div className="flex flex-col items-center">
           <button onClick={() => navigate("/")} className="cursor-pointer flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
-            <img src="/logo.png" alt="LuxZera" className="h-10 w-auto object-contain" />
+            <img src="/LuxZera.png" alt="LuxZera" className="h-7 w-auto object-contain" />
           </button>
-          <h2 className="text-[26px] font-black text-[#0D1B2A] font-serif mt-5 tracking-tight">Create Account</h2>
+          <h2 className="text-[26px] font-black text-[#1D1D1F] font-serif mt-5 tracking-tight">Create Account</h2>
           <p className="text-[12.5px] text-[#515154] font-medium leading-relaxed mt-1.5">
             Join LuxZera Designer Studio to launch your collections worldwide.
           </p>

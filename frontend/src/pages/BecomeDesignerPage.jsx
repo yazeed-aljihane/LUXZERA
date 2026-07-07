@@ -97,11 +97,9 @@ export default function BecomeDesignerPage() {
   const t = TESTIMONIALS[testimonialIdx];
 
   return (
-    <div className="bg-[#FAFAF8] text-[#1D1D1F] overflow-x-hidden pt-[64px] relative" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+    <div className="bg-white text-[#1D1D1F] overflow-x-hidden pt-[64px] relative" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
 
-      {/* Decorative Blur Blobs */}
-      <div className="absolute top-0 left-[-10%] w-[45%] h-[45%] rounded-full bg-[#FFF5EE] filter blur-[120px] opacity-70 pointer-events-none" />
-      <div className="absolute top-[10%] right-[-10%] w-[45%] h-[45%] rounded-full bg-[#FFF0E5] filter blur-[120px] opacity-50 pointer-events-none" />
+
 
       {/* ══════════════════════════════════════════
           HERO

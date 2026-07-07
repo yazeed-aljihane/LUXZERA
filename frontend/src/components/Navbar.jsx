@@ -11,6 +11,24 @@ const NAV_LINKS = [
   { label: "Collections", value: "collections" },
 ];
 
+const PreciseNavButton = ({ label, active, onClick, onMouseEnter, onMouseLeave, children }) => {
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={`relative flex items-center gap-1 group py-1.5 cursor-pointer bg-transparent border-none outline-none transition-colors duration-[200ms] ease-out ${
+        active ? "text-[#F07020]" : "text-[#6B7280] hover:text-[#F07020]"
+      }`}
+    >
+      <span className="text-[14px] font-bold">
+        {label}
+      </span>
+      {children}
+    </button>
+  );
+};
+
 export default function Navbar({
   cartCount = 0,
   wardrobeCount = 0,
@@ -182,17 +200,17 @@ export default function Navbar({
                       onMouseEnter={() => setCollectionsOpen(true)}
                       onMouseLeave={() => setCollectionsOpen(false)}
                     >
-                      <button
+                      <PreciseNavButton 
+                        label={label}
+                        active={isActive}
                         onClick={() => handlers[value]?.()}
-                        className={`${navLink(isActive)} flex items-center gap-1 group`}
                       >
-                        {label}
                         <ChevronDown 
                           size={13} 
                           strokeWidth={2.5}
                           className={`transition-transform duration-[250ms] ease-out opacity-60 ${collectionsOpen ? "-rotate-180" : "rotate-0"}`} 
                         />
-                      </button>
+                      </PreciseNavButton>
 
                       {/* Mega Menu Dropdown */}
                       <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[520px] bg-white border border-[#ECECEC] rounded-2xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.03)] z-50 flex gap-12 transition-all duration-[200ms] ease-out ${
@@ -236,13 +254,12 @@ export default function Navbar({
                 }
 
                 return (
-                  <button
+                  <PreciseNavButton 
                     key={value}
+                    label={label}
+                    active={isActive}
                     onClick={() => handlers[value]?.()}
-                    className={navLink(isActive)}
-                  >
-                    {label}
-                  </button>
+                  />
                 );
               })}
           </nav>

@@ -546,9 +546,6 @@ export default function BecomeDesignerPage() {
               <div className="pt-0.5">
                 <p className="text-[13px] font-extrabold text-[#1D1D1F] mb-1">{item.title}</p>
                 <p className="text-[11.5px] text-[#86868B] leading-relaxed font-medium">{item.desc}</p>
-                <button className="text-[10px] font-extrabold text-[#F07020] uppercase tracking-wider mt-2 hover:underline inline-flex items-center gap-1">
-                  Learn More <span>→</span>
-                </button>
               </div>
             </div>
           ))}

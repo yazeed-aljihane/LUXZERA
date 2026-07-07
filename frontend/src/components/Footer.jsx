@@ -16,7 +16,7 @@ export default function Footer({ onShopNow }) {
   };
 
   const linkClass =
-    "text-[14px] font-medium text-[#37352F] hover:text-[#F07020] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 leading-[28px]";
+    "text-[14px] font-medium text-[#1D1D1F] hover:text-[#5B6EF5] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 leading-[28px]";
 
   return (
     <footer className="w-full bg-[#FAFAF9] border-t border-[#ECECEC] font-sans">
@@ -29,22 +29,16 @@ export default function Footer({ onShopNow }) {
             {/* ── BRAND COLUMN ── */}
             <div className="w-full lg:w-[280px] shrink-0 flex flex-col justify-center items-start gap-6">
 
-              {/* Top: Logo Lockup (PNG with +15% size, gap reduced) */}
+              {/* Top: Logo Lockup (Wordmark only) */}
               <button
                 onClick={() => handleLinkClick("/")}
-                className="hover:opacity-85 transition-opacity flex items-center gap-1.5 cursor-pointer border-none bg-transparent p-0"
+                className="hover:opacity-85 transition-opacity flex items-center cursor-pointer border-none bg-transparent p-0"
                 aria-label="LuxZera home"
               >
                 <img
-                  src="/logo.png"
-                  alt="LuxZera Symbol"
-                  style={{ height: "60px" }}
-                  className="w-auto object-contain translate-y-[1px]"
-                />
-                <img
                   src="/LuxZera.png"
                   alt="LuxZera Wordmark"
-                  style={{ height: "46px" }}
+                  style={{ height: "36px" }}
                   className="w-auto object-contain"
                 />
               </button>
@@ -53,11 +47,11 @@ export default function Footer({ onShopNow }) {
               <div className="flex flex-col items-start gap-2">
                 <button
                   onClick={() => navigate("/privacy")}
-                  className="text-[12px] text-[#9B9B9B] hover:text-[#37352F] text-left transition-colors duration-200 cursor-pointer border-none bg-transparent p-0 leading-none"
+                  className="text-[12px] text-[#86868B] hover:text-[#1D1D1F] text-left transition-colors duration-200 cursor-pointer border-none bg-transparent p-0 leading-none"
                 >
                   Cookie settings
                 </button>
-                <p className="text-[12px] text-[#9B9B9B] leading-none">
+                <p className="text-[12px] text-[#86868B] leading-none">
                   © {currentYear} LuxZera, Inc.
                 </p>
               </div>
@@ -149,7 +143,7 @@ export default function Footer({ onShopNow }) {
                 {/* Explore more */}
                 <button
                   onClick={() => handleLinkClick("/market")}
-                  className="mt-[24px] text-[14px] font-medium text-[#37352F] hover:text-[#F07020] flex items-center gap-[6px] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 group"
+                  className="mt-6 text-[14px] font-medium text-[#1D1D1F] hover:text-[#5B6EF5] flex items-center gap-1.5 transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 group"
                 >
                   Explore more
                   <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />

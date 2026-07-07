@@ -104,7 +104,7 @@ export default function App() {
   const showNavbar = !isHideLayout;
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] relative">
+    <div className="min-h-screen bg-white relative">
       {showNavbar && (
         <Navbar
           cartCount={cartCount}
@@ -126,50 +126,64 @@ export default function App() {
           onLogout={handleLogout}
           onSearch={handleSearch}
           onDesignerClick={() => {
-            const isDesigner = currentUser?.role === "DESIGNER" || currentUser?.isDesigner;
-            navigate(isDesigner ? "/designer-studio" : "/become-designer");
+            if (currentUser) {
+              if (currentUser.role === "DESIGNER" || currentUser.isDesigner) {
+                navigate("/designer-studio");
+              } else {
+                navigate("/become-designer");
+              }
+            } else {
+              openAuthModal("login");
+            }
           }}
         />
       )}
 
       <main>
         <Routes>
-          <Route
-            path="/account"
-            element={
-              <AccountPage
-                currentUser={currentUser}
-                authLoading={authLoading}
-                onUserChange={setCurrentUser}
-              />
-            }
-          />
-          <Route path="/orders" element={<OrdersPage />} />
-
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero onShopNow={() => navigate("/market")} />
-                <Home onShopNow={() => navigate("/market")} />
-              </>
-            }
-          />
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero onShopNow={() => navigate("/market")} />
+              <Home onShopNow={() => navigate("/market")} />
+            </>
+          }
+        />
           <Route path="/market" element={<MarketPage />} />
-          <Route path="/shop" element={<Navigate to="/market" replace />} />
           <Route path="/men" element={<MenPage />} />
           <Route path="/women" element={<WomenPage />} />
           <Route path="/unisex" element={<UnisexPage />} />
           <Route path="/kids" element={<KidsPage />} />
-          <Route path="/wardrobe" element={<WardrobePage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/about" element={<AboutPage onShopNow={() => navigate("/market")} />} />
-          <Route path="/faqs" element={<FaqPage onShopNow={() => navigate("/market")} />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/faqs" element={<FaqPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/wardrobe" element={<WardrobePage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/become-designer" element={<BecomeDesignerPage />} />
-          <Route path="/designer-onboarding" element={<DesignerOnboardingPage />} />
-          <Route path="/designer-studio" element={<DesignerStudioPage />} />
+          <Route
+            path="/designer-onboarding"
+            element={
+              currentUser ? (
+                <DesignerOnboardingPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
+              ) : (
+                <Navigate to="/?openLogin=true" replace />
+              )
+            }
+          />
+          <Route
+            path="/designer-studio"
+            element={
+              currentUser ? (
+                <DesignerStudioPage currentUser={currentUser} />
+              ) : (
+                <Navigate to="/?openLogin=true" replace />
+              )
+            }
+          />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/verify-otp" element={<VerifyOtpPage />} />
           <Route path="/complete-google-signup" element={<CompleteGoogleSignupPage />} />
@@ -195,12 +209,12 @@ export default function App() {
         }`}>
           <button
             onClick={() => navigate("/cart")}
-            className="h-11 px-5 bg-[#F07020] hover:bg-[#e05f10] text-[#FAF9F7] font-bold uppercase text-[10px] tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 rounded-full shadow-[0_12px_24px_-6px_rgba(240,112,32,0.4)] group hover:scale-[1.03] active:scale-[0.98] cursor-pointer border-none"
+            className="h-11 px-5 bg-[#1D1D1F] hover:bg-[#2B2B2B] text-white font-semibold uppercase text-[12px] tracking-[0.2em] flex items-center justify-center gap-2 transition-all duration-300 rounded-xl shadow-sm group hover:scale-[1.02] active:scale-[0.98] cursor-pointer border-none"
           >
             View Bag ({cartCount})
             <ArrowRight
-              size={12}
-              strokeWidth={1.7}
+              size={14}
+              strokeWidth={1.5}
               className="transition-transform duration-200 group-hover:translate-x-0.5"
             />
           </button>

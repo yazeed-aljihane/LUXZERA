@@ -327,86 +327,75 @@ export default function Navbar({
                 {profileOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                    <div className="absolute right-0 mt-2 w-[260px] z-50 border border-[#ECECEC] bg-white shadow-[0_12px_48px_rgba(0,0,0,0.12)] rounded-[8px] overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150 origin-top-right">
-                      {/* Profile header (Notion style) */}
-                      <div className="flex items-center gap-3 px-3 py-3 border-b border-[#ECECEC]">
-                        <div className="w-9 h-9 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center shrink-0">
+                    <div className="absolute right-0 mt-3 w-[260px] z-50 bg-white/95 backdrop-blur-2xl border border-[#ECECEC] shadow-[0_16px_48px_rgba(0,0,0,0.08)] rounded-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 origin-top-right">
+                      {/* Sleek Profile Header */}
+                      <div className="px-5 py-5 flex items-center gap-3.5">
+                        <div className="w-10 h-10 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center shrink-0">
                           {profileImage ? (
                             <img src={profileImage} alt="" className="w-full h-full object-cover" />
                           ) : (
-                            <span className="text-[13px] font-medium text-[#37352F]">{currentUser.firstName?.[0] || "U"}</span>
+                            <span className="text-[14px] font-semibold text-[#1D1D1F]">{currentUser.firstName?.[0] || "U"}</span>
                           )}
                         </div>
                         <div className="flex flex-col overflow-hidden">
-                          <span className="text-[13px] font-medium text-[#37352F] truncate leading-tight">
+                          <span className="text-[14px] font-semibold text-[#1D1D1F] truncate leading-tight">
                             {profileFullName}
                           </span>
-                          <span className="text-[12px] text-[#9B9B9B] truncate leading-tight mt-0.5">
+                          <span className="text-[12px] text-[#86868B] truncate leading-tight mt-0.5">
                             {profileEmail}
                           </span>
                         </div>
                       </div>
 
                       {/* Menu */}
-                      <div className="p-1 flex flex-col gap-[1px]">
+                      <div className="px-2 pb-2 flex flex-col gap-0.5">
+                        <div className="h-[1px] bg-[#ECECEC]/70 mb-1.5 mx-2" />
+                        
                         {[
                           { 
                             icon: <User size={15} strokeWidth={1.5} />, 
-                            label: "Profile", 
+                            label: "My Profile", 
                             action: () => { onAccountClick?.(); setProfileOpen(false); } 
                           },
                           { 
                             icon: <ShoppingBag size={15} strokeWidth={1.5} />, 
-                            label: "Orders", 
+                            label: "My Orders", 
                             action: () => { onOrdersClick?.(); setProfileOpen(false); } 
                           },
                           { 
-                            icon: <AlmirahIcon size={15} strokeWidth={1.5} />, 
-                            label: "Wishlist", 
-                            action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
-                          },
-                          { 
                             icon: <Sparkles size={15} strokeWidth={1.5} />, 
-                            label: "Saved Styles", 
+                            label: "Wishlist & Saved", 
                             action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
                           },
                           { 
                             icon: <Settings size={15} strokeWidth={1.5} />, 
-                            label: "Settings", 
+                            label: "Account Settings", 
                             action: () => { onAccountClick?.(); setProfileOpen(false); } 
                           }
                         ].map(({ icon, label, action }) => (
                           <button 
                             key={label} 
                             onClick={action}
-                            className="group w-full flex items-center gap-2.5 px-3 py-1.5 text-left text-[13px] font-normal rounded-[6px] text-[#37352F] hover:bg-[#F3F4F6] transition-none"
+                            className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] hover:bg-[#FAFAF9] transition-colors duration-150"
                           >
-                            <span className="text-[#9B9B9B] group-hover:text-[#37352F] flex-shrink-0">
+                            <span className="text-[#86868B] group-hover:text-[#1D1D1F] transition-colors duration-150 flex-shrink-0">
                               {icon}
                             </span>
                             {label}
                           </button>
                         ))}
                         
-                        <div className="h-[1px] bg-[#ECECEC] my-1 mx-1" />
+                        <div className="h-[1px] bg-[#ECECEC]/70 my-1.5 mx-2" />
                         
                         <button 
                           onClick={handleLogout}
-                          className="group w-full flex items-center gap-2.5 px-3 py-1.5 text-left text-[13px] font-normal rounded-[6px] text-[#37352F] hover:bg-[#F3F4F6] transition-none"
+                          className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] hover:bg-red-50/50 transition-colors duration-150"
                         >
-                          <span className="text-[#9B9B9B] flex-shrink-0">
+                          <span className="text-[#86868B] group-hover:text-red-500 transition-colors duration-150 flex-shrink-0">
                             <LogOut size={15} strokeWidth={1.5} />
                           </span>
-                          Sign Out
+                          <span className="group-hover:text-red-600 transition-colors duration-150">Sign Out</span>
                         </button>
-                      </div>
-                      <div className="border-t border-[#ECECEC] py-2.5 bg-[#FAFAF9] flex items-center justify-center">
-                        <img 
-                          src="/LuxZera.png" 
-                          alt="LuxZera" 
-                          style={{ height: "14px" }}
-                          className="w-auto object-contain" 
-                        />
                       </div>
                     </div>
                   </>

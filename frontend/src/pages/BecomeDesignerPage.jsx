@@ -274,7 +274,7 @@ export default function BecomeDesignerPage() {
       {/* ══════════════════════════════════════════
           HOW IT WORKS
       ══════════════════════════════════════════ */}
-      <section className="bg-white border-y border-[#F0EDE8] py-14 mt-10">
+      <section className="bg-white py-24 mt-4">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10">
           <p className="text-center text-[9px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-10">How it Works</p>
 
@@ -400,7 +400,7 @@ export default function BecomeDesignerPage() {
       {/* ══════════════════════════════════════════
           POWERFUL FEATURES TO GROW YOUR BRAND
       ══════════════════════════════════════════ */}
-      <section className="max-w-[1200px] mx-auto px-6 md:px-10 py-16">
+      <section className="max-w-[1200px] mx-auto px-6 md:px-10 py-24">
         <p className="text-center text-[10px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-2">Features</p>
         <h2 className="text-center text-[30px] sm:text-[36px] font-black tracking-tight text-[#1D1D1F] mb-12 font-serif">
           Powerful Features to Grow Your Brand
@@ -528,7 +528,7 @@ export default function BecomeDesignerPage() {
               )
             }
           ].map((item, i) => (
-            <div key={i} className="flex items-start gap-4 p-5 bg-white rounded-2xl border border-[#F0EDE8] hover:border-[#C6A15B]/50 hover:shadow-[0_6px_24px_rgba(198,161,91,0.06)] transition-all duration-300 group">
+            <div key={i} className="flex items-start gap-4 py-3 transition-all duration-300 group">
               <div className="w-10 h-10 rounded-xl bg-[#FFF5EE] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
                 {item.svg}
               </div>
@@ -545,7 +545,7 @@ export default function BecomeDesignerPage() {
       </section>
 
       {/* ── More Tools & Support ─────────────────── */}
-      <section className="bg-white border-t border-[#F0EDE8] py-14">
+      <section className="bg-white py-24">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 text-center">
           <p className="text-[10px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B] mb-2">More Tools & Support</p>
           

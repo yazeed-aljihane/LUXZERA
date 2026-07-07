@@ -327,42 +327,51 @@ export default function Navbar({
                 {profileOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                    <div className="absolute right-0 mt-2.5 w-56 z-50 border border-[#ECECEC] bg-white/95 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.04)] rounded-xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150 origin-top-right">
-                      {/* Profile header */}
-                      <div className="px-4 py-3 border-b border-[#ECECEC] bg-[#FAFAF9]">
-                        <span className="text-[12px] font-semibold text-[#1D1D1F] truncate leading-tight block">
-                          {profileFullName}
-                        </span>
-                        <p className="text-[11px] text-[#86868B] truncate mt-1 font-mono tracking-tight leading-none">
-                          {profileEmail}
-                        </p>
+                    <div className="absolute right-0 mt-2 w-[260px] z-50 border border-[#ECECEC] bg-white shadow-[0_12px_48px_rgba(0,0,0,0.12)] rounded-[8px] overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150 origin-top-right">
+                      {/* Profile header (Notion style) */}
+                      <div className="flex items-center gap-3 px-3 py-3 border-b border-[#ECECEC]">
+                        <div className="w-9 h-9 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center shrink-0">
+                          {profileImage ? (
+                            <img src={profileImage} alt="" className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="text-[13px] font-medium text-[#37352F]">{currentUser.firstName?.[0] || "U"}</span>
+                          )}
+                        </div>
+                        <div className="flex flex-col overflow-hidden">
+                          <span className="text-[13px] font-medium text-[#37352F] truncate leading-tight">
+                            {profileFullName}
+                          </span>
+                          <span className="text-[12px] text-[#9B9B9B] truncate leading-tight mt-0.5">
+                            {profileEmail}
+                          </span>
+                        </div>
                       </div>
 
                       {/* Menu */}
-                      <div className="p-1 flex flex-col gap-0.5">
+                      <div className="p-1 flex flex-col gap-[1px]">
                         {[
                           { 
-                            icon: <User size={14} strokeWidth={1.5} />, 
+                            icon: <User size={15} strokeWidth={1.5} />, 
                             label: "Profile", 
                             action: () => { onAccountClick?.(); setProfileOpen(false); } 
                           },
                           { 
-                            icon: <ShoppingBag size={14} strokeWidth={1.5} />, 
+                            icon: <ShoppingBag size={15} strokeWidth={1.5} />, 
                             label: "Orders", 
                             action: () => { onOrdersClick?.(); setProfileOpen(false); } 
                           },
                           { 
-                            icon: <AlmirahIcon size={14} strokeWidth={1.5} />, 
+                            icon: <AlmirahIcon size={15} strokeWidth={1.5} />, 
                             label: "Wishlist", 
                             action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
                           },
                           { 
-                            icon: <Sparkles size={14} strokeWidth={1.5} />, 
+                            icon: <Sparkles size={15} strokeWidth={1.5} />, 
                             label: "Saved Styles", 
                             action: () => { onWardrobeClick?.(); setProfileOpen(false); } 
                           },
                           { 
-                            icon: <Settings size={14} strokeWidth={1.5} />, 
+                            icon: <Settings size={15} strokeWidth={1.5} />, 
                             label: "Settings", 
                             action: () => { onAccountClick?.(); setProfileOpen(false); } 
                           }
@@ -370,27 +379,27 @@ export default function Navbar({
                           <button 
                             key={label} 
                             onClick={action}
-                            className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-normal rounded-lg text-[#1D1D1F] hover:bg-[#F5F5F5] transition-colors duration-100"
+                            className="group w-full flex items-center gap-2.5 px-3 py-1.5 text-left text-[13px] font-normal rounded-[6px] text-[#37352F] hover:bg-[#F3F4F6] transition-none"
                           >
-                            <span className="text-[#86868B] group-hover:text-[#1D1D1F] transition-colors duration-100">
+                            <span className="text-[#9B9B9B] group-hover:text-[#37352F] flex-shrink-0">
                               {icon}
                             </span>
                             {label}
                           </button>
                         ))}
+                        
                         <div className="h-[1px] bg-[#ECECEC] my-1 mx-1" />
+                        
                         <button 
                           onClick={handleLogout}
-                          className="group w-full flex items-center gap-2.5 px-2.5 py-1.5 text-left text-[12px] font-medium rounded-lg text-red-600 hover:bg-[#F5F5F5] transition-colors duration-100"
+                          className="group w-full flex items-center gap-2.5 px-3 py-1.5 text-left text-[13px] font-normal rounded-[6px] text-[#37352F] hover:bg-[#F3F4F6] transition-none"
                         >
-                          <span className="text-red-500/85 group-hover:text-red-600 transition-colors duration-100">
-                            <LogOut size={14} strokeWidth={1.5} className="inline-block" />
+                          <span className="text-[#9B9B9B] flex-shrink-0">
+                            <LogOut size={15} strokeWidth={1.5} />
                           </span>
                           Sign Out
                         </button>
                       </div>
-
-                      {/* Dropdown Footer */}
                       <div className="border-t border-[#ECECEC] py-2.5 bg-[#FAFAF9] flex items-center justify-center">
                         <img 
                           src="/LuxZera.png" 

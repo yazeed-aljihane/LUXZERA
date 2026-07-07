@@ -27,7 +27,7 @@ export default function Footer({ onShopNow }) {
           <div className="flex flex-col lg:flex-row lg:items-stretch">
 
             {/* ── BRAND COLUMN ── */}
-            <div className="w-full lg:w-[280px] shrink-0 flex flex-col justify-center items-start gap-6">
+            <div className="w-full lg:w-[280px] shrink-0 flex flex-col justify-start items-start gap-8">
 
               {/* Top: Logo Lockup (Wordmark only) */}
               <button
@@ -38,13 +38,13 @@ export default function Footer({ onShopNow }) {
                 <img
                   src="/LuxZera.png"
                   alt="LuxZera Wordmark"
-                  style={{ height: "36px" }}
+                  style={{ height: "56px" }}
                   className="w-auto object-contain"
                 />
               </button>
 
               {/* Bottom: Meta — grouped closely with the logo */}
-              <div className="flex flex-col items-start gap-2">
+              <div className="flex flex-col items-start gap-2 mt-auto lg:mt-4">
                 <button
                   onClick={() => navigate("/privacy")}
                   className="text-[12px] text-[#86868B] hover:text-[#1D1D1F] text-left transition-colors duration-200 cursor-pointer border-none bg-transparent p-0 leading-none"

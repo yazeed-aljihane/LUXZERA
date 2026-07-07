@@ -54,7 +54,7 @@ export default function Home({ onShopNow }) {
       {/* ════════════════════════════════════════════
           1. CURATED CHANNELS — Magazine Grid
       ════════════════════════════════════════════ */}
-      <section className="w-full border-b border-[#ECECEC] bg-white">
+      <section className="w-full bg-white">
         {/* Section Header */}
         <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-20 pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
@@ -114,7 +114,7 @@ export default function Home({ onShopNow }) {
       {/* ════════════════════════════════════════════
           2. CATEGORY BADGE SCROLL ROW
       ════════════════════════════════════════════ */}
-      <section className="w-full bg-[#FAFAF9] border-b border-[#ECECEC] py-6 overflow-x-auto scrollbar-none">
+      <section className="w-full bg-white py-6 overflow-x-auto scrollbar-none">
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center gap-4 whitespace-nowrap min-w-max">
           {categories.map((cat) => (
             <button

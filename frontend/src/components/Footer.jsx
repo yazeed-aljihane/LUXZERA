@@ -130,6 +130,7 @@ export default function Footer({ onShopNow }) {
                 </h4>
                 <div className="flex flex-col items-start">
                   {[
+                    { label: "Designers", path: "/become-designer" },
                     { label: "Enterprise", path: "/about" },
                     { label: "Small business", path: "/about" },
                     { label: "Personal", path: "/about" },

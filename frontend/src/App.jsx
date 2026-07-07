@@ -157,7 +157,7 @@ export default function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/faqs" element={<FaqPage />} />
-          <Route path="/account" element={<AccountPage />} />
+          <Route path="/account" element={<AccountPage currentUser={currentUser} authLoading={authLoading} onUserChange={setCurrentUser} />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/wardrobe" element={<WardrobePage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />

@@ -137,7 +137,7 @@ export default function BecomeDesignerPage() {
           </div>
 
           {/* Sub-Hero Trust Strip */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-[#F0EDE8]/80 w-full">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 w-full">
             {[
               {
                 title: "No Joining Fees", desc: "Start for free",

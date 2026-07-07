@@ -406,7 +406,15 @@ export default function BecomeDesignerPage() {
           Powerful Features to Grow Your Brand
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Doodle Canvas Filter */}
+        <svg width="0" height="0" className="hidden" aria-hidden="true">
+          <filter id="doodle-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-10 mt-16">
           {[
             {
               title: "Designer Profile", desc: "Create your own designer identity with story, logo, social links and more.",
@@ -529,7 +537,10 @@ export default function BecomeDesignerPage() {
             }
           ].map((item, i) => (
             <div key={i} className="flex items-start gap-4 py-3 transition-all duration-300 group">
-              <div className="w-10 h-10 rounded-xl bg-[#FFF5EE] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
+              <div 
+                className="w-10 h-10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 text-[#F07020] opacity-80 [&>svg]:w-8 [&>svg]:h-8 [&>svg]:stroke-[2.5px]"
+                style={{ filter: "url(#doodle-filter)" }}
+              >
                 {item.svg}
               </div>
               <div className="pt-0.5">

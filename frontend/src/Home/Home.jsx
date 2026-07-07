@@ -117,18 +117,18 @@ export default function Home({ onShopNow }) {
       {/* ════════════════════════════════════════════
           2. CATEGORY BADGE SCROLL ROW
       ════════════════════════════════════════════ */}
-      <section className="w-full bg-[#F2EFEA] border-b border-[#E7E3DD] py-5 overflow-x-auto scrollbar-none">
+      <section className="w-full bg-[#FAFAF9] border-b border-[#ECECEC] py-6 overflow-x-auto scrollbar-none">
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center gap-4 whitespace-nowrap min-w-max">
           {categories.map((cat) => (
             <button
               key={cat.name}
               onClick={onShopNow}
-              className="flex items-center gap-2.5 border border-[#E7E3DD] bg-[#FAF9F7] hover:border-[#5B6EF5]/40 hover:bg-white px-4 py-2.5 rounded-full transition-all duration-200 group shadow-sm"
+              className="flex items-center gap-3 border border-[#ECECEC] bg-white hover:border-[#F07020]/40 hover:bg-[#FAFAF9] px-5 py-2.5 rounded-full transition-all duration-200 group shadow-[0_1px_2px_rgba(0,0,0,0.02)] hover:scale-[1.02] active:scale-[0.98]"
             >
-              <div className="w-7 h-7 rounded-full overflow-hidden border border-[#E7E3DD] shrink-0">
+              <div className="w-7 h-7 rounded-full overflow-hidden border border-[#ECECEC] shrink-0">
                 <img src={cat.img} alt="" className="w-full h-full object-cover" />
               </div>
-              <span className="text-[8.5px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B] group-hover:text-[#5B6EF5] transition-colors">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#37352F] group-hover:text-[#F07020] transition-colors">
                 {cat.name}
               </span>
             </button>

@@ -20,51 +20,51 @@ export default function Footer({ onShopNow }) {
 
   return (
     <footer className="w-full bg-[#FAFAF9] border-t border-[#ECECEC] font-sans">
-      <div className="max-w-[1440px] mx-auto p-[100px]">
+      <div className="max-w-[1440px] mx-auto py-24 px-6 md:px-24">
         <div className="max-w-[1280px] mx-auto">
 
           {/* Footer Grid: Brand (25%) | Nav Columns (75%) */}
           <div className="flex flex-col lg:flex-row lg:items-stretch">
 
             {/* ── BRAND COLUMN ── */}
-            <div className="w-full lg:w-[240px] shrink-0 flex flex-col justify-between items-start">
+            <div className="w-full lg:w-[280px] shrink-0 flex flex-col justify-center items-start gap-6">
 
-              {/* Top: Logo Lockup */}
+              {/* Top: Logo Lockup (PNG with +15% size, gap reduced) */}
               <button
                 onClick={() => handleLinkClick("/")}
-                className="hover:opacity-85 transition-opacity flex items-center gap-[5px] cursor-pointer border-none bg-transparent p-0"
+                className="hover:opacity-85 transition-opacity flex items-center gap-1.5 cursor-pointer border-none bg-transparent p-0"
                 aria-label="LuxZera home"
               >
                 <img
                   src="/logo.png"
                   alt="LuxZera Symbol"
-                  style={{ height: "52px" }}
+                  style={{ height: "60px" }}
                   className="w-auto object-contain translate-y-[1px]"
                 />
                 <img
                   src="/LuxZera.png"
                   alt="LuxZera Wordmark"
-                  style={{ height: "40px" }}
+                  style={{ height: "46px" }}
                   className="w-auto object-contain"
                 />
               </button>
 
-              {/* Bottom: Meta — pushed to bottom by justify-between */}
-              <div className="flex flex-col items-start mt-[32px] lg:mt-0">
+              {/* Bottom: Meta — grouped closely with the logo */}
+              <div className="flex flex-col items-start gap-2">
                 <button
                   onClick={() => navigate("/privacy")}
                   className="text-[12px] text-[#9B9B9B] hover:text-[#37352F] text-left transition-colors duration-200 cursor-pointer border-none bg-transparent p-0 leading-none"
                 >
                   Cookie settings
                 </button>
-                <p className="text-[12px] text-[#9B9B9B] leading-none mt-[10px]">
+                <p className="text-[12px] text-[#9B9B9B] leading-none">
                   © {currentYear} LuxZera, Inc.
                 </p>
               </div>
             </div>
 
             {/* ── NAVIGATION COLUMNS ── */}
-            <div className="w-full lg:flex-1 flex flex-wrap lg:flex-nowrap gap-[70px] items-start mt-[32px] lg:mt-0 lg:pl-[46px]">
+            <div className="w-full lg:flex-1 flex flex-wrap lg:flex-nowrap gap-16 items-start mt-8 lg:mt-0 lg:pl-24">
 
               {/* Company */}
               <div className="flex flex-col">

@@ -6,12 +6,17 @@
 @tailwind utilities;
 
 :root {
-  --primary-bg: #FAF9F7;
-  --secondary-bg: #F2EFEA;
-  --brand-blue: #5B6EF5;
+  --primary-bg: #FAFAF9;
+  --white-bg: #FFFFFF;
+  --secondary-bg: #FAFAF9;
+  --brand-blue: #37352F;
+  --brand-orange: #F07020;
   --accent-gold: #C6A15B;
-  --accent-terracotta: #C97A5A;
-  --text-charcoal: #2B2B2B;
+  --accent-terracotta: #F07020;
+  --text-charcoal: #37352F;
+  --text-muted: #9B9B9B;
+  --border-light: #ECECEC;
+  --border-medium: #E7E3DD;
   --border-gray: #E7E3DD;
 }
 

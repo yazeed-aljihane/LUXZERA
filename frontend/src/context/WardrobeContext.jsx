@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const WardrobeContext = createContext(null);
 
 const STORAGE_KEY = "luxzera-wardrobe";
-const DEFAULT_COLLECTIONS = ["Casual", "Office", "Streetwear", "Date Night", "Vacation", "Winter"];
+const DEFAULT_COLLECTIONS = ["Shirts", "Pants", "Shoes", "Jackets", "Accessories", "Office", "Vacation", "Party", "Summer", "Winter"];
 
 function readStored() {
   if (typeof window === "undefined") return { items: [], collections: DEFAULT_COLLECTIONS };

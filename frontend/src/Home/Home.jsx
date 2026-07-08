@@ -497,7 +497,8 @@ export default function Home({ onShopNow }) {
                <img 
                   src="/zera.png" 
                   alt="Zera Interactive Map" 
-                  className="w-full h-auto object-contain block" 
+                  className="w-full h-auto object-contain block pointer-events-none select-none" 
+                  draggable={false}
                />
             </div>
          </div>

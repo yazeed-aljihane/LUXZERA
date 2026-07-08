@@ -266,13 +266,6 @@ export default function Navbar({
 
           {/* Right icons — right edge, z-10 to sit above the absolute nav if they ever overlap */}
           <div className="flex items-center gap-5 text-[#1D1D1F] z-10">
-            {/* Designers CTA — like Notion's 'Get Notion free' */}
-            <button
-              onClick={onDesignerClick}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#1D1D1F] text-white text-[13px] font-medium tracking-[0.01em] hover:bg-[#2B2B2B] transition-colors duration-[180ms] ease-out shrink-0"
-            >
-              For Designers
-            </button>
 
             <form
               onSubmit={handleSearchSubmit}
@@ -541,12 +534,7 @@ export default function Navbar({
             </button>
           ))}
           <div className="h-px bg-[#ECECEC] my-2" />
-          {/* For Designers CTA */}
-          <button
-            onClick={() => { onDesignerClick?.(); setMobileOpen(false); }}
-            className="w-full bg-[#1D1D1F] text-white text-[13px] font-medium py-3 hover:bg-[#2B2B2B] transition-colors rounded-full">
-            For Designers
-          </button>
+
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
             className="w-full border border-[#ECECEC] text-[#1D1D1F] text-[13px] font-medium py-3 hover:bg-[#F5F5F5] transition-colors rounded-full">

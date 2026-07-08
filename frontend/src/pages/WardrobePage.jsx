@@ -81,10 +81,10 @@ export default function WardrobePage() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <h1 className="text-[32px] md:text-[48px] font-bold text-[#37352F] tracking-tight uppercase">
-                Curated Collection
+                Zera Collection
               </h1>
-              <p className="text-[14px] text-[#9B9B9B] mt-2 font-normal max-w-lg leading-relaxed">
-                A personally curated selection of garments tailored to your lifestyle. Save entire outfits and access your styled recommendations.
+              <p className="text-[14px] text-[#9B9B9B] mt-2 font-medium max-w-xl leading-[1.8]">
+                Add pieces you love to your Zera Collection. Our AI assesses your unique taste based on these saved images to recommend perfectly styled outfit pairs—like matching the right shirt with the perfect pants.
               </p>
             </div>
             <button

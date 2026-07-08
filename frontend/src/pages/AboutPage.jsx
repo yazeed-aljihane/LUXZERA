@@ -235,46 +235,60 @@ export default function AboutPage({ onShopNow }) {
       </section>
 
       {/* ── Team ── */}
-      <section className="max-w-7xl mx-auto px-6 py-20 border-b border-[#E7E3DD]">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="h-px w-5 bg-[#C6A15B]" />
-          <p className="text-[8.5px] font-extrabold uppercase tracking-[0.38em] text-[#C6A15B]">The People</p>
+      <section className="max-w-5xl mx-auto px-6 py-24 border-b border-[#ECECEC]">
+        
+        {/* Minimal Section Header */}
+        <div className="flex flex-col items-start mb-16">
+          <p className="text-[12px] font-bold uppercase tracking-[0.15em] text-[#F07020] mb-2">The Visionaries</p>
+          <h2 className="text-[32px] font-black uppercase tracking-tight text-[#37352F]">
+            Behind The Drop.
+          </h2>
         </div>
-        <h2 className="text-4xl md:text-5xl font-black uppercase leading-[0.9] tracking-tight text-[#2B2B2B] mb-12">
-          Behind the<br />
-          <span style={{ color: "#F07020" }}>Drop.</span>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 max-w-3xl mt-16 mx-auto">
+
+        {/* Minimal Team Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           {TEAM.map(({ name, role, bio, img, email, github }) => (
-            <div key={name} className="flex flex-col group text-left">
+            <div key={name} className="flex gap-6 group">
               
-              {/* Profile Image (Aspect Ratio 4/5) */}
-              <div className="aspect-[4/5] w-full rounded-2xl overflow-hidden bg-[#F5F5F7] relative border border-black/[0.04]">
-                <img src={img} alt={name} className="w-full h-full object-cover object-center transition-transform duration-[1.2s] ease-out group-hover:scale-[1.015]" />
+              {/* Minimal Avatar (80px) */}
+              <div className="w-20 h-20 shrink-0 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] relative">
+                <img 
+                  src={img} 
+                  alt={name} 
+                  className="w-full h-full object-cover object-center transition-transform duration-[1.2s] group-hover:scale-105" 
+                />
               </div>
 
               {/* Founder Details */}
-              <div className="pt-6 flex flex-col items-start">
-                <h3 className="text-[20px] font-bold text-[#1D1D1F] tracking-tight">{name}</h3>
-                <p className="text-[12px] font-semibold text-[#86868B] uppercase tracking-[0.08em] mt-1">{role}</p>
-                <p className="text-[13.5px] text-[#515154] mt-3.5 leading-relaxed font-normal">{bio}</p>
+              <div className="flex flex-col items-start pt-1">
+                <h3 className="text-[20px] font-bold text-[#37352F] tracking-tight leading-none">
+                  {name}
+                </h3>
+                <p className="text-[12px] font-bold text-[#F07020] uppercase tracking-[0.05em] mt-2 mb-3">
+                  {role}
+                </p>
+                <p className="text-[14px] text-[#9B9B9B] leading-[1.6] font-medium max-w-sm">
+                  {bio}
+                </p>
                 
-                {/* Text-Based Contact Links (Apple signature style) */}
-                <div className="flex items-center gap-5 mt-5">
+                {/* Minimal Links */}
+                <div className="flex items-center gap-4 mt-4">
                   {email && (
-                    <a href={`mailto:${email}`} className="text-[12px] font-semibold text-[#0066CC] hover:underline flex items-center gap-1">
+                    <a 
+                      href={`mailto:${email}`} 
+                      className="text-[12px] font-bold text-[#37352F] hover:text-[#F07020] transition-colors"
+                    >
                       Email
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
                     </a>
                   )}
                   {github && (
-                    <a href={github} target="_blank" rel="noopener noreferrer" className="text-[12px] font-semibold text-[#0066CC] hover:underline flex items-center gap-1">
+                    <a 
+                      href={github} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-[12px] font-bold text-[#37352F] hover:text-[#F07020] transition-colors"
+                    >
                       GitHub
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
                     </a>
                   )}
                 </div>

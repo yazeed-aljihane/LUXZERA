@@ -1,5 +1,5 @@
 // src/Home/Home.jsx
-import { ArrowRight, Clock, Shirt, Tag, Heart, Plus, Sparkles } from "lucide-react";
+import { ArrowRight, Clock, Shirt, Tag, Heart, Plus, Sparkles, ChevronDown, User, ShoppingBag, TrendingUp, Search, Check } from "lucide-react";
 import ProductCard from "../components/ProductCard.jsx";
 import { PRODUCTS } from "../data/products.js";
 
@@ -136,7 +136,7 @@ export default function Home({ onShopNow }) {
       {/* ════════════════════════════════════════════
           3. THE LUXZERA WAY — Custom Onboarding Stepper Flow
       ════════════════════════════════════════════ */}
-      <section className="w-full border-b border-[#ECECEC] bg-white">
+      <section className="w-full bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-20">
 
           {/* Header */}
@@ -421,11 +421,11 @@ export default function Home({ onShopNow }) {
           </div>
 
           {/* Bottom Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-10 mt-16 border-t border-[#ECECEC]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-10 mt-16">
             
             {/* Feature 1 — Saves You Hours */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0 border border-[#ECECEC]">
+              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
                 <Clock size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -440,7 +440,7 @@ export default function Home({ onShopNow }) {
 
             {/* Feature 2 — Made Just for You */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0 border border-[#ECECEC]">
+              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
                 <Shirt size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -455,7 +455,7 @@ export default function Home({ onShopNow }) {
 
             {/* Feature 3 — Better Choices */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0 border border-[#ECECEC]">
+              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
                 <Tag size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -470,7 +470,7 @@ export default function Home({ onShopNow }) {
 
             {/* Feature 4 — More Confidence */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0 border border-[#ECECEC]">
+              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
                 <Heart size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -486,6 +486,21 @@ export default function Home({ onShopNow }) {
           </div>
 
         </div>
+      </section>
+
+      {/* ════════════════════════════════════════════
+          ZERA COLLECTION — Interactive Map Image
+      ════════════════════════════════════════════ */}
+      <section className="w-full bg-white overflow-hidden">
+         <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-14 py-16">
+            <div className="w-full flex items-center justify-center">
+               <img 
+                  src="/zera.png" 
+                  alt="Zera Interactive Map" 
+                  className="w-full h-auto object-contain block" 
+               />
+            </div>
+         </div>
       </section>
 
       {/* ════════════════════════════════════════════

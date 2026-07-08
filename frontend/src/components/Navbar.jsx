@@ -316,16 +316,16 @@ export default function Navbar({
               </button>
             </form>
 
-            {/* Wardrobe Icon (Wishlist) */}
+            {/* Zera Collection Icon (formerly Wardrobe) */}
             <button
               onClick={onWardrobeClick}
               className={`relative flex items-center justify-center transition-colors duration-150 ${
                 currentPage === "wardrobe" ? "text-[#1D1D1F]" : "text-[#6B7280] hover:text-[#1D1D1F]"
               }`}
-              aria-label="My Wardrobe"
-              title="My Wardrobe"
+              aria-label="Zera Collection"
+              title="Zera Collection"
             >
-              <AlmirahIcon size={18} strokeWidth={1.5} />
+              <img src="/logo.png" alt="Zera" className="w-[18px] h-[18px] object-contain opacity-70 hover:opacity-100 transition-opacity mix-blend-difference" />
               {wardrobeCount > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#1D1D1F] text-[9px] font-medium text-white leading-none">
                   {wardrobeCount}
@@ -491,8 +491,8 @@ export default function Navbar({
           >
             {searchOpen ? <X size={18} strokeWidth={1.5} /> : <Search size={18} strokeWidth={1.5} />}
           </button>
-          <button onClick={onWardrobeClick} className="relative text-[#6B7280] hover:text-[#1D1D1F] transition-colors" title="My Wardrobe">
-            <AlmirahIcon size={18} strokeWidth={1.5} />
+          <button onClick={onWardrobeClick} className="relative text-[#6B7280] hover:text-[#1D1D1F] transition-colors" title="Zera Collection">
+            <img src="/logo.png" alt="Zera" className="w-[18px] h-[18px] object-contain opacity-70 hover:opacity-100 transition-opacity mix-blend-difference" />
             {wardrobeCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#1D1D1F] text-[9px] font-medium text-white leading-none">
                 {wardrobeCount}

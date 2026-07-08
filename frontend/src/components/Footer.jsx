@@ -15,7 +15,7 @@ export default function Footer({ onShopNow }) {
   };
 
   const linkClass =
-    "text-[14px] text-[#37352F] hover:text-[#5B6EF5] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 leading-loose";
+    "text-[14px] text-[#37352F] hover:text-[#F07020] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 leading-loose";
 
   return (
     <footer className="w-full bg-[#FAFAF9] border-t border-[#ECECEC] font-sans pb-16">
@@ -140,7 +140,7 @@ export default function Footer({ onShopNow }) {
                 {/* Explore more */}
                 <button
                   onClick={() => handleLinkClick("/market")}
-                  className="mt-6 text-[14px] font-medium text-[#37352F] hover:text-[#5B6EF5] flex items-center gap-1.5 transition-colors duration-200 cursor-pointer border-none bg-transparent p-0 group"
+                  className="mt-6 text-[14px] font-medium text-[#37352F] hover:text-[#F07020] flex items-center gap-1.5 transition-colors duration-200 cursor-pointer border-none bg-transparent p-0 group"
                 >
                   Explore more
                   <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />

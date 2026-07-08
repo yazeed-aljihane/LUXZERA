@@ -16,24 +16,24 @@ export const AuthProvider = ({ children }) => {
   // Auto-login on mount if a token is present
   useEffect(() => {
     const initAuth = async () => {
-      const startTime = Date.now();
       const token = getToken();
       if (token) {
         try {
-          const profile = await apiGetCurrentUser();
+          // Race: give the server max 5 seconds before we give up and show UI
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Auth timeout")), 5000)
+          );
+          const profile = await Promise.race([apiGetCurrentUser(), timeoutPromise]);
           setUser(profile);
         } catch (error) {
-          console.error("Auto-login failed:", error);
+          // Either the token is invalid OR the server is slow (cold start).
+          // Either way — show the UI immediately, user can sign in manually.
+          console.warn("Auto-login skipped:", error.message);
         }
       }
-      
-      const elapsed = Date.now() - startTime;
-      const minDelay = 800; // Enforce 800ms minimum loader display duration for smooth transitions
-      const remaining = Math.max(0, minDelay - elapsed);
-      
-      setTimeout(() => {
-        setLoading(false);
-      }, remaining);
+
+      // Enforce 800ms minimum loader for smooth transitions
+      setLoading(false);
     };
 
     initAuth();

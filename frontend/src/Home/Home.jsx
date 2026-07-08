@@ -52,6 +52,10 @@ export default function Home({ onShopNow }) {
     <div className="bg-white text-[#1D1D1F] font-sans">
 
       {/* ════════════════════════════════════════════
+          0. HERO SECTION — Removed per request
+      ════════════════════════════════════════════ */}
+
+      {/* ════════════════════════════════════════════
           1. CURATED CHANNELS — Magazine Grid
       ════════════════════════════════════════════ */}
       <section className="w-full bg-white">

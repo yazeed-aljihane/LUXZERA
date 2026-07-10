@@ -1,9 +1,7 @@
-// src/auth/authService.js
-// All authentication API calls — centralised under the auth/ module
-import axiosInstance from "../services/axios";
+import { authClient } from "../gateway/apiGateway";
 
 export const register = async (username, firstName, lastName, email, password) => {
-  const response = await axiosInstance.post("/auth/register", {
+  const response = await authClient.post("/auth/register", {
     username,
     firstName,
     lastName,
@@ -14,7 +12,7 @@ export const register = async (username, firstName, lastName, email, password) =
 };
 
 export const verifyOtp = async (email, otp) => {
-  const response = await axiosInstance.post("/auth/verify", {
+  const response = await authClient.post("/auth/verify", {
     email,
     code: otp,
   });
@@ -22,7 +20,7 @@ export const verifyOtp = async (email, otp) => {
 };
 
 export const login = async (email, password) => {
-  const response = await axiosInstance.post("/auth/login", {
+  const response = await authClient.post("/auth/login", {
     email,
     password,
   });
@@ -30,14 +28,14 @@ export const login = async (email, password) => {
 };
 
 export const googleLogin = async (idToken) => {
-  const response = await axiosInstance.post("/auth/google", {
+  const response = await authClient.post("/auth/google", {
     idToken,
   });
   return response.data;
 };
 
 export const completeGoogleSignup = async (username, password, email) => {
-  const response = await axiosInstance.post("/auth/complete-google-signup", {
+  const response = await authClient.post("/auth/complete-google-signup", {
     username,
     password,
   });
@@ -45,14 +43,14 @@ export const completeGoogleSignup = async (username, password, email) => {
 };
 
 export const forgotPassword = async (email) => {
-  const response = await axiosInstance.post("/auth/forgot-password", {
+  const response = await authClient.post("/auth/forgot-password", {
     email,
   });
   return response.data;
 };
 
 export const resetPassword = async (email, otp, newPassword) => {
-  const response = await axiosInstance.post("/auth/reset-password", {
+  const response = await authClient.post("/auth/reset-password", {
     email,
     otpCode: otp,
     newPassword,
@@ -61,7 +59,7 @@ export const resetPassword = async (email, otp, newPassword) => {
 };
 
 export const resendOtp = async (email) => {
-  const response = await axiosInstance.post("/auth/resend-otp", {
+  const response = await authClient.post("/auth/resend-otp", {
     email,
   });
   return response.data;
@@ -69,13 +67,13 @@ export const resendOtp = async (email) => {
 
 export const logout = async () => {
   try {
-    await axiosInstance.post("/auth/logout");
-  } catch {
-    // Fail silently — token cleared locally regardless
+    await authClient.post("/auth/logout");
+  } catch (err) {
+    // Fail silently
   }
 };
 
 export const getCurrentUser = async () => {
-  const response = await axiosInstance.get("/users/me");
+  const response = await authClient.get("/users/me");
   return response.data;
 };

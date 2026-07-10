@@ -1,5 +1,5 @@
-import axiosInstance from "./axios";
-import { PRODUCTS } from "../data/products";
+import { productsClient } from "../gateway/apiGateway";
+import { PRODUCTS } from "../../data/products";
 
 const FALLBACK_IMAGES = PRODUCTS.flatMap((product) => product.images?.length ? product.images : [product.image]).filter(Boolean);
 
@@ -44,6 +44,6 @@ export const normalizeProduct = (product, index = 0) => {
 };
 
 export const getProducts = async () => {
-  const response = await axiosInstance.get("/products");
+  const response = await productsClient.get("/products");
   return response.data.map(normalizeProduct);
 };

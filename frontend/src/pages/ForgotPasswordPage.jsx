@@ -1,7 +1,7 @@
 // src/pages/ForgotPasswordPage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { forgotPassword, resetPassword } from "../services/auth";
+import { forgotPassword, resetPassword } from "../services/auth/authService";
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();

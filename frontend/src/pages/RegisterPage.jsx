@@ -1,7 +1,7 @@
 // src/pages/RegisterPage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { register } from "../services/auth";
+import { register } from "../services/auth/authService";
 
 export default function RegisterPage() {
   const navigate = useNavigate();

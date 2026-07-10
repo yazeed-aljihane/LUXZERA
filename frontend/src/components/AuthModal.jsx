@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { X, Mail, Eye, EyeOff, User, Hash } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
-import { register as apiRegister, verifyOtp as apiVerifyOtp, resendOtp as apiResendOtp } from "../services/auth";
+import { register as apiRegister, verifyOtp as apiVerifyOtp, resendOtp as apiResendOtp } from "../services/auth/authService";
 
 export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
   const navigate = useNavigate();

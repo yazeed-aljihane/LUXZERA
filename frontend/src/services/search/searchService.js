@@ -1,9 +1,8 @@
-import axios from "axios";
-import { API_BASE_URL } from "./axios";
+import { searchClient } from "../gateway/apiGateway";
 
 export const searchProductsAi = async (query) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/search/ai`, {
+        const response = await searchClient.get("/search/ai", {
             params: { query: query }
         });
         return response.data;

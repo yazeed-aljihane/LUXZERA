@@ -7,7 +7,7 @@ import MeasurementsView from "../components/account/MeasurementsView";
 import PaymentMethodsView from "../components/account/PaymentMethodsView";
 import OrdersView from "../components/account/OrdersView";
 import CustomerCareView from "../components/account/CustomerCareView";
-import { getProfileDetails, updateProfile, updateUserDetails, getMeasurements } from "../services/userService";
+import { getProfileDetails, updateProfile, updateUserDetails, getMeasurements } from "../services/users/userService";
 import Loader from "../components/Loader";
 
 const AccountPage = ({ currentUser, authLoading, onUserChange }) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Sliders } from "lucide-react";
-import { getMeasurements, saveMeasurements } from "../../services/userService";
+import { getMeasurements, saveMeasurements } from "../../services/users/userService";
 import Loader from "../Loader";
 
 const MeasurementsView = ({ userId, initialMeasurements, onSaveSuccess }) => {

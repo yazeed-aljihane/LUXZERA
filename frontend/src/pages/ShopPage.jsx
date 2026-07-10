@@ -12,7 +12,7 @@ import { SlidersHorizontal, X } from "lucide-react";
 import ProductCard from "../components/ProductCard.jsx";
 import FiltersSidebar from "../components/FiltersSidebar.jsx";
 import { PRODUCTS } from "../data/products.js";
-import { getProducts } from "../services/products.js";
+import { getProducts } from "../services/products/productService.js";
 
 const CATEGORIES = ["All", "Tops", "Bottoms", "Outerwear"];
 const SIZES      = ["XS", "S", "M", "L", "XL", "XXL"];

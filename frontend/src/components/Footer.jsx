@@ -23,10 +23,10 @@ export default function Footer({ onShopNow }) {
         
         {/* Footer Grid: Brand (25%) | Nav Columns (75%) */}
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-12 lg:gap-8">
-          
+
           {/* ── BRAND COLUMN ── */}
           <div className="w-full lg:w-[280px] shrink-0 flex flex-col items-center lg:items-start justify-start gap-8">
-            
+
             {/* Logo */}
             <button
               onClick={() => handleLinkClick("/")}
@@ -56,7 +56,7 @@ export default function Footer({ onShopNow }) {
 
           {/* ── NAVIGATION COLUMNS ── */}
           <div className="w-full lg:flex-1 grid grid-cols-2 md:grid-cols-4 gap-8 lg:pl-16">
-            
+
             {/* Company */}
             <div className="flex flex-col">
               <h4 className="text-[13px] font-medium text-[#9B9B9B] mb-4 select-none leading-none">
@@ -136,7 +136,7 @@ export default function Footer({ onShopNow }) {
                     {item.label}
                   </button>
                 ))}
-                
+
                 {/* Explore more */}
                 <button
                   onClick={() => handleLinkClick("/market")}
@@ -151,6 +151,7 @@ export default function Footer({ onShopNow }) {
           </div>
 
         </div>
+
       </div>
     </footer>
   );

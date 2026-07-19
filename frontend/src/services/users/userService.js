@@ -24,15 +24,26 @@ export const updateProfile = async (userId, profileData, fileInput) => {
     formData.append("image", fileInput.files[0]);
   }
 
-  // 3. Dispatch straight to our cloud-connected Spring Boot server
-  const response = await usersClient.put(`/profile/${userId}`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  // 3. Dispatch using native fetch to avoid Axios Content-Type/charset interception
+  const { getToken } = await import("../../utils/token");
+  const token = getToken();
+  const { config } = await import("../gateway/config");
   
-  console.log("Image safely stored in the cloud:", response.data.profilePicture);
-  return response.data;
+  const response = await fetch(`${config.usersApiUrl}/profile/${userId}`, {
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    body: formData
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to update profile");
+  }
+
+  console.log("Image safely stored in the cloud:", data.profilePicture);
+  return data;
 };
 
 export const getMeasurements = async (userId) => {

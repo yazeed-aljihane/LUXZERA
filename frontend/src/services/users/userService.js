@@ -5,13 +5,29 @@ export const getProfileDetails = async (userId) => {
   return response.data;
 };
 
-export const updateProfile = async (userId, profile) => {
-  const response = await usersClient.put(`/profile/${userId}`, {
-    phoneNumber: profile.phoneNumber,
-    gender: profile.gender,
-    dateOfBirth: profile.dateOfBirth,
-    bio: profile.bio,
-  });
+export const updateProfile = async (userId, profileData, fileInput) => {
+  const formData = new FormData();
+
+  // 1. Package the text profile data as a JSON blob for the @RequestPart handler
+  formData.append(
+    "profile",
+    new Blob([JSON.stringify({
+      phoneNumber: profileData.phoneNumber,
+      gender: profileData.gender,
+      dateOfBirth: profileData.dateOfBirth,
+      bio: profileData.bio
+    })], { type: "application/json" })
+  );
+
+  // 2. Append the actual raw binary image file from the input component
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    formData.append("image", fileInput.files[0]);
+  }
+
+  // 3. Dispatch straight to our cloud-connected Spring Boot server
+  const response = await usersClient.put(`/profile/${userId}`, formData);
+  
+  console.log("Image safely stored in the cloud:", response.data.profilePicture);
   return response.data;
 };
 

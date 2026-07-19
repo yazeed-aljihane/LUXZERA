@@ -80,28 +80,7 @@ export default function Navbar({
     designers: onDesignerClick,
   };
 
-  const storageKey = currentUser?.id ? `luxzera_avatar_${currentUser.id}` : null;
-  const [localAvatar, setLocalAvatar] = useState(() => {
-    return storageKey ? localStorage.getItem(storageKey) : null;
-  });
-
-  useEffect(() => {
-    if (storageKey) {
-      setLocalAvatar(localStorage.getItem(storageKey));
-    }
-  }, [storageKey]);
-
-  useEffect(() => {
-    const handleAvatarUpdate = () => {
-      if (storageKey) {
-        setLocalAvatar(localStorage.getItem(storageKey));
-      }
-    };
-    window.addEventListener('avatar-updated', handleAvatarUpdate);
-    return () => window.removeEventListener('avatar-updated', handleAvatarUpdate);
-  }, [storageKey]);
-
-  const profileImage = localAvatar || currentUser?.profilePicture || currentUser?.avatarUrl || null;
+  const profileImage = currentUser?.profilePicture || currentUser?.avatarUrl || null;
   const profileFullName = currentUser?.firstName
     ? `${currentUser.firstName} ${currentUser.lastName || ""}`.trim()
     : "My Account";

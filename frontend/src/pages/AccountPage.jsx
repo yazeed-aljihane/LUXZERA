@@ -112,7 +112,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = async () => {
+  const handleSave = async (fileInput) => {
     if (!user?.id) return;
     setSaving(true);
     setErrorMsg("");
@@ -130,13 +130,14 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
         gender: formData.gender,
         dateOfBirth: formData.dateOfBirth,
         bio: formData.bio
-      });
+      }, fileInput);
 
       // 3. Update local state and trigger navbar re-render
       const nextUser = {
         ...user,
         firstName: formData.firstName,
-        lastName: formData.lastName
+        lastName: formData.lastName,
+        profilePicture: updatedProfile.profilePicture || user.profilePicture
       };
       
       setUser(nextUser);

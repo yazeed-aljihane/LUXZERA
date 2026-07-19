@@ -12,16 +12,7 @@ const AccountView = ({
   successMsg, 
   errorMsg 
 }) => {
-  const storageKey = user?.id ? `luxzera_avatar_${user.id}` : null;
-  const [localImage, setLocalImage] = useState(() => {
-    return storageKey ? localStorage.getItem(storageKey) : null;
-  });
-
-  useEffect(() => {
-    if (storageKey) {
-      setLocalImage(localStorage.getItem(storageKey));
-    }
-  }, [storageKey]);
+  const [localPreview, setLocalPreview] = useState(null);
 
   const fileInputRef = useRef(null);
 
@@ -30,18 +21,13 @@ const AccountView = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64Data = reader.result;
-        setLocalImage(base64Data);
-        if (storageKey) {
-          localStorage.setItem(storageKey, base64Data);
-          window.dispatchEvent(new Event('avatar-updated'));
-        }
+        setLocalPreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const profileImage = localImage || user?.profilePicture || user?.avatarUrl || null;
+  const profileImage = localPreview || profile?.profilePicture || user?.profilePicture || user?.avatarUrl || null;
   const initial = user?.firstName?.[0] || user?.email?.[0] || "U";
   const fullName = user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : "Unnamed User";
 
@@ -128,7 +114,7 @@ const AccountView = ({
 
         {/* Right Side: Form Details */}
         <div className="w-full md:flex-1">
-          <form onSubmit={(e) => { e.preventDefault(); onSave(); }} className="space-y-0">
+          <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="space-y-0">
             
             {/* Row 1: First Name */}
             <div className="flex items-center justify-between py-3 border-b border-slate-100/80">

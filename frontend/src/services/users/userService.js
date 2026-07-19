@@ -25,7 +25,11 @@ export const updateProfile = async (userId, profileData, fileInput) => {
   }
 
   // 3. Dispatch straight to our cloud-connected Spring Boot server
-  const response = await usersClient.put(`/profile/${userId}`, formData);
+  const response = await usersClient.put(`/profile/${userId}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   
   console.log("Image safely stored in the cloud:", response.data.profilePicture);
   return response.data;

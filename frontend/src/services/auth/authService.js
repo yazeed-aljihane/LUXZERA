@@ -75,5 +75,19 @@ export const logout = async () => {
 
 export const getCurrentUser = async () => {
   const response = await authClient.get("/users/me");
-  return response.data;
+  const userData = response.data;
+
+  if (userData && userData.id) {
+    try {
+      const { usersClient } = await import("../gateway/apiGateway");
+      const profileResponse = await usersClient.get(`/profile/${userData.id}`);
+      if (profileResponse.data && profileResponse.data.profilePicture) {
+        userData.profilePicture = profileResponse.data.profilePicture;
+      }
+    } catch (err) {
+      // Ignore if profile doesn't exist yet
+    }
+  }
+
+  return userData;
 };

@@ -66,12 +66,12 @@ export default function ProductCard({ product, onViewProduct }) {
           />
 
           {/* Quick Add panel */}
-          <div className="absolute bottom-0 left-0 right-0 bg-[#5B6EF5] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-20">
+          <div className="absolute bottom-0 left-0 right-0 bg-[#1D1D1F] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-20">
             <button
               onClick={handleAdd}
-              className="w-full py-3.5 text-[12px] uppercase tracking-[0.2em] font-semibold text-[#FAFAF9] hover:bg-[#5B6EF5]/90 transition-colors duration-200"
+              className="w-full py-3.5 text-[12px] uppercase tracking-[0.2em] font-semibold text-white hover:bg-black transition-colors duration-200"
             >
-              {added ? "Added to Bag ✓" : "Quick Add to Bag"}
+              {added ? "Added to Bag ✓" : "Add to Bag"}
             </button>
           </div>
 

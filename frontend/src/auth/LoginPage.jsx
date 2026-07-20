@@ -203,7 +203,7 @@ export default function LoginPage() {
         }
 
         .lp-input::placeholder {
-          color: #B0B0B0;
+          color: #B7B7B7;
         }
 
         .lp-input:focus {
@@ -220,7 +220,7 @@ export default function LoginPage() {
           border: none;
           padding: 0;
           cursor: pointer;
-          color: #B0B0B0;
+          color: #B7B7B7;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -301,7 +301,7 @@ export default function LoginPage() {
         .lp-divider-text {
           font-size: 13px;
           font-weight: 500;
-          color: #B0B0B0;
+          color: #B7B7B7;
           white-space: nowrap;
         }
 
@@ -394,7 +394,7 @@ export default function LoginPage() {
         .lp-terms {
           font-size: 12px;
           font-weight: 400;
-          color: #B0B0B0;
+          color: #B7B7B7;
           text-align: center;
           line-height: 1.5;
           max-width: 320px;

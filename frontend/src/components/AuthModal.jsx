@@ -183,11 +183,29 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           color: #111111;
         }
 
-        .am-logo {
-          display: block;
-          margin: 0 auto 16px;
-          height: 96px;
+        .am-logo-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 12px;
+        }
+
+        .am-logo-badge {
+          height: 48px;
           width: auto;
+          margin-bottom: 4px;
+        }
+
+        .am-logo-text {
+          font-size: 24px;
+          font-weight: 800;
+          color: #111111;
+          letter-spacing: -0.05em;
+          line-height: 1;
+        }
+
+        .am-logo-text span {
+          color: #F07020;
         }
 
         .am-header {
@@ -468,7 +486,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <X size={24} strokeWidth={1.5} />
         </button>
 
-        <img src="/logo.png" alt="LuxZera" className="am-logo" />
+        <div className="am-logo-container">
+          <img src="/logo.png" alt="LuxZera Badge" className="am-logo-badge" />
+          <div className="am-logo-text"><span>Lux</span>Zera</div>
+        </div>
 
         <div className="am-header">
           <h2 className="am-title">

@@ -8,16 +8,11 @@ export const getProfileDetails = async (userId) => {
 export const updateProfile = async (userId, profileData, fileInput) => {
   const formData = new FormData();
 
-  // 1. Package the text profile data as a JSON blob for the @RequestPart handler
-  formData.append(
-    "profile",
-    new Blob([JSON.stringify({
-      phoneNumber: profileData.phoneNumber,
-      gender: profileData.gender,
-      dateOfBirth: profileData.dateOfBirth,
-      bio: profileData.bio
-    })], { type: "application/json" })
-  );
+  // 1. Append text fields as standard flat form data (backend expects this instead of a JSON blob)
+  if (profileData.phoneNumber) formData.append("phoneNumber", profileData.phoneNumber);
+  if (profileData.gender) formData.append("gender", profileData.gender);
+  if (profileData.dateOfBirth) formData.append("dateOfBirth", profileData.dateOfBirth);
+  if (profileData.bio) formData.append("bio", profileData.bio);
 
   // 2. Append the actual raw binary image file from the input component
   if (fileInput && fileInput.files && fileInput.files[0]) {

@@ -138,7 +138,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
         
         .am-modal {
-          width: 520px;
+          width: 100%;
+          max-width: 520px;
+          margin: 0 16px; /* Ensure margin on mobile */
+          box-sizing: border-box;
           background: #FFFFFF;
           border-radius: 28px;
           border: 1px solid rgba(0,0,0,0.05);
@@ -153,6 +156,9 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           
           font-family: 'Inter', -apple-system, sans-serif;
           -webkit-font-smoothing: antialiased;
+          max-height: 90vh;
+          overflow-y: auto;
+          text-align: left;
         }
 
         .am-close {
@@ -222,11 +228,18 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           width: 100%;
         }
 
+        .am-field {
+          width: 100%;
+          text-align: left;
+        }
+
         .am-label {
           display: block;
           font-size: 13px;
           font-weight: 600;
           color: #111111;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
           margin-bottom: 8px;
         }
 
@@ -545,7 +558,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}
                 onError={() => setErrorMsg("Google sign-in failed.")}
-                width="400" // Sufficient width for overlay
+                width="200"
                 size="large"
                 shape="pill"
               />

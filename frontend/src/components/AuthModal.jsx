@@ -126,7 +126,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Grotesk:wght@400;500&display=swap');
 
         .am-overlay {
           position: fixed;
@@ -183,12 +183,22 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           color: #111111;
         }
 
-        .am-logo {
-          display: block;
-          margin: 0 auto 16px;
-          height: 48px;
+        .am-logo-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 12px;
+        }
+
+        .am-logo-badge {
+          height: 36px;
           width: auto;
-          object-fit: contain;
+          margin-bottom: 6px;
+        }
+
+        .am-logo-wordmark {
+          height: 18px;
+          width: auto;
         }
 
         .am-header {
@@ -197,12 +207,11 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
 
         .am-title {
-          font-family: 'Instrument Serif', 'Playfair Display', ui-serif, Georgia, serif;
-          font-style: italic;
+          font-family: 'Playfair Display', ui-serif, Georgia, serif;
           font-size: 38px;
-          font-weight: 400;
+          font-weight: 700;
           color: #111111;
-          letter-spacing: -0.01em;
+          letter-spacing: -0.02em;
           line-height: 1;
           margin-bottom: 4px;
         }
@@ -233,15 +242,6 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-field {
           width: 100%;
-          text-align: left;
-        }
-
-        .am-label {
-          display: block;
-          font-size: 12px;
-          font-weight: 600;
-          color: #111111;
-          margin-bottom: 6px;
         }
 
         .am-input-wrap {
@@ -267,7 +267,8 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           padding: 0 16px;
           font-size: 14px;
           color: #111111;
-          font-family: inherit;
+          font-family: 'Space Grotesk', sans-serif;
+          font-weight: 500;
           outline: none;
           transition: border-color 180ms ease;
         }
@@ -470,7 +471,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <X size={24} strokeWidth={1.5} />
         </button>
 
-        <img src="/LuxZera.png" alt="LuxZera Logo" className="am-logo" />
+        <div className="am-logo-container">
+          <img src="/logo.png" alt="LuxZera Badge" className="am-logo-badge" />
+          <img src="/LuxZera.png" alt="LuxZera Wordmark" className="am-logo-wordmark" />
+        </div>
 
         <div className="am-header">
           <h2 className="am-title">
@@ -489,39 +493,32 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         <form onSubmit={handleSubmit} className="am-form" noValidate>
           {view === "register" && (
-            <div>
-              <label className="am-label">Full Name</label>
-              <div className="am-input-wrap">
-                <User size={18} className="am-icon-left" />
-                <input
-                  type="text"
-                  required
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Enter your full name"
-                  className="am-input has-left-icon"
-                />
-              </div>
-            </div>
-          )}
-
-          <div>
-            <label className="am-label">Email</label>
             <div className="am-input-wrap">
-              <Mail size={18} strokeWidth={1.5} className="am-icon-left" />
+              <User size={18} className="am-icon-left" />
               <input
-                type="email"
+                type="text"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Enter your full name"
                 className="am-input has-left-icon"
               />
             </div>
+          )}
+
+          <div className="am-input-wrap">
+            <Mail size={18} strokeWidth={1.5} className="am-icon-left" />
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email address"
+              className="am-input has-left-icon"
+            />
           </div>
 
           <div>
-            <label className="am-label">Password</label>
             <div className="am-input-wrap">
               <Lock size={18} strokeWidth={1.5} className="am-icon-left" />
               <input

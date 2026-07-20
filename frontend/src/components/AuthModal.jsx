@@ -126,6 +126,8 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
       }}
     >
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
         .am-overlay {
           position: fixed;
           inset: 0;
@@ -133,40 +135,38 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: transparent; /* NO dimming, fully transparent */
-          /* No blur, just fully visible page underneath */
+          background: transparent;
         }
         
         .am-modal {
           width: 100%;
-          max-width: 480px;
+          max-width: 440px;
           margin: 0 16px;
           box-sizing: border-box;
           background: #FFFFFF;
           border-radius: 24px;
           border: 1px solid rgba(0,0,0,0.05);
           box-shadow: 0 30px 80px rgba(0,0,0,0.12);
-          padding: 32px 32px 24px;
+          padding: 24px 28px 20px;
           position: relative;
           
-          /* Animation state */
           opacity: ${isVisible ? 1 : 0};
           transform: scale(${isVisible ? 1 : 0.98});
           transition: opacity 180ms ease-out, transform 180ms ease-out;
           
           font-family: 'Inter', -apple-system, sans-serif;
           -webkit-font-smoothing: antialiased;
-          max-height: 90vh;
-          overflow-y: auto;
+          max-height: 100vh;
+          overflow-y: hidden;
           text-align: left;
         }
 
         .am-close {
           position: absolute;
-          top: 24px;
-          right: 24px;
-          width: 40px;
-          height: 40px;
+          top: 16px;
+          right: 16px;
+          width: 32px;
+          height: 32px;
           border-radius: 50%;
           background: transparent;
           border: none;
@@ -183,59 +183,43 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           color: #111111;
         }
 
-        .am-logo-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-bottom: 12px;
-        }
-
-        .am-logo-badge {
-          height: 48px;
+        .am-logo {
+          display: block;
+          margin: 0 auto 16px;
+          height: 64px;
           width: auto;
-          margin-bottom: 4px;
-        }
-
-        .am-logo-text {
-          font-size: 24px;
-          font-weight: 800;
-          color: #111111;
-          letter-spacing: -0.05em;
-          line-height: 1;
-        }
-
-        .am-logo-text span {
-          color: #F07020;
+          object-fit: contain;
         }
 
         .am-header {
           text-align: center;
-          margin-bottom: 24px;
+          margin-bottom: 20px;
         }
 
         .am-title {
-          font-family: 'Playfair Display', ui-serif, Georgia, serif;
-          font-size: 36px;
-          font-weight: 700;
+          font-family: 'Instrument Serif', 'Playfair Display', ui-serif, Georgia, serif;
+          font-style: italic;
+          font-size: 38px;
+          font-weight: 400;
           color: #111111;
-          letter-spacing: -0.02em;
-          line-height: 1.1;
+          letter-spacing: -0.01em;
+          line-height: 1;
           margin-bottom: 4px;
         }
 
         .am-subtitle {
-          font-size: 15px;
+          font-size: 14px;
           color: #6B7280;
           line-height: 1.4;
         }
 
         .am-error {
-          padding: 12px 16px;
+          padding: 10px 14px;
           background: #FEF2F2;
           border: 1px solid #FECACA;
           border-radius: 12px;
-          margin-bottom: 24px;
-          font-size: 14px;
+          margin-bottom: 16px;
+          font-size: 13px;
           color: #DC2626;
           text-align: center;
         }
@@ -254,10 +238,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-label {
           display: block;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 600;
           color: #111111;
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
 
         .am-input-wrap {
@@ -267,7 +251,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-icon-left {
           position: absolute;
-          left: 20px;
+          left: 16px;
           top: 50%;
           transform: translateY(-50%);
           color: #9CA3AF;
@@ -276,12 +260,12 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-input {
           width: 100%;
-          height: 52px;
+          height: 46px;
           border-radius: 9999px;
           border: 1px solid #E5E7EB;
           background: #FFFFFF;
-          padding: 0 20px;
-          font-size: 15px;
+          padding: 0 16px;
+          font-size: 14px;
           color: #111111;
           font-family: inherit;
           outline: none;
@@ -348,12 +332,12 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-submit {
           width: 100%;
-          height: 52px;
+          height: 48px;
           border-radius: 9999px;
           background: #171717;
           color: #FFFFFF;
           border: none;
-          font-size: 15px;
+          font-size: 14px;
           font-weight: 600;
           cursor: pointer;
           margin-top: 4px;
@@ -373,7 +357,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           display: flex;
           align-items: center;
           gap: 16px;
-          margin: 20px 0;
+          margin: 16px 0;
         }
 
         .am-divider-line {
@@ -383,7 +367,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
 
         .am-divider-text {
-          font-size: 14px;
+          font-size: 13px;
           color: #9CA3AF;
         }
 
@@ -396,7 +380,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-social {
           position: relative;
           width: 100%;
-          height: 48px;
+          height: 44px;
           border-radius: 9999px;
           border: 1px solid #E5E7EB;
           background: #FFFFFF;
@@ -404,7 +388,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           align-items: center;
           justify-content: center;
           gap: 8px;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 600;
           color: #111111;
           cursor: pointer;
@@ -422,7 +406,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-google-wrap {
           position: relative;
           flex: 1;
-          height: 48px;
+          height: 44px;
           display: flex;
         }
         
@@ -437,13 +421,13 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
 
         .am-footer {
-          margin-top: 24px;
+          margin-top: 20px;
           text-align: center;
-          font-size: 14px;
+          font-size: 13px;
           color: #6B7280;
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          gap: 12px;
         }
 
         .am-footer-btn {
@@ -486,10 +470,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <X size={24} strokeWidth={1.5} />
         </button>
 
-        <div className="am-logo-container">
-          <img src="/logo.png" alt="LuxZera Badge" className="am-logo-badge" />
-          <div className="am-logo-text"><span>Lux</span>Zera</div>
-        </div>
+        <img src="/LuxZera.png" alt="LuxZera Logo" className="am-logo" />
 
         <div className="am-header">
           <h2 className="am-title">
@@ -614,8 +595,8 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           </div>
 
           <button type="button" className="am-social" style={{ flex: 1 }}>
-            <svg width="18" height="18" viewBox="0 0 814 1000" aria-hidden="true" fill="#111111">
-              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.8-49 192.5-49 30.8 0 111.1 2.6 174.4 72.5zm-85.5-139.4c-20.1 23.7-52.6 42.8-84.5 42.8-3.9 0-7.8-.5-11.7-.6 1.9-32.1 17.4-72.5 43.4-96.8 21.4-20.7 54.5-37.1 82.9-38.4 1.3 4.5 2 9.1 2 14.3 0 30.1-14.3 67.8-32.1 78.7z"/>
+            <svg viewBox="0 0 384 512" width="16" height="16" fill="currentColor">
+              <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path>
             </svg>
             Apple
           </button>

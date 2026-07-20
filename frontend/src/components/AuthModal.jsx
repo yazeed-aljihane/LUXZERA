@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { X, Eye, EyeOff } from "lucide-react";
+import { X, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import { GoogleLogin } from "@react-oauth/google";
 import { register as apiRegister, googleLogin, getCurrentUser } from "../services/auth/authService";
@@ -222,9 +222,26 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           width: 100%;
         }
 
+        .am-label {
+          display: block;
+          font-size: 13px;
+          font-weight: 600;
+          color: #111111;
+          margin-bottom: 8px;
+        }
+
         .am-input-wrap {
           position: relative;
           width: 100%;
+        }
+
+        .am-icon-left {
+          position: absolute;
+          left: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #9CA3AF;
+          pointer-events: none;
         }
 
         .am-input {
@@ -241,6 +258,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           transition: border-color 180ms ease;
         }
         
+        .am-input.has-left-icon {
+          padding-left: 48px;
+        }
+
         .am-input.has-right-icon {
           padding-right: 56px;
         }
@@ -435,46 +456,58 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         <form onSubmit={handleSubmit} className="am-form" noValidate>
           {view === "register" && (
-            <div className="am-input-wrap">
-              <input
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Full Name"
-                className="am-input"
-              />
+            <div>
+              <label className="am-label">Full Name</label>
+              <div className="am-input-wrap">
+                <User size={18} className="am-icon-left" />
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Enter your full name"
+                  className="am-input has-left-icon"
+                />
+              </div>
             </div>
           )}
 
-          <div className="am-input-wrap">
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email address"
-              className="am-input"
-            />
+          <div>
+            <label className="am-label">Email</label>
+            <div className="am-input-wrap">
+              <Mail size={18} className="am-icon-left" />
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                className="am-input has-left-icon"
+              />
+            </div>
           </div>
 
-          <div className="am-input-wrap">
-            <input
-              type={showPassword ? "text" : "password"}
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="am-input has-right-icon"
-            />
-            <button
-              type="button"
-              className="am-eye"
-              onClick={() => setShowPassword((v) => !v)}
-              tabIndex={-1}
-            >
-              {showPassword ? <EyeOff size={20} strokeWidth={1.5} /> : <Eye size={20} strokeWidth={1.5} />}
-            </button>
+          <div>
+            <label className="am-label">Password</label>
+            <div className="am-input-wrap">
+              <Lock size={18} className="am-icon-left" />
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="am-input has-left-icon has-right-icon"
+              />
+              <button
+                type="button"
+                className="am-eye"
+                onClick={() => setShowPassword((v) => !v)}
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff size={20} strokeWidth={1.5} /> : <Eye size={20} strokeWidth={1.5} />}
+              </button>
+            </div>
           </div>
 
           {view === "login" && (

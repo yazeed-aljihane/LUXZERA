@@ -24,24 +24,17 @@ export const updateProfile = async (userId, profileData, fileInput) => {
     formData.append("image", fileInput.files[0]);
   }
 
-  // 3. Dispatch using native fetch to avoid Axios Content-Type/charset interception
-  const { getToken } = await import("../../utils/token");
-  const token = getToken();
-  const { config } = await import("../gateway/config");
-  
-  const response = await fetch(`${config.usersApiUrl}/profile/${userId}`, {
-    method: "PUT",
+  // 3. Dispatch straight to our cloud-connected Spring Boot server
+  // We explicitly set Content-Type to undefined so that our global 'application/json' 
+  // doesn't override it, allowing the browser to natively set the boundary without 
+  // Axios appending the problematic ';charset=UTF-8'.
+  const response = await usersClient.put(`/profile/${userId}`, formData, {
     headers: {
-      "Authorization": `Bearer ${token}`
+      "Content-Type": undefined,
     },
-    body: formData
   });
 
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to update profile");
-  }
-
+  const data = response.data;
   console.log("Image safely stored in the cloud:", data.profilePicture);
   return data;
 };

@@ -1,7 +1,7 @@
 // src/components/ProductCard.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AlmirahIcon from "./AlmirahIcon.jsx";
+import ZeraIcon from "./ZeraIcon.jsx";
 import { useCart }     from "../context/CartContext.jsx";
 import { useWardrobe } from "../context/WardrobeContext.jsx";
 import MobileProductCard from "../mobile/MobileProductCard.jsx";
@@ -92,7 +92,7 @@ export default function ProductCard({ product, onViewProduct }) {
             }`}
             title={saved ? "Remove from Wardrobe" : "Save to Wardrobe"}
           >
-            <AlmirahIcon size={14} strokeWidth={1.5} className={saved ? "fill-white text-white" : ""} />
+            <ZeraIcon size={14} strokeWidth={1.5} className={saved ? "fill-white text-white" : ""} />
           </button>
         </div>
 

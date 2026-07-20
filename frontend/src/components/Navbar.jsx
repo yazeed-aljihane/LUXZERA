@@ -1,7 +1,6 @@
 // src/components/Navbar.jsx
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag, User, LogOut, X, Menu, Search, Sparkles, Settings, ChevronDown } from "lucide-react";
-import AlmirahIcon from "./AlmirahIcon.jsx";
 
 const NAV_LINKS = [
   { label: "For You", value: "shop" },

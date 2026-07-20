@@ -10,9 +10,9 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SlidersHorizontal, X } from "lucide-react";
 import ProductCard from "@/modules/products/components/ProductCard";
-import FiltersSidebar from "@/modules/shop/components/FiltersSidebar";
+import FiltersSidebar from "@/modules/products/components/FiltersSidebar";
 import { PRODUCTS } from "@/modules/products/data/products";
-import { getProducts } from "@/modules/products/services/products/productService";
+import { getProducts } from "@/modules/products/services/productService";
 
 const CATEGORIES = ["All", "Tops", "Bottoms", "Outerwear"];
 const SIZES      = ["XS", "S", "M", "L", "XL", "XXL"];

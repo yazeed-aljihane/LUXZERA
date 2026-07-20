@@ -1,5 +1,5 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { googleLogin, getCurrentUser } from "@/modules/auth/services/auth/authService";
+import { googleLogin, getCurrentUser } from "@/modules/auth/services/authService";
 import { setToken } from "@/shared/utils/token";
 
 export default function LoginModal({

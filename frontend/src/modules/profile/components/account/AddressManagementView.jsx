@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Edit2, Trash2, Copy, Check, Star, MapPin } from "lucide-react";
-import { getAddresses, createAddress, updateAddress, deleteAddress, setDefaultAddress } from "@/modules/account/services/users/userService";
+import { getAddresses, createAddress, updateAddress, deleteAddress, setDefaultAddress } from "@/modules/profile/services/userService";
 import Loader from "@/shared/components/ui/Loader";
 
 const AddressManagementView = ({ userId }) => {

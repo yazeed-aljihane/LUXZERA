@@ -4,7 +4,7 @@ import {
   login as apiLogin, 
   getCurrentUser as apiGetCurrentUser, 
   logout as apiLogout 
-} from "../services/auth/authService";
+} from "../services/authService";
 import { setToken, getToken, removeToken } from "@/shared/utils/token";
 
 export const AuthContext = createContext(null);

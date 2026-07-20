@@ -3,7 +3,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { ShoppingBag, Eye } from "lucide-react";
-import { useCart } from "@/modules/cart/context/CartContext";
+import { useCart } from "@/modules/cart/store/CartContext";
 
 export default function RelatedProducts({ products = [] }) {
   const navigate = useNavigate();

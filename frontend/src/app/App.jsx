@@ -4,9 +4,9 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-
 import { ArrowRight } from "lucide-react";
 import "@/styles/App.css";
 
-import { useCart } from "@/modules/cart/context/CartContext";
-import { useWardrobe } from "@/modules/wishlist/context/WardrobeContext";
-import { useAuth } from "@/modules/auth/context/useAuth";
+import { useCart } from "@/modules/cart/store/CartContext";
+import { useWardrobe } from "@/modules/wishlist/store/WardrobeContext";
+import { useAuth } from "@/modules/auth/store/useAuth";
 
 import Hero from "@/modules/home/components/Hero";
 import Navbar from "@/shared/components/layout/Navbar";
@@ -14,19 +14,19 @@ import Footer from "@/shared/components/layout/Footer";
 import AuthModal from "@/modules/auth/components/AuthModal";
 
 import Home from "@/modules/home/pages/Home";
-import MarketPage from "@/modules/shop/pages/MarketPage";
-import MenPage from "@/modules/shop/pages/MenPage";
-import WomenPage from "@/modules/shop/pages/WomenPage";
-import UnisexPage from "@/modules/shop/pages/UnisexPage";
+import MarketPage from "@/modules/products/pages/MarketPage";
+import MenPage from "@/modules/products/pages/MenPage";
+import WomenPage from "@/modules/products/pages/WomenPage";
+import UnisexPage from "@/modules/products/pages/UnisexPage";
 import ProductDetailPage from "@/modules/products/pages/ProductDetailPage";
 import CartPage from "@/modules/cart/pages/CartPage";
-import AboutPage from "@/modules/core/pages/AboutPage";
-import FaqPage from "@/modules/core/pages/FaqPage";
-import AccountPage from "@/modules/account/pages/AccountPage";
-import OrdersPage from "@/modules/account/pages/OrdersPage";
-import KidsPage from "@/modules/shop/pages/KidsPage";
+import AboutPage from "@/modules/system/pages/AboutPage";
+import FaqPage from "@/modules/system/pages/FaqPage";
+import AccountPage from "@/modules/profile/pages/AccountPage";
+import OrdersPage from "@/modules/profile/pages/OrdersPage";
+import KidsPage from "@/modules/products/pages/KidsPage";
 import WardrobePage from "@/modules/wishlist/pages/WardrobePage";
-import PrivacyPolicyPage from "@/modules/core/pages/PrivacyPolicyPage";
+import PrivacyPolicyPage from "@/modules/system/pages/PrivacyPolicyPage";
 import BecomeDesignerPage from "@/modules/designer/pages/BecomeDesignerPage";
 import DesignerOnboardingPage from "@/modules/designer/pages/DesignerOnboardingPage";
 import DesignerStudioPage from "@/modules/designer/pages/DesignerStudioPage";
@@ -35,7 +35,7 @@ import DesignerStudioPage from "@/modules/designer/pages/DesignerStudioPage";
 import VerifyOtpPage from "@/modules/auth/pages/VerifyOtpPage";
 import CompleteGoogleSignupPage from "@/modules/auth/pages/CompleteGoogleSignupPage";
 import ForgotPasswordPage from "@/modules/auth/pages/ForgotPasswordPage";
-import NotFoundPage from "@/modules/core/pages/NotFoundPage";
+import NotFoundPage from "@/modules/system/pages/NotFoundPage";
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();

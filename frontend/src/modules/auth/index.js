@@ -16,11 +16,11 @@ export * from './components/AuthModal.jsx';
 export { default as LoginModal } from './components/LoginModal.jsx';
 export * from './components/LoginModal.jsx';
 
-export { default as AuthContext } from './context/AuthContext.jsx';
-export * from './context/AuthContext.jsx';
+export { default as AuthContext } from './store/AuthContext.jsx';
+export * from './store/AuthContext.jsx';
 
-export { default as useAuth } from './context/useAuth.js';
-export * from './context/useAuth.js';
+export { default as useAuth } from './store/useAuth.js';
+export * from './store/useAuth.js';
 
-export { default as useCurrentUser } from './context/useCurrentUser.js';
-export * from './context/useCurrentUser.js';
+export { default as useCurrentUser } from './store/useCurrentUser.js';
+export * from './store/useCurrentUser.js';

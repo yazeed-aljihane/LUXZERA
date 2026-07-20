@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AccountSidebar from "@/modules/account/components/account/AccountSidebar";
-import AccountView from "@/modules/account/components/account/AccountView";
-import AddressManagementView from "@/modules/account/components/account/AddressManagementView";
-import MeasurementsView from "@/modules/account/components/account/MeasurementsView";
-import PaymentMethodsView from "@/modules/account/components/account/PaymentMethodsView";
-import OrdersView from "@/modules/account/components/account/OrdersView";
-import CustomerCareView from "@/modules/account/components/account/CustomerCareView";
-import { getProfileDetails, updateProfile, updateUserDetails, getMeasurements } from "@/modules/account/services/users/userService";
+import AccountSidebar from "@/modules/profile/components/account/AccountSidebar";
+import AccountView from "@/modules/profile/components/account/AccountView";
+import AddressManagementView from "@/modules/profile/components/account/AddressManagementView";
+import MeasurementsView from "@/modules/profile/components/account/MeasurementsView";
+import PaymentMethodsView from "@/modules/profile/components/account/PaymentMethodsView";
+import OrdersView from "@/modules/profile/components/account/OrdersView";
+import CustomerCareView from "@/modules/profile/components/account/CustomerCareView";
+import { getProfileDetails, updateProfile, updateUserDetails, getMeasurements } from "@/modules/profile/services/userService";
 import Loader from "@/shared/components/ui/Loader";
 
 const AccountPage = ({ currentUser, authLoading, onUserChange }) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import NotFoundPage from "@/modules/core/pages/NotFoundPage";
+import NotFoundPage from "@/modules/system/pages/NotFoundPage";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag, Tag, ChevronRight, Lock } from "lucide-react";
-import { useCart } from "@/modules/cart/context/CartContext";
+import { useCart } from "@/modules/cart/store/CartContext";
 
 const FREE_SHIPPING_THRESHOLD = 150;
 

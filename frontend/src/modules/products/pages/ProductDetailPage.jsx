@@ -7,10 +7,10 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import RelatedProducts from "@/modules/shop/components/RelatedProducts";
+import RelatedProducts from "@/modules/products/components/RelatedProducts";
 import ProductReviews from "@/modules/products/components/ProductReviews";
 import { PRODUCTS } from "@/modules/products/data/products";
-import { useCart } from "@/modules/cart/context/CartContext";
+import { useCart } from "@/modules/cart/store/CartContext";
 import { Plus, Send, Star, ShoppingBag, Truck, Store, ChevronDown, X } from "lucide-react";
 
 export default function ProductDetailPage() {

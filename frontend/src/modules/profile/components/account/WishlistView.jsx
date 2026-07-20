@@ -1,6 +1,6 @@
 import React from "react";
 import { Heart, Trash2 } from "lucide-react";
-import { useWardrobe } from "@/modules/wishlist/context/WardrobeContext";
+import { useWardrobe } from "@/modules/wishlist/store/WardrobeContext";
 
 const WishlistView = ({ onProductClick }) => {
   const { wardrobeItems, toggleWardrobe } = useWardrobe();

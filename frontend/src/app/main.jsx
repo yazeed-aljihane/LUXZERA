@@ -4,9 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import App from "@/app/App";
-import { CartProvider }     from "@/modules/cart/context/CartContext";
-import { WardrobeProvider } from "@/modules/wishlist/context/WardrobeContext";
-import { AuthProvider }     from "@/modules/auth/context/AuthContext";
+import { CartProvider }     from "@/modules/cart/store/CartContext";
+import { WardrobeProvider } from "@/modules/wishlist/store/WardrobeContext";
+import { AuthProvider }     from "@/modules/auth/store/AuthContext";
 
 import ErrorBoundary from "@/shared/components/ui/ErrorBoundary";
 

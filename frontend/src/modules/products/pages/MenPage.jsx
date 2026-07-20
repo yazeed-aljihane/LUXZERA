@@ -1,4 +1,4 @@
-import ShopPage from "@/modules/shop/pages/ShopPage";
+import ShopPage from "@/modules/products/pages/ShopPage";
 
 export default function MenPage() {
   return <ShopPage initialDepartment="Men" />;

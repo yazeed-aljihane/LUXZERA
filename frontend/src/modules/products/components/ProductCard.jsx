@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ZeraIcon from "@/shared/components/ui/ZeraIcon";
-import { useCart }     from "@/modules/cart/context/CartContext";
-import { useWardrobe } from "@/modules/wishlist/context/WardrobeContext";
+import { useCart }     from "@/modules/cart/store/CartContext";
+import { useWardrobe } from "@/modules/wishlist/store/WardrobeContext";
 import MobileProductCard from "@/modules/products/components/MobileProductCard";
 
 export default function ProductCard({ product, onViewProduct }) {

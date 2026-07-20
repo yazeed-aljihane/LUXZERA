@@ -1,7 +1,7 @@
 // src/auth/CompleteGoogleSignupPage.jsx
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { completeGoogleSignup } from "@/modules/auth/services/auth/authService";
+import { completeGoogleSignup } from "@/modules/auth/services/authService";
 import { removeToken } from "@/shared/utils/token";
 
 export default function CompleteGoogleSignupPage() {

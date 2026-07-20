@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { X, Eye, EyeOff, Mail, Lock, User } from "lucide-react";
-import { useAuth } from "@/modules/auth/context/useAuth";
+import { useAuth } from "@/modules/auth/store/useAuth";
 import { GoogleLogin } from "@react-oauth/google";
-import { register as apiRegister, googleLogin, getCurrentUser } from "@/modules/auth/services/auth/authService";
+import { register as apiRegister, googleLogin, getCurrentUser } from "@/modules/auth/services/authService";
 import { setToken } from "@/shared/utils/token";
 
 export default function AuthModal({ isOpen, onClose, initialView = "login" }) {

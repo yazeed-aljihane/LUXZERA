@@ -19,8 +19,8 @@ import {
   Wine,
   Watch
 } from "lucide-react";
-import { useWardrobe } from "@/modules/wishlist/context/WardrobeContext";
-import { useCart }     from "@/modules/cart/context/CartContext";
+import { useWardrobe } from "@/modules/wishlist/store/WardrobeContext";
+import { useCart }     from "@/modules/cart/store/CartContext";
 
 // Helper function to return category specific icons
 const getCategoryIcon = (name) => {

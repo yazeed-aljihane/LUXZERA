@@ -1,7 +1,7 @@
 // src/auth/VerifyOtpPage.jsx
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { verifyOtp, resendOtp } from "@/modules/auth/services/auth/authService";
+import { verifyOtp, resendOtp } from "@/modules/auth/services/authService";
 
 export default function VerifyOtpPage() {
   const navigate = useNavigate();

@@ -34,8 +34,7 @@ import DesignerStudioPage from "./pages/DesignerStudioPage.jsx";
 import VerifyOtpPage from "./auth/VerifyOtpPage.jsx";
 import CompleteGoogleSignupPage from "./auth/CompleteGoogleSignupPage.jsx";
 import ForgotPasswordPage from "./auth/ForgotPasswordPage.jsx";
-
-
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -188,14 +187,7 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ForgotPasswordPage />} />
 
-          <Route
-            path="*"
-            element={
-              <div className="p-10 text-center text-2xl font-bold">
-                404 Page Not Found
-              </div>
-            }
-          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 

@@ -8,24 +8,28 @@ import { CartProvider }     from "./context/CartContext.jsx";
 import { WardrobeProvider } from "./context/WardrobeContext.jsx";
 import { AuthProvider }     from "./context/AuthContext.jsx";
 
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
+
 import "./index.css";
 
 ReactDOM.createRoot(
   document.getElementById("root")
 ).render(
   <React.StrictMode>
-    <GoogleOAuthProvider
-      clientId="404546324859-b29lgq8vjkpvf7tkov149dpc9sr8hia4.apps.googleusercontent.com"
-    >
-      <BrowserRouter>
-        <CartProvider>
-          <WardrobeProvider>
-            <AuthProvider>
-              <App />
-            </AuthProvider>
-          </WardrobeProvider>
-        </CartProvider>
-      </BrowserRouter>
-    </GoogleOAuthProvider>
+    <ErrorBoundary>
+      <GoogleOAuthProvider
+        clientId="404546324859-b29lgq8vjkpvf7tkov149dpc9sr8hia4.apps.googleusercontent.com"
+      >
+        <BrowserRouter>
+          <CartProvider>
+            <WardrobeProvider>
+              <AuthProvider>
+                <App />
+              </AuthProvider>
+            </WardrobeProvider>
+          </CartProvider>
+        </BrowserRouter>
+      </GoogleOAuthProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );  

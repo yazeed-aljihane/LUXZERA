@@ -15,11 +15,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [mounted, setMounted] = useState(false);
+  const [error, setError] = useState("");
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 40);
+    const t = setTimeout(() => setReady(true), 60);
     return () => clearTimeout(t);
   }, []);
 
@@ -27,12 +27,12 @@ export default function LoginPage() {
     e.preventDefault();
     if (!email || !password) return;
     setLoading(true);
-    setErrorMsg("");
+    setError("");
     try {
       await contextLogin(email, password);
       navigate("/");
     } catch (err) {
-      setErrorMsg(err?.response?.data?.message || err.message || "Invalid email or password.");
+      setError(err?.response?.data?.message || err.message || "Invalid email or password.");
     } finally {
       setLoading(false);
     }
@@ -45,587 +45,496 @@ export default function LoginPage() {
       const profile = await getCurrentUser();
       setUser(profile);
       navigate("/");
-    } catch (error) {
-      setErrorMsg("Google sign-in failed. Please try again.");
+    } catch {
+      setError("Google sign-in failed. Please try again.");
     }
-  };
-
-  const handleAppleSignIn = () => {
-    console.log("Apple Sign-In triggered");
   };
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
 
-        .lp-root {
+        .lp {
           min-height: 100vh;
           display: flex;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          align-items: center;
+          justify-content: center;
+          background: #FFFFFF;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
           -webkit-font-smoothing: antialiased;
-          background: #FAFAF8;
+          -moz-osx-font-smoothing: grayscale;
+          padding: 40px 24px;
         }
 
-        /* ─────────────────────────────────────
-           LEFT PANEL  (editorial visual — 58%)
-        ───────────────────────────────────── */
-        .lp-left {
-          display: none;
-          position: relative;
-          overflow: hidden;
-          background: #F0EDE8;
-        }
-
-        @media (min-width: 900px) {
-          .lp-left { display: flex; flex: 0 0 58%; flex-direction: column; }
-        }
-
-        .lp-left-img {
-          position: absolute;
-          inset: 0;
+        .lp-card {
           width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center top;
+          max-width: 360px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          opacity: 0;
+          transition: opacity 200ms ease;
         }
 
-        /* Soft vignette overlay so left text is legible */
-        .lp-left-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            to bottom,
-            rgba(240, 237, 232, 0.15) 0%,
-            rgba(240, 237, 232, 0.0) 40%,
-            rgba(240, 237, 232, 0.55) 85%,
-            rgba(240, 237, 232, 0.9) 100%
-          );
+        .lp-card.ready {
+          opacity: 1;
         }
 
-        .lp-left-top {
-          position: relative;
-          z-index: 2;
-          padding: 40px 44px;
-        }
-
-        .lp-left-logo {
+        /* Logo */
+        .lp-logo {
           background: none;
           border: none;
           padding: 0;
           cursor: pointer;
-          display: inline-flex;
+          margin-bottom: 40px;
+          line-height: 1;
         }
 
-        .lp-left-logo img {
+        .lp-logo img {
           height: 26px;
           width: auto;
-          object-fit: contain;
+          display: block;
         }
 
-        .lp-left-bottom {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          z-index: 2;
-          padding: 40px 44px 48px;
-        }
-
-        .lp-left-tagline {
-          font-family: 'Playfair Display', serif;
-          font-size: 13px;
-          font-weight: 400;
-          font-style: italic;
-          color: #5C5245;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          margin-bottom: 12px;
-        }
-
-        .lp-left-headline {
-          font-family: 'Playfair Display', serif;
-          font-size: 32px;
-          font-weight: 400;
-          color: #2C2417;
-          line-height: 1.2;
-          letter-spacing: -0.3px;
-        }
-
-        .lp-left-headline em {
-          font-style: italic;
-          color: #8B6914;
-        }
-
-        /* ─────────────────────────────────────
-           RIGHT PANEL  (form — 42%)
-        ───────────────────────────────────── */
-        .lp-right {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 48px 32px;
-          background: #FFFFFF;
-          overflow-y: auto;
-        }
-
-        .lp-form-wrap {
-          width: 100%;
-          max-width: 340px;
-          opacity: 0;
-          transform: translateY(14px);
-          transition: opacity 0.55s ease, transform 0.55s ease;
-        }
-
-        .lp-form-wrap.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        /* Mobile: show logo in form panel */
-        .lp-mobile-logo {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 32px;
-        }
-
-        .lp-mobile-logo img {
-          height: 24px;
-          width: auto;
-          object-fit: contain;
-          cursor: pointer;
-        }
-
-        @media (min-width: 900px) {
-          .lp-mobile-logo { display: none; }
-        }
-
-        /* ── Heading ── */
+        /* Heading */
         .lp-heading {
-          font-family: 'Playfair Display', serif;
-          font-size: 30px;
-          font-weight: 400;
-          color: #1A1A1A;
+          font-size: 24px;
+          font-weight: 600;
+          color: #1D1D1F;
           letter-spacing: -0.4px;
-          margin-bottom: 6px;
-          line-height: 1.15;
+          text-align: center;
+          line-height: 1.2;
+          margin-bottom: 8px;
         }
 
         .lp-subheading {
           font-size: 14px;
           font-weight: 400;
-          color: #8E8E8E;
-          line-height: 1.55;
-          margin-bottom: 36px;
-          max-width: 290px;
+          color: #86868B;
+          text-align: center;
+          line-height: 1.5;
+          margin-bottom: 40px;
         }
 
-        /* ── Form ── */
+        /* Error */
+        .lp-error {
+          width: 100%;
+          padding: 12px 14px;
+          background: #FFF5F5;
+          border: 1px solid #FECACA;
+          border-radius: 8px;
+          margin-bottom: 24px;
+        }
+
+        .lp-error-text {
+          font-size: 13px;
+          font-weight: 400;
+          color: #DC2626;
+          line-height: 1.4;
+        }
+
+        /* Form */
         .lp-form {
+          width: 100%;
           display: flex;
           flex-direction: column;
-          width: 100%;
+          gap: 16px;
         }
 
+        /* Field */
         .lp-field {
           display: flex;
           flex-direction: column;
-          margin-bottom: 18px;
+          gap: 6px;
+          width: 100%;
         }
 
         .lp-label {
-          font-size: 11.5px;
-          font-weight: 600;
-          color: #5A5A5A;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          margin-bottom: 8px;
+          font-size: 13px;
+          font-weight: 500;
+          color: #1D1D1F;
+          letter-spacing: 0;
+          line-height: 1;
         }
 
+        /* Input */
         .lp-input-wrap {
           position: relative;
+          width: 100%;
         }
 
         .lp-input {
           width: 100%;
-          height: 52px;
-          padding: 0 46px 0 16px;
-          border: 1px solid #E4E1DB;
-          border-radius: 10px;
-          background: #FAFAF8;
+          height: 44px;
+          padding: 0 40px 0 14px;
+          border: 1px solid #ECECEC;
+          border-radius: 8px;
+          background: #FFFFFF;
           font-size: 15px;
           font-weight: 400;
-          color: #1A1A1A;
-          outline: none;
-          transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+          color: #1D1D1F;
           font-family: inherit;
+          outline: none;
+          transition: border-color 150ms ease, box-shadow 150ms ease;
           -webkit-appearance: none;
         }
 
         .lp-input::placeholder {
-          color: #C0BCB5;
+          color: #C7C7CC;
           font-weight: 400;
         }
 
         .lp-input:focus {
-          background: #FFFFFF;
-          border-color: #C9B99A;
-          box-shadow: 0 0 0 3px rgba(185, 160, 120, 0.12);
+          border-color: #D1D1D6;
+          box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
         }
 
         .lp-eye {
           position: absolute;
-          right: 14px;
+          right: 12px;
           top: 50%;
           transform: translateY(-50%);
           background: none;
           border: none;
+          padding: 0;
           cursor: pointer;
-          color: #B0ABA4;
+          color: #C7C7CC;
           display: flex;
           align-items: center;
-          padding: 2px;
-          transition: color 0.15s;
+          justify-content: center;
+          transition: color 150ms ease;
+          line-height: 1;
         }
 
-        .lp-eye:hover { color: #5A5A5A; }
+        .lp-eye:hover {
+          color: #86868B;
+        }
 
-        /* ── Forgot ── */
+        /* Forgot */
         .lp-forgot-row {
           display: flex;
           justify-content: flex-end;
-          margin-top: -10px;
-          margin-bottom: 24px;
+          margin-top: -4px;
         }
 
         .lp-forgot {
-          font-size: 12.5px;
-          font-weight: 500;
-          color: #A07840;
+          font-size: 13px;
+          font-weight: 400;
+          color: #86868B;
           background: none;
           border: none;
           padding: 0;
           cursor: pointer;
           font-family: inherit;
-          transition: opacity 0.15s;
+          transition: color 150ms ease;
+          line-height: 1;
         }
 
-        .lp-forgot:hover { opacity: 0.65; }
+        .lp-forgot:hover {
+          color: #FF7518;
+        }
 
-        /* ── Submit ── */
+        /* Submit */
         .lp-submit {
           width: 100%;
-          height: 52px;
-          border-radius: 10px;
+          height: 44px;
+          border-radius: 8px;
           border: none;
-          background: #1A1A1A;
+          background: #1D1D1F;
           color: #FFFFFF;
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: 0.03em;
-          cursor: pointer;
+          font-size: 15px;
+          font-weight: 500;
           font-family: inherit;
-          transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.12s ease;
+          letter-spacing: -0.1px;
+          cursor: pointer;
+          margin-top: 4px;
+          transition: background 150ms ease, opacity 150ms ease;
         }
 
         .lp-submit:hover:not(:disabled) {
-          background: #2D2D2D;
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+          background: #2D2D2F;
         }
 
-        .lp-submit:active:not(:disabled) { transform: scale(0.99); }
-
         .lp-submit:disabled {
-          opacity: 0.45;
+          opacity: 0.4;
           cursor: not-allowed;
         }
 
-        /* ── Divider ── */
+        /* Divider */
         .lp-divider {
+          width: 100%;
           display: flex;
           align-items: center;
-          gap: 14px;
+          gap: 12px;
           margin: 28px 0;
         }
 
         .lp-divider-line {
           flex: 1;
           height: 1px;
-          background: #EBEBEA;
+          background: #ECECEC;
         }
 
         .lp-divider-text {
-          font-size: 11.5px;
-          font-weight: 500;
-          color: #B0ABA4;
-          letter-spacing: 0.04em;
+          font-size: 12px;
+          font-weight: 400;
+          color: #C7C7CC;
           white-space: nowrap;
+          letter-spacing: 0.01em;
         }
 
-        /* ── Social Buttons ── */
+        /* Social buttons */
         .lp-socials {
+          width: 100%;
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 10px;
-          width: 100%;
         }
 
         .lp-social {
           position: relative;
-          height: 52px;
-          border: 1px solid #E4E1DB;
-          border-radius: 10px;
-          background: #FAFAF8;
+          height: 44px;
+          border: 1px solid #ECECEC;
+          border-radius: 8px;
+          background: #FFFFFF;
           display: flex;
-          flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 5px;
+          gap: 8px;
           cursor: pointer;
           font-family: inherit;
-          transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+          font-size: 14px;
+          font-weight: 500;
+          color: #1D1D1F;
+          transition: border-color 150ms ease, background 150ms ease;
           width: 100%;
           box-sizing: border-box;
         }
 
         .lp-social:hover {
-          border-color: #C9B99A;
-          background: #FFFFFF;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+          border-color: #D1D1D6;
+          background: #FAFAFA;
         }
 
-        .lp-social:active { transform: scale(0.98); }
-
-        .lp-social-label {
-          font-size: 11.5px;
-          font-weight: 500;
-          color: #3A3A3A;
-          line-height: 1;
-        }
-
-        /* Google wrapper: invisible real button layered on top */
+        /* Google real button overlay */
         .lp-google-wrap {
           position: relative;
           width: 100%;
           min-width: 0;
         }
 
-        .lp-google-real {
+        .lp-google-overlay {
           position: absolute;
           inset: 0;
           opacity: 0.001;
-          z-index: 4;
+          z-index: 2;
           overflow: hidden;
-          cursor: pointer;
-          border-radius: 10px;
-        }
-
-        /* ── Error ── */
-        .lp-error {
-          padding: 11px 15px;
-          background: #FFF5F3;
-          border: 1px solid #F5D0C8;
           border-radius: 8px;
-          margin-bottom: 22px;
+          cursor: pointer;
         }
 
-        .lp-error p {
-          font-size: 13px;
-          font-weight: 500;
-          color: #C0392B;
-          line-height: 1.4;
-        }
-
-        /* ── Footer ── */
+        /* Footer */
         .lp-footer {
           margin-top: 32px;
+          font-size: 13px;
+          font-weight: 400;
+          color: #86868B;
           text-align: center;
-          font-size: 13.5px;
-          color: #9E9E9E;
-          line-height: 1.4;
+          line-height: 1.5;
         }
 
-        .lp-footer-link {
-          color: #A07840;
-          font-weight: 500;
+        .lp-footer-btn {
           background: none;
           border: none;
           padding: 0;
           cursor: pointer;
           font-size: inherit;
           font-family: inherit;
-          transition: opacity 0.15s;
+          font-weight: 500;
+          color: #FF7518;
+          transition: opacity 150ms ease;
         }
 
-        .lp-footer-link:hover { opacity: 0.65; }
-
-        /* ── Mobile tweaks ── */
-        @media (max-width: 899px) {
-          .lp-right { background: #FFFFFF; }
-          .lp-form-wrap { max-width: 380px; }
+        .lp-footer-btn:hover {
+          opacity: 0.7;
         }
 
-        @media (max-width: 480px) {
-          .lp-right { padding: 40px 24px; }
-          .lp-heading { font-size: 26px; }
+        /* Terms */
+        .lp-terms {
+          margin-top: 24px;
+          font-size: 11.5px;
+          font-weight: 400;
+          color: #C7C7CC;
+          text-align: center;
+          line-height: 1.6;
+          max-width: 280px;
+        }
+
+        .lp-terms-link {
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          font-size: inherit;
+          font-family: inherit;
+          color: #86868B;
+          transition: color 150ms ease;
+        }
+
+        .lp-terms-link:hover {
+          color: #1D1D1F;
         }
       `}</style>
 
-      <div className="lp-root">
+      <div className="lp">
+        <div className={`lp-card${ready ? " ready" : ""}`}>
 
-        {/* ── LEFT: Editorial panel ── */}
-        <div className="lp-left">
-          <img
-            src="/login-editorial.png"
-            alt="LuxZera editorial fashion mood"
-            className="lp-left-img"
-          />
-          <div className="lp-left-overlay" />
+          {/* Logo */}
+          <button className="lp-logo" onClick={() => navigate("/")} aria-label="Go to LuxZera home">
+            <img src="/LuxZera.png" alt="LuxZera" />
+          </button>
 
-          <div className="lp-left-top">
-            <button className="lp-left-logo" onClick={() => navigate("/")}>
-              <img src="/LuxZera.png" alt="LuxZera" />
+          {/* Heading */}
+          <h1 className="lp-heading">Welcome back.</h1>
+          <p className="lp-subheading">Continue your style journey.</p>
+
+          {/* Error */}
+          {error && (
+            <div className="lp-error" role="alert">
+              <p className="lp-error-text">{error}</p>
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="lp-form" noValidate>
+
+            <div className="lp-field">
+              <label htmlFor="lp-email" className="lp-label">Email</label>
+              <div className="lp-input-wrap">
+                <input
+                  id="lp-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="lp-input"
+                  autoComplete="email"
+                  autoFocus
+                />
+              </div>
+            </div>
+
+            <div className="lp-field">
+              <label htmlFor="lp-password" className="lp-label">Password</label>
+              <div className="lp-input-wrap">
+                <input
+                  id="lp-password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="lp-input"
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  className="lp-eye"
+                  onClick={() => setShowPassword((v) => !v)}
+                  tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword
+                    ? <EyeOff size={16} strokeWidth={1.5} />
+                    : <Eye size={16} strokeWidth={1.5} />
+                  }
+                </button>
+              </div>
+            </div>
+
+            <div className="lp-forgot-row">
+              <button
+                type="button"
+                className="lp-forgot"
+                onClick={() => navigate("/forgot-password")}
+              >
+                Forgot password?
+              </button>
+            </div>
+
+            <button type="submit" className="lp-submit" disabled={loading}>
+              {loading ? "Signing in…" : "Continue"}
+            </button>
+
+          </form>
+
+          {/* Divider */}
+          <div className="lp-divider">
+            <div className="lp-divider-line" />
+            <span className="lp-divider-text">or</span>
+            <div className="lp-divider-line" />
+          </div>
+
+          {/* Social buttons */}
+          <div className="lp-socials">
+
+            {/* Google */}
+            <div className="lp-google-wrap">
+              <div className="lp-google-overlay">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => setError("Google sign-in failed.")}
+                  width="160"
+                  size="large"
+                  shape="rectangular"
+                />
+              </div>
+              <button type="button" className="lp-social" tabIndex={-1}>
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Google
+              </button>
+            </div>
+
+            {/* Apple */}
+            <button type="button" className="lp-social" onClick={() => console.log("Apple sign-in")}>
+              <svg width="16" height="16" viewBox="0 0 814 1000" aria-hidden="true" fill="#1D1D1F">
+                <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.8-49 192.5-49 30.8 0 111.1 2.6 174.4 72.5zm-85.5-139.4c-20.1 23.7-52.6 42.8-84.5 42.8-3.9 0-7.8-.5-11.7-.6 1.9-32.1 17.4-72.5 43.4-96.8 21.4-20.7 54.5-37.1 82.9-38.4 1.3 4.5 2 9.1 2 14.3 0 30.1-14.3 67.8-32.1 78.7z"/>
+              </svg>
+              Apple
+            </button>
+
+          </div>
+
+          {/* Create account */}
+          <div className="lp-footer">
+            Don't have an account?{" "}
+            <button type="button" className="lp-footer-btn" onClick={() => navigate("/register")}>
+              Sign up
             </button>
           </div>
 
-          <div className="lp-left-bottom">
-            <p className="lp-left-tagline">Discover · Curate · Wear</p>
-            <h2 className="lp-left-headline">
-              Your next favorite<br />
-              outfit is <em>waiting.</em>
-            </h2>
-          </div>
+          {/* Terms */}
+          <p className="lp-terms">
+            By continuing, you agree to our{" "}
+            <button type="button" className="lp-terms-link">Terms of Service</button>
+            {" "}and{" "}
+            <button type="button" className="lp-terms-link">Privacy Policy</button>.
+          </p>
+
         </div>
-
-        {/* ── RIGHT: Form panel ── */}
-        <div className="lp-right">
-          <div className={`lp-form-wrap ${mounted ? "visible" : ""}`}>
-
-            {/* Mobile logo */}
-            <div className="lp-mobile-logo">
-              <img src="/LuxZera.png" alt="LuxZera" onClick={() => navigate("/")} />
-            </div>
-
-            {/* Heading */}
-            <h1 className="lp-heading">Welcome back.</h1>
-            <p className="lp-subheading">
-              Continue exploring pieces curated around your style.
-            </p>
-
-            {/* Error */}
-            {errorMsg && (
-              <div className="lp-error"><p>{errorMsg}</p></div>
-            )}
-
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="lp-form">
-
-              <div className="lp-field">
-                <label className="lp-label">Email</label>
-                <div className="lp-input-wrap">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
-                    className="lp-input"
-                    autoComplete="email"
-                  />
-                </div>
-              </div>
-
-              <div className="lp-field">
-                <label className="lp-label">Password</label>
-                <div className="lp-input-wrap">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
-                    className="lp-input"
-                    autoComplete="current-password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="lp-eye"
-                    tabIndex={-1}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                  >
-                    {showPassword ? <EyeOff size={17} strokeWidth={1.5} /> : <Eye size={17} strokeWidth={1.5} />}
-                  </button>
-                </div>
-              </div>
-
-              <div className="lp-forgot-row">
-                <button type="button" onClick={() => navigate("/forgot-password")} className="lp-forgot">
-                  Forgot password?
-                </button>
-              </div>
-
-              <button type="submit" disabled={loading} className="lp-submit">
-                {loading ? "Signing in…" : "Continue"}
-              </button>
-            </form>
-
-            {/* Divider */}
-            <div className="lp-divider">
-              <div className="lp-divider-line" />
-              <span className="lp-divider-text">or continue with</span>
-              <div className="lp-divider-line" />
-            </div>
-
-            {/* Social */}
-            <div className="lp-socials">
-
-              {/* Google */}
-              <div className="lp-google-wrap">
-                <div className="lp-google-real">
-                  <GoogleLogin
-                    onSuccess={handleGoogleSuccess}
-                    onError={() => setErrorMsg("Google sign-in failed.")}
-                    width="160"
-                    size="large"
-                    shape="rectangular"
-                  />
-                </div>
-                <button type="button" className="lp-social">
-                  <svg width="18" height="18" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                  </svg>
-                  <span className="lp-social-label">Google</span>
-                </button>
-              </div>
-
-              {/* Apple */}
-              <button type="button" className="lp-social" onClick={handleAppleSignIn}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#1A1A1A">
-                  <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                </svg>
-                <span className="lp-social-label">Apple</span>
-              </button>
-
-            </div>
-
-            {/* Footer */}
-            <div className="lp-footer">
-              New to LuxZera?{" "}
-              <button type="button" onClick={() => navigate("/register")} className="lp-footer-link">
-                Create account
-              </button>
-            </div>
-
-          </div>
-        </div>
-
       </div>
     </>
   );

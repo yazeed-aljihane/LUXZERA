@@ -10,8 +10,28 @@ import { setToken, getToken, removeToken } from "../utils/token";
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUserRaw] = useState(() => {
+    const cached = localStorage.getItem("luxzera_user_cache");
+    if (cached) {
+      try {
+        return JSON.parse(cached);
+      } catch (e) {
+        // invalid JSON, ignore
+      }
+    }
+    return null;
+  });
+  const [loading, setLoading] = useState(!user);
+
+  // Custom setter to always keep local storage in sync
+  const setUser = (newUser) => {
+    if (newUser) {
+      localStorage.setItem("luxzera_user_cache", JSON.stringify(newUser));
+    } else {
+      localStorage.removeItem("luxzera_user_cache");
+    }
+    setUserRaw(newUser);
+  };
 
   // Auto-login on mount if a token is present
   useEffect(() => {
@@ -32,7 +52,6 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
-      // Enforce 800ms minimum loader for smooth transitions
       setLoading(false);
     };
 

@@ -186,7 +186,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-logo {
           display: block;
           margin: 0 auto 16px;
-          height: 64px;
+          height: 48px;
           width: auto;
           object-fit: contain;
         }

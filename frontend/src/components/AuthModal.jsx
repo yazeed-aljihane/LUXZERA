@@ -139,14 +139,14 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         
         .am-modal {
           width: 100%;
-          max-width: 520px;
-          margin: 0 16px; /* Ensure margin on mobile */
+          max-width: 480px;
+          margin: 0 16px;
           box-sizing: border-box;
           background: #FFFFFF;
-          border-radius: 28px;
+          border-radius: 24px;
           border: 1px solid rgba(0,0,0,0.05);
           box-shadow: 0 30px 80px rgba(0,0,0,0.12);
-          padding: 40px 40px 36px;
+          padding: 32px 32px 24px;
           position: relative;
           
           /* Animation state */
@@ -185,27 +185,28 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-logo {
           display: block;
-          margin: 0 auto 24px;
-          height: 48px;
+          margin: 0 auto 16px;
+          height: 96px;
           width: auto;
         }
 
         .am-header {
           text-align: center;
-          margin-bottom: 40px;
+          margin-bottom: 24px;
         }
 
         .am-title {
-          font-size: 46px;
+          font-family: 'Playfair Display', ui-serif, Georgia, serif;
+          font-size: 36px;
           font-weight: 700;
           color: #111111;
-          letter-spacing: -0.04em;
+          letter-spacing: -0.02em;
           line-height: 1.1;
-          margin-bottom: 8px;
+          margin-bottom: 4px;
         }
 
         .am-subtitle {
-          font-size: 18px;
+          font-size: 15px;
           color: #6B7280;
           line-height: 1.4;
         }
@@ -224,7 +225,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-form {
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          gap: 12px;
           width: 100%;
         }
 
@@ -238,8 +239,6 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           font-size: 13px;
           font-weight: 600;
           color: #111111;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
           margin-bottom: 8px;
         }
 
@@ -259,12 +258,12 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-input {
           width: 100%;
-          height: 56px;
-          border-radius: 9999px; /* Pill shaped */
+          height: 52px;
+          border-radius: 9999px;
           border: 1px solid #E5E7EB;
           background: #FFFFFF;
-          padding: 0 24px;
-          font-size: 16px;
+          padding: 0 20px;
+          font-size: 15px;
           color: #111111;
           font-family: inherit;
           outline: none;
@@ -272,11 +271,11 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
         
         .am-input.has-left-icon {
-          padding-left: 48px;
+          padding-left: 44px;
         }
 
         .am-input.has-right-icon {
-          padding-right: 56px;
+          padding-right: 48px;
         }
 
         .am-input::placeholder {
@@ -311,35 +310,35 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-forgot-row {
           display: flex;
           justify-content: flex-end;
-          margin-top: -4px;
+          margin-top: 8px;
         }
 
         .am-forgot {
-          font-size: 14px;
-          font-weight: 500;
-          color: #6B7280;
+          font-size: 13px;
+          font-weight: 600;
+          color: #F07020;
           background: none;
           border: none;
           padding: 0;
           cursor: pointer;
-          transition: color 180ms ease;
+          transition: opacity 180ms ease;
         }
 
         .am-forgot:hover {
-          color: #F07020; /* Lux Orange */
+          opacity: 0.8;
         }
 
         .am-submit {
           width: 100%;
-          height: 56px;
-          border-radius: 9999px; /* Pill shaped */
+          height: 52px;
+          border-radius: 9999px;
           background: #171717;
           color: #FFFFFF;
           border: none;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 600;
           cursor: pointer;
-          margin-top: 8px;
+          margin-top: 4px;
           transition: background-color 180ms ease;
         }
 
@@ -356,7 +355,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           display: flex;
           align-items: center;
           gap: 16px;
-          margin: 32px 0;
+          margin: 20px 0;
         }
 
         .am-divider-line {
@@ -372,26 +371,30 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-socials {
           display: flex;
-          gap: 16px;
+          gap: 12px;
           width: 100%;
         }
 
         .am-social {
           position: relative;
-          flex: 1;
-          height: 52px;
+          width: 100%;
+          height: 48px;
           border-radius: 9999px;
           border: 1px solid #E5E7EB;
           background: #FFFFFF;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          font-size: 15px;
-          font-weight: 500;
+          gap: 8px;
+          font-size: 14px;
+          font-weight: 600;
           color: #111111;
           cursor: pointer;
           transition: background-color 180ms ease;
+        }
+        
+        .am-social svg {
+          flex-shrink: 0;
         }
 
         .am-social:hover {
@@ -401,7 +404,8 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-google-wrap {
           position: relative;
           flex: 1;
-          height: 52px;
+          height: 48px;
+          display: flex;
         }
         
         .am-google-overlay {
@@ -415,10 +419,13 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
 
         .am-footer {
-          margin-top: 36px;
+          margin-top: 24px;
           text-align: center;
-          font-size: 15px;
+          font-size: 14px;
           color: #6B7280;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
         }
 
         .am-footer-btn {
@@ -439,6 +446,17 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-footer-btn.orange:hover {
           opacity: 0.8;
         }
+
+        .am-footer-terms {
+          font-size: 12px;
+          color: #9CA3AF;
+          line-height: 1.5;
+        }
+
+        .am-footer-terms strong {
+          color: #6B7280;
+          font-weight: 600;
+        }
       `}</style>
 
       <div className="am-modal">
@@ -450,7 +468,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <X size={24} strokeWidth={1.5} />
         </button>
 
-        <img src="/LuxZera.png" alt="LuxZera" className="am-logo" />
+        <img src="/logo.png" alt="LuxZera" className="am-logo" />
 
         <div className="am-header">
           <h2 className="am-title">
@@ -488,7 +506,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <div>
             <label className="am-label">Email</label>
             <div className="am-input-wrap">
-              <Mail size={18} className="am-icon-left" />
+              <Mail size={18} strokeWidth={1.5} className="am-icon-left" />
               <input
                 type="email"
                 required
@@ -503,7 +521,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <div>
             <label className="am-label">Password</label>
             <div className="am-input-wrap">
-              <Lock size={18} className="am-icon-left" />
+              <Lock size={18} strokeWidth={1.5} className="am-icon-left" />
               <input
                 type={showPassword ? "text" : "password"}
                 required
@@ -518,25 +536,25 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                 onClick={() => setShowPassword((v) => !v)}
                 tabIndex={-1}
               >
-                {showPassword ? <EyeOff size={20} strokeWidth={1.5} /> : <Eye size={20} strokeWidth={1.5} />}
+                {showPassword ? <EyeOff size={18} strokeWidth={1.5} /> : <Eye size={18} strokeWidth={1.5} />}
               </button>
             </div>
+            
+            {view === "login" && (
+              <div className="am-forgot-row">
+                <button
+                  type="button"
+                  className="am-forgot"
+                  onClick={() => {
+                    closeAndReset();
+                    navigate("/forgot-password");
+                  }}
+                >
+                  Forgot password?
+                </button>
+              </div>
+            )}
           </div>
-
-          {view === "login" && (
-            <div className="am-forgot-row">
-              <button
-                type="button"
-                className="am-forgot"
-                onClick={() => {
-                  closeAndReset();
-                  navigate("/forgot-password");
-                }}
-              >
-                Forgot password?
-              </button>
-            </div>
-          )}
 
           <button type="submit" className="am-submit" disabled={isSubmitting}>
             {isSubmitting 
@@ -564,7 +582,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
               />
             </div>
             <button type="button" className="am-social" tabIndex={-1}>
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -574,8 +592,8 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             </button>
           </div>
 
-          <button type="button" className="am-social">
-            <svg width="20" height="20" viewBox="0 0 814 1000" aria-hidden="true" fill="#111111">
+          <button type="button" className="am-social" style={{ flex: 1 }}>
+            <svg width="18" height="18" viewBox="0 0 814 1000" aria-hidden="true" fill="#111111">
               <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.8-49 192.5-49 30.8 0 111.1 2.6 174.4 72.5zm-85.5-139.4c-20.1 23.7-52.6 42.8-84.5 42.8-3.9 0-7.8-.5-11.7-.6 1.9-32.1 17.4-72.5 43.4-96.8 21.4-20.7 54.5-37.1 82.9-38.4 1.3 4.5 2 9.1 2 14.3 0 30.1-14.3 67.8-32.1 78.7z"/>
             </svg>
             Apple
@@ -583,29 +601,36 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         </div>
 
         <div className="am-footer">
-          {view === "login" ? (
-            <>
-              Don't have an account?{" "}
-              <button 
-                type="button" 
-                className="am-footer-btn orange"
-                onClick={() => setView("register")}
-              >
-                Create account
-              </button>
-            </>
-          ) : (
-            <>
-              Already have an account?{" "}
-              <button 
-                type="button" 
-                className="am-footer-btn"
-                onClick={() => setView("login")}
-              >
-                Sign in
-              </button>
-            </>
-          )}
+          <div>
+            {view === "login" ? (
+              <>
+                Don't have an account?{" "}
+                <button 
+                  type="button" 
+                  className="am-footer-btn orange"
+                  onClick={() => setView("register")}
+                >
+                  Create account
+                </button>
+              </>
+            ) : (
+              <>
+                Already have an account?{" "}
+                <button 
+                  type="button" 
+                  className="am-footer-btn"
+                  onClick={() => setView("login")}
+                >
+                  Sign in
+                </button>
+              </>
+            )}
+          </div>
+
+          <div className="am-footer-terms">
+            By continuing, you agree to our <strong>Terms of Service</strong><br />
+            and <strong>Privacy Policy</strong>.
+          </div>
         </div>
 
       </div>

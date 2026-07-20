@@ -117,11 +117,11 @@ export default function LoginPage() {
         }
 
         .lp-subheading {
-          font-size: 20px;
-          font-weight: 500;
-          color: #9CA3AF;
+          font-size: 19px;
+          font-weight: 400;
+          color: #7A7A7A;
           text-align: center;
-          line-height: 1.5;
+          line-height: 1.45;
           margin-bottom: 32px;
           letter-spacing: -0.01em;
         }

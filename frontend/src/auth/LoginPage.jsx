@@ -70,12 +70,13 @@ export default function LoginPage() {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
-          padding: 40px 24px;
+          /* Asymmetric padding anchors the form above true center */
+          padding: 60px 24px 120px;
         }
 
         .lp-card {
           width: 100%;
-          max-width: 360px;
+          max-width: 420px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -93,12 +94,12 @@ export default function LoginPage() {
           border: none;
           padding: 0;
           cursor: pointer;
-          margin-bottom: 40px;
+          margin-bottom: 28px;
           line-height: 1;
         }
 
         .lp-logo img {
-          height: 26px;
+          height: 22px;
           width: auto;
           display: block;
         }
@@ -145,7 +146,8 @@ export default function LoginPage() {
           width: 100%;
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          width: 100%;
+          gap: 28px;
         }
 
         /* Field */
@@ -172,28 +174,27 @@ export default function LoginPage() {
 
         .lp-input {
           width: 100%;
-          height: 44px;
-          padding: 0 40px 0 14px;
-          border: 1px solid #ECECEC;
-          border-radius: 8px;
+          height: 54px;
+          padding: 0 42px 0 16px;
+          border: 1px solid #E5E5E5;
+          border-radius: 12px;
           background: #FFFFFF;
           font-size: 15px;
           font-weight: 400;
           color: #1D1D1F;
           font-family: inherit;
           outline: none;
-          transition: border-color 150ms ease, box-shadow 150ms ease;
+          transition: border-color 150ms ease;
           -webkit-appearance: none;
         }
 
         .lp-input::placeholder {
-          color: #C7C7CC;
+          color: #AEAEB2;
           font-weight: 400;
         }
 
         .lp-input:focus {
-          border-color: #D1D1D6;
-          box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+          border-color: #1D1D1F;
         }
 
         .lp-eye {
@@ -221,7 +222,7 @@ export default function LoginPage() {
         .lp-forgot-row {
           display: flex;
           justify-content: flex-end;
-          margin-top: -4px;
+          margin-top: 6px;
         }
 
         .lp-forgot {
@@ -273,7 +274,7 @@ export default function LoginPage() {
           display: flex;
           align-items: center;
           gap: 12px;
-          margin: 28px 0;
+          margin: 36px 0;
         }
 
         .lp-divider-line {
@@ -371,7 +372,7 @@ export default function LoginPage() {
           margin-top: 24px;
           font-size: 11.5px;
           font-weight: 400;
-          color: #C7C7CC;
+          color: #9A9A9A;
           text-align: center;
           line-height: 1.6;
           max-width: 280px;

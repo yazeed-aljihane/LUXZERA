@@ -107,12 +107,12 @@ export default function LoginPage() {
 
         /* ── Heading ── */
         .lp-heading {
-          font-size: 26px;
+          font-size: 54px;
           font-weight: 700;
-          color: #111827;
-          letter-spacing: -0.03em;
+          color: #111111;
+          letter-spacing: -0.045em;
           text-align: center;
-          line-height: 1.2;
+          line-height: 1.05;
           margin-bottom: 4px;
         }
 

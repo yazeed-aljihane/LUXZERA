@@ -27,6 +27,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+::selection {
+  background-color: #F07020;
+  color: #FFFFFF;
+}
+
+::-moz-selection {
+  background-color: #F07020;
+  color: #FFFFFF;
+}
+
 /* ── Scale utilities missing from Tailwind by default ── */
 .scale-103 { transform: scale(1.03); }
 .group:hover .group-hover\:scale-103 { transform: scale(1.03); }

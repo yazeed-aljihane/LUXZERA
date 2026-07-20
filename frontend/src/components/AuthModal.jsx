@@ -126,7 +126,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Space+Grotesk:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@400;500&display=swap');
 
         .am-overlay {
           position: fixed;
@@ -207,14 +207,13 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
 
         .am-title {
-          font-family: 'Allerta Stencil', sans-serif;
+          font-family: 'Permanent Marker', cursive;
           font-size: 34px;
           font-weight: 400;
           color: #111111;
           letter-spacing: -0.02em;
           line-height: 1.1;
           margin-bottom: 8px;
-          text-transform: uppercase;
         }
 
         .am-subtitle {

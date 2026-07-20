@@ -76,7 +76,7 @@ export default function LoginPage() {
 
         .lp-card {
           width: 100%;
-          max-width: 420px;
+          max-width: 440px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -94,45 +94,45 @@ export default function LoginPage() {
           border: none;
           padding: 0;
           cursor: pointer;
-          margin-bottom: 28px;
+          margin-bottom: 24px;
           line-height: 1;
           display: block;
         }
 
         .lp-logo img {
-          height: 22px;
+          height: 38px; /* Slightly bigger as requested */
           width: auto;
           display: block;
         }
 
         /* ── Heading ── */
         .lp-heading {
-          font-size: 24px;
+          font-size: 26px;
           font-weight: 700;
           color: #111827;
           letter-spacing: -0.03em;
           text-align: center;
           line-height: 1.2;
-          margin-bottom: 6px;
+          margin-bottom: 4px;
         }
 
         .lp-subheading {
-          font-size: 14px;
-          font-weight: 400;
-          color: #6B7280;
+          font-size: 20px;
+          font-weight: 500;
+          color: #9CA3AF;
           text-align: center;
           line-height: 1.5;
-          margin-bottom: 40px;
+          margin-bottom: 32px;
           letter-spacing: -0.01em;
         }
 
         /* ── Error ── */
         .lp-error {
           width: 100%;
-          padding: 12px 16px;
+          padding: 10px 14px;
           background: #FEF2F2;
           border: 1px solid #FECACA;
-          border-radius: 10px;
+          border-radius: 6px;
           margin-bottom: 24px;
         }
 
@@ -148,23 +148,22 @@ export default function LoginPage() {
           width: 100%;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 16px;
         }
 
         /* ── Field ── */
         .lp-field {
           display: flex;
           flex-direction: column;
-          gap: 7px;
           width: 100%;
         }
 
         .lp-label {
-          font-size: 13px;
-          font-weight: 600;
-          color: #111827;
+          font-size: 12px;
+          font-weight: 500;
+          color: #6B7280;
           line-height: 1;
-          letter-spacing: -0.01em;
+          margin-bottom: 6px;
         }
 
         /* ── Input ── */
@@ -175,36 +174,43 @@ export default function LoginPage() {
 
         .lp-input {
           width: 100%;
-          height: 56px;
-          padding-inline: 18px;
-          padding-right: 48px;
-          border: 1px solid #E6E6E6;
-          border-radius: 12px;
+          height: 38px;
+          padding-inline: 12px;
+          border: 1px solid #E5E7EB;
+          border-radius: 6px;
           background: #FFFFFF;
-          font-size: 15px;
+          font-size: 14px;
           font-weight: 400;
           color: #111827;
           font-family: inherit;
           outline: none;
           -webkit-appearance: none;
-          -webkit-font-smoothing: antialiased;
-          letter-spacing: -0.01em;
-          transition: border-color 150ms ease;
+          transition: border-color 150ms ease, box-shadow 150ms ease;
+        }
+        
+        .lp-input.has-icon {
+          padding-right: 36px;
         }
 
         .lp-input::placeholder {
           color: #9CA3AF;
-          font-weight: 400;
         }
 
         .lp-input:focus {
-          border-color: #111827;
+          border-color: #3B82F6;
+          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+        
+        .lp-helper {
+          font-size: 11px;
+          color: #9CA3AF;
+          margin-top: 6px;
         }
 
         /* ── Eye toggle ── */
         .lp-eye {
           position: absolute;
-          right: 14px;
+          right: 10px;
           top: 50%;
           transform: translateY(-50%);
           background: none;
@@ -220,10 +226,9 @@ export default function LoginPage() {
         }
 
         .lp-eye:hover {
-          color: #374151;
+          color: #6B7280;
         }
-
-        /* ── Forgot ── */
+        
         .lp-forgot-row {
           display: flex;
           justify-content: flex-end;
@@ -231,47 +236,44 @@ export default function LoginPage() {
         }
 
         .lp-forgot {
-          font-size: 13px;
-          font-weight: 400;
-          color: #9CA3AF;
+          font-size: 12px;
+          font-weight: 500;
+          color: #F97316; /* LuxZera orange */
           background: none;
           border: none;
           padding: 0;
           cursor: pointer;
           font-family: inherit;
-          transition: color 150ms ease;
-          line-height: 1;
-          letter-spacing: -0.01em;
+          transition: opacity 150ms ease;
         }
 
         .lp-forgot:hover {
-          color: #FF7518;
+          opacity: 0.8;
         }
 
         /* ── Submit ── */
         .lp-submit {
           width: 100%;
-          height: 56px;
-          border-radius: 12px;
+          height: 38px;
+          border-radius: 6px;
           border: none;
-          background: #111827;
+          background: #2563EB; /* Blue exactly like the screenshot */
           color: #FFFFFF;
-          font-size: 15px;
-          font-weight: 600;
+          font-size: 14px;
+          font-weight: 500;
           font-family: inherit;
-          letter-spacing: -0.01em;
           cursor: pointer;
           margin-top: 4px;
-          transition: background 150ms ease, opacity 150ms ease;
+          transition: background 150ms ease;
           -webkit-font-smoothing: antialiased;
         }
 
         .lp-submit:hover:not(:disabled) {
-          background: #1F2937;
+          background: #1D4ED8;
         }
 
         .lp-submit:disabled {
-          opacity: 0.38;
+          opacity: 0.5;
           cursor: not-allowed;
         }
 
@@ -280,14 +282,14 @@ export default function LoginPage() {
           width: 100%;
           display: flex;
           align-items: center;
-          gap: 14px;
-          margin: 36px 0;
+          gap: 12px;
+          margin: 32px 0;
         }
 
         .lp-divider-line {
           flex: 1;
           height: 1px;
-          background: #E6E6E6;
+          background: #F3F4F6;
         }
 
         .lp-divider-text {
@@ -295,49 +297,52 @@ export default function LoginPage() {
           font-weight: 400;
           color: #9CA3AF;
           white-space: nowrap;
-          letter-spacing: 0;
         }
 
         /* ── Social buttons ── */
         .lp-socials {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 12px;
           width: 100%;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
         }
 
         .lp-social {
           position: relative;
-          height: 56px;
-          border: 1px solid #E6E6E6;
-          border-radius: 12px;
+          width: 96px;
+          height: 72px;
+          border: 1px solid #F3F4F6;
+          border-radius: 6px;
           background: #FFFFFF;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 8px;
+          gap: 6px;
           cursor: pointer;
           font-family: inherit;
-          font-size: 14px;
+          font-size: 12px;
           font-weight: 500;
           color: #111827;
-          letter-spacing: -0.01em;
           transition: border-color 150ms ease, background 150ms ease;
-          width: 100%;
-          box-sizing: border-box;
           -webkit-font-smoothing: antialiased;
         }
 
         .lp-social:hover {
-          border-color: #111827;
-          background: #FAFAFA;
+          background: #F9FAFB;
+          border-color: #E5E7EB;
+        }
+        
+        .lp-social svg {
+          display: block;
         }
 
         /* ── Google overlay ── */
         .lp-google-wrap {
           position: relative;
-          width: 100%;
-          min-width: 0;
+          width: 96px;
+          height: 72px;
         }
 
         .lp-google-overlay {
@@ -346,7 +351,7 @@ export default function LoginPage() {
           opacity: 0.001;
           z-index: 2;
           overflow: hidden;
-          border-radius: 12px;
+          border-radius: 6px;
           cursor: pointer;
         }
 
@@ -355,10 +360,9 @@ export default function LoginPage() {
           margin-top: 32px;
           font-size: 13px;
           font-weight: 400;
-          color: #6B7280;
+          color: #9CA3AF;
           text-align: center;
           line-height: 1.5;
-          letter-spacing: -0.01em;
         }
 
         .lp-footer-btn {
@@ -369,40 +373,24 @@ export default function LoginPage() {
           font-size: inherit;
           font-family: inherit;
           font-weight: 500;
-          color: #FF7518;
-          transition: opacity 150ms ease;
-          letter-spacing: -0.01em;
+          color: #9CA3AF;
+          text-decoration: underline;
+          transition: color 150ms ease;
         }
 
         .lp-footer-btn:hover {
-          opacity: 0.7;
+          color: #6B7280;
         }
 
         /* ── Terms ── */
         .lp-terms {
           margin-top: 24px;
-          font-size: 11.5px;
+          font-size: 11px;
           font-weight: 400;
-          color: #9A9A9A;
+          color: #9CA3AF;
           text-align: center;
-          line-height: 1.6;
-          max-width: 300px;
-          letter-spacing: -0.01em;
-        }
-
-        .lp-terms-link {
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
-          font-size: inherit;
-          font-family: inherit;
-          color: #6B7280;
-          transition: color 150ms ease;
-        }
-
-        .lp-terms-link:hover {
-          color: #111827;
+          line-height: 1.5;
+          max-width: 320px;
         }
       `}</style>
 
@@ -415,8 +403,8 @@ export default function LoginPage() {
           </button>
 
           {/* Heading */}
-          <h1 className="lp-heading">Welcome back.</h1>
-          <p className="lp-subheading">Continue your style journey.</p>
+          <h1 className="lp-heading">Your style, elevated.</h1>
+          <p className="lp-subheading">Log in to your LuxZera account</p>
 
           {/* Error */}
           {error && (
@@ -437,12 +425,13 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
+                  placeholder="Enter your email address..."
                   className="lp-input"
                   autoComplete="email"
                   autoFocus
                 />
               </div>
+              <div className="lp-helper">Use the email you signed up with</div>
             </div>
 
             <div className="lp-field">
@@ -454,8 +443,8 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="lp-input"
+                  placeholder="Enter your password..."
+                  className="lp-input has-icon"
                   autoComplete="current-password"
                 />
                 <button
@@ -472,7 +461,7 @@ export default function LoginPage() {
                 </button>
               </div>
             </div>
-
+            
             <div className="lp-forgot-row">
               <button
                 type="button"
@@ -492,7 +481,7 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="lp-divider">
             <div className="lp-divider-line" />
-            <span className="lp-divider-text">or</span>
+            <span className="lp-divider-text">or continue with</span>
             <div className="lp-divider-line" />
           </div>
 
@@ -505,13 +494,13 @@ export default function LoginPage() {
                 <GoogleLogin
                   onSuccess={handleGoogleSuccess}
                   onError={() => setError("Google sign-in failed.")}
-                  width="160"
+                  width="96"
                   size="large"
                   shape="rectangular"
                 />
               </div>
               <button type="button" className="lp-social" tabIndex={-1}>
-                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -523,7 +512,7 @@ export default function LoginPage() {
 
             {/* Apple */}
             <button type="button" className="lp-social" onClick={() => console.log("Apple sign-in")}>
-              <svg width="16" height="16" viewBox="0 0 814 1000" aria-hidden="true" fill="#1D1D1F">
+              <svg width="20" height="20" viewBox="0 0 814 1000" aria-hidden="true" fill="#1D1D1F">
                 <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.8-49 192.5-49 30.8 0 111.1 2.6 174.4 72.5zm-85.5-139.4c-20.1 23.7-52.6 42.8-84.5 42.8-3.9 0-7.8-.5-11.7-.6 1.9-32.1 17.4-72.5 43.4-96.8 21.4-20.7 54.5-37.1 82.9-38.4 1.3 4.5 2 9.1 2 14.3 0 30.1-14.3 67.8-32.1 78.7z"/>
               </svg>
               Apple
@@ -533,7 +522,7 @@ export default function LoginPage() {
 
           {/* Create account */}
           <div className="lp-footer">
-            Don't have an account?{" "}
+            New user?{" "}
             <button type="button" className="lp-footer-btn" onClick={() => navigate("/register")}>
               Sign up
             </button>
@@ -541,10 +530,7 @@ export default function LoginPage() {
 
           {/* Terms */}
           <p className="lp-terms">
-            By continuing, you agree to our{" "}
-            <button type="button" className="lp-terms-link">Terms of Service</button>
-            {" "}and{" "}
-            <button type="button" className="lp-terms-link">Privacy Policy</button>.
+            By continuing, you acknowledge that you understand and agree to the Terms & Conditions and Privacy Policy.
           </p>
 
         </div>

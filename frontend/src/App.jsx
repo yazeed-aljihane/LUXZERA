@@ -30,8 +30,7 @@ import BecomeDesignerPage from "./pages/BecomeDesignerPage.jsx";
 import DesignerOnboardingPage from "./pages/DesignerOnboardingPage.jsx";
 import DesignerStudioPage from "./pages/DesignerStudioPage.jsx";
 
-import LoginPage from "./auth/LoginPage.jsx";
-import RegisterPage from "./auth/RegisterPage.jsx";
+// Dedicated auth pages removed in favor of AuthModal
 import VerifyOtpPage from "./auth/VerifyOtpPage.jsx";
 import CompleteGoogleSignupPage from "./auth/CompleteGoogleSignupPage.jsx";
 import ForgotPasswordPage from "./auth/ForgotPasswordPage.jsx";
@@ -100,7 +99,7 @@ export default function App() {
     return location.pathname.split("/")[1] || "";
   })();
 
-  const authPaths = ["/login", "/register", "/verify-otp", "/forgot-password", "/reset-password", "/complete-google-signup"];
+  const authPaths = ["/verify-otp", "/forgot-password", "/reset-password", "/complete-google-signup"];
   const isHideLayout = location.pathname === "/designer-onboarding" || location.pathname === "/designer-studio" || authPaths.includes(location.pathname);
   const showFloatingCart = cartCount > 0 && location.pathname !== "/cart" && !isHideLayout;
   const showNavbar = !isHideLayout;
@@ -123,7 +122,7 @@ export default function App() {
           onFaqClick={() => navigate("/faqs")}
           onCartClick={() => navigate("/cart")}
           onWardrobeClick={() => navigate("/wardrobe")}
-          onAuthClick={() => navigate("/login")}
+          onAuthClick={() => openAuthModal("login")}
           onAccountClick={() => navigate("/account")}
           onOrdersClick={() => navigate("/orders")}
           onLogout={handleLogout}
@@ -169,7 +168,7 @@ export default function App() {
               currentUser ? (
                 <DesignerOnboardingPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
               ) : (
-                <Navigate to="/login" replace />
+                <Navigate to="/?openLogin=true" replace />
               )
             }
           />
@@ -179,12 +178,11 @@ export default function App() {
               currentUser ? (
                 <DesignerStudioPage currentUser={currentUser} />
               ) : (
-                <Navigate to="/login" replace />
+                <Navigate to="/?openLogin=true" replace />
               )
             }
           />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          {/* Login and Register now use AuthModal */}
           <Route path="/verify-otp" element={<VerifyOtpPage />} />
           <Route path="/complete-google-signup" element={<CompleteGoogleSignupPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />

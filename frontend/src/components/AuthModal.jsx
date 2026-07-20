@@ -1,453 +1,570 @@
 // src/components/AuthModal.jsx
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { X, Mail, Eye, EyeOff, User, Hash } from "lucide-react";
+import { X, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
-import { register as apiRegister, verifyOtp as apiVerifyOtp, resendOtp as apiResendOtp } from "../services/auth/authService";
+import { GoogleLogin } from "@react-oauth/google";
+import { register as apiRegister, googleLogin, getCurrentUser } from "../services/auth/authService";
+import { setToken } from "../utils/token";
 
 export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
 
-  // View state: "register" | "verify_signup" | "login"
   const [view, setView] = useState(initialView);
+  const [isRendered, setIsRendered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Form Fields
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // OTP Verification Fields
-  const [otp, setOtp] = useState("");
-  const [timer, setTimer] = useState(60);
-  const [canResend, setCanResend] = useState(false);
-
   // UI States
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
 
+  // Handle mount and unmount animation states
+  useEffect(() => {
+    if (isOpen) {
+      setIsRendered(true);
+      // Wait for next tick to start animation
+      requestAnimationFrame(() => {
+        setIsVisible(true);
+      });
+    } else {
+      setIsVisible(false);
+      // Wait for animation to finish (180ms) before removing from DOM
+      const timer = setTimeout(() => setIsRendered(false), 180);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  // Update view if prop changes while open
   useEffect(() => {
     if (isOpen) {
       setView(initialView);
     }
   }, [isOpen, initialView]);
 
+  // Handle body scroll locking and Escape key
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") closeAndReset();
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [isOpen]);
+
   const closeAndReset = () => {
     onClose();
-    setView(initialView);
-  };
-
-  // Clean form state on modal open/close or view change
-  useEffect(() => {
-    setErrorMsg("");
-    setSuccessMsg("");
-    setOtp("");
-    setShowPassword(false);
-    if (!isOpen) {
+    setTimeout(() => {
+      setErrorMsg("");
       setFullName("");
       setEmail("");
       setPassword("");
+      setShowPassword(false);
       setView(initialView);
-    }
-  }, [isOpen, view, initialView]);
+    }, 180);
+  };
 
-  // Handle OTP countdown timer
-  useEffect(() => {
-    if (view !== "verify_signup" || !isOpen) return;
-    setTimer(60);
-    setCanResend(false);
-  }, [view, isOpen]);
-
-  useEffect(() => {
-    if (view !== "verify_signup" || !isOpen || timer <= 0) {
-      if (timer === 0) setCanResend(true);
-      return;
-    }
-    const interval = setInterval(() => {
-      setTimer((prev) => prev - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timer, view, isOpen]);
-
-  // LOGIN SUBMIT (Standard Login)
-  const handleLoginSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) return;
+    if (!email || !password || (view === "register" && !fullName)) return;
 
     setIsSubmitting(true);
     setErrorMsg("");
-    setSuccessMsg("");
-    try {
-      const profile = await login(email, password);
-      closeAndReset();
-      if (profile?.role === "DESIGNER" || profile?.isDesigner) {
-        navigate("/designer-studio");
-      } else {
-        navigate("/");
-      }
-    } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message || "Invalid email or password. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // EMAIL SIGN UP SUBMIT (Continue)
-  const handleSignUpSubmit = async (e) => {
-    e.preventDefault();
-    if (!fullName || !email || !password) return;
-
-    setIsSubmitting(true);
-    setErrorMsg("");
-    setSuccessMsg("");
-
-    // Split Full Name into First Name and Last Name
-    const nameParts = fullName.trim().split(/\s+/);
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts.slice(1).join(" ") || "";
-
-    // Generate a unique username based on the email prefix
-    const generatedUsername = email.split("@")[0].replace(/[^a-zA-Z0-9]/g, "") + "_" + Math.floor(100 + Math.random() * 900);
 
     try {
-      await apiRegister(generatedUsername, firstName, lastName, email, password);
-      setSuccessMsg("Verification code sent! Please check your email.");
-      setTimeout(() => {
-        setView("verify_signup");
-      }, 1000);
-    } catch (err) {
-      console.error(err);
-      const msg = err.message || "Sign up failed. Please try again.";
-      if (msg.toLowerCase().includes("exists") || msg.toLowerCase().includes("already")) {
-        setErrorMsg("You are already registered! Please log in.");
-      } else {
-        setErrorMsg(msg);
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // OTP VERIFICATION SUBMIT (Verifies code and logs user in automatically)
-  const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-    if (!email || !otp) return;
-
-    setIsSubmitting(true);
-    setErrorMsg("");
-    setSuccessMsg("");
-    try {
-      // 1. Verify OTP
-      await apiVerifyOtp(email, otp);
-      setSuccessMsg("Email verified successfully! Logging you in...");
-
-      // 2. Automatically log the user in using the created credentials
-      const profile = await login(email, password);
-      
-      setTimeout(() => {
-        closeAndReset();
-        if (profile?.role === "DESIGNER" || profile?.isDesigner) {
-          navigate("/designer-studio");
-        } else {
-          navigate("/");
-        }
-      }, 1500);
-    } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message || "Invalid OTP code. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleResendOtp = async () => {
-    if (!canResend || !email) return;
-
-    setIsSubmitting(true);
-    setErrorMsg("");
-    setSuccessMsg("");
-    try {
-      await apiResendOtp(email);
-      setSuccessMsg("A fresh verification code has been sent to your email.");
-      setTimer(60);
-      setCanResend(false);
-    } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message || "Failed to resend code.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/55 backdrop-blur-[2px] animate-fade-in select-none">
-      
-      {/* Click outside backdrop */}
-      <div className="absolute inset-0 z-0 cursor-default" onClick={closeAndReset} />
-
-      {/* PORTAL FORM CARD */}
-      <div className="auth-surface relative z-10 w-full max-w-[460px] rounded-2xl p-8 sm:p-10 flex flex-col gap-6 text-center max-h-[90vh] overflow-y-auto bg-white border border-[#ECECEC] shadow-sm">
-        <div className="auth-content flex flex-col gap-6">
+      if (view === "register") {
+        const nameParts = fullName.trim().split(/\s+/);
+        const firstName = nameParts[0] || "";
+        const lastName = nameParts.slice(1).join(" ") || "";
+        const generatedUsername = email.split("@")[0].replace(/[^a-zA-Z0-9]/g, "") + "_" + Math.floor(100 + Math.random() * 900);
         
-        {/* Close Button */}
+        await apiRegister(generatedUsername, firstName, lastName, email, password);
+        closeAndReset();
+        navigate(`/verify-otp?email=${encodeURIComponent(email)}`);
+      } else {
+        await login(email, password);
+        closeAndReset();
+      }
+    } catch (err) {
+      setErrorMsg(err.message || (view === "register" ? "Sign up failed." : "Invalid email or password."));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const data = await googleLogin(credentialResponse.credential);
+      setToken(data.accessToken || data.token);
+      const profile = await getCurrentUser();
+      setUser(profile);
+      closeAndReset();
+    } catch {
+      setErrorMsg("Google sign-in failed. Please try again.");
+    }
+  };
+
+  if (!isRendered) return null;
+
+  const modalContent = (
+    <div 
+      className="am-overlay"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) closeAndReset();
+      }}
+    >
+      <style>{`
+        .am-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: transparent; /* NO dimming, fully transparent */
+          /* No blur, just fully visible page underneath */
+        }
+        
+        .am-modal {
+          width: 520px;
+          background: #FFFFFF;
+          border-radius: 28px;
+          border: 1px solid rgba(0,0,0,0.05);
+          box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+          padding: 40px 40px 36px;
+          position: relative;
+          
+          /* Animation state */
+          opacity: ${isVisible ? 1 : 0};
+          transform: scale(${isVisible ? 1 : 0.98});
+          transition: opacity 180ms ease-out, transform 180ms ease-out;
+          
+          font-family: 'Inter', -apple-system, sans-serif;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        .am-close {
+          position: absolute;
+          top: 24px;
+          right: 24px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: transparent;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: #9CA3AF;
+          transition: background-color 180ms ease, color 180ms ease;
+        }
+
+        .am-close:hover {
+          background-color: #F3F4F6;
+          color: #111111;
+        }
+
+        .am-logo {
+          display: block;
+          margin: 0 auto 24px;
+          height: 48px;
+          width: auto;
+        }
+
+        .am-header {
+          text-align: center;
+          margin-bottom: 40px;
+        }
+
+        .am-title {
+          font-size: 46px;
+          font-weight: 700;
+          color: #111111;
+          letter-spacing: -0.04em;
+          line-height: 1.1;
+          margin-bottom: 8px;
+        }
+
+        .am-subtitle {
+          font-size: 18px;
+          color: #6B7280;
+          line-height: 1.4;
+        }
+
+        .am-error {
+          padding: 12px 16px;
+          background: #FEF2F2;
+          border: 1px solid #FECACA;
+          border-radius: 12px;
+          margin-bottom: 24px;
+          font-size: 14px;
+          color: #DC2626;
+          text-align: center;
+        }
+
+        .am-form {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          width: 100%;
+        }
+
+        .am-input-wrap {
+          position: relative;
+          width: 100%;
+        }
+
+        .am-input {
+          width: 100%;
+          height: 56px;
+          border-radius: 9999px; /* Pill shaped */
+          border: 1px solid #E5E7EB;
+          background: #FFFFFF;
+          padding: 0 24px;
+          font-size: 16px;
+          color: #111111;
+          font-family: inherit;
+          outline: none;
+          transition: border-color 180ms ease;
+        }
+        
+        .am-input.has-right-icon {
+          padding-right: 56px;
+        }
+
+        .am-input::placeholder {
+          color: #9CA3AF;
+        }
+
+        .am-input:focus {
+          border-color: #111111;
+          /* No glow, no shadow */
+        }
+
+        .am-eye {
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          color: #9CA3AF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color 180ms ease;
+        }
+
+        .am-eye:hover {
+          color: #111111;
+        }
+        
+        .am-forgot-row {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: -4px;
+        }
+
+        .am-forgot {
+          font-size: 14px;
+          font-weight: 500;
+          color: #6B7280;
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          transition: color 180ms ease;
+        }
+
+        .am-forgot:hover {
+          color: #F07020; /* Lux Orange */
+        }
+
+        .am-submit {
+          width: 100%;
+          height: 56px;
+          border-radius: 9999px; /* Pill shaped */
+          background: #171717;
+          color: #FFFFFF;
+          border: none;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          margin-top: 8px;
+          transition: background-color 180ms ease;
+        }
+
+        .am-submit:hover:not(:disabled) {
+          background-color: #000000;
+        }
+        
+        .am-submit:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .am-divider {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin: 32px 0;
+        }
+
+        .am-divider-line {
+          flex: 1;
+          height: 1px;
+          background: #ECECEC;
+        }
+
+        .am-divider-text {
+          font-size: 14px;
+          color: #9CA3AF;
+        }
+
+        .am-socials {
+          display: flex;
+          gap: 16px;
+          width: 100%;
+        }
+
+        .am-social {
+          position: relative;
+          flex: 1;
+          height: 52px;
+          border-radius: 9999px;
+          border: 1px solid #E5E7EB;
+          background: #FFFFFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          font-size: 15px;
+          font-weight: 500;
+          color: #111111;
+          cursor: pointer;
+          transition: background-color 180ms ease;
+        }
+
+        .am-social:hover {
+          background-color: #F9FAFB;
+        }
+        
+        .am-google-wrap {
+          position: relative;
+          flex: 1;
+          height: 52px;
+        }
+        
+        .am-google-overlay {
+          position: absolute;
+          inset: 0;
+          opacity: 0.001;
+          z-index: 2;
+          overflow: hidden;
+          border-radius: 9999px;
+          cursor: pointer;
+        }
+
+        .am-footer {
+          margin-top: 36px;
+          text-align: center;
+          font-size: 15px;
+          color: #6B7280;
+        }
+
+        .am-footer-btn {
+          background: none;
+          border: none;
+          padding: 0;
+          font-size: inherit;
+          font-weight: 500;
+          color: #111111;
+          cursor: pointer;
+          transition: color 180ms ease;
+        }
+        
+        .am-footer-btn.orange {
+          color: #F07020;
+        }
+        
+        .am-footer-btn.orange:hover {
+          opacity: 0.8;
+        }
+      `}</style>
+
+      <div className="am-modal">
         <button 
+          className="am-close" 
           onClick={closeAndReset}
-          className="absolute top-6 right-6 text-[#86868B] hover:text-[#1D1D1F] transition-colors duration-150 p-2 rounded-full hover:bg-[#FAFAF9] cursor-pointer border-none flex items-center justify-center"
-          aria-label="Close authentication window"
+          aria-label="Close modal"
         >
-          <X size={18} strokeWidth={2.5} />
+          <X size={24} strokeWidth={1.5} />
         </button>
 
-        {/* Brand Header */}
-        <div className="flex flex-col items-center mt-2">
-          <button onClick={() => { closeAndReset(); navigate("/"); }} className="cursor-pointer flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
-            <img src="/LuxZera.png" alt="LuxZera" className="h-7 w-auto object-contain" />
-          </button>
-          
-          <h2 className="text-[28px] font-black text-[#1D1D1F] font-serif mt-5 tracking-tight leading-tight">
-            {view === "register" && "Create Account"}
-            {view === "verify_signup" && "Verify Email"}
-            {view === "login" && "Welcome Back"}
+        <img src="/LuxZera.png" alt="LuxZera" className="am-logo" />
+
+        <div className="am-header">
+          <h2 className="am-title">
+            {view === "register" ? "Create account." : "Welcome back."}
           </h2>
-          
-          <p className="text-[12.5px] text-[#515154] font-medium leading-relaxed max-w-[320px] mt-2 mb-1">
-            {view === "register" && "Join LuxZera Designer Studio to launch your collections worldwide."}
-            {view === "verify_signup" && `Enter the 6-digit OTP code sent to ${email}`}
-            {view === "login" && "Sign in to your LuxZera Designer Studio and continue building your brand."}
+          <p className="am-subtitle">
+            {view === "register" ? "Join the new standard of fashion." : "Continue your style journey."}
           </p>
         </div>
 
-        {/* Notifications */}
         {errorMsg && (
-          <div className="auth-alert p-3.5 bg-red-50 border border-red-200 rounded-xl text-left">
-            <p className="text-[11.5px] text-red-600 font-bold leading-normal">{errorMsg}</p>
-          </div>
-        )}
-        {successMsg && (
-          <div className="auth-alert p-3.5 bg-green-50 border border-green-200 rounded-xl text-left">
-            <p className="text-[11.5px] text-green-600 font-bold leading-normal">{successMsg}</p>
+          <div className="am-error">
+            {errorMsg}
           </div>
         )}
 
-        {/* ── 1. SIGNUP VIEW ── */}
-        {view === "register" && (
-          <form onSubmit={handleSignUpSubmit} className="auth-view flex flex-col gap-4 text-left">
-            
-            {/* Full Name */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Full Name</label>
-              <div className="w-full relative flex items-center">
-                <input
-                  required
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  placeholder="e.g. John Doe"
-                  className="auth-input px-4 pr-11"
-                />
-                <span className="absolute right-4 text-[#86868B] pointer-events-none">
-                  <User size={16} />
-                </span>
-              </div>
+        <form onSubmit={handleSubmit} className="am-form" noValidate>
+          {view === "register" && (
+            <div className="am-input-wrap">
+              <input
+                type="text"
+                required
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Full Name"
+                className="am-input"
+              />
             </div>
+          )}
 
-            {/* Email Address */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Email Address</label>
-              <div className="w-full relative flex items-center">
-                <input
-                  required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  className="auth-input px-4 pr-11"
-                />
-                <span className="absolute right-4 text-[#86868B] pointer-events-none">
-                  <Mail size={16} />
-                </span>
-              </div>
-            </div>
+          <div className="am-input-wrap">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
+              className="am-input"
+            />
+          </div>
 
-            {/* Password */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Password</label>
-              <div className="w-full relative flex items-center">
-                <input
-                  required
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Create a secure password"
-                  className="auth-input px-4 pr-11"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 text-[#86868B] hover:text-[#0D1B2A] cursor-pointer bg-transparent border-none p-0 flex items-center justify-center"
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-            </div>
-
+          <div className="am-input-wrap">
+            <input
+              type={showPassword ? "text" : "password"}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="am-input has-right-icon"
+            />
             <button
-              type="submit"
-              disabled={isSubmitting}
-              className="auth-cta w-full border-none flex items-center justify-center mt-2"
+              type="button"
+              className="am-eye"
+              onClick={() => setShowPassword((v) => !v)}
+              tabIndex={-1}
             >
-              {isSubmitting ? "Sending OTP..." : "Continue"}
+              {showPassword ? <EyeOff size={20} strokeWidth={1.5} /> : <Eye size={20} strokeWidth={1.5} />}
             </button>
+          </div>
 
-            {/* Switch to Login */}
-            <div className="text-[12.5px] font-semibold text-[#515154] mt-4 text-center">
-              Already have an account?{" "}
+          {view === "login" && (
+            <div className="am-forgot-row">
               <button
                 type="button"
-                onClick={() => setView("login")}
-                className="text-[#FF6A00] hover:underline cursor-pointer font-bold bg-transparent border-none p-0 inline"
+                className="am-forgot"
+                onClick={() => {
+                  closeAndReset();
+                  navigate("/forgot-password");
+                }}
               >
-                Sign In
+                Forgot password?
               </button>
             </div>
-          </form>
-        )}
+          )}
 
-        {/* ── 2. OTP VERIFICATION VIEW ── */}
-        {view === "verify_signup" && (
-          <form onSubmit={handleOtpSubmit} className="auth-view flex flex-col gap-5 text-left">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Verification Code</label>
-              <div className="w-full relative flex items-center">
-                <span className="absolute left-4 text-[#86868B] pointer-events-none">
-                  <Hash size={16} />
-                </span>
-                <input
-                  required
-                  type="text"
-                  maxLength={6}
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                  placeholder="e.g. 123456"
-                  className="auth-input pl-11 pr-4 text-[16px] font-black tracking-[0.2em] placeholder:tracking-normal"
-                />
-              </div>
-            </div>
+          <button type="submit" className="am-submit" disabled={isSubmitting}>
+            {isSubmitting 
+              ? (view === "register" ? "Creating account..." : "Signing in...") 
+              : "Continue"
+            }
+          </button>
+        </form>
 
-            <button
-              type="submit"
-              disabled={isSubmitting || successMsg.includes("verified")}
-              className="auth-cta w-full border-none flex items-center justify-center mt-2"
-            >
-              {isSubmitting ? "Verifying..." : "Verify Code"}
-            </button>
-
-            <div className="text-[12.5px] font-semibold text-[#515154] mt-2 text-center flex flex-col gap-2 items-center">
-              <p>
-                Didn't receive the code?{" "}
-                <button
-                  type="button"
-                  onClick={handleResendOtp}
-                  disabled={!canResend || isSubmitting}
-                  className={`font-bold pl-1 bg-transparent border-none outline-none cursor-pointer ${
-                    canResend ? "text-[#FF6A00] hover:underline" : "text-[#86868B] cursor-not-allowed"
-                  }`}
-                >
-                  {canResend ? "Resend OTP" : `Resend in ${timer}s`}
-                </button>
-              </p>
-            </div>
-          </form>
-        )}
-
-        {/* ── 3. LOGIN VIEW ── */}
-        {view === "login" && (
-          <form onSubmit={handleLoginSubmit} className="auth-view flex flex-col gap-4 text-left">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Email Address</label>
-              <div className="w-full relative flex items-center">
-                <input
-                  required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  className="auth-input px-4 pr-11"
-                />
-                <span className="absolute right-4 text-[#86868B] pointer-events-none">
-                  <Mail size={16} />
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1.5 relative">
-              <label className="text-[11px] font-extrabold text-[#0D1B2A] uppercase tracking-wider">Password</label>
-              <div className="w-full relative flex items-center">
-                <input
-                  required
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  className="auth-input px-4 pr-11"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 text-[#86868B] hover:text-[#0D1B2A] cursor-pointer bg-transparent border-none p-0 flex items-center justify-center"
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-              
-              <div className="flex justify-end mt-1">
-                <span 
-                  onClick={() => { closeAndReset(); navigate("/forgot-password"); }}
-                  className="text-[11.5px] font-bold text-[#FF6A00] hover:underline cursor-pointer"
-                >
-                  Forgot Password?
-                </span>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="auth-cta w-full border-none flex items-center justify-center mt-2"
-            >
-              {isSubmitting ? "Signing in..." : "Sign In"}
-            </button>
-
-            {/* Switch to Signup */}
-            <div className="text-[12.5px] font-semibold text-[#515154] mt-2 text-center select-none">
-              <p>
-                Don't have an account?{" "}
-                <button
-                  type="button"
-                  onClick={() => setView("register")}
-                  className="text-[#FF6A00] hover:underline cursor-pointer font-bold bg-transparent border-none p-0 inline"
-                >
-                  Create one
-                </button>
-              </p>
-            </div>
-          </form>
-        )}
-
-        {/* Global Footer */}
-        <div className="text-[10.5px] text-[#86868B] leading-relaxed max-w-[280px] mx-auto border-t border-[#E7E3DD]/40 pt-4 font-medium select-none">
-          By continuing, you agree to LuxZera's{" "}
-          <span className="text-[#FF6A00] cursor-pointer hover:underline font-semibold">Terms of Service</span> and{" "}
-          <span className="text-[#FF6A00] cursor-pointer hover:underline font-semibold">Privacy Policy</span>.
+        <div className="am-divider">
+          <div className="am-divider-line" />
+          <span className="am-divider-text">or continue with</span>
+          <div className="am-divider-line" />
         </div>
 
+        <div className="am-socials">
+          <div className="am-google-wrap">
+            <div className="am-google-overlay">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={() => setErrorMsg("Google sign-in failed.")}
+                width="400" // Sufficient width for overlay
+                size="large"
+                shape="pill"
+              />
+            </div>
+            <button type="button" className="am-social" tabIndex={-1}>
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              Google
+            </button>
+          </div>
+
+          <button type="button" className="am-social">
+            <svg width="20" height="20" viewBox="0 0 814 1000" aria-hidden="true" fill="#111111">
+              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.8-49 192.5-49 30.8 0 111.1 2.6 174.4 72.5zm-85.5-139.4c-20.1 23.7-52.6 42.8-84.5 42.8-3.9 0-7.8-.5-11.7-.6 1.9-32.1 17.4-72.5 43.4-96.8 21.4-20.7 54.5-37.1 82.9-38.4 1.3 4.5 2 9.1 2 14.3 0 30.1-14.3 67.8-32.1 78.7z"/>
+            </svg>
+            Apple
+          </button>
         </div>
+
+        <div className="am-footer">
+          {view === "login" ? (
+            <>
+              Don't have an account?{" "}
+              <button 
+                type="button" 
+                className="am-footer-btn orange"
+                onClick={() => setView("register")}
+              >
+                Create account
+              </button>
+            </>
+          ) : (
+            <>
+              Already have an account?{" "}
+              <button 
+                type="button" 
+                className="am-footer-btn"
+                onClick={() => setView("login")}
+              >
+                Sign in
+              </button>
+            </>
+          )}
+        </div>
+
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

@@ -201,9 +201,9 @@ export default function Navbar({
                         <div className="flex-1 flex flex-col gap-3">
                           <span className="px-2.5 text-[12px] font-medium text-[#86868B]">Category</span>
                           <div className="flex flex-col gap-1">
-                            <button onClick={onMenClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Men</button>
-                            <button onClick={onWomenClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Women</button>
-                            <button onClick={onUnisexClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Unisex</button>
+                            <button onClick={onMenClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Men</button>
+                            <button onClick={onWomenClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Women</button>
+                            <button onClick={onUnisexClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Unisex</button>
                           </div>
                         </div>
 
@@ -211,10 +211,10 @@ export default function Navbar({
                         <div className="flex-1 flex flex-col gap-3">
                           <span className="px-2.5 text-[12px] font-medium text-[#86868B]">Collections</span>
                           <div className="flex flex-col gap-1">
-                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">New Arrivals</button>
-                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Trending</button>
-                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Summer</button>
-                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Winter</button>
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">New Arrivals</button>
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Trending</button>
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Summer</button>
+                            <button onClick={onShopClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Winter</button>
                           </div>
                         </div>
 
@@ -222,9 +222,9 @@ export default function Navbar({
                         <div className="flex-1 flex flex-col gap-3">
                           <span className="px-2.5 text-[12px] font-medium text-[#86868B]">Designers</span>
                           <div className="flex flex-col gap-1">
-                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Featured Designers</button>
-                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Emerging Designers</button>
-                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:bg-[#F5F5F5] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Independent Brands</button>
+                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Featured Designers</button>
+                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Emerging Designers</button>
+                            <button onClick={onDesignerClick} className="w-full text-left px-2.5 py-1.5 text-[14px] font-medium text-[#1D1D1F] rounded-lg hover:text-[#F07020] transition-colors duration-[180ms] ease-out border-none bg-transparent cursor-pointer">Independent Brands</button>
                           </div>
                         </div>
                       </div>
@@ -394,9 +394,9 @@ export default function Navbar({
                           <button 
                             key={label} 
                             onClick={action}
-                            className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] hover:bg-white transition-colors duration-150"
+                            className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] hover:text-[#F07020] bg-transparent transition-colors duration-150"
                           >
-                            <span className="text-[#86868B] group-hover:text-[#1D1D1F] transition-colors duration-150 flex-shrink-0">
+                            <span className="text-[#86868B] group-hover:text-[#F07020] transition-colors duration-150 flex-shrink-0">
                               {icon}
                             </span>
                             {label}
@@ -407,7 +407,7 @@ export default function Navbar({
                         
                         <button 
                           onClick={handleLogout}
-                          className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] hover:bg-red-50/50 transition-colors duration-150"
+                          className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] bg-transparent transition-colors duration-150"
                         >
                           <span className="text-[#86868B] group-hover:text-red-500 transition-colors duration-150 flex-shrink-0">
                             <LogOut size={15} strokeWidth={1.5} />
@@ -516,7 +516,7 @@ export default function Navbar({
 
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
-            className="w-full border border-[#ECECEC] text-[#1D1D1F] text-[13px] font-medium py-3 hover:bg-[#F5F5F5] transition-colors rounded-full">
+            className="w-full border border-[#ECECEC] text-[#1D1D1F] text-[13px] font-medium py-3 hover:text-[#F07020] hover:border-[#F07020] transition-colors rounded-full">
             {currentUser ? "Sign Out" : "Sign In"}
           </button>
         </div>

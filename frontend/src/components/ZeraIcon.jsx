@@ -1,18 +1,20 @@
-export default function ZeraIcon({ size = 16, strokeWidth = 1.5, className = "" }) {
+export default function ZeraIcon({ size = 16, className = "" }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+    <div
       className={className}
-    >
-      {/* Thick sleek 'Z' symbol that supports both stroke and fill states */}
-      <path d="M4 4 h16 v4 l-10 8 h10 v4 h-16 v-4 l10 -8 h-10 z" />
-    </svg>
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: 'currentColor',
+        WebkitMaskImage: 'url(/logo.png)',
+        WebkitMaskSize: 'contain',
+        WebkitMaskRepeat: 'no-repeat',
+        WebkitMaskPosition: 'center',
+        maskImage: 'url(/logo.png)',
+        maskSize: 'contain',
+        maskRepeat: 'no-repeat',
+        maskPosition: 'center',
+      }}
+    />
   );
 }

@@ -74,10 +74,10 @@ export default function FaqPage({ onShopNow }) {
   const current = FAQ_CATEGORIES.find((c) => c.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans">
+    <div className="min-h-screen bg-white font-sans">
 
       {/* ── Header ── */}
-      <div className="relative bg-[#FAF9F7] border-b border-[#E7E3DD] py-16 px-6 overflow-hidden">
+      <div className="relative bg-white border-b border-[#E7E3DD] py-16 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-premium-grid opacity-[0.025] pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-2 mb-5">
@@ -125,7 +125,7 @@ export default function FaqPage({ onShopNow }) {
               {activeCategory}
             </h2>
           </div>
-          <div className="border border-[#E7E3DD] rounded-2xl px-6 bg-[#FAF9F7]">
+          <div className="border border-[#E7E3DD] rounded-2xl px-6 bg-white">
             {current?.items.map(({ q, a }) => (
               <FaqItem key={q} q={q} a={a} />
             ))}
@@ -151,7 +151,7 @@ export default function FaqPage({ onShopNow }) {
               { icon: <Phone size={18} strokeWidth={2} />,         title: "Call Us",   detail: "+1 (800) 000-0000",     action: "Call Now" },
             ].map(({ icon, title, detail, action }) => (
               <div key={title}
-                className="bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-7 hover:border-[#5B6EF5]/40 transition-all duration-300 group flex flex-col gap-4"
+                className="bg-white border border-[#E7E3DD] rounded-2xl p-7 hover:border-[#5B6EF5]/40 transition-all duration-300 group flex flex-col gap-4"
               >
                 <div className="w-10 h-10 bg-[#5B6EF5] group-hover:bg-[#F07020] rounded-xl flex items-center justify-center text-[#FAF9F7] transition-colors duration-300">
                   {icon}
@@ -178,7 +178,7 @@ export default function FaqPage({ onShopNow }) {
           </h2>
           <button
             onClick={onShopNow}
-            className="shrink-0 flex items-center gap-3 bg-[#FAF9F7] text-[#5B6EF5] hover:bg-[#F07020] hover:text-[#FAF9F7] text-[11px] font-extrabold uppercase tracking-[0.28em] px-8 py-4 rounded-full transition-all duration-300 group"
+            className="shrink-0 flex items-center gap-3 bg-white text-[#5B6EF5] hover:bg-[#F07020] hover:text-[#FAF9F7] text-[11px] font-extrabold uppercase tracking-[0.28em] px-8 py-4 rounded-full transition-all duration-300 group"
           >
             Browse the Drop
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

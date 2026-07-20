@@ -39,7 +39,7 @@ export default function CartPage({ onCheckout }) {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-[#FAF9F7] flex flex-col items-center justify-center gap-6 px-6 font-sans">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center gap-6 px-6 font-sans">
         <div className="w-20 h-20 rounded-2xl border-2 border-dashed border-[#E7E3DD] flex items-center justify-center">
           <ShoppingBag size={26} className="text-[#2B2B2B]/20" />
         </div>
@@ -59,10 +59,10 @@ export default function CartPage({ onCheckout }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans">
+    <div className="min-h-screen bg-white font-sans">
 
       {/* ── Header ── */}
-      <div className="relative overflow-hidden bg-[#FAF9F7] border-b border-[#E7E3DD] px-6 py-10">
+      <div className="relative overflow-hidden bg-white border-b border-[#E7E3DD] px-6 py-10">
         <div className="absolute inset-0 bg-premium-grid opacity-[0.025] pointer-events-none" />
         <div className="mx-auto max-w-7xl relative z-10">
           <button
@@ -113,7 +113,7 @@ export default function CartPage({ onCheckout }) {
           {cartItems.map((item) => (
             <div
               key={`${item.id}-${item.size}`}
-              className={`grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto_auto] gap-4 md:gap-6 items-center border border-[#E7E3DD] p-4 bg-[#FAF9F7] rounded-2xl transition-all duration-300 ${
+              className={`grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto_auto] gap-4 md:gap-6 items-center border border-[#E7E3DD] p-4 bg-white rounded-2xl transition-all duration-300 ${
                 removingKey === `${item.id}-${item.size}` ? "opacity-0 scale-95" : "opacity-100 scale-100"
               }`}
             >
@@ -146,7 +146,7 @@ export default function CartPage({ onCheckout }) {
                 {/* Mobile price + qty */}
                 <p className="text-sm font-extrabold text-[#2B2B2B] mt-2 md:hidden">${(item.price * item.qty).toFixed(2)}</p>
                 <div className="flex items-center gap-3 mt-2 md:hidden">
-                  <div className="flex items-center border border-[#E7E3DD] rounded-xl overflow-hidden bg-[#FAF9F7]">
+                  <div className="flex items-center border border-[#E7E3DD] rounded-xl overflow-hidden bg-white">
                     <button onClick={() => handleUpdateQty(item, -1)} className="w-8 h-8 flex items-center justify-center hover:bg-[#F2EFEA] transition-colors">
                       <Minus size={11} strokeWidth={3} />
                     </button>
@@ -162,7 +162,7 @@ export default function CartPage({ onCheckout }) {
               </div>
 
               {/* Desktop qty */}
-              <div className="hidden md:flex items-center border border-[#E7E3DD] w-24 rounded-xl overflow-hidden bg-[#FAF9F7]">
+              <div className="hidden md:flex items-center border border-[#E7E3DD] w-24 rounded-xl overflow-hidden bg-white">
                 <button onClick={() => handleUpdateQty(item, -1)} className="w-8 h-9 flex items-center justify-center hover:bg-[#F2EFEA] transition-colors">
                   <Minus size={11} strokeWidth={3} className="text-[#2B2B2B]" />
                 </button>
@@ -185,7 +185,7 @@ export default function CartPage({ onCheckout }) {
 
         {/* ── Order Summary ── */}
         <div className="w-full lg:w-[340px] flex-shrink-0 lg:sticky lg:top-24">
-          <div className="border border-[#E7E3DD] rounded-2xl overflow-hidden bg-[#FAF9F7] shadow-sm">
+          <div className="border border-[#E7E3DD] rounded-2xl overflow-hidden bg-white shadow-sm">
             <div className="bg-[#1E2D4A] px-5 py-4">
               <h2 className="text-[10px] font-extrabold uppercase tracking-[0.3em] text-[#FAF9F7]">
                 Order Summary
@@ -239,7 +239,7 @@ export default function CartPage({ onCheckout }) {
                     onChange={(e) => setPromoInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && applyPromo()}
                     placeholder="Promo code"
-                    className={`flex-1 border text-[11px] font-bold uppercase px-3 py-2.5 outline-none rounded-xl placeholder:normal-case placeholder:font-normal transition-colors bg-[#FAF9F7] ${
+                    className={`flex-1 border text-[11px] font-bold uppercase px-3 py-2.5 outline-none rounded-xl placeholder:normal-case placeholder:font-normal transition-colors bg-white ${
                       promoError ? "border-[#C97A5A]" : "border-[#E7E3DD] focus:border-[#5B6EF5]"
                     }`}
                   />

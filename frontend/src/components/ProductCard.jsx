@@ -57,7 +57,7 @@ export default function ProductCard({ product, onViewProduct }) {
         className="hidden sm:flex group relative flex-col bg-transparent cursor-pointer text-left font-sans select-none"
       >
         {/* Image */}
-        <div className="relative aspect-[3/4.2] overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] select-none flex items-center justify-center rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.01)] transition-shadow duration-300 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
+        <div className="relative aspect-[3/4.2] overflow-hidden bg-white border border-[#ECECEC] select-none flex items-center justify-center rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.01)] transition-shadow duration-300 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.03)]">
           <img
             src={product.images?.[0] || product.image}
             alt={product.name}

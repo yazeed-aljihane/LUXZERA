@@ -35,7 +35,7 @@ export default function MobileProductCard({ product, onViewProduct }) {
 
   return (
     <article onClick={openProduct} className="rounded-2xl bg-white border border-[#ECECEC] overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.01)]">
-      <div className="relative aspect-[4/5] bg-[#FAFAF9]">
+      <div className="relative aspect-[4/5] bg-white">
         <img
           src={product.images?.[0] || product.image}
           alt={product.name}

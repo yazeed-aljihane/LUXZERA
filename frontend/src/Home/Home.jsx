@@ -84,7 +84,7 @@ export default function Home({ onShopNow }) {
               <div
                 key={ch.label}
                 onClick={onShopNow}
-                className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-[#ECECEC] bg-[#FAFAF9] ${ch.span} ${
+                className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-[#ECECEC] bg-white ${ch.span} ${
                   i === 0 || i === 5 ? "h-64" : "h-52"
                 }`}
               >
@@ -124,7 +124,7 @@ export default function Home({ onShopNow }) {
             <button
               key={cat.name}
               onClick={onShopNow}
-              className="flex items-center gap-3 border border-[#ECECEC] bg-white hover:border-[#5B6EF5]/40 hover:bg-[#FAFAF9] px-5 py-2.5 rounded-full transition-all duration-200 group shadow-[0_1px_2px_rgba(0,0,0,0.02)] hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center gap-3 border border-[#ECECEC] bg-white hover:border-[#5B6EF5]/40 hover:bg-white px-5 py-2.5 rounded-full transition-all duration-200 group shadow-[0_1px_2px_rgba(0,0,0,0.02)] hover:scale-[1.02] active:scale-[0.98]"
             >
               <div className="w-7 h-7 rounded-full overflow-hidden border border-[#ECECEC] shrink-0">
                 <img src={cat.img} alt="" className="w-full h-full object-cover" />
@@ -157,7 +157,7 @@ export default function Home({ onShopNow }) {
             <div className="flex items-center gap-4 mt-4 md:mt-0">
               <div className="h-14 w-[1px] bg-[#ECECEC] hidden md:block" />
               <div className="flex items-start gap-3 max-w-xs">
-                <div className="w-9 h-9 rounded-full bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center text-[#86868B] shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-full bg-white border border-[#ECECEC] flex items-center justify-center text-[#86868B] shrink-0 mt-0.5">
                   <Clock size={16} strokeWidth={1.5} />
                 </div>
                 <div>
@@ -174,7 +174,7 @@ export default function Home({ onShopNow }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
 
             {/* Card 1 — Upload & Tell Us Your Style */}
-            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-[#FAFAF9] rounded-2xl p-6 relative">
+            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-white rounded-2xl p-6 relative">
               <div className="flex items-center justify-between">
                 <span className="text-[12px] font-bold uppercase tracking-wider text-[#86868B] bg-white border border-[#ECECEC] px-2.5 py-1 rounded-lg">
                   01
@@ -204,9 +204,9 @@ export default function Home({ onShopNow }) {
                   <img src={MODEL_D} alt="" className="w-full h-full object-cover object-top" />
                 </div>
                 {/* Phone mockup */}
-                <div className="w-16 h-28 bg-[#FAFAF9] border border-[#1D1D1F] rounded-lg shadow-md absolute right-4 bottom-2 z-20 flex flex-col p-1">
+                <div className="w-16 h-28 bg-white border border-[#1D1D1F] rounded-lg shadow-md absolute right-4 bottom-2 z-20 flex flex-col p-1">
                   <div className="w-full h-1 bg-[#1D1D1F]/10 rounded-full mb-1" />
-                  <div className="flex-1 bg-[#FAFAF9] rounded border border-[#ECECEC] p-1 flex flex-col justify-between">
+                  <div className="flex-1 bg-white rounded border border-[#ECECEC] p-1 flex flex-col justify-between">
                     <div className="w-full h-3 rounded bg-[#5B6EF5]/15 flex items-center justify-center">
                       <span className="text-[5px] font-bold text-[#5B6EF5]">UPLOAD</span>
                     </div>
@@ -232,7 +232,7 @@ export default function Home({ onShopNow }) {
             </div>
 
             {/* Card 2 — We Curate For You */}
-            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-[#FAFAF9] rounded-2xl p-6 relative">
+            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-white rounded-2xl p-6 relative">
               <div className="flex items-center justify-between">
                 <span className="text-[12px] font-bold uppercase tracking-wider text-[#86868B] bg-white border border-[#ECECEC] px-2.5 py-1 rounded-lg">
                   02
@@ -286,7 +286,7 @@ export default function Home({ onShopNow }) {
             </div>
 
             {/* Card 3 — Save in Your Wardrobe */}
-            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-[#FAFAF9] rounded-2xl p-6 relative">
+            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-white rounded-2xl p-6 relative">
               <div className="flex items-center justify-between">
                 <span className="text-[12px] font-bold uppercase tracking-wider text-[#86868B] bg-white border border-[#ECECEC] px-2.5 py-1 rounded-lg">
                   03
@@ -313,8 +313,8 @@ export default function Home({ onShopNow }) {
                 {/* Tiny tabs */}
                 <div className="flex gap-1 mb-2 overflow-x-auto scrollbar-none">
                   <span className="text-[6.5px] font-black uppercase tracking-wider bg-[#5B6EF5] text-white px-2 py-0.5 rounded-full shrink-0">Casual</span>
-                  <span className="text-[6.5px] font-bold uppercase tracking-wider text-[#86868B] bg-[#FAFAF9] px-2 py-0.5 rounded-full shrink-0">Office</span>
-                  <span className="text-[6.5px] font-bold uppercase tracking-wider text-[#86868B] bg-[#FAFAF9] px-2 py-0.5 rounded-full shrink-0">Vacation</span>
+                  <span className="text-[6.5px] font-bold uppercase tracking-wider text-[#86868B] bg-white px-2 py-0.5 rounded-full shrink-0">Office</span>
+                  <span className="text-[6.5px] font-bold uppercase tracking-wider text-[#86868B] bg-white px-2 py-0.5 rounded-full shrink-0">Vacation</span>
                 </div>
                 {/* Tiny items grid */}
                 <div className="grid grid-cols-3 gap-1 flex-1">
@@ -347,7 +347,7 @@ export default function Home({ onShopNow }) {
             </div>
 
             {/* Card 4 — Add to Bag When Ready */}
-            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-[#FAFAF9] rounded-2xl p-6 relative">
+            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-white rounded-2xl p-6 relative">
               <div className="flex items-center justify-between">
                 <span className="text-[12px] font-bold uppercase tracking-wider text-[#86868B] bg-white border border-[#ECECEC] px-2.5 py-1 rounded-lg">
                   04
@@ -387,7 +387,7 @@ export default function Home({ onShopNow }) {
             </div>
 
             {/* Card 5 — Checkout & Enjoy */}
-            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-[#FAFAF9] rounded-2xl p-6 relative">
+            <div className="flex flex-col gap-4 border border-[#ECECEC] bg-white rounded-2xl p-6 relative">
               <div className="flex items-center justify-between">
                 <span className="text-[12px] font-bold uppercase tracking-wider text-[#86868B] bg-white border border-[#ECECEC] px-2.5 py-1 rounded-lg">
                   05
@@ -401,7 +401,7 @@ export default function Home({ onShopNow }) {
                   <div className="w-full h-[1px] bg-[#1D1D1F]/20 absolute top-1/2" />
                   <div className="w-[1px] h-full bg-[#1D1D1F]/20 absolute left-1/2" />
                   {/* Shipping Label */}
-                  <div className="w-5 h-3 bg-[#FAFAF9] absolute top-1.5 left-1.5 rounded-sm border border-[#ECECEC] flex flex-col justify-between p-0.5">
+                  <div className="w-5 h-3 bg-white absolute top-1.5 left-1.5 rounded-sm border border-[#ECECEC] flex flex-col justify-between p-0.5">
                     <div className="w-full h-[1px] bg-[#1D1D1F]/30" />
                     <div className="w-2/3 h-[1px] bg-[#1D1D1F]/30" />
                   </div>
@@ -429,7 +429,7 @@ export default function Home({ onShopNow }) {
             
             {/* Feature 1 — Saves You Hours */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#86868B] shrink-0">
                 <Clock size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -444,7 +444,7 @@ export default function Home({ onShopNow }) {
 
             {/* Feature 2 — Made Just for You */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#86868B] shrink-0">
                 <Shirt size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -459,7 +459,7 @@ export default function Home({ onShopNow }) {
 
             {/* Feature 3 — Better Choices */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#86868B] shrink-0">
                 <Tag size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -474,7 +474,7 @@ export default function Home({ onShopNow }) {
 
             {/* Feature 4 — More Confidence */}
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FAFAF9] flex items-center justify-center text-[#86868B] shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#86868B] shrink-0">
                 <Heart size={16} strokeWidth={1.5} />
               </div>
               <div>
@@ -541,7 +541,7 @@ export default function Home({ onShopNow }) {
       {/* ════════════════════════════════════════════
           5. FEATURED DESIGNERS — Bold two-card layout
       ════════════════════════════════════════════ */}
-      <section className="w-full bg-[#FAFAF9] border-b border-[#ECECEC]">
+      <section className="w-full bg-white border-b border-[#ECECEC]">
         <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-20 pb-20">
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
@@ -569,7 +569,7 @@ export default function Home({ onShopNow }) {
                 className="group relative overflow-hidden rounded-2xl cursor-pointer border border-[#ECECEC] bg-white flex flex-col md:flex-row h-72 shadow-[0_1px_2px_rgba(0,0,0,0.01)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.02)] transition-shadow duration-300"
               >
                 {/* Image */}
-                <div className="w-full md:w-[42%] h-48 md:h-full overflow-hidden bg-[#FAFAF9] shrink-0 relative">
+                <div className="w-full md:w-[42%] h-48 md:h-full overflow-hidden bg-white shrink-0 relative">
                   <img
                     src={d.img}
                     alt={d.name}
@@ -727,7 +727,7 @@ export default function Home({ onShopNow }) {
               <button
                 key={tag}
                 onClick={onShopNow}
-                className="border border-[#FAFAF9]/25 hover:border-[#FAFAF9]/60 text-[#FAFAF9]/70 hover:text-[#FAFAF9] text-[12px] font-semibold uppercase tracking-[0.15em] px-5 py-2.5 rounded-xl transition-all duration-200 hover:bg-[#FAFAF9]/10"
+                className="border border-[#FAFAF9]/25 hover:border-[#FAFAF9]/60 text-[#FAFAF9]/70 hover:text-[#FAFAF9] text-[12px] font-semibold uppercase tracking-[0.15em] px-5 py-2.5 rounded-xl transition-all duration-200 hover:bg-white/10"
               >
                 {tag}
               </button>
@@ -735,7 +735,7 @@ export default function Home({ onShopNow }) {
           </div>
           <button
             onClick={onShopNow}
-            className="mt-10 bg-[#FAFAF9] hover:bg-[#FAFAF9]/90 text-[#1D1D1F] text-[12px] font-semibold uppercase tracking-[0.2em] px-8 py-4 rounded-xl transition-all duration-300 inline-flex items-center gap-2 shadow-sm"
+            className="mt-10 bg-white hover:bg-white/90 text-[#1D1D1F] text-[12px] font-semibold uppercase tracking-[0.2em] px-8 py-4 rounded-xl transition-all duration-300 inline-flex items-center gap-2 shadow-sm"
           >
             Start Exploring <ArrowRight size={14} strokeWidth={1.5} />
           </button>

@@ -18,7 +18,7 @@ export default function Footer({ onShopNow }) {
     "text-[14px] text-[#37352F] hover:text-[#F07020] transition-colors duration-200 text-left cursor-pointer border-none bg-transparent p-0 leading-loose";
 
   return (
-    <footer className="w-full bg-[#FAFAF9] border-t border-[#ECECEC] font-sans pb-16">
+    <footer className="w-full bg-white border-t border-[#ECECEC] font-sans pb-16">
       <div className="max-w-[1440px] mx-auto pt-16 px-6 md:px-12 lg:px-24">
         
         {/* Footer Grid: Brand (25%) | Nav Columns (75%) */}

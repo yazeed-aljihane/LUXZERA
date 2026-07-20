@@ -163,7 +163,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#f5f5f7] flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <CreativeLoader />
       </div>
     );
@@ -171,7 +171,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-[#f5f5f7] flex items-center justify-center px-6">
+      <div className="min-h-screen bg-white flex items-center justify-center px-6">
         <div className="max-w-md rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-400">Account unavailable</p>
           <h1 className="mt-3 text-2xl font-semibold text-slate-950 tracking-tight">Sign in to view your profile</h1>
@@ -182,7 +182,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7] antialiased font-sans py-6 animate-page-fade-in">
+    <div className="min-h-screen bg-white antialiased font-sans py-6 animate-page-fade-in">
       <style>{`
         .animate-page-fade-in {
           animation: page-fade-in 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;

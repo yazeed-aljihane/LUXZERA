@@ -124,10 +124,10 @@ export default function ShopPage({ initialDepartment = "All" }) {
   const meta = DEPT_META[initialDepartment] || DEPT_META.All;
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans pb-16">
+    <div className="min-h-screen bg-white font-sans pb-16">
 
       {/* ── EDITORIAL HEADER ──────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden bg-[#FAF9F7]">
+      <div className="relative overflow-hidden bg-white">
         <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
           style={{ backgroundImage: "radial-gradient(#2B2B2B 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
         
@@ -243,7 +243,7 @@ export default function ShopPage({ initialDepartment = "All" }) {
       {mobileFilterOpen && (
         <div className="fixed inset-0 z-50 flex flex-col justify-end md:hidden">
           <div className="absolute inset-0 bg-[#2B2B2B]/30 backdrop-blur-sm" onClick={() => setMobileFilterOpen(false)} />
-          <div className="relative bg-[#FAF9F7] rounded-t-3xl max-h-[85vh] flex flex-col border-t border-[#E7E3DD] shadow-2xl">
+          <div className="relative bg-white rounded-t-3xl max-h-[85vh] flex flex-col border-t border-[#E7E3DD] shadow-2xl">
             <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-[#E7E3DD] shrink-0">
               <div>
                 <div className="w-8 h-1 rounded-full bg-[#E7E3DD] mb-3 mx-auto" />

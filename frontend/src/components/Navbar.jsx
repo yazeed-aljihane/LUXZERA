@@ -279,7 +279,7 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={closeSearch}
-                className={`h-7 w-7 shrink-0 rounded-full bg-[#FAFAF9] text-[#86868B] hover:text-[#1D1D1F] flex items-center justify-center transition-all duration-300 ${
+                className={`h-7 w-7 shrink-0 rounded-full bg-white text-[#86868B] hover:text-[#1D1D1F] flex items-center justify-center transition-all duration-300 ${
                   searchOpen ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"
                 }`}
                 aria-label="Close search"
@@ -323,7 +323,7 @@ export default function Navbar({
 
             {/* Auth / Profile dropdown */}
             {authLoading ? (
-              <div className="w-8 h-8 rounded-full bg-[#FAFAF9] animate-pulse border border-[#ECECEC]" />
+              <div className="w-8 h-8 rounded-full bg-white animate-pulse border border-[#ECECEC]" />
             ) : currentUser ? (
               <div className="relative">
                 <button
@@ -331,7 +331,7 @@ export default function Navbar({
                   className="flex items-center focus:outline-none"
                   aria-label="User profile menu"
                 >
-                  <div className={`w-8 h-8 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center transition-all duration-200 ${
+                  <div className={`w-8 h-8 rounded-full overflow-hidden bg-white border border-[#ECECEC] flex items-center justify-center transition-all duration-200 ${
                     profileOpen ? "ring-1 ring-[#1D1D1F] ring-offset-2 ring-offset-[#FAFAF9]" : "hover:scale-[1.02] hover:border-[#1D1D1F]/30"
                   }`}>
                     {profileImage ? (
@@ -348,7 +348,7 @@ export default function Navbar({
                     <div className="absolute right-0 mt-3 w-[260px] z-50 bg-white/95 backdrop-blur-2xl border border-[#ECECEC] shadow-[0_16px_48px_rgba(0,0,0,0.08)] rounded-2xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 origin-top-right">
                       {/* Sleek Profile Header */}
                       <div className="px-5 py-5 flex items-center gap-3.5">
-                        <div className="w-10 h-10 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-full overflow-hidden bg-white border border-[#ECECEC] flex items-center justify-center shrink-0">
                           {profileImage ? (
                             <img src={profileImage} alt="" className="w-full h-full object-cover" />
                           ) : (
@@ -394,7 +394,7 @@ export default function Navbar({
                           <button 
                             key={label} 
                             onClick={action}
-                            className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] hover:bg-[#FAFAF9] transition-colors duration-150"
+                            className="group w-full flex items-center gap-3 px-3 py-2 text-left text-[13px] font-medium rounded-xl text-[#1D1D1F] hover:bg-white transition-colors duration-150"
                           >
                             <span className="text-[#86868B] group-hover:text-[#1D1D1F] transition-colors duration-150 flex-shrink-0">
                               {icon}
@@ -504,7 +504,7 @@ export default function Navbar({
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#FAFAF9] border-b border-[#ECECEC] px-6 py-6 flex flex-col gap-4 z-40 text-[#1D1D1F] animate-in fade-in duration-200">
+        <div className="md:hidden bg-white border-b border-[#ECECEC] px-6 py-6 flex flex-col gap-4 z-40 text-[#1D1D1F] animate-in fade-in duration-200">
           {NAV_LINKS.map(({ label, value }) => (
             <button key={value}
               onClick={() => { handlers[value]?.(); setMobileOpen(false); }}

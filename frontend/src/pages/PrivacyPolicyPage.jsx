@@ -3,7 +3,7 @@ import { ArrowRight, Clock, ShieldCheck, HelpCircle } from "lucide-react";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans pb-20 select-none">
+    <div className="min-h-screen bg-white font-sans pb-20 select-none">
       
       {/* Subtle, Professional Animations */}
       <style>{`
@@ -79,7 +79,7 @@ export default function PrivacyPolicyPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           
           {/* Promise 1 — No Sneaky Trackers */}
-          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-white/40 flex flex-col md:flex-row gap-6 items-start">
             <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
               <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 50 C30 33, 70 33, 80 50 C70 67, 30 67, 20 50 Z" fill="white" />
@@ -100,7 +100,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Promise 2 — We Don't Sell Data */}
-          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-white/40 flex flex-col md:flex-row gap-6 items-start">
             <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
               <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="30" y="24" width="40" height="12" rx="2" fill="white" />
@@ -125,7 +125,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Promise 3 — Secret Wardrobe */}
-          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-white/40 flex flex-col md:flex-row gap-6 items-start">
             <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
               <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="25" y="25" width="50" height="50" rx="2.5" fill="white" />
@@ -151,7 +151,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Promise 4 — Full Control */}
-          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-[#FAF9F7]/40 flex flex-col md:flex-row gap-6 items-start">
+          <div className="doodle-card border border-[#E7E3DD] rounded-2xl p-8 bg-white/40 flex flex-col md:flex-row gap-6 items-start">
             <div className="svg-container shrink-0 w-20 h-20 bg-[#F2EFEA] rounded-xl border border-[#E7E3DD] flex items-center justify-center overflow-hidden">
               <svg width="48" height="48" viewBox="0 0 100 100" fill="none" stroke="#2B2B2B" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="25" y="32" width="50" height="12" rx="6" fill="white" />
@@ -188,7 +188,7 @@ export default function PrivacyPolicyPage() {
 
           <div className="space-y-6">
             
-            <div className="bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-6">
+            <div className="bg-white border border-[#E7E3DD] rounded-2xl p-6">
               <h3 className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B] mb-2 flex items-center gap-2">
                 <HelpCircle size={14} className="text-[#F07020]" />
                 How long do we store your data?
@@ -198,7 +198,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
 
-            <div className="bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-6">
+            <div className="bg-white border border-[#E7E3DD] rounded-2xl p-6">
               <h3 className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B] mb-2 flex items-center gap-2">
                 <HelpCircle size={14} className="text-[#F07020]" />
                 What happens when you delete your account?
@@ -208,7 +208,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
 
-            <div className="bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-6">
+            <div className="bg-white border border-[#E7E3DD] rounded-2xl p-6">
               <h3 className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#2B2B2B] mb-2 flex items-center gap-2">
                 <HelpCircle size={14} className="text-[#F07020]" />
                 Who handles the payment details?

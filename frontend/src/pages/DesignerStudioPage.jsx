@@ -113,7 +113,7 @@ export default function DesignerStudioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] text-[#0D1B2A] flex" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="min-h-screen bg-white text-[#0D1B2A] flex" style={{ fontFamily: "'Inter', sans-serif" }}>
       
       {/* SIDEBAR NAVIGATION */}
       <aside className="w-[260px] shrink-0 border-r border-[#E7E3DD] bg-white flex flex-col justify-between p-6">
@@ -165,7 +165,7 @@ export default function DesignerStudioPage() {
                   className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all border-none text-left cursor-pointer ${
                     active 
                       ? "bg-[#FF6A00]/8 text-[#FF6A00] font-black" 
-                      : "bg-transparent text-[#515154] hover:bg-[#FAF9F7] font-semibold"
+                      : "bg-transparent text-[#515154] hover:bg-white font-semibold"
                   }`}
                 >
                   <div className="flex items-center gap-3 text-[13px]">
@@ -207,7 +207,7 @@ export default function DesignerStudioPage() {
         {/* TOP STATUS BAR */}
         <header className="h-[72px] bg-white border-b border-[#E7E3DD] px-8 flex items-center justify-between shrink-0">
           {/* Search bar */}
-          <div className="flex items-center gap-2.5 bg-[#FAF9F7] border border-[#E7E3DD] rounded-full px-4 py-2 w-full max-w-[320px]">
+          <div className="flex items-center gap-2.5 bg-white border border-[#E7E3DD] rounded-full px-4 py-2 w-full max-w-[320px]">
             <Search size={14} className="text-[#86868B]" />
             <input 
               type="text" 
@@ -221,7 +221,7 @@ export default function DesignerStudioPage() {
             {/* Notifications Bell */}
             <button 
               onClick={() => setNotificationOpen(!notificationOpen)} 
-              className="relative p-2 rounded-full hover:bg-[#FAF9F7] bg-transparent border-none cursor-pointer"
+              className="relative p-2 rounded-full hover:bg-white bg-transparent border-none cursor-pointer"
             >
               <Bell size={18} className="text-[#0D1B2A]" />
               {unreadNotificationsCount > 0 && (
@@ -240,7 +240,7 @@ export default function DesignerStudioPage() {
                 </div>
                 <div className="flex flex-col gap-2">
                   {notifications.map((n) => (
-                    <div key={n.id} className="p-2.5 rounded-xl hover:bg-[#FAF9F7] border border-[#E7E3DD]/40 text-left">
+                    <div key={n.id} className="p-2.5 rounded-xl hover:bg-white border border-[#E7E3DD]/40 text-left">
                       <p className="text-[12px] font-bold text-[#0D1B2A]">{n.title}</p>
                       <p className="text-[11px] text-[#86868B] leading-relaxed mt-0.5">{n.desc}</p>
                       <span className="text-[9px] text-[#86868B] mt-1 inline-block">{n.time}</span>
@@ -251,7 +251,7 @@ export default function DesignerStudioPage() {
             )}
 
             {/* Message/Chat icon */}
-            <button className="p-2 rounded-full hover:bg-[#FAF9F7] bg-transparent border-none cursor-pointer">
+            <button className="p-2 rounded-full hover:bg-white bg-transparent border-none cursor-pointer">
               <MessageSquare size={18} className="text-[#0D1B2A]" />
             </button>
 
@@ -273,7 +273,7 @@ export default function DesignerStudioPage() {
         </header>
 
         {/* TAB WORKSPACE */}
-        <main className="flex-1 overflow-y-auto p-8 bg-[#FAF9F7]">
+        <main className="flex-1 overflow-y-auto p-8 bg-white">
           
           {/* TAB 1: DASHBOARD (HIGH FIDELITY MOCKUP MATCH) */}
           {activeTab === "Dashboard" && (
@@ -314,7 +314,7 @@ export default function DesignerStudioPage() {
                   {/* DESIGNER PROFILE SETUP CARD (Allows simulated uploads) */}
                   <div className="bg-white rounded-3xl border border-[#E7E3DD] overflow-hidden shadow-sm relative flex flex-col">
                     {/* Cover Banner Area */}
-                    <div className="w-full h-36 bg-[#FAF9F7] relative border-b border-[#E7E3DD] overflow-hidden flex items-center justify-center">
+                    <div className="w-full h-36 bg-white relative border-b border-[#E7E3DD] overflow-hidden flex items-center justify-center">
                       {profile.coverBanner ? (
                         <>
                           <img src={profile.coverBanner.url} alt="Cover Banner" className="w-full h-full object-cover" />
@@ -335,7 +335,7 @@ export default function DesignerStudioPage() {
                       
                       {/* Floating Profile Photo Avatar */}
                       <div className="absolute top-[-34px] left-5 w-18 h-18 rounded-full bg-white border border-[#E7E3DD] shadow-md p-1 overflow-hidden flex items-center justify-center">
-                        <div className="w-full h-full rounded-full bg-[#FAF9F7] overflow-hidden flex items-center justify-center relative">
+                        <div className="w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center relative">
                           {profile.profilePhoto ? (
                             <>
                               <img src={profile.profilePhoto.url} alt="Avatar" className="w-full h-full object-cover" />
@@ -365,7 +365,7 @@ export default function DesignerStudioPage() {
                       </div>
 
                       {/* Brand Logo uploader */}
-                      <div className="w-32 h-14 bg-[#FAF9F7] border border-dashed border-[#E7E3DD] rounded-xl flex items-center justify-center overflow-hidden relative shrink-0">
+                      <div className="w-32 h-14 bg-white border border-dashed border-[#E7E3DD] rounded-xl flex items-center justify-center overflow-hidden relative shrink-0">
                         {profile.brandLogo ? (
                           <>
                             <img src={profile.brandLogo.url} alt="Brand Logo" className="w-full h-full object-contain p-2" />
@@ -416,11 +416,11 @@ export default function DesignerStudioPage() {
                           <h3 className="text-[14px] font-black text-[#0D1B2A]">Revenue Overview</h3>
                           <p className="text-[11px] text-[#86868B] font-semibold mt-0.5">Real-time designer sales and collection returns.</p>
                         </div>
-                        <span className="text-[10px] font-extrabold text-[#86868B] border border-[#E7E3DD] px-2.5 py-1.5 rounded-xl uppercase tracking-wider bg-[#FAF9F7]">This Month</span>
+                        <span className="text-[10px] font-extrabold text-[#86868B] border border-[#E7E3DD] px-2.5 py-1.5 rounded-xl uppercase tracking-wider bg-white">This Month</span>
                       </div>
 
                       {/* Graph Placeholder Grid */}
-                      <div className="h-48 relative border border-[#FAF9F7] bg-[#FAF9F7]/30 rounded-xl overflow-hidden flex flex-col justify-between p-3.5">
+                      <div className="h-48 relative border border-[#FAF9F7] bg-white/30 rounded-xl overflow-hidden flex flex-col justify-between p-3.5">
                         {/* Grid Lines */}
                         <div className="absolute inset-0 flex flex-col justify-between py-5 px-8 pointer-events-none opacity-20">
                           {[1, 2, 3].map(i => <div key={i} className="w-full h-[1px] bg-[#86868B]" />)}
@@ -515,7 +515,7 @@ export default function DesignerStudioPage() {
                         <button
                           key={i}
                           onClick={act.click}
-                          className="flex flex-col items-center justify-center p-3 bg-[#FAF9F7] hover:bg-[#FF6A00]/5 border border-[#E7E3DD] hover:border-[#FF6A00]/30 rounded-xl transition-all cursor-pointer"
+                          className="flex flex-col items-center justify-center p-3 bg-white hover:bg-[#FF6A00]/5 border border-[#E7E3DD] hover:border-[#FF6A00]/30 rounded-xl transition-all cursor-pointer"
                         >
                           <span className="text-[#FF6A00] mb-1.5">{act.icon}</span>
                           <span className="text-[10px] font-extrabold text-[#0D1B2A] tracking-tight">{act.label}</span>
@@ -537,7 +537,7 @@ export default function DesignerStudioPage() {
                         <h3 className="text-[15px] font-black text-[#0D1B2A]">Complete Your Profile</h3>
                         {/* Progress line */}
                         <div className="mt-3 flex items-center justify-between gap-3">
-                          <div className="w-full bg-[#FAF9F7] h-1.5 rounded-full overflow-hidden border border-[#E7E3DD]/30">
+                          <div className="w-full bg-white h-1.5 rounded-full overflow-hidden border border-[#E7E3DD]/30">
                             <div className="h-full bg-[#FF6A00] transition-all duration-500" style={{ width: `${completionPercentage}%` }} />
                           </div>
                           <span className="text-[11.5px] font-black text-[#FF6A00]">{completionPercentage}%</span>
@@ -545,7 +545,7 @@ export default function DesignerStudioPage() {
                       </div>
                       
                       {/* Side Dress Mockup display inside card */}
-                      <div className="w-11 h-14 bg-[#FAF9F7] border border-[#E7E3DD] rounded-lg overflow-hidden flex items-center justify-center shrink-0">
+                      <div className="w-11 h-14 bg-white border border-[#E7E3DD] rounded-lg overflow-hidden flex items-center justify-center shrink-0">
                         {profile.profilePhoto ? (
                           <img src={profile.profilePhoto.url} alt="Profile" className="w-full h-full object-cover" />
                         ) : (
@@ -649,7 +649,7 @@ export default function DesignerStudioPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {collections.map((col) => (
                     <div key={col.id} className="bg-white rounded-2xl border border-[#E7E3DD] overflow-hidden shadow-sm flex flex-col">
-                      <div className="h-40 bg-[#FAF9F7] border-b border-[#E7E3DD] flex items-center justify-center relative">
+                      <div className="h-40 bg-white border-b border-[#E7E3DD] flex items-center justify-center relative">
                         {col.cover ? (
                           <img src={col.cover.url} alt={col.name} className="w-full h-full object-cover" />
                         ) : (
@@ -702,7 +702,7 @@ export default function DesignerStudioPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {products.map((prod) => (
                     <div key={prod.id} className="bg-white rounded-2xl border border-[#E7E3DD] overflow-hidden shadow-sm flex flex-col">
-                      <div className="h-44 bg-[#FAF9F7] border-b border-[#E7E3DD] flex items-center justify-center relative">
+                      <div className="h-44 bg-white border-b border-[#E7E3DD] flex items-center justify-center relative">
                         {prod.image ? (
                           <img src={prod.image.url} alt={prod.name} className="w-full h-full object-cover" />
                         ) : (
@@ -766,7 +766,7 @@ export default function DesignerStudioPage() {
                 {/* Graph 1 */}
                 <div className="bg-white border border-[#E7E3DD] rounded-3xl p-6 shadow-sm flex flex-col gap-4 relative">
                   <h3 className="text-[14.5px] font-black text-[#0D1B2A] text-left">Collection Views</h3>
-                  <div className="h-56 bg-[#FAF9F7]/40 border border-[#FAF9F7] rounded-xl relative flex items-center justify-center">
+                  <div className="h-56 bg-white/40 border border-[#FAF9F7] rounded-xl relative flex items-center justify-center">
                     <div className="absolute inset-0 flex flex-col justify-between py-6 px-10 pointer-events-none opacity-20">
                       {[1, 2, 3].map(i => <div key={i} className="w-full h-[1px] bg-[#86868B]" />)}
                     </div>
@@ -777,7 +777,7 @@ export default function DesignerStudioPage() {
                 {/* Graph 2 */}
                 <div className="bg-white border border-[#E7E3DD] rounded-3xl p-6 shadow-sm flex flex-col gap-4 relative">
                   <h3 className="text-[14.5px] font-black text-[#0D1B2A] text-left">Wardrobe Saves</h3>
-                  <div className="h-56 bg-[#FAF9F7]/40 border border-[#FAF9F7] rounded-xl relative flex items-center justify-center">
+                  <div className="h-56 bg-white/40 border border-[#FAF9F7] rounded-xl relative flex items-center justify-center">
                     <div className="absolute inset-0 flex flex-col justify-between py-6 px-10 pointer-events-none opacity-20">
                       {[1, 2, 3].map(i => <div key={i} className="w-full h-[1px] bg-[#86868B]" />)}
                     </div>
@@ -831,7 +831,7 @@ export default function DesignerStudioPage() {
                     type="text" 
                     value={profile.brandName}
                     onChange={(e) => setProfile(prev => ({ ...prev, brandName: e.target.value }))}
-                    className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
+                    className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
                   />
                 </div>
 
@@ -842,7 +842,7 @@ export default function DesignerStudioPage() {
                     value={profile.tagline}
                     onChange={(e) => setProfile(prev => ({ ...prev, tagline: e.target.value }))}
                     placeholder="e.g. Modern streetwear with a classic touch"
-                    className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
+                    className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
                   />
                 </div>
 
@@ -853,7 +853,7 @@ export default function DesignerStudioPage() {
                     value={profile.story}
                     onChange={(e) => setProfile(prev => ({ ...prev, story: e.target.value }))}
                     placeholder="Tell customers about your brand story, design philosophy, and materials..."
-                    className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all resize-none leading-relaxed"
+                    className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all resize-none leading-relaxed"
                   />
                 </div>
 
@@ -864,7 +864,7 @@ export default function DesignerStudioPage() {
                       type="email" 
                       value={profile.email}
                       onChange={(e) => setProfile(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
+                      className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
                     />
                   </div>
                   <div>
@@ -873,7 +873,7 @@ export default function DesignerStudioPage() {
                       type="url" 
                       value={profile.website}
                       onChange={(e) => setProfile(prev => ({ ...prev, website: e.target.value }))}
-                      className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
+                      className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
                     />
                   </div>
                 </div>
@@ -884,7 +884,7 @@ export default function DesignerStudioPage() {
                     type="text" 
                     value={profile.instagram}
                     onChange={(e) => setProfile(prev => ({ ...prev, instagram: e.target.value }))}
-                    className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
+                    className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] focus:bg-white transition-all"
                   />
                 </div>
 
@@ -908,7 +908,7 @@ export default function DesignerStudioPage() {
       {isAddCollectionOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="bg-white w-full max-w-[480px] rounded-3xl overflow-hidden shadow-2xl border border-[#E7E3DD] animate-fade-in-up text-left">
-            <div className="bg-[#FAF9F7] px-6 py-4.5 border-b border-[#E7E3DD] flex items-center justify-between">
+            <div className="bg-white px-6 py-4.5 border-b border-[#E7E3DD] flex items-center justify-between">
               <span className="text-[12.5px] font-black text-[#0D1B2A] uppercase tracking-wider">Create Brand Collection</span>
               <button onClick={() => setIsAddCollectionOpen(false)} className="text-[#86868B] hover:text-[#0D1B2A] bg-transparent border-none cursor-pointer"><X size={18} /></button>
             </div>
@@ -922,7 +922,7 @@ export default function DesignerStudioPage() {
                   value={newCollection.name}
                   onChange={(e) => setNewCollection(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="e.g. Summer Breeze 2026"
-                  className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
+                  className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
                 />
               </div>
 
@@ -933,7 +933,7 @@ export default function DesignerStudioPage() {
                   value={newCollection.desc}
                   onChange={(e) => setNewCollection(prev => ({ ...prev, desc: e.target.value }))}
                   placeholder="Describe the aesthetic and materials used..."
-                  className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] resize-none"
+                  className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] resize-none"
                 />
               </div>
 
@@ -942,7 +942,7 @@ export default function DesignerStudioPage() {
                 <select
                   value={newCollection.category}
                   onChange={(e) => setNewCollection(prev => ({ ...prev, category: e.target.value }))}
-                  className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] cursor-pointer"
+                  className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] cursor-pointer"
                 >
                   <option value="Luxury">Luxury</option>
                   <option value="Streetwear">Streetwear</option>
@@ -954,7 +954,7 @@ export default function DesignerStudioPage() {
               {/* Cover photo mock uploader */}
               <div>
                 <label className="block text-[10.5px] font-extrabold text-[#0D1B2A] uppercase tracking-wider mb-1.5">Cover Image</label>
-                <div className="border border-dashed border-[#E2DFD8] rounded-xl p-4 bg-[#FAF9F7] text-center flex flex-col items-center justify-center hover:bg-white hover:border-[#FF6A00] transition-all group">
+                <div className="border border-dashed border-[#E2DFD8] rounded-xl p-4 bg-white text-center flex flex-col items-center justify-center hover:bg-white hover:border-[#FF6A00] transition-all group">
                   {newCollection.cover ? (
                     <span className="text-[11.5px] text-[#0D1B2A] font-semibold truncate w-full">{newCollection.cover.name}</span>
                   ) : (
@@ -985,7 +985,7 @@ export default function DesignerStudioPage() {
       {isAddProductOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="bg-white w-full max-w-[480px] rounded-3xl overflow-hidden shadow-2xl border border-[#E7E3DD] animate-fade-in-up text-left">
-            <div className="bg-[#FAF9F7] px-6 py-4.5 border-b border-[#E7E3DD] flex items-center justify-between">
+            <div className="bg-white px-6 py-4.5 border-b border-[#E7E3DD] flex items-center justify-between">
               <span className="text-[12.5px] font-black text-[#0D1B2A] uppercase tracking-wider">Upload New Product</span>
               <button onClick={() => setIsAddProductOpen(false)} className="text-[#86868B] hover:text-[#0D1B2A] bg-transparent border-none cursor-pointer"><X size={18} /></button>
             </div>
@@ -999,7 +999,7 @@ export default function DesignerStudioPage() {
                   value={newProduct.name}
                   onChange={(e) => setNewProduct(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="e.g. Silk Drape Dress"
-                  className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
+                  className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
                 />
               </div>
 
@@ -1012,7 +1012,7 @@ export default function DesignerStudioPage() {
                     value={newProduct.price}
                     onChange={(e) => setNewProduct(prev => ({ ...prev, price: e.target.value }))}
                     placeholder="e.g. 12500"
-                    className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
+                    className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
                   />
                 </div>
                 <div>
@@ -1020,7 +1020,7 @@ export default function DesignerStudioPage() {
                   <select
                     value={newProduct.category}
                     onChange={(e) => setNewProduct(prev => ({ ...prev, category: e.target.value }))}
-                    className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] cursor-pointer"
+                    className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] cursor-pointer"
                   >
                     <option value="Men">Men</option>
                     <option value="Women">Women</option>
@@ -1037,7 +1037,7 @@ export default function DesignerStudioPage() {
                   value={newProduct.sizes}
                   onChange={(e) => setNewProduct(prev => ({ ...prev, sizes: e.target.value }))}
                   placeholder="e.g. S, M, L, XL"
-                  className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
+                  className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00]"
                 />
               </div>
 
@@ -1048,14 +1048,14 @@ export default function DesignerStudioPage() {
                   value={newProduct.desc}
                   onChange={(e) => setNewProduct(prev => ({ ...prev, desc: e.target.value }))}
                   placeholder="Tell customers about the fabric, cut, and fit details..."
-                  className="w-full bg-[#FAF9F7] border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] resize-none"
+                  className="w-full bg-white border border-[#E2DFD8] rounded-xl px-4 py-3 text-[13px] font-semibold text-[#0D1B2A] outline-none focus:border-[#FF6A00] resize-none"
                 />
               </div>
 
               {/* Product photo mock uploader */}
               <div>
                 <label className="block text-[10.5px] font-extrabold text-[#0D1B2A] uppercase tracking-wider mb-1.5">Product Image</label>
-                <div className="border border-dashed border-[#E2DFD8] rounded-xl p-4 bg-[#FAF9F7] text-center flex flex-col items-center justify-center hover:bg-white hover:border-[#FF6A00] transition-all group">
+                <div className="border border-dashed border-[#E2DFD8] rounded-xl p-4 bg-white text-center flex flex-col items-center justify-center hover:bg-white hover:border-[#FF6A00] transition-all group">
                   {newProduct.image ? (
                     <span className="text-[11.5px] text-[#0D1B2A] font-semibold truncate w-full">{newProduct.image.name}</span>
                   ) : (

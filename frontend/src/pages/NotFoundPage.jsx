@@ -19,7 +19,7 @@ export default function NotFoundPage({ isErrorFallback = false }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] flex flex-col items-center justify-center relative overflow-hidden font-sans selection:bg-[#FF8C33] selection:text-white">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center relative overflow-hidden font-sans selection:bg-[#FF8C33] selection:text-white">
       {/* Dynamic Floating Background Elements */}
       <div 
         className="absolute top-[20%] left-[15%] w-64 h-64 bg-orange-500/10 rounded-full blur-[80px] transition-transform duration-300 ease-out pointer-events-none"

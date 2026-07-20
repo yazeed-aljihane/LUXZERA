@@ -39,7 +39,7 @@ export default function FiltersSidebar({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="w-full bg-[#FAF9F7] border border-[#E7E3DD] rounded-xl px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-[#2B2B2B] outline-none cursor-pointer focus:border-[#5B6EF5] transition-colors appearance-none"
+            className="w-full bg-white border border-[#E7E3DD] rounded-xl px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-[#2B2B2B] outline-none cursor-pointer focus:border-[#5B6EF5] transition-colors appearance-none"
           >
             {sortOptions.map((o) => (
               <option key={o.value} value={o.value}>

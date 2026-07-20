@@ -73,10 +73,10 @@ export default function WardrobePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9] font-sans pb-24">
+    <div className="min-h-screen bg-white font-sans pb-24">
 
       {/* ── PAGE HEADER ── */}
-      <div className="border-b border-[#ECECEC] bg-[#FAFAF9]">
+      <div className="border-b border-[#ECECEC] bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
@@ -122,7 +122,7 @@ export default function WardrobePage() {
                   <span className="text-[12px] font-medium tracking-wide">All Pieces</span>
                 </div>
                 <span className={`text-[12px] font-medium px-2 py-0.5 rounded-full ${
-                  activeCollection === "All" ? "bg-[#FAFAF9]/20 text-[#FAFAF9]" : "bg-[#ECECEC] text-[#9B9B9B]"
+                  activeCollection === "All" ? "bg-white/20 text-[#FAFAF9]" : "bg-[#ECECEC] text-[#9B9B9B]"
                 }`}>
                   {wardrobeCount}
                 </span>
@@ -150,7 +150,7 @@ export default function WardrobePage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <span className={`text-[12px] font-medium px-2 py-0.5 rounded-full ${
-                        active ? "bg-[#FAFAF9]/20 text-[#FAFAF9]" : "bg-[#ECECEC] text-[#9B9B9B]"
+                        active ? "bg-white/20 text-[#FAFAF9]" : "bg-[#ECECEC] text-[#9B9B9B]"
                       }`}>
                         {count}
                       </span>
@@ -256,7 +256,7 @@ export default function WardrobePage() {
                   <div key={item.id} className="group relative flex flex-col bg-white border border-[#ECECEC] rounded-xl overflow-hidden transition-all duration-300 hover:border-[#E7E3DD] hover:shadow-[0_8px_24px_rgba(0,0,0,0.02)]">
                     
                     {/* Image Area */}
-                    <div className="relative aspect-[3/4] overflow-hidden bg-[#FAFAF9]">
+                    <div className="relative aspect-[3/4] overflow-hidden bg-white">
                       <img
                         src={item.images?.[0] || item.image}
                         alt={item.name}

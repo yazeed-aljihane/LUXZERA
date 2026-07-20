@@ -81,7 +81,7 @@ const VALUES = [
 
 export default function AboutPage({ onShopNow }) {
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans">
+    <div className="min-h-screen bg-white font-sans">
 
       {/* Subtle, Professional Animations */}
       <style>{`
@@ -116,7 +116,7 @@ export default function AboutPage({ onShopNow }) {
       `}</style>
 
       {/* ── Hero ── */}
-      <div className="relative bg-[#FAF9F7] border-b border-[#E7E3DD] py-20 px-6 overflow-hidden">
+      <div className="relative bg-white border-b border-[#E7E3DD] py-20 px-6 overflow-hidden">
         <div className="absolute inset-0 bg-premium-grid opacity-[0.025] pointer-events-none" />
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-8">
           <div>
@@ -221,7 +221,7 @@ export default function AboutPage({ onShopNow }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(({ icon, title, body }) => (
               <div key={title}
-                className="doodle-card bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-7 transition-all duration-300"
+                className="doodle-card bg-white border border-[#E7E3DD] rounded-2xl p-7 transition-all duration-300"
               >
                 <div className="svg-container w-11 h-11 bg-[#F2EFEA] rounded-xl flex items-center justify-center text-[#2B2B2B] mb-5 border border-[#E7E3DD] shrink-0">
                   {icon}
@@ -251,7 +251,7 @@ export default function AboutPage({ onShopNow }) {
             <div key={name} className="flex gap-6 group">
               
               {/* Minimal Avatar (80px) */}
-              <div className="w-20 h-20 shrink-0 rounded-full overflow-hidden bg-[#FAFAF9] border border-[#ECECEC] relative">
+              <div className="w-20 h-20 shrink-0 rounded-full overflow-hidden bg-white border border-[#ECECEC] relative">
                 <img 
                   src={img} 
                   alt={name} 
@@ -313,7 +313,7 @@ export default function AboutPage({ onShopNow }) {
           </h2>
           <button
             onClick={onShopNow}
-            className="shrink-0 flex items-center gap-3 bg-[#F07020] hover:bg-[#FAF9F7] hover:text-[#F07020] text-[#FAF9F7] text-[11px] font-extrabold uppercase tracking-[0.28em] px-10 py-5 rounded-full transition-all duration-300 group"
+            className="shrink-0 flex items-center gap-3 bg-[#F07020] hover:bg-white hover:text-[#F07020] text-[#FAF9F7] text-[11px] font-extrabold uppercase tracking-[0.28em] px-10 py-5 rounded-full transition-all duration-300 group"
           >
             Browse the Drop
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

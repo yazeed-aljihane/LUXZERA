@@ -50,7 +50,7 @@ export default function Hero({ onShopNow }) {
                   </button>
                   <button
                     onClick={onShopNow}
-                    className="bg-white border border-[#ECECEC] hover:bg-[#FAFAF9] text-[#1D1D1F] text-[12px] font-semibold uppercase tracking-[0.2em] px-6 py-4 flex items-center gap-2 transition-all duration-200 rounded-xl hover:scale-[1.02] active:scale-[0.98] shadow-sm"
+                    className="bg-white border border-[#ECECEC] hover:bg-white text-[#1D1D1F] text-[12px] font-semibold uppercase tracking-[0.2em] px-6 py-4 flex items-center gap-2 transition-all duration-200 rounded-xl hover:scale-[1.02] active:scale-[0.98] shadow-sm"
                   >
                     Browse Collection
                     <ArrowRight size={12} />
@@ -75,7 +75,7 @@ export default function Hero({ onShopNow }) {
             <div className="relative w-full h-[70vh] lg:h-auto lg:min-h-[85vh]">
 
               {/* MAIN tall model image */}
-              <div className="absolute top-0 left-[12%] w-[52%] h-[68%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-[#FAFAF9] z-20">
+              <div className="absolute top-0 left-[12%] w-[52%] h-[68%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-white z-20">
                 <img
                   src={IMG_1}
                   alt="Fashion campaign model"
@@ -88,7 +88,7 @@ export default function Hero({ onShopNow }) {
               </div>
 
               {/* TOP-RIGHT smaller image */}
-              <div className="absolute top-3 right-0 w-[38%] h-[42%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-[#FAFAF9] z-10">
+              <div className="absolute top-3 right-0 w-[38%] h-[42%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-white z-10">
                 <img
                   src={IMG_2}
                   alt="Designer fashion"
@@ -98,7 +98,7 @@ export default function Hero({ onShopNow }) {
               </div>
 
               {/* BOTTOM-LEFT */}
-              <div className="absolute bottom-[14%] left-0 w-[34%] h-[38%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-[#FAFAF9] z-30">
+              <div className="absolute bottom-[14%] left-0 w-[34%] h-[38%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-white z-30">
                 <img
                   src={IMG_3}
                   alt="Denim jacket"
@@ -108,7 +108,7 @@ export default function Hero({ onShopNow }) {
               </div>
 
               {/* BOTTOM-RIGHT */}
-              <div className="absolute bottom-[4%] right-0 w-[40%] h-[36%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-[#FAFAF9] z-20 group cursor-pointer" onClick={onShopNow}>
+              <div className="absolute bottom-[4%] right-0 w-[40%] h-[36%] rounded-2xl overflow-hidden border border-[#ECECEC] shadow-sm bg-white z-20 group cursor-pointer" onClick={onShopNow}>
                 <img
                   src={IMG_4}
                   alt="Designer blazer"
@@ -151,7 +151,7 @@ export default function Hero({ onShopNow }) {
                   Curation Made<br />For You Alone.
                 </span>
               </div>
-              <div className="w-10 h-10 rounded-full border border-[#FAFAF9]/30 flex items-center justify-center flex-shrink-0 mt-1 group-hover:bg-[#FAFAF9]/10 transition-colors">
+              <div className="w-10 h-10 rounded-full border border-[#FAFAF9]/30 flex items-center justify-center flex-shrink-0 mt-1 group-hover:bg-white/10 transition-colors">
                 <ArrowRight size={14} className="text-[#FAFAF9]" strokeWidth={2} />
               </div>
             </div>
@@ -181,7 +181,7 @@ export default function Hero({ onShopNow }) {
           </div>
 
           {/* Block 3 — Off White with scroll indicator */}
-          <div className="bg-[#FAFAF9] px-8 py-8 flex flex-col justify-between border-l border-[#ECECEC]">
+          <div className="bg-white px-8 py-8 flex flex-col justify-between border-l border-[#ECECEC]">
             <div>
               <span className="text-[12px] font-semibold uppercase tracking-[0.25em] text-[#86868B] block mb-3">Scroll Down</span>
               <div className="w-7 h-11 rounded-full border-2 border-[#1D1D1F]/10 flex items-start justify-center pt-1.5">

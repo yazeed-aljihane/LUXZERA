@@ -41,15 +41,15 @@ export default function MobileHero({ onShopNow }) {
       </div>
 
       <div className="relative h-[31rem] px-5 pb-7">
-        <div className="absolute left-5 top-0 h-[25rem] w-[68%] overflow-hidden rounded-2xl border border-[#ECECEC] bg-[#FAFAF9] shadow-sm">
+        <div className="absolute left-5 top-0 h-[25rem] w-[68%] overflow-hidden rounded-2xl border border-[#ECECEC] bg-white shadow-sm">
           <img src={IMG_1} alt="Fashion campaign model" className="h-full w-full object-cover object-top" loading="eager" />
         </div>
 
-        <div className="absolute right-5 top-10 h-44 w-[42%] overflow-hidden rounded-2xl border border-[#ECECEC] bg-[#FAFAF9] shadow-sm">
+        <div className="absolute right-5 top-10 h-44 w-[42%] overflow-hidden rounded-2xl border border-[#ECECEC] bg-white shadow-sm">
           <img src={IMG_2} alt="Designer fashion" className="h-full w-full object-cover object-top" loading="lazy" />
         </div>
 
-        <div className="absolute right-5 bottom-7 h-48 w-[48%] overflow-hidden rounded-2xl border border-[#ECECEC] bg-[#FAFAF9] shadow-sm">
+        <div className="absolute right-5 bottom-7 h-48 w-[48%] overflow-hidden rounded-2xl border border-[#ECECEC] bg-white shadow-sm">
           <img src={IMG_3} alt="Denim jacket" className="h-full w-full object-cover object-center" loading="lazy" />
         </div>
 

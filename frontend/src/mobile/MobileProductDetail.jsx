@@ -16,8 +16,8 @@ export default function MobileProductDetail({
   const images = product.images?.length ? product.images : [product.image];
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] font-sans lg:hidden">
-      <div className="sticky top-14 z-30 bg-[#FAF9F7]/92 backdrop-blur border-b border-[#E7E3DD] px-4 py-3">
+    <div className="min-h-screen bg-white font-sans lg:hidden">
+      <div className="sticky top-14 z-30 bg-white/92 backdrop-blur border-b border-[#E7E3DD] px-4 py-3">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-[#2B2B2B]/60">
           <ArrowLeft size={14} />
           Back
@@ -66,7 +66,7 @@ export default function MobileProductDetail({
                   className={`h-12 rounded-full border text-[11px] font-black uppercase ${
                     selectedSize === size
                       ? "bg-[#2B2B2B] text-[#FAF9F7] border-[#2B2B2B]"
-                      : "bg-[#FAF9F7] text-[#2B2B2B]/65 border-[#E7E3DD]"
+                      : "bg-white text-[#2B2B2B]/65 border-[#E7E3DD]"
                   }`}
                 >
                   {size}
@@ -100,7 +100,7 @@ export default function MobileProductDetail({
         </div>
       </section>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E7E3DD] bg-[#FAF9F7]/95 backdrop-blur px-4 py-3">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E7E3DD] bg-white/95 backdrop-blur px-4 py-3">
         <button
           onClick={() => addToCart({ ...product, size: selectedSize })}
           className="h-14 w-full rounded-full bg-[#2B2B2B] text-[#FAF9F7] text-[10px] font-black uppercase tracking-[0.28em] flex items-center justify-center gap-2 shadow-[0_12px_30px_rgba(43,43,43,0.18)]"

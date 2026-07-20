@@ -62,7 +62,7 @@ export default function VerifyOtpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F4F0] text-[#1D1D1F] flex items-center justify-center p-6" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="min-h-screen bg-white text-[#1D1D1F] flex items-center justify-center p-6" style={{ fontFamily: "'Inter', sans-serif" }}>
       <div className="auth-surface w-full max-w-[440px] rounded-2xl p-8 sm:p-10 text-center flex flex-col gap-6 bg-white border border-[#ECECEC] shadow-sm">
         <div className="auth-content flex flex-col gap-6">
 

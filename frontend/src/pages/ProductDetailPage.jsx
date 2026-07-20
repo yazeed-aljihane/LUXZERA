@@ -52,7 +52,7 @@ export default function ProductDetailPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#FAF9F7] flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-white flex items-center justify-center font-sans">
         <div className="text-center">
           <p className="text-2xl font-black uppercase text-[#2B2B2B]">Product Not Found</p>
           <button onClick={() => navigate("/market")} className="mt-4 text-[#5B6EF5] font-extrabold uppercase text-[10px] tracking-wider">
@@ -100,7 +100,7 @@ export default function ProductDetailPage() {
   const detailImages = product.images?.slice(2, 5) || [];
 
   return (
-    <div className="min-h-[calc(100vh-4.5rem)] bg-[#FAF9F7] font-sans flex flex-col justify-between select-none">
+    <div className="min-h-[calc(100vh-4.5rem)] bg-white font-sans flex flex-col justify-between select-none">
       
       {/* ── Core Two-Column Product Layout Workspace — Viewport Bounded on Desktop ── */}
       <main className="max-w-[1380px] mx-auto w-full px-6 md:px-10 py-5 grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-10 items-stretch flex-1 lg:h-[calc(100vh-7rem)] lg:overflow-hidden">
@@ -142,7 +142,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* RIGHT COLUMN: Scrollable Purchase & Spec Details Panel */}
-        <div className="flex flex-col justify-between bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl p-6 md:p-8 shadow-xs lg:h-full lg:overflow-y-auto scrollbar-none">
+        <div className="flex flex-col justify-between bg-white border border-[#E7E3DD] rounded-2xl p-6 md:p-8 shadow-xs lg:h-full lg:overflow-y-auto scrollbar-none">
           
           <div className="flex flex-col gap-5">
             {/* Eyebrow Label & Brand info */}
@@ -274,7 +274,7 @@ export default function ProductDetailPage() {
       {sizeGuideOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-[#2B2B2B]/40 backdrop-blur-sm" onClick={() => setSizeGuideOpen(false)} />
-          <div className="relative bg-[#FAF9F7] border border-[#E7E3DD] rounded-2xl w-full max-w-md p-6 shadow-2xl z-10">
+          <div className="relative bg-white border border-[#E7E3DD] rounded-2xl w-full max-w-md p-6 shadow-2xl z-10">
             <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#E7E3DD]">
               <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#2B2B2B]">Size Guide (Inches)</span>
               <button onClick={() => setSizeGuideOpen(false)} className="text-[#2B2B2B]/40 hover:text-[#2B2B2B]"><X size={16} /></button>

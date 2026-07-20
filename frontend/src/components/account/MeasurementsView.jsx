@@ -114,7 +114,7 @@ const MeasurementsView = ({ userId, initialMeasurements, onSaveSuccess }) => {
 
       {/* Saving Overlay */}
       {saving && (
-        <div className="absolute inset-0 bg-[#FAF9F7]/70 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-20 animate-fade-in">
+        <div className="absolute inset-0 bg-white/70 backdrop-blur-[1px] rounded-2xl flex items-center justify-center z-20 animate-fade-in">
           <Loader size="w-10 h-10" />
         </div>
       )}

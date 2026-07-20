@@ -53,7 +53,7 @@ export default function LoginPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         *, *::before, *::after {
           box-sizing: border-box;
@@ -70,7 +70,7 @@ export default function LoginPage() {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
-          /* Asymmetric padding anchors the form above true center */
+          text-rendering: optimizeLegibility;
           padding: 60px 24px 120px;
         }
 
@@ -81,14 +81,14 @@ export default function LoginPage() {
           flex-direction: column;
           align-items: center;
           opacity: 0;
-          transition: opacity 200ms ease;
+          transition: opacity 150ms ease;
         }
 
         .lp-card.ready {
           opacity: 1;
         }
 
-        /* Logo */
+        /* ── Logo ── */
         .lp-logo {
           background: none;
           border: none;
@@ -96,6 +96,7 @@ export default function LoginPage() {
           cursor: pointer;
           margin-bottom: 28px;
           line-height: 1;
+          display: block;
         }
 
         .lp-logo img {
@@ -104,33 +105,34 @@ export default function LoginPage() {
           display: block;
         }
 
-        /* Heading */
+        /* ── Heading ── */
         .lp-heading {
           font-size: 24px;
-          font-weight: 600;
-          color: #1D1D1F;
-          letter-spacing: -0.4px;
+          font-weight: 700;
+          color: #111827;
+          letter-spacing: -0.03em;
           text-align: center;
           line-height: 1.2;
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
 
         .lp-subheading {
           font-size: 14px;
           font-weight: 400;
-          color: #86868B;
+          color: #6B7280;
           text-align: center;
           line-height: 1.5;
           margin-bottom: 40px;
+          letter-spacing: -0.01em;
         }
 
-        /* Error */
+        /* ── Error ── */
         .lp-error {
           width: 100%;
-          padding: 12px 14px;
-          background: #FFF5F5;
+          padding: 12px 16px;
+          background: #FEF2F2;
           border: 1px solid #FECACA;
-          border-radius: 8px;
+          border-radius: 10px;
           margin-bottom: 24px;
         }
 
@@ -138,35 +140,34 @@ export default function LoginPage() {
           font-size: 13px;
           font-weight: 400;
           color: #DC2626;
-          line-height: 1.4;
+          line-height: 1.45;
         }
 
-        /* Form */
+        /* ── Form ── */
         .lp-form {
           width: 100%;
           display: flex;
           flex-direction: column;
-          width: 100%;
-          gap: 28px;
+          gap: 20px;
         }
 
-        /* Field */
+        /* ── Field ── */
         .lp-field {
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 7px;
           width: 100%;
         }
 
         .lp-label {
           font-size: 13px;
-          font-weight: 500;
-          color: #1D1D1F;
-          letter-spacing: 0;
+          font-weight: 600;
+          color: #111827;
           line-height: 1;
+          letter-spacing: -0.01em;
         }
 
-        /* Input */
+        /* ── Input ── */
         .lp-input-wrap {
           position: relative;
           width: 100%;
@@ -174,39 +175,43 @@ export default function LoginPage() {
 
         .lp-input {
           width: 100%;
-          height: 54px;
-          padding: 0 42px 0 16px;
-          border: 1px solid #E5E5E5;
+          height: 56px;
+          padding-inline: 18px;
+          padding-right: 48px;
+          border: 1px solid #E6E6E6;
           border-radius: 12px;
           background: #FFFFFF;
           font-size: 15px;
           font-weight: 400;
-          color: #1D1D1F;
+          color: #111827;
           font-family: inherit;
           outline: none;
-          transition: border-color 150ms ease;
           -webkit-appearance: none;
+          -webkit-font-smoothing: antialiased;
+          letter-spacing: -0.01em;
+          transition: border-color 150ms ease;
         }
 
         .lp-input::placeholder {
-          color: #AEAEB2;
+          color: #9CA3AF;
           font-weight: 400;
         }
 
         .lp-input:focus {
-          border-color: #1D1D1F;
+          border-color: #111827;
         }
 
+        /* ── Eye toggle ── */
         .lp-eye {
           position: absolute;
-          right: 12px;
+          right: 14px;
           top: 50%;
           transform: translateY(-50%);
           background: none;
           border: none;
           padding: 0;
           cursor: pointer;
-          color: #C7C7CC;
+          color: #9CA3AF;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -215,20 +220,20 @@ export default function LoginPage() {
         }
 
         .lp-eye:hover {
-          color: #86868B;
+          color: #374151;
         }
 
-        /* Forgot */
+        /* ── Forgot ── */
         .lp-forgot-row {
           display: flex;
           justify-content: flex-end;
-          margin-top: 6px;
+          margin-top: 4px;
         }
 
         .lp-forgot {
           font-size: 13px;
           font-weight: 400;
-          color: #86868B;
+          color: #9CA3AF;
           background: none;
           border: none;
           padding: 0;
@@ -236,62 +241,64 @@ export default function LoginPage() {
           font-family: inherit;
           transition: color 150ms ease;
           line-height: 1;
+          letter-spacing: -0.01em;
         }
 
         .lp-forgot:hover {
           color: #FF7518;
         }
 
-        /* Submit */
+        /* ── Submit ── */
         .lp-submit {
           width: 100%;
-          height: 44px;
-          border-radius: 8px;
+          height: 56px;
+          border-radius: 12px;
           border: none;
-          background: #1D1D1F;
+          background: #111827;
           color: #FFFFFF;
           font-size: 15px;
-          font-weight: 500;
+          font-weight: 600;
           font-family: inherit;
-          letter-spacing: -0.1px;
+          letter-spacing: -0.01em;
           cursor: pointer;
           margin-top: 4px;
           transition: background 150ms ease, opacity 150ms ease;
+          -webkit-font-smoothing: antialiased;
         }
 
         .lp-submit:hover:not(:disabled) {
-          background: #2D2D2F;
+          background: #1F2937;
         }
 
         .lp-submit:disabled {
-          opacity: 0.4;
+          opacity: 0.38;
           cursor: not-allowed;
         }
 
-        /* Divider */
+        /* ── Divider ── */
         .lp-divider {
           width: 100%;
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 14px;
           margin: 36px 0;
         }
 
         .lp-divider-line {
           flex: 1;
           height: 1px;
-          background: #ECECEC;
+          background: #E6E6E6;
         }
 
         .lp-divider-text {
           font-size: 12px;
           font-weight: 400;
-          color: #C7C7CC;
+          color: #9CA3AF;
           white-space: nowrap;
-          letter-spacing: 0.01em;
+          letter-spacing: 0;
         }
 
-        /* Social buttons */
+        /* ── Social buttons ── */
         .lp-socials {
           width: 100%;
           display: grid;
@@ -301,9 +308,9 @@ export default function LoginPage() {
 
         .lp-social {
           position: relative;
-          height: 44px;
-          border: 1px solid #ECECEC;
-          border-radius: 8px;
+          height: 56px;
+          border: 1px solid #E6E6E6;
+          border-radius: 12px;
           background: #FFFFFF;
           display: flex;
           align-items: center;
@@ -313,18 +320,20 @@ export default function LoginPage() {
           font-family: inherit;
           font-size: 14px;
           font-weight: 500;
-          color: #1D1D1F;
+          color: #111827;
+          letter-spacing: -0.01em;
           transition: border-color 150ms ease, background 150ms ease;
           width: 100%;
           box-sizing: border-box;
+          -webkit-font-smoothing: antialiased;
         }
 
         .lp-social:hover {
-          border-color: #D1D1D6;
+          border-color: #111827;
           background: #FAFAFA;
         }
 
-        /* Google real button overlay */
+        /* ── Google overlay ── */
         .lp-google-wrap {
           position: relative;
           width: 100%;
@@ -337,18 +346,19 @@ export default function LoginPage() {
           opacity: 0.001;
           z-index: 2;
           overflow: hidden;
-          border-radius: 8px;
+          border-radius: 12px;
           cursor: pointer;
         }
 
-        /* Footer */
+        /* ── Footer ── */
         .lp-footer {
           margin-top: 32px;
           font-size: 13px;
           font-weight: 400;
-          color: #86868B;
+          color: #6B7280;
           text-align: center;
           line-height: 1.5;
+          letter-spacing: -0.01em;
         }
 
         .lp-footer-btn {
@@ -361,13 +371,14 @@ export default function LoginPage() {
           font-weight: 500;
           color: #FF7518;
           transition: opacity 150ms ease;
+          letter-spacing: -0.01em;
         }
 
         .lp-footer-btn:hover {
           opacity: 0.7;
         }
 
-        /* Terms */
+        /* ── Terms ── */
         .lp-terms {
           margin-top: 24px;
           font-size: 11.5px;
@@ -375,7 +386,8 @@ export default function LoginPage() {
           color: #9A9A9A;
           text-align: center;
           line-height: 1.6;
-          max-width: 280px;
+          max-width: 300px;
+          letter-spacing: -0.01em;
         }
 
         .lp-terms-link {
@@ -385,12 +397,12 @@ export default function LoginPage() {
           cursor: pointer;
           font-size: inherit;
           font-family: inherit;
-          color: #86868B;
+          color: #6B7280;
           transition: color 150ms ease;
         }
 
         .lp-terms-link:hover {
-          color: #1D1D1F;
+          color: #111827;
         }
       `}</style>
 

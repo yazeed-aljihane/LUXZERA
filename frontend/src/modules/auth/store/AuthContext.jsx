@@ -39,19 +39,16 @@ export const AuthProvider = ({ children }) => {
       const token = getToken();
       if (token) {
         try {
-          // Race: give the server max 5 seconds before we give up and show UI
+          // Non-blocking race: 2.5s timeout to prevent sluggish UI loads
           const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Auth timeout")), 5000)
+            setTimeout(() => reject(new Error("Auth check timeout")), 2500)
           );
           const profile = await Promise.race([apiGetCurrentUser(), timeoutPromise]);
           setUser(profile);
         } catch (error) {
-          // Either the token is invalid OR the server is slow (cold start).
-          // Either way — show the UI immediately, user can sign in manually.
-          console.warn("Auto-login skipped:", error.message);
+          console.warn("Auto-login background check:", error.message);
         }
       }
-
       setLoading(false);
     };
 

@@ -21,12 +21,13 @@ export default function ForgotPasswordPage() {
     setErrorMsg("");
     setSuccessMsg("");
     try {
-      await forgotPassword(email);
+      await forgotPassword(email.trim().toLowerCase());
       setSuccessMsg("Verification code sent! Please check your email inbox.");
       setTimeout(() => setStep(2), 1000);
     } catch (err) {
       console.error(err);
-      setErrorMsg(err.message || "Email address not found. Please try again.");
+      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Email address not found. Please try again.");
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -39,12 +40,13 @@ export default function ForgotPasswordPage() {
     setErrorMsg("");
     setSuccessMsg("");
     try {
-      await resetPassword(email, otp, newPassword);
+      await resetPassword(email.trim().toLowerCase(), otp, newPassword);
       setSuccessMsg("Password reset successfully! Redirecting you to login page...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       console.error(err);
-      setErrorMsg(err.message || "Failed to reset password. Please check your verification code.");
+      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Failed to reset password. Please check your verification code.");
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }

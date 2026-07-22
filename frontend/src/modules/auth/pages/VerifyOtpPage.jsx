@@ -32,12 +32,13 @@ export default function VerifyOtpPage() {
     setErrorMsg("");
     setSuccessMsg("");
     try {
-      await verifyOtp(email, otp);
+      await verifyOtp(email.trim().toLowerCase(), otp);
       setSuccessMsg("Account verified successfully! Redirecting you to login page...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       console.error(err);
-      setErrorMsg(err.message || "Invalid OTP code. Please try again.");
+      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Invalid OTP code. Please try again.");
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -49,13 +50,14 @@ export default function VerifyOtpPage() {
     setErrorMsg("");
     setSuccessMsg("");
     try {
-      await resendOtp(email);
+      await resendOtp(email.trim().toLowerCase());
       setSuccessMsg("A new verification code has been sent to your email.");
       setTimer(60);
       setCanResend(false);
     } catch (err) {
       console.error(err);
-      setErrorMsg(err.message || "Failed to resend code. Please try again.");
+      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Failed to resend code. Please try again.");
+      setErrorMsg(msg);
     } finally {
       setLoading(false);
     }

@@ -81,7 +81,7 @@ const AccountView = ({
           </div>
 
           <h3 className="text-[15px] font-bold text-[#37352F] tracking-tight">{fullName}</h3>
-          <p className="text-[11.5px] text-[#9B9B9B] font-medium mt-0.5 mb-2 truncate max-w-[140px]">{user?.email}</p>
+          <p className="text-[11.5px] text-[#9B9B9B] font-medium mt-0.5 mb-2 break-all max-w-[180px]">{user?.email}</p>
 
           <button 
             type="button" 
@@ -92,7 +92,7 @@ const AccountView = ({
           </button>
         </div>
 
-        {/* Right Side: Parallel Fields Container using span elements & required space capsules */}
+        {/* Right Side: Parallel Fields Container - Tight Value-Only Capsules */}
         <div className="md:col-span-9 space-y-2.5">
           <div className="flex items-center justify-between mb-1">
             <h3 className="text-[15px] font-bold text-[#37352F] tracking-tight">Personal Profile Details</h3>
@@ -101,15 +101,15 @@ const AccountView = ({
           {/* 1. First Name */}
           <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">First Name</label>
-            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="text"
                 name="firstName"
                 value={formData.firstName || ""}
                 onChange={onFormChange}
-                placeholder="Enter first name"
+                placeholder="First name"
                 className="text-[13px] text-left bg-transparent outline-none text-[#37352F] font-medium placeholder-[#9B9B9B]"
-                style={{ width: `${Math.max((formData.firstName || "").length, 12)}ch` }}
+                style={{ width: `${Math.max((formData.firstName || "First name").length, 1)}ch` }}
                 required
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100 flex-shrink-0" />
@@ -119,15 +119,15 @@ const AccountView = ({
           {/* 2. Last Name */}
           <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Last Name</label>
-            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="text"
                 name="lastName"
                 value={formData.lastName || ""}
                 onChange={onFormChange}
-                placeholder="Enter last name"
+                placeholder="Last name"
                 className="text-[13px] text-left bg-transparent outline-none text-[#37352F] font-medium placeholder-[#9B9B9B]"
-                style={{ width: `${Math.max((formData.lastName || "").length, 12)}ch` }}
+                style={{ width: `${Math.max((formData.lastName || "Last name").length, 1)}ch` }}
                 required
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100 flex-shrink-0" />
@@ -137,7 +137,7 @@ const AccountView = ({
           {/* 3. Mobile Number with 10-digit Regex */}
           <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Mobile Number</label>
-            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="tel"
                 name="phoneNumber"
@@ -147,7 +147,7 @@ const AccountView = ({
                 maxLength={10}
                 placeholder="10-digit mobile"
                 className="text-[13px] text-left bg-transparent outline-none text-[#37352F] font-medium placeholder-[#9B9B9B]"
-                style={{ width: `${Math.max((formData.phoneNumber || "").length, 12)}ch` }}
+                style={{ width: `${Math.max((formData.phoneNumber || "10-digit mobile").length, 1)}ch` }}
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100 flex-shrink-0" />
             </span>
@@ -156,7 +156,7 @@ const AccountView = ({
           {/* 4. Gender */}
           <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Gender</label>
-            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <select
                 name="gender"
                 value={formData.gender || ""}
@@ -175,7 +175,7 @@ const AccountView = ({
           {/* 5. Date of Birth */}
           <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Date of Birth</label>
-            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="date"
                 name="dateOfBirth"
@@ -190,7 +190,7 @@ const AccountView = ({
           {/* 6. Biography */}
           <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Biography</label>
-            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="text"
                 name="bio"
@@ -198,7 +198,7 @@ const AccountView = ({
                 onChange={onFormChange}
                 placeholder="Tell us about yourself"
                 className="text-[13px] text-left bg-transparent outline-none text-[#37352F] font-medium placeholder-[#9B9B9B]"
-                style={{ width: `${Math.max((formData.bio || "").length, 16)}ch` }}
+                style={{ width: `${Math.max((formData.bio || "Tell us about yourself").length, 1)}ch` }}
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100 flex-shrink-0" />
             </span>

@@ -89,6 +89,18 @@ export const updateUserDetails = async (userId, userDetails) => {
   return response.data;
 };
 
+export const changePassword = async (userId, passwordData) => {
+  try {
+    const response = await usersClient.put(`/users/${userId}/change-password`, {
+      currentPassword: passwordData.currentPassword,
+      newPassword: passwordData.newPassword
+    });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.message || "Failed to change password. Please verify current password.");
+  }
+};
+
 export const deleteAccount = async (userId) => {
   const response = await usersClient.delete(`/users/${userId}`);
   return response.data;

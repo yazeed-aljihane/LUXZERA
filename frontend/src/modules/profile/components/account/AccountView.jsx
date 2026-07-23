@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Pencil } from "lucide-react";
+import React, { useRef, useState } from "react";
+import { Pencil, Lock, ShieldCheck, KeyRound } from "lucide-react";
 import Loader from "@/shared/components/ui/Loader";
+import { changePassword } from "@/modules/profile/services/userService";
 
 const AccountView = ({ 
   formData, 
@@ -13,8 +14,17 @@ const AccountView = ({
   errorMsg 
 }) => {
   const [localPreview, setLocalPreview] = useState(null);
-
   const fileInputRef = useRef(null);
+
+  // Password Change State
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: ""
+  });
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
@@ -27,212 +37,299 @@ const AccountView = ({
     }
   };
 
+  const handlePasswordChangeInput = (e) => {
+    const { name, value } = e.target;
+    setPasswordData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    setPasswordError("");
+    setPasswordSuccess("");
+
+    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
+      setPasswordError("Please fill in all password fields.");
+      return;
+    }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError("New passwords do not match.");
+      return;
+    }
+
+    if (passwordData.newPassword.length < 6) {
+      setPasswordError("New password must be at least 6 characters long.");
+      return;
+    }
+
+    setPasswordLoading(true);
+    try {
+      await changePassword(user.id, {
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword
+      });
+      setPasswordSuccess("Password updated successfully!");
+      setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      setTimeout(() => setPasswordSuccess(""), 4000);
+    } catch (err) {
+      setPasswordError(err.message || "Our servers are busy right now. Please try a few minutes later.");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
   const profileImage = localPreview || profile?.profilePicture || user?.profilePicture || user?.avatarUrl || null;
   const initial = user?.firstName?.[0] || user?.email?.[0] || "U";
   const fullName = user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : "Unnamed User";
 
   return (
-    <div className="relative">
-      {/* Non-blocking Authentic Apple iOS/macOS Spinner (No Background) */}
+    <div className="relative font-['Plus_Jakarta_Sans',sans-serif]">
       {saving && (
-        <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none animate-fade-in">
+        <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
           <Loader />
         </div>
       )}
 
-      <style>{`
-        @keyframes draw-circle {
-          to { stroke-dashoffset: 0; }
-        }
-        @keyframes draw-check {
-          to { stroke-dashoffset: 0; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.2s ease-out forwards;
-        }
-        .animate-scale-up {
-          animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        .animate-draw-path {
-          stroke-dasharray: 300;
-          animation: path-draw 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-        .animate-pulse-glow {
-          animation: pulse-glow 2.5s ease-in-out infinite;
-        }
-        @keyframes path-draw {
-          0% { stroke-dashoffset: 300; }
-          50% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: -300; }
-        }
-        @keyframes pulse-glow {
-          0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 140, 51, 0.15)); opacity: 0.8; }
-          50% { filter: drop-shadow(0 0 10px rgba(255, 140, 51, 0.6)); opacity: 1; }
-        }
-      `}</style>
-
       {errorMsg && (
-        <div className="p-3 mb-4 bg-red-50 border border-red-100 rounded-xl text-[11px] font-semibold text-red-600">
+        <div className="p-3 mb-5 bg-red-50 border border-red-200 rounded-2xl text-[12px] font-medium text-red-600 text-center">
           {errorMsg}
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row gap-8 items-start">
-        
-        {/* Left Side: Profile Picture */}
-        <div className="w-full md:w-[30%] flex flex-col items-center pt-2">
-          <div className="relative group cursor-pointer mb-2" onClick={() => fileInputRef.current?.click()}>
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              onChange={handleImageUpload} 
-              accept="image/*" 
-              className="hidden" 
+      {/* Header Profile Summary Row */}
+      <div className="flex flex-col md:flex-row gap-6 items-center bg-[#FAFAF9] border border-[#E7E3DD] rounded-3xl p-5 mb-8">
+        <div className="relative group cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleImageUpload} 
+            accept="image/*" 
+            className="hidden" 
+          />
+          {profileImage ? (
+            <img
+              src={profileImage}
+              alt="profile"
+              className="w-20 h-20 rounded-full object-cover shadow-sm bg-white border border-slate-200"
             />
-            {profileImage ? (
-              <img
-                src={profileImage}
-                alt="profile"
-                className="w-24 h-24 rounded-full object-cover shadow-sm bg-slate-50 border border-slate-100"
-              />
-            ) : (
-              <div className="w-24 h-24 rounded-full bg-[#1B2631] text-[#FAF9F7] border border-slate-100 flex items-center justify-center text-2xl font-bold shadow-sm uppercase">
-                {initial}
-              </div>
-            )}
+          ) : (
+            <div className="w-20 h-20 rounded-full bg-[#18181B] text-white border border-slate-200 flex items-center justify-center text-xl font-bold uppercase shadow-sm">
+              {initial}
+            </div>
+          )}
+          <div className="absolute bottom-0 right-0 bg-[#F07020] text-white p-1.5 rounded-full shadow-sm hover:scale-105 transition-transform">
+            <Pencil size={12} strokeWidth={2.5} />
           </div>
+        </div>
+
+        <div className="text-center md:text-left flex-1">
+          <h2 className="text-[18px] font-bold text-[#18181B] tracking-tight">{fullName}</h2>
+          <p className="text-[13px] text-[#71717A] font-medium mt-0.5">{user?.email}</p>
           <button 
             type="button" 
             onClick={() => fileInputRef.current?.click()}
-            className="text-[11px] font-medium text-slate-600 hover:text-slate-900 transition-colors mb-3 flex items-center gap-1.5 bg-[#F5F5F5] hover:bg-[#E5E5E5] px-3 py-1 rounded-full cursor-pointer"
+            className="mt-2 text-[12px] font-semibold text-[#18181B] hover:text-[#F07020] transition-colors inline-flex items-center gap-1.5"
           >
-            <Pencil size={11} strokeWidth={2} /> Edit Photo
+            Change profile picture
           </button>
-          <p className="text-[14px] font-bold text-slate-800 text-center leading-tight">{fullName}</p>
-          <p className="text-[12px] text-slate-500 text-center mt-1">{user?.email}</p>
-        </div>
-
-        {/* Right Side: Form Details */}
-        <div className="w-full md:flex-1">
-          <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="space-y-0">
-            
-            {/* Row 1: First Name */}
-            <div className="flex items-center justify-between py-3 border-b border-slate-100/80">
-              <label className="text-xs font-semibold text-slate-800 w-1/3">First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName || ""}
-                onChange={onFormChange}
-                placeholder="Add first name"
-                className="text-xs text-right bg-transparent border-none outline-none focus:ring-0 p-0 text-slate-600 focus:text-slate-900 w-2/3 placeholder-slate-300 transition-colors"
-                required
-              />
-            </div>
-
-            {/* Row 2: Last Name */}
-            <div className="flex items-center justify-between py-3 border-b border-slate-100/80">
-              <label className="text-xs font-semibold text-slate-800 w-1/3">Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName || ""}
-                onChange={onFormChange}
-                placeholder="Add last name"
-                className="text-xs text-right bg-transparent border-none outline-none focus:ring-0 p-0 text-slate-600 focus:text-slate-900 w-2/3 placeholder-slate-300 transition-colors"
-                required
-              />
-            </div>
-
-            {/* Row 3: Mobile Number */}
-            <div className="flex items-center justify-between py-3 border-b border-slate-100/80">
-              <label className="text-xs font-semibold text-slate-800 w-1/3">Mobile Number</label>
-              <input
-                type="text"
-                name="phoneNumber"
-                value={formData.phoneNumber || ""}
-                onChange={onFormChange}
-                placeholder="Add mobile number"
-                className="text-xs text-right bg-transparent border-none outline-none focus:ring-0 p-0 text-slate-600 focus:text-slate-900 w-2/3 placeholder-slate-300 transition-colors"
-              />
-            </div>
-
-            {/* Row 4: Gender */}
-            <div className="flex items-center justify-between py-3 border-b border-slate-100/80">
-              <label className="text-xs font-semibold text-slate-800 w-1/3">Gender</label>
-              <select
-                name="gender"
-                value={formData.gender || ""}
-                onChange={onFormChange}
-                className="text-xs text-right bg-transparent border-none outline-none focus:ring-0 p-0 text-slate-600 focus:text-slate-900 cursor-pointer appearance-none w-2/3"
-              >
-                <option value="">Select Gender</option>
-                <option value="MALE">Male</option>
-                <option value="FEMALE">Female</option>
-                <option value="OTHER">Other</option>
-              </select>
-            </div>
-
-            {/* Row 5: Date of Birth */}
-            <div className="flex items-center justify-between py-3 border-b border-slate-100/80">
-              <label className="text-xs font-semibold text-slate-800 w-1/3">Date of Birth</label>
-              <input
-                type="date"
-                name="dateOfBirth"
-                value={formData.dateOfBirth || ""}
-                onChange={onFormChange}
-                className="text-xs text-right bg-transparent border-none outline-none focus:ring-0 p-0 text-slate-600 focus:text-slate-900 cursor-pointer w-2/3"
-              />
-            </div>
-
-            {/* Row 6: Biography */}
-            <div className="flex items-center justify-between py-3 border-b border-slate-100/80">
-              <label className="text-xs font-semibold text-slate-800 w-1/3">Biography</label>
-              <input
-                type="text"
-                name="bio"
-                value={formData.bio || ""}
-                onChange={onFormChange}
-                placeholder="Tell us about yourself"
-                className="text-xs text-right bg-transparent border-none outline-none focus:ring-0 p-0 text-slate-600 focus:text-slate-900 w-2/3 placeholder-slate-300 transition-colors"
-              />
-            </div>
-
-            {/* Save Change button at bottom left */}
-            <div className="pt-6 text-left">
-              <button
-                type="submit"
-                disabled={saving}
-                className={`px-5 py-2.5 text-xs font-bold rounded-xl shadow-md transition-all flex items-center gap-1.5 ${
-                  successMsg 
-                    ? "bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/10" 
-                    : "bg-[#FF8C33] hover:bg-[#e67e2e] disabled:bg-slate-300 text-white shadow-orange-500/10"
-                }`}
-              >
-                {saving ? (
-                  <span className="flex items-center gap-2">
-                    <svg className="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="3" />
-                      <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="3" strokeLinecap="round" className="animate-draw-path origin-center" />
-                    </svg>
-                    Saving...
-                  </span>
-                ) : successMsg ? (
-                  <>
-                    <svg className="w-3.5 h-3.5 stroke-current" fill="none" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                    <span>Changes Saved</span>
-                  </>
-                ) : (
-                  "Save Change"
-                )}
-              </button>
-            </div>
-
-          </form>
         </div>
       </div>
+
+      {/* Main Form: Capsule Format Profile Details */}
+      <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="space-y-4">
+        
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-[15px] font-bold text-[#18181B] tracking-tight">Personal Details</h3>
+          {successMsg && (
+            <span className="text-[12px] font-semibold text-emerald-600 animate-pulse">
+              ✓ {successMsg}
+            </span>
+          )}
+        </div>
+
+        {/* 1. First Name - Capsule Format */}
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName || ""}
+            onChange={onFormChange}
+            placeholder="Enter first name"
+            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+            required
+          />
+        </div>
+
+        {/* 2. Last Name - Capsule Format */}
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName || ""}
+            onChange={onFormChange}
+            placeholder="Enter last name"
+            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+            required
+          />
+        </div>
+
+        {/* 3. Mobile Number - Capsule Format */}
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Mobile Number</label>
+          <input
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber || ""}
+            onChange={onFormChange}
+            placeholder="Enter mobile number"
+            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+          />
+        </div>
+
+        {/* 4. Gender - Capsule Format */}
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Gender</label>
+          <select
+            name="gender"
+            value={formData.gender || ""}
+            onChange={onFormChange}
+            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium cursor-pointer appearance-none w-2/3"
+          >
+            <option value="">Select Gender</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+
+        {/* 5. Date of Birth - Capsule Format */}
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Date of Birth</label>
+          <input
+            type="date"
+            name="dateOfBirth"
+            value={formData.dateOfBirth || ""}
+            onChange={onFormChange}
+            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium cursor-pointer w-2/3"
+          />
+        </div>
+
+        {/* 6. Biography - Capsule Format */}
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Biography</label>
+          <input
+            type="text"
+            name="bio"
+            value={formData.bio || ""}
+            onChange={onFormChange}
+            placeholder="Tell us about yourself"
+            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+          />
+        </div>
+
+        {/* Save Profile Button */}
+        <div className="pt-2 text-left">
+          <button
+            type="submit"
+            disabled={saving}
+            className="auth-cta px-8 rounded-full bg-[#18181B] hover:bg-black text-white text-[13.5px] font-semibold transition-transform active:scale-[0.985]"
+          >
+            {saving ? "Saving Changes..." : "Save Profile Details"}
+          </button>
+        </div>
+
+      </form>
+
+      {/* ────────────────────────────────────────────────────────── */}
+      {/* Change Password Section - Capsule Format */}
+      {/* ────────────────────────────────────────────────────────── */}
+      <div className="mt-10 pt-8 border-t border-[#ECECEC]">
+        <div className="flex items-center gap-2 mb-4">
+          <KeyRound size={18} className="text-[#18181B]" />
+          <h3 className="text-[15px] font-bold text-[#18181B] tracking-tight">Security & Change Password</h3>
+        </div>
+
+        {passwordError && (
+          <div className="p-3 mb-4 bg-red-50 border border-red-200 rounded-2xl text-[12px] font-medium text-red-600 text-center">
+            {passwordError}
+          </div>
+        )}
+
+        {passwordSuccess && (
+          <div className="p-3 mb-4 bg-green-50 border border-green-200 rounded-2xl text-[12px] font-semibold text-green-600 text-center">
+            ✓ {passwordSuccess}
+          </div>
+        )}
+
+        <form onSubmit={handlePasswordSubmit} className="space-y-4">
+          
+          {/* Current Password - Capsule Format */}
+          <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+            <div className="flex items-center gap-2 w-1/3">
+              <Lock size={15} className="text-[#71717A]" />
+              <label className="text-[13px] font-semibold text-[#18181B] whitespace-nowrap">Current Password</label>
+            </div>
+            <input
+              type="password"
+              name="currentPassword"
+              value={passwordData.currentPassword}
+              onChange={handlePasswordChangeInput}
+              placeholder="••••••••"
+              className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+              required
+            />
+          </div>
+
+          {/* New Password - Capsule Format */}
+          <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+            <div className="flex items-center gap-2 w-1/3">
+              <ShieldCheck size={15} className="text-[#71717A]" />
+              <label className="text-[13px] font-semibold text-[#18181B] whitespace-nowrap">New Password</label>
+            </div>
+            <input
+              type="password"
+              name="newPassword"
+              value={passwordData.newPassword}
+              onChange={handlePasswordChangeInput}
+              placeholder="Minimum 6 characters"
+              className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+              required
+            />
+          </div>
+
+          {/* Confirm New Password - Capsule Format */}
+          <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
+            <div className="flex items-center gap-2 w-1/3">
+              <ShieldCheck size={15} className="text-[#71717A]" />
+              <label className="text-[13px] font-semibold text-[#18181B] whitespace-nowrap">Confirm Password</label>
+            </div>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={passwordData.confirmPassword}
+              onChange={handlePasswordChangeInput}
+              placeholder="Re-enter new password"
+              className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+              required
+            />
+          </div>
+
+          {/* Submit Change Password Button */}
+          <div className="pt-2 text-left">
+            <button
+              type="submit"
+              disabled={passwordLoading}
+              className="auth-cta px-8 rounded-full bg-[#18181B] hover:bg-black text-white text-[13.5px] font-semibold transition-transform active:scale-[0.985]"
+            >
+              {passwordLoading ? "Updating Password..." : "Update Password"}
+            </button>
+          </div>
+
+        </form>
+      </div>
+
     </div>
   );
 };

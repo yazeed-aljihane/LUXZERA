@@ -78,24 +78,26 @@ export default function ForgotPasswordPage() {
           )}
 
           {step === 1 ? (
-            <form onSubmit={handleRequestReset} className="auth-view flex flex-col items-center gap-4 text-center">
+            <form onSubmit={handleRequestReset} className="auth-view flex flex-col gap-4 text-left">
               <div className="relative w-full">
+                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none z-10" />
                 <input
                   required
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
-                  className="auth-input px-6 text-center"
+                  className="auth-input pl-12 pr-4"
                 />
               </div>
-              <button type="submit" disabled={loading} className="auth-cta px-6 border-none flex items-center justify-center mt-1 self-center">
+              <button type="submit" disabled={loading} className="auth-cta w-full border-none flex items-center justify-center mt-1">
                 {loading ? "Sending..." : "Send Verification Code"}
               </button>
             </form>
           ) : (
-            <form onSubmit={handleResetPassword} className="auth-view flex flex-col items-center gap-4 text-center">
+            <form onSubmit={handleResetPassword} className="auth-view flex flex-col gap-4 text-left">
               <div className="relative w-full">
+                <ShieldCheck size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none z-10" />
                 <input
                   required
                   type="text"
@@ -103,20 +105,21 @@ export default function ForgotPasswordPage() {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                   placeholder="Enter 6-digit OTP code"
-                  className="auth-input px-6 text-[14px] font-bold tracking-widest text-center placeholder:font-normal placeholder:tracking-normal"
+                  className="auth-input pl-12 pr-4 text-[14px] font-bold tracking-widest placeholder:font-normal placeholder:tracking-normal"
                 />
               </div>
               <div className="relative w-full">
+                <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none z-10" />
                 <input
                   required
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Enter new secure password"
-                  className="auth-input px-6 text-center"
+                  className="auth-input pl-12 pr-4"
                 />
               </div>
-              <button type="submit" disabled={loading || successMsg.includes("Redirecting")} className="auth-cta px-6 border-none flex items-center justify-center mt-1 self-center">
+              <button type="submit" disabled={loading || successMsg.includes("Redirecting")} className="auth-cta w-full border-none flex items-center justify-center mt-1">
                 {loading ? "Resetting..." : "Reset Password"}
               </button>
             </form>

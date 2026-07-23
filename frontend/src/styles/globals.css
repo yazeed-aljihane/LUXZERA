@@ -132,6 +132,7 @@ input, button, textarea {
   font-size: 14px;
   font-weight: 500;
   outline: none;
+  text-align: left;
   font-family: 'Plus Jakarta Sans', sans-serif;
   box-sizing: border-box;
   line-height: 44px;
@@ -145,6 +146,7 @@ input, button, textarea {
 
 .auth-input::placeholder {
   color: #9CA3AF;
+  text-align: left;
 }
 
 .auth-input.text-center,

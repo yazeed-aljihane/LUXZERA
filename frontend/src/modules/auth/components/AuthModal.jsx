@@ -126,7 +126,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
         .am-overlay {
           position: fixed;
@@ -145,8 +145,8 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           box-sizing: border-box;
           background: #FFFFFF;
           border-radius: 24px;
-          border: 1px solid rgba(0,0,0,0.05);
-          box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+          border: 1px solid rgba(0,0,0,0.06);
+          box-shadow: 0 25px 60px rgba(0,0,0,0.1);
           padding: 24px 28px 20px;
           position: relative;
           
@@ -154,7 +154,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           transform: scale(${isVisible ? 1 : 0.98});
           transition: opacity 180ms ease-out, transform 180ms ease-out;
           
-          font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           -webkit-font-smoothing: antialiased;
           max-height: 100vh;
           overflow-y: hidden;
@@ -168,39 +168,44 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          background: #FAFAF9;
-          border: 1px solid #ECECEC;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+          background: #F4F4F5;
+          border: none;
+          box-shadow: none;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          color: #9CA3AF;
-          transition: all 180ms ease;
+          color: #71717A;
+          transition: background-color 180ms ease, color 180ms ease;
         }
 
         .am-close:hover {
-          background-color: #FFFFFF;
-          color: #37352F;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+          background-color: #E4E4E7;
+          color: #18181B;
+          box-shadow: none;
+        }
+
+        @keyframes am-revolve {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         .am-logo-container {
           display: flex;
-          flex-direction: column;
           align-items: center;
-          margin-bottom: 12px;
+          justify-content: center;
+          margin-bottom: 16px;
         }
 
         .am-logo-badge {
-          height: 36px;
+          height: 48px;
           width: auto;
-          margin-bottom: 6px;
+          object-fit: contain;
+          transition: transform 180ms ease;
         }
 
-        .am-logo-wordmark {
-          height: 18px;
-          width: auto;
+        .am-logo-badge.is-loading {
+          animation: am-revolve 1.2s linear infinite;
         }
 
         .am-header {
@@ -209,18 +214,19 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
 
         .am-title {
-          font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-          font-size: 32px;
+          font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+          font-size: 28px;
           font-weight: 700;
-          color: #37352F;
-          letter-spacing: -0.025em;
-          line-height: 1.15;
-          margin-bottom: 8px;
+          color: #18181B;
+          letter-spacing: -0.02em;
+          line-height: 1.2;
+          margin-bottom: 6px;
         }
 
         .am-subtitle {
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 14px;
-          color: #9B9B9B;
+          color: #71717A;
           line-height: 1.4;
         }
 
@@ -256,7 +262,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           left: 16px;
           top: 50%;
           transform: translateY(-50%);
-          color: #9CA3AF;
+          color: #18181B;
           pointer-events: none;
         }
 
@@ -264,12 +270,12 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           width: 100%;
           height: 46px;
           border-radius: 9999px;
-          border: 1px solid #ECECEC;
+          border: 1px solid #E4E4E7;
           background: #FFFFFF;
           padding: 0 16px;
           font-size: 14px;
-          color: #37352F;
-          font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, sans-serif;
+          color: #18181B;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-weight: 500;
           outline: none;
           transition: border-color 180ms ease;
@@ -474,16 +480,15 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         </button>
 
         <div className="am-logo-container">
-          <img src="/logo.png" alt="LuxZera Badge" className="am-logo-badge" />
-          <img src="/LuxZera.png" alt="LuxZera Wordmark" className="am-logo-wordmark" />
+          <img src="/zera.png" alt="LuxZera Logo" className="am-logo-badge" />
         </div>
 
         <div className="am-header">
           <h2 className="am-title">
-            {view === "register" ? "Create account." : "Welcome back."}
+            {view === "register" ? "You belong here." : "Look who's back."}
           </h2>
           <p className="am-subtitle">
-            {view === "register" ? "Join the new standard of fashion." : "Continue your style journey."}
+            {view === "register" ? "Create your account to start curating." : "Your saved items missed you."}
           </p>
         </div>
 

@@ -147,6 +147,11 @@ input, button, textarea {
   color: #9CA3AF;
 }
 
+.auth-input.text-center,
+.auth-input.text-center::placeholder {
+  text-align: center !important;
+}
+
 .auth-input:hover {
   background: #FFFFFF;
   border-color: #D4D4D8;

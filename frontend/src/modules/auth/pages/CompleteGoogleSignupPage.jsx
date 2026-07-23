@@ -35,15 +35,15 @@ export default function CompleteGoogleSignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#1D1D1F] flex items-center justify-center p-6" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="min-h-screen bg-white text-[#18181B] flex items-center justify-center p-6" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <div className="auth-surface w-full max-w-[440px] rounded-2xl p-8 sm:p-10 text-center flex flex-col gap-6 bg-white border border-[#ECECEC] shadow-sm">
         <div className="auth-content flex flex-col gap-6">
 
         <div className="flex flex-col items-center">
           <button onClick={() => navigate("/")} className="cursor-pointer flex items-center justify-center border-none bg-transparent p-0 select-none" aria-label="LuxZera home">
-            <img src="/LuxZera.png" alt="LuxZera" className="h-7 w-auto object-contain" />
+            <img src="/logo.png" alt="Zera Symbol" className="h-10 w-auto object-contain" />
           </button>
-          <h2 className="text-[26px] font-black text-[#1D1D1F] font-serif mt-5 tracking-tight">Complete Signup</h2>
+          <h2 className="text-[28px] font-bold text-[#18181B] mt-5 tracking-tight">Complete Signup</h2>
           <p className="text-[12.5px] text-[#515154] font-medium leading-relaxed mt-2 max-w-[280px]">
             Please choose a username and password to complete your Google registration for <strong className="text-[#0D1B2A]">{email}</strong>.
           </p>

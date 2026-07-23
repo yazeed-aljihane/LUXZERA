@@ -145,7 +145,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           margin: 0 16px;
           box-sizing: border-box;
           background: #FFFFFF;
-          border-radius: 24px;
+          border-radius: 20px;
           border: 1px solid rgba(0,0,0,0.06);
           box-shadow: 0 25px 60px rgba(0,0,0,0.1);
           padding: 24px 28px 20px;
@@ -265,7 +265,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-input {
           width: 100%;
           height: 46px;
-          border-radius: 9999px;
+          border-radius: 12px;
           border: 1px solid #E4E4E7;
           background: #FFFFFF;
           padding: 0 16px;
@@ -338,7 +338,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-submit {
           width: 100%;
           height: 48px;
-          border-radius: 9999px;
+          border-radius: 12px;
           background: #171717;
           color: #FFFFFF;
           border: none;
@@ -386,7 +386,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           position: relative;
           width: 100%;
           height: 44px;
-          border-radius: 9999px;
+          border-radius: 12px;
           border: 1px solid #E5E7EB;
           background: #FFFFFF;
           display: flex;
@@ -421,7 +421,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           opacity: 0.001;
           z-index: 2;
           overflow: hidden;
-          border-radius: 9999px;
+          border-radius: 12px;
           cursor: pointer;
         }
 
@@ -439,8 +439,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           background: none;
           border: none;
           padding: 0;
+          margin-left: 4px;
+          display: inline-block;
           font-size: inherit;
-          font-weight: 500;
+          font-weight: 600;
           color: #111111;
           cursor: pointer;
           transition: color 180ms ease;
@@ -562,10 +564,10 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             {isSubmitting ? (
               <>
                 <img src="/logo.png" alt="Loading" className="h-5 w-5 object-contain animate-spin" style={{ animationDuration: '1.2s' }} />
-                <span>{view === "register" ? "Creating account..." : "Signing in..."}</span>
+                <span>{view === "register" ? "Creating account..." : "Logging in..."}</span>
               </>
             ) : (
-              "Continue"
+              view === "register" ? "Create account" : "Log in"
             )}
           </button>
         </form>
@@ -627,7 +629,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
                   className="am-footer-btn"
                   onClick={() => setView("login")}
                 >
-                  Sign in
+                  Log in
                 </button>
               </>
             )}

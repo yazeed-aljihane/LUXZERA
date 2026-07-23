@@ -421,10 +421,9 @@ export default function Navbar({
             ) : (
               <button
                 onClick={onAuthClick}
-                className="flex items-center gap-1.5 text-[14px] font-medium text-[#6B7280] hover:text-[#1D1D1F] transition-colors"
+                className="flex items-center justify-center text-[13px] font-semibold text-white bg-[#18181B] hover:bg-[#000000] px-4 py-1.5 rounded-xl transition-all duration-150 shadow-sm"
               >
-                <User size={18} strokeWidth={1.5} />
-                <span>Sign In</span>
+                <span>Log in</span>
               </button>
             )}
           </div>
@@ -515,8 +514,8 @@ export default function Navbar({
 
           <button
             onClick={() => { currentUser ? handleLogout() : onAuthClick?.(); setMobileOpen(false); }}
-            className="w-full border border-[#ECECEC] text-[#1D1D1F] text-[13px] font-medium py-3 hover:text-[#F07020] hover:border-[#F07020] transition-colors rounded-full">
-            {currentUser ? "Sign Out" : "Sign In"}
+            className="w-full text-white text-[13px] font-semibold py-3 bg-[#18181B] hover:bg-[#000000] transition-colors rounded-xl shadow-sm">
+            {currentUser ? "Sign Out" : "Log in"}
           </button>
         </div>
       )}

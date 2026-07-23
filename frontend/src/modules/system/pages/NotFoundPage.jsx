@@ -44,6 +44,19 @@ export default function NotFoundPage({ isErrorFallback = false }) {
               alt="Zera Symbol" 
               className="w-28 h-28 object-contain relative z-10"
             />
+
+            {/* Seamless Integrated Pupil Tracking Eyes */}
+            <div 
+              className="absolute z-20 flex items-center justify-center gap-3.5 top-[38%]"
+              style={{ transform: `translate(${mousePos.x * 6}px, ${mousePos.y * 6}px)` }}
+            >
+              <div className="w-3 h-3 rounded-full bg-[#18181B] flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-white" />
+              </div>
+              <div className="w-3 h-3 rounded-full bg-[#18181B] flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-white" />
+              </div>
+            </div>
           </div>
         </div>
 

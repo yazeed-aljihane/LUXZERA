@@ -148,54 +148,54 @@ const AccountView = ({
         </div>
 
         {/* 1. First Name - Capsule Format */}
-        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
-          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">First Name</label>
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-6 py-3 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+          <label className="text-[13px] font-semibold text-[#37352F] w-1/3 whitespace-nowrap">First Name</label>
           <input
             type="text"
             name="firstName"
             value={formData.firstName || ""}
             onChange={onFormChange}
             placeholder="Enter first name"
-            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+            className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium w-2/3 placeholder-[#9B9B9B]"
             required
           />
         </div>
 
         {/* 2. Last Name - Capsule Format */}
-        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
-          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Last Name</label>
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-6 py-3 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+          <label className="text-[13px] font-semibold text-[#37352F] w-1/3 whitespace-nowrap">Last Name</label>
           <input
             type="text"
             name="lastName"
             value={formData.lastName || ""}
             onChange={onFormChange}
             placeholder="Enter last name"
-            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+            className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium w-2/3 placeholder-[#9B9B9B]"
             required
           />
         </div>
 
         {/* 3. Mobile Number - Capsule Format */}
-        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
-          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Mobile Number</label>
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-6 py-3 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+          <label className="text-[13px] font-semibold text-[#37352F] w-1/3 whitespace-nowrap">Mobile Number</label>
           <input
             type="text"
             name="phoneNumber"
             value={formData.phoneNumber || ""}
             onChange={onFormChange}
             placeholder="Enter mobile number"
-            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+            className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium w-2/3 placeholder-[#9B9B9B]"
           />
         </div>
 
         {/* 4. Gender - Capsule Format */}
-        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
-          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Gender</label>
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-6 py-3 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+          <label className="text-[13px] font-semibold text-[#37352F] w-1/3 whitespace-nowrap">Gender</label>
           <select
             name="gender"
             value={formData.gender || ""}
             onChange={onFormChange}
-            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium cursor-pointer appearance-none w-2/3"
+            className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium cursor-pointer appearance-none w-2/3"
           >
             <option value="">Select Gender</option>
             <option value="MALE">Male</option>
@@ -205,36 +205,36 @@ const AccountView = ({
         </div>
 
         {/* 5. Date of Birth - Capsule Format */}
-        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
-          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Date of Birth</label>
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-6 py-3 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+          <label className="text-[13px] font-semibold text-[#37352F] w-1/3 whitespace-nowrap">Date of Birth</label>
           <input
             type="date"
             name="dateOfBirth"
             value={formData.dateOfBirth || ""}
             onChange={onFormChange}
-            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium cursor-pointer w-2/3"
+            className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium cursor-pointer w-2/3"
           />
         </div>
 
         {/* 6. Biography - Capsule Format */}
-        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-5 py-2.5 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#18181B] focus-within:ring-1 focus-within:ring-[#18181B]">
-          <label className="text-[13px] font-semibold text-[#18181B] w-1/3 whitespace-nowrap">Biography</label>
+        <div className="relative w-full rounded-full bg-[#FAFAF9] border border-[#E7E3DD] px-6 py-3 flex items-center justify-between transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+          <label className="text-[13px] font-semibold text-[#37352F] w-1/3 whitespace-nowrap">Biography</label>
           <input
             type="text"
             name="bio"
             value={formData.bio || ""}
             onChange={onFormChange}
             placeholder="Tell us about yourself"
-            className="text-[13px] text-right bg-transparent outline-none text-[#18181B] font-medium w-2/3 placeholder-[#9CA3AF]"
+            className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium w-2/3 placeholder-[#9B9B9B]"
           />
         </div>
 
         {/* Save Profile Button */}
-        <div className="pt-2 text-left">
+        <div className="pt-3 text-left">
           <button
             type="submit"
             disabled={saving}
-            className="auth-cta px-8 rounded-full bg-[#18181B] hover:bg-black text-white text-[13.5px] font-semibold transition-transform active:scale-[0.985]"
+            className="px-8 py-3 rounded-full bg-[#F07020] hover:bg-[#d65f14] text-white text-[13.5px] font-semibold shadow-sm transition-all active:scale-[0.985] disabled:opacity-50"
           >
             {saving ? "Saving Changes..." : "Save Profile Details"}
           </button>

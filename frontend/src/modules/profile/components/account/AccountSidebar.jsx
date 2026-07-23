@@ -1,8 +1,9 @@
-import { User, MapPin, Sliders, CreditCard, Package, LifeBuoy, ChevronRight } from "lucide-react";
+import { User, Lock, MapPin, Sliders, CreditCard, Package, LifeBuoy, ChevronRight } from "lucide-react";
 
 const AccountSidebar = ({ activeTab = 'profile', onTabChange }) => {
   const menuItems = [
     { id: 'profile', label: 'My Profile', icon: User },
+    { id: 'password', label: 'Password & Security', icon: Lock },
     { id: 'orders', label: 'My Orders', icon: Package },
     { id: 'addresses', label: 'Saved Addresses', icon: MapPin },
     { id: 'measurements', label: 'Measurements Fit', icon: Sliders },

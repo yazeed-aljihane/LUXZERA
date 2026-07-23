@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AccountSidebar from "@/modules/profile/components/account/AccountSidebar";
 import AccountView from "@/modules/profile/components/account/AccountView";
+import PasswordView from "@/modules/profile/components/account/PasswordView";
 import AddressManagementView from "@/modules/profile/components/account/AddressManagementView";
 import MeasurementsView from "@/modules/profile/components/account/MeasurementsView";
 import PaymentMethodsView from "@/modules/profile/components/account/PaymentMethodsView";
@@ -229,6 +230,10 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
                       />
                     )}
                   </>
+                )}
+
+                {activeTab === "password" && (
+                  <PasswordView userId={user.id} />
                 )}
 
                 {activeTab === "addresses" && (

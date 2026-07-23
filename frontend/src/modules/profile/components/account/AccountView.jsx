@@ -13,6 +13,7 @@ const AccountView = ({
   errorMsg 
 }) => {
   const [localPreview, setLocalPreview] = useState(null);
+  const [emailCopied, setEmailCopied] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleImageUpload = (e) => {
@@ -33,12 +34,31 @@ const AccountView = ({
     onFormChange(e);
   };
 
+  const handleCopyEmail = () => {
+    const email = user?.email;
+    if (email) {
+      navigator.clipboard.writeText(email);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 1500);
+    }
+  };
+
   const profileImage = localPreview || profile?.profilePicture || user?.profilePicture || user?.avatarUrl || null;
   const initial = user?.firstName?.[0] || user?.email?.[0] || "U";
   const fullName = user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : (user?.firstName || "Unnamed User");
 
   return (
     <div className="relative font-['Plus_Jakarta_Sans',sans-serif]">
+      <style>{`
+        @keyframes fade-out {
+          0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+          70% { opacity: 1; }
+          100% { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+        }
+        .animate-fade-out {
+          animation: fade-out 1.5s ease-out forwards;
+        }
+      `}</style>
       {saving && (
         <div className="absolute inset-0 z-30 flex items-center justify-center bg-white/60 rounded-2xl">
           <Loader />
@@ -55,7 +75,7 @@ const AccountView = ({
       <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         
         {/* Left Side: Avatar Section with Divider */}
-        <div className="md:col-span-4 flex flex-col items-center justify-start pt-1 text-center md:border-r md:border-[#ECECEC]/70 md:pr-8">
+        <div className="md:col-span-4 flex flex-col items-center justify-start pt-1 text-center md:pr-8">
           <div className="relative group cursor-pointer mb-4" onClick={() => fileInputRef.current?.click()}>
             <input 
               type="file" 
@@ -81,7 +101,20 @@ const AccountView = ({
           </div>
 
           <h3 className="text-[16px] font-bold text-[#37352F] tracking-tight">{fullName}</h3>
-          <p className="text-[12px] text-[#9B9B9B] font-medium mt-0.5 mb-3 break-all max-w-[200px]">{user?.email}</p>
+          <div className="relative">
+            <p
+              onClick={handleCopyEmail}
+              className="text-[12px] text-[#9B9B9B] font-medium mt-0.5 mb-3 truncate w-full max-w-[240px] cursor-pointer hover:text-[#F07020] transition-colors"
+              title="Click to copy email"
+            >
+              {user?.email}
+            </p>
+            {emailCopied && (
+              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-[#F07020] animate-fade-out whitespace-nowrap">
+                Email copied!
+              </span>
+            )}
+          </div>
 
           <button 
             type="button" 
@@ -93,13 +126,10 @@ const AccountView = ({
         </div>
 
         {/* Right Side: Parallel Fields Container */}
-        <div className="md:col-span-8 space-y-4 md:pl-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-[16px] font-bold text-[#37352F] tracking-tight">Personal Profile Details</h3>
-          </div>
+        <div className="md:col-span-8 space-y-2 md:pl-4">
 
           {/* 1. First Name */}
-          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+          <span className="flex items-center gap-6 py-2  group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">First Name</label>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
@@ -117,7 +147,7 @@ const AccountView = ({
           </span>
 
           {/* 2. Last Name */}
-          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+          <span className="flex items-center gap-6 py-2  group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Last Name</label>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
@@ -135,7 +165,7 @@ const AccountView = ({
           </span>
 
           {/* 3. Mobile Number with 10-digit Regex */}
-          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+          <span className="flex items-center gap-6 py-2  group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Mobile Number</label>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
@@ -154,7 +184,7 @@ const AccountView = ({
           </span>
 
           {/* 4. Gender */}
-          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+          <span className="flex items-center gap-6 py-2  group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Gender</label>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <select
@@ -173,7 +203,7 @@ const AccountView = ({
           </span>
 
           {/* 5. Date of Birth */}
-          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+          <span className="flex items-center gap-6 py-2  group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Date of Birth</label>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
@@ -188,7 +218,7 @@ const AccountView = ({
           </span>
 
           {/* 6. Biography */}
-          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+          <span className="flex items-center gap-6 py-2  group w-full">
             <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Biography</label>
             <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input

@@ -501,7 +501,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         </button>
 
         <div className="am-logo-container">
-          <img src="/logo.png" alt="Zera Logo" className={`am-logo-badge ${isSubmitting ? "animate-spin" : ""}`} style={isSubmitting ? { animationDuration: '1.2s' } : {}} />
+          <img src="/logo.png" alt="Zera Logo" className="am-logo-badge" />
         </div>
 
         <div className="am-header">

@@ -3,7 +3,7 @@
  * Technical details, network errors, SMTP logs, and backend exceptions are logged strictly to console.error.
  * User-facing UI messages are kept friendly, polished, and free of developer/infrastructure jargon.
  */
-export function formatErrorMessage(err, fallback = "Unable to process request. Please try again.") {
+export function formatErrorMessage(err, fallback = "Our servers are busy right now. Please try a few minutes later.") {
   if (!err) return fallback;
 
   // Always log full technical error details strictly to browser console for developer debugging
@@ -43,7 +43,7 @@ export function formatErrorMessage(err, fallback = "Unable to process request. P
   const isTechnicalError = !rawMessage || technicalKeywords.some(kw => lowerRaw.includes(kw));
 
   if (isTechnicalError) {
-    return fallback || "Unable to process request right now. Please try again in a moment.";
+    return "Our servers are busy right now. Please try a few minutes later.";
   }
 
   return rawMessage;

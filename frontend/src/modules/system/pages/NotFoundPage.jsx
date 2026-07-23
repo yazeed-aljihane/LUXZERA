@@ -56,8 +56,8 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                 <div className="w-3.5 h-[2.5px] bg-[#18181B] rounded-full transform rotate-12" />
               </div>
 
-              {/* Mesmerized Sparkly Eyes Container with Rosy Blush */}
-              <div className="relative flex items-center justify-center gap-3 animate-[blink_4s_infinite]">
+              {/* Mesmerized Wide Open Eyes Container with Rosy Blush */}
+              <div className="relative flex items-center justify-center gap-3">
                 {/* Soft Rosy Blush Cheeks */}
                 <div className="absolute -left-3 top-2 w-3 h-1.5 rounded-full bg-[#F07020]/30 blur-[0.5px]" />
                 <div className="absolute -right-3 top-2 w-3 h-1.5 rounded-full bg-[#F07020]/30 blur-[0.5px]" />
@@ -69,7 +69,7 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                     <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
                   </>
                 ) : (
-                  // Mesmerized Starry Child-like Eyes
+                  // Wide Open Mesmerized Child-like Eyes
                   <>
                     <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] relative shadow-sm">
                       {/* Main Glossy Catchlight */}
@@ -87,10 +87,10 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                 )}
               </div>
 
-              {/* Excited Open Happy Smile Mouth */}
+              {/* Mesmerized Open :o Wonder Mouth Expression */}
               <div className="mt-1.5 opacity-95">
-                <svg width="20" height="9" viewBox="0 0 20 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M 3 2 Q 10 9.5 17 2 Z" fill="#18181B" />
+                <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="5" r="3.5" fill="#18181B" />
                 </svg>
               </div>
             </div>

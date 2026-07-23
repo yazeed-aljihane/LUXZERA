@@ -69,19 +69,19 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                     <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
                   </>
                 ) : (
-                  // Wide Open Mesmerized Child-like Eyes
+                  // Enlarged Wide Open Mesmerized Child-like Eyes
                   <>
-                    <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] relative shadow-sm">
-                      {/* Main Glossy Catchlight */}
-                      <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-0.5 left-1" />
+                    <div className="w-[28px] h-[28px] rounded-full bg-[#18181B] relative shadow-sm">
+                      {/* Primary Glossy Catchlight */}
+                      <div className="w-[9px] h-[9px] rounded-full bg-white absolute top-1 left-1.5" />
                       {/* Secondary Wonder Sparkle */}
-                      <div className="w-1 h-1 rounded-full bg-white/90 absolute bottom-1 right-1" />
+                      <div className="w-[4px] h-[4px] rounded-full bg-white/90 absolute bottom-1.5 right-1.5" />
                     </div>
-                    <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] relative shadow-sm">
-                      {/* Main Glossy Catchlight */}
-                      <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-0.5 left-1" />
+                    <div className="w-[28px] h-[28px] rounded-full bg-[#18181B] relative shadow-sm">
+                      {/* Primary Glossy Catchlight */}
+                      <div className="w-[9px] h-[9px] rounded-full bg-white absolute top-1 left-1.5" />
                       {/* Secondary Wonder Sparkle */}
-                      <div className="w-1 h-1 rounded-full bg-white/90 absolute bottom-1 right-1" />
+                      <div className="w-[4px] h-[4px] rounded-full bg-white/90 absolute bottom-1.5 right-1.5" />
                     </div>
                   </>
                 )}

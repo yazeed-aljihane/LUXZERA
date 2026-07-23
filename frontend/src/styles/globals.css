@@ -113,7 +113,7 @@ body {
 .auth-input {
   width: 100%;
   height: 46px;
-  border-radius: 12px;
+  border-radius: 9999px;
   border: 1px solid #E4E4E7;
   background: #FFFFFF;
   color: #18181B;
@@ -145,7 +145,7 @@ body {
 
 .auth-cta {
   height: 48px;
-  border-radius: 12px;
+  border-radius: 9999px;
   background: #18181B;
   color: #FFFFFF;
   font-size: 14px;

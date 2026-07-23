@@ -265,7 +265,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-input {
           width: 100%;
           height: 46px;
-          border-radius: 12px;
+          border-radius: 9999px;
           border: 1px solid #E4E4E7;
           background: #FFFFFF;
           padding: 0 16px;
@@ -338,7 +338,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         .am-submit {
           width: 100%;
           height: 48px;
-          border-radius: 12px;
+          border-radius: 9999px;
           background: #171717;
           color: #FFFFFF;
           border: none;
@@ -386,7 +386,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           position: relative;
           width: 100%;
           height: 44px;
-          border-radius: 12px;
+          border-radius: 9999px;
           border: 1px solid #E5E7EB;
           background: #FFFFFF;
           display: flex;
@@ -421,7 +421,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           opacity: 0.001;
           z-index: 2;
           overflow: hidden;
-          border-radius: 12px;
+          border-radius: 9999px;
           cursor: pointer;
         }
 

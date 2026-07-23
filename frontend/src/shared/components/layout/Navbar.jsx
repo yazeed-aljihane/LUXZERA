@@ -421,7 +421,7 @@ export default function Navbar({
             ) : (
               <button
                 onClick={onAuthClick}
-                className="flex items-center justify-center text-[13px] font-semibold text-white bg-[#18181B] hover:bg-[#000000] px-4 py-1.5 rounded-xl transition-all duration-150 shadow-sm"
+                className="flex items-center justify-center text-[13px] font-semibold text-white bg-[#18181B] hover:bg-[#000000] px-4 py-1.5 rounded-full transition-all duration-150 shadow-sm"
               >
                 <span>Log in</span>
               </button>

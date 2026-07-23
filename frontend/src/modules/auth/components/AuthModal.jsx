@@ -192,20 +192,20 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-logo-container {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          margin-bottom: 16px;
+          margin-bottom: 12px;
         }
 
         .am-logo-badge {
-          height: 48px;
+          height: 36px;
           width: auto;
-          object-fit: contain;
-          transition: transform 180ms ease;
+          margin-bottom: 6px;
         }
 
-        .am-logo-badge.is-loading {
-          animation: am-revolve 1.2s linear infinite;
+        .am-logo-wordmark {
+          height: 18px;
+          width: auto;
         }
 
         .am-header {
@@ -480,11 +480,8 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         </button>
 
         <div className="am-logo-container">
-          <img 
-            src="/zera.png" 
-            alt="LuxZera Logo" 
-            className={`am-logo-badge ${isSubmitting ? "is-loading" : ""}`} 
-          />
+          <img src="/logo.png" alt="LuxZera Badge" className={`am-logo-badge ${isSubmitting ? "animate-spin" : ""}`} style={isSubmitting ? { animationDuration: '1.2s' } : {}} />
+          <img src="/LuxZera.png" alt="LuxZera Wordmark" className="am-logo-wordmark" />
         </div>
 
         <div className="am-header">
@@ -569,7 +566,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           <button type="submit" className="am-submit flex items-center justify-center gap-2" disabled={isSubmitting}>
             {isSubmitting ? (
               <>
-                <img src="/zera.png" alt="Loading" className="h-5 w-5 object-contain animate-spin" style={{ animationDuration: '1.2s' }} />
+                <img src="/logo.png" alt="Loading" className="h-5 w-5 object-contain animate-spin" style={{ animationDuration: '1.2s' }} />
                 <span>{view === "register" ? "Creating account..." : "Signing in..."}</span>
               </>
             ) : (

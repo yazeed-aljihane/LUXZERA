@@ -1,69 +1,125 @@
+# LuxZera | Modern AI-Powered Luxury E-Commerce Ecosystem
 
+LuxZera is a high-performance, intelligent luxury e-commerce platform built with Spring Boot 3.3.2 and React. Integrating natural language vector embeddings with a decoupled micro-architecture, LuxZera delivers context-aware semantic product discovery and production-grade security.
 
-# Luxzera | AI-Powered E-Commerce Platform
-
-Luxzera is a high-performance, intelligent e-commerce ecosystem designed to elevate the online shopping experience. By integrating advanced Natural Language Processing (NLP) with a scalable micro-services architecture, Luxzera moves beyond traditional keyword-based retrieval to provide context-aware product discovery.
+---
 
 ## 🏛 System Architecture
 
-The following sequence illustrates the high-performance data flow between the user and our AI engine.
+The LuxZera architecture decouples presentation, security filtering, domain microservices, and external integrations (Database, AI Inference, and SMTP Email dispatch).
+
+### Component Flowchart
+
+```mermaid
+flowchart TD
+    subgraph Client ["Frontend Layer (Vite + React)"]
+        UI["React SPA & Custom Design System"]
+        AuthModal["Auth Modal & Google OAuth 2.0"]
+        SearchUI["AI Natural Language Search Bar"]
+        Gateway["API Gateway Interceptor"]
+    end
+
+    subgraph Security ["Security & Gateway Layer"]
+        SecurityConfig["Spring Security 6 & SecurityFilterChain"]
+        JWTFilter["JwtAuthenticationFilter"]
+        HealthCtrl["HealthController (GET / & /health)"]
+    end
+
+    subgraph Backend ["Backend Microservices (Spring Boot 3.3.2 / Java 17)"]
+        AuthService["AuthServiceImpl & OtpService"]
+        EmailService["EmailServiceImpl (Thymeleaf SMTP)"]
+        ProductService["Product & AI Search Service"]
+    end
+
+    subgraph External ["Data & Third-Party Integration Layer"]
+        Postgres[(Neon PostgreSQL Database)]
+        GmailSMTP["Gmail SMTP Server (Port 587)"]
+        GoogleOAuth["Google Identity Provider"]
+        HuggingFace["Hugging Face AI (BGE-M3 Embeddings)"]
+        CloudStorage["Cloudflare R2 / AWS S3 Storage"]
+    end
+
+    UI --> Gateway
+    AuthModal --> GoogleOAuth
+    Gateway -->|HTTP / REST API| SecurityConfig
+    SecurityConfig --> JWTFilter
+    JWTFilter --> HealthCtrl
+    JWTFilter --> AuthService
+    JWTFilter --> ProductService
+
+    AuthService --> EmailService
+    EmailService -->|SMTP Dispatch| GmailSMTP
+    AuthService -->|JPA / Hibernate| Postgres
+    ProductService -->|JPA / Hibernate| Postgres
+    ProductService -->|Vector Inference| HuggingFace
+    ProductService -->|Media Storage| CloudStorage
+```
+
+### AI Search Sequence Diagram
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant Frontend
-    participant Backend as Spring Boot
-    participant AI as Hugging Face
-    
-    User->>Frontend: Enters Search Query
-    Frontend->>Backend: GET /api/search/ai?query=...
-    Backend->>AI: POST /inference (Vector Embedding)
-    AI-->>Backend: Returns Semantic Results
-    Backend-->>Frontend: JSON Product Data
-    Frontend-->>User: Displays Intelligent Matches
+    autonumber
+    actor User
+    participant Frontend as Vite + React SPA
+    participant Backend as Spring Boot API Gateway
+    participant DB as Neon PostgreSQL
+    participant AI as Hugging Face AI Engine
 
+    User->>Frontend: Enters natural language query
+    Frontend->>Backend: GET /api/search/ai?query=...
+    Backend->>AI: POST /inference (BGE-M3 Vector Embedding)
+    AI-->>Backend: Returns Semantic Vector Payload
+    Backend->>DB: Executes Vector Nearest-Neighbor Query
+    DB-->>Backend: Returns Matching Product Records
+    Backend-->>Frontend: JSON Product Data Response
+    Frontend-->>User: Displays Intelligent Match Cards
 ```
+
+---
 
 ## 📂 Project Structure
 
-A modular, service-oriented design ensures maintainability and clear separation of concerns.
-
 ```text
-server/src/main/java/com/luxzera/server/
-├── auth/          # JWT, Security Filters, Authentication
-├── config/        # WebClient, SecurityConfig, Bean Definitions
-├── products/      # Core Product Management
-│   ├── search/    # Dedicated AI-Powered Discovery Module
-│   │   ├── controller/
-│   │   └── service/
-│   └── controller/# Standard CRUD Operations
-└── user/          # User Profiles & Data Management
-
+LUXZERA/
+├── frontend/                     # React + Vite Frontend Application
+│   ├── src/
+│   │   ├── app/                  # Application Root & Mounting
+│   │   ├── infrastructure/       # API Gateway & Axios Configuration
+│   │   ├── modules/
+│   │   │   ├── auth/             # Auth Modal, OTP, Google OAuth & Pages
+│   │   │   ├── products/         # Product Catalog & AI Search
+│   │   │   └── profile/          # User Settings & Profile Views
+│   │   └── shared/               # UI Components, Token & Error Utils
+│   └── public/                   # Static Assets & Logos
+│
+└── server/                       # Spring Boot 3.3.2 Backend Service
+    └── src/main/java/com/luxzera/server/
+        ├── admin/                # Admin Management & Onboarding
+        ├── auth/                 # JWT Auth, SecurityConfig & OTP Service
+        ├── common/               # Health Checks & Shared Utilities
+        ├── email/                # EmailServiceImpl & Thymeleaf Templates
+        ├── products/             # Product Management & AI Search Service
+        └── user/                 # User Profile & Data Access Layer
 ```
+
+---
 
 ## 🛠 Technical Stack
 
-* **Frontend:** React.js, Tailwind CSS (Minimalist/Futuristic UI)
-* **Backend:** Java 17, Spring Boot 3.3.2, JPA/Hibernate
-* **AI Engine:** Hugging Face API (BGE-M3 Embeddings)
-* **Infrastructure:** PostgreSQL, JWT (Spring Security)
-* **Networking:** Spring WebFlux (Non-blocking I/O)
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React.js, Vite, Tailwind CSS, Lucide Icons, Google GSI |
+| **Backend** | Java 17, Spring Boot 3.3.2, Spring Security, Spring WebFlux |
+| **Database & ORM** | Neon PostgreSQL, JPA / Hibernate |
+| **AI Inference** | Hugging Face API (`BGE-M3` Vector Model) |
+| **Email & Delivery**| JavaMailSender, Thymeleaf Templates, Gmail SMTP |
+| **Storage & Storage**| Cloudflare R2 / AWS S3 SDK |
 
-## 🚀 Engineering Highlights
-
-* **Semantic Discovery:** Implemented a decoupled search service that interprets natural language queries, transforming user intent into actionable semantic search vectors.
-* **Security & Auth:** Architected a secure authentication flow using Spring Security and JWT, ensuring data integrity and authenticated API access.
-* **Modularity:** Adhered to strict MVC patterns, isolating the AI integration layer to ensure the core product management system remains performant and maintainable.
-* **Efficient Communication:** Leveraged Spring WebClient for efficient, non-blocking asynchronous communication with external AI providers.
+---
 
 ## ⚖️ License & Copyright
 
 © 2026 Saketh Chokkapu. All rights reserved.
 
-The content, architecture, and design of this project are the intellectual property of Saketh Chokkapu. Unauthorized reproduction, distribution, or use of this source code and project documentation is prohibited.
-
----
-
-
-
-add 
+The content, architecture, and design of this project are the intellectual property of Saketh Chokkapu. Unauthorized reproduction or distribution is strictly prohibited.

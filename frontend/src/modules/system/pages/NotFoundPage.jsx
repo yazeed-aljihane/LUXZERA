@@ -45,16 +45,16 @@ export default function NotFoundPage({ isErrorFallback = false }) {
               className="w-28 h-28 object-contain relative z-10"
             />
 
-            {/* Seamless Integrated Pupil Tracking Eyes */}
+            {/* Adorable Cute Round Cat Pupils */}
             <div 
-              className="absolute z-20 flex items-center justify-center gap-3.5 top-[38%]"
+              className="absolute z-20 flex items-center justify-center gap-3.5 top-[37%]"
               style={{ transform: `translate(${mousePos.x * 6}px, ${mousePos.y * 6}px)` }}
             >
-              <div className="w-3 h-3 rounded-full bg-[#18181B] flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-white" />
+              <div className="w-5 h-5 rounded-full bg-[#18181B] relative shadow-sm">
+                <div className="w-2 h-2 rounded-full bg-white absolute top-0.5 left-1" />
               </div>
-              <div className="w-3 h-3 rounded-full bg-[#18181B] flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-white" />
+              <div className="w-5 h-5 rounded-full bg-[#18181B] relative shadow-sm">
+                <div className="w-2 h-2 rounded-full bg-white absolute top-0.5 left-1" />
               </div>
             </div>
           </div>

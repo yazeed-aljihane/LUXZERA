@@ -53,6 +53,11 @@ input, button, textarea {
 .scale-103 { transform: scale(1.03); }
 .group:hover .group-hover\:scale-103 { transform: scale(1.03); }
 
+@keyframes blink {
+  0%, 95%, 100% { transform: scaleY(1); }
+  97.5% { transform: scaleY(0.1); }
+}
+
 /* ── Fade-in-up animation ── */
 @keyframes fadeInUp {
   from {

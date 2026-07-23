@@ -215,15 +215,18 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           font-weight: 700;
           color: #18181B;
           letter-spacing: -0.02em;
-          line-height: 1.2;
-          margin-bottom: 6px;
+          line-height: 1.25;
+          margin-bottom: 8px;
         }
 
         .am-subtitle {
           font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 14px;
+          font-weight: 400;
           color: #71717A;
-          line-height: 1.4;
+          line-height: 1.55;
+          max-width: 320px;
+          margin: 0 auto;
         }
 
         .am-error {

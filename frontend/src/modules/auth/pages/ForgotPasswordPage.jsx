@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
               <img src="/logo.png" alt="Zera Symbol" className="h-12 w-auto object-contain" />
             </button>
             <h2 className="text-[28px] font-bold text-[#18181B] mt-5 tracking-tight">Reset Password</h2>
-            <p className="text-[14px] text-[#71717A] font-medium leading-relaxed mt-2 max-w-[320px]">
+            <p className="text-[14px] text-[#71717A] font-normal leading-relaxed mt-2 max-w-[320px] mx-auto">
               {step === 1
                 ? "Enter your email address and we'll send you an OTP code to verify your identity."
                 : "Enter the OTP verification code and choose your new secure password."}

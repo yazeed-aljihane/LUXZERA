@@ -57,18 +57,18 @@ export default function NotFoundPage({ isErrorFallback = false }) {
               className="w-28 h-28 object-contain relative z-10"
             />
 
-            {/* Facial Expressions: Mesmerized Child-like Wonder & Excitement */}
+            {/* Facial Expressions: Gentle Warm Smile (Rest) vs Mesmerized Wonder (Moving) */}
             <div 
-              className="absolute z-20 flex flex-col items-center justify-center top-[30%]"
-              style={{ transform: `translate(${mousePos.x * 6}px, ${mousePos.y * 6}px)` }}
+              className="absolute z-20 flex flex-col items-center justify-center top-[30%] transition-transform duration-300 ease-out"
+              style={{ transform: `translate(${isMoving ? mousePos.x * 6 : 0}px, ${isMoving ? mousePos.y * 6 : 0}px)` }}
             >
-              {/* Excited Wonder Eyebrows */}
-              <div className="flex items-center gap-6 mb-1 opacity-90">
-                <div className="w-3.5 h-[2.5px] bg-[#18181B] rounded-full transform -rotate-12" />
-                <div className="w-3.5 h-[2.5px] bg-[#18181B] rounded-full transform rotate-12" />
+              {/* Eyebrows: Relaxed Warm when stationary, Wonder Arched when moving */}
+              <div className="flex items-center gap-6 mb-1 opacity-90 transition-all duration-300">
+                <div className={`w-3.5 h-[2.5px] bg-[#18181B] rounded-full transform transition-transform duration-300 ${isMoving ? '-rotate-12' : '-rotate-3'}`} />
+                <div className={`w-3.5 h-[2.5px] bg-[#18181B] rounded-full transform transition-transform duration-300 ${isMoving ? 'rotate-12' : 'rotate-3'}`} />
               </div>
 
-              {/* Mesmerized Wide Open Eyes Container with Rosy Blush */}
+              {/* Wide Open Eyes Container with Rosy Blush */}
               <div className="relative flex items-center justify-center gap-3">
                 {/* Soft Rosy Blush Cheeks */}
                 <div className="absolute -left-3 top-2 w-3 h-1.5 rounded-full bg-[#F07020]/30 blur-[0.5px]" />
@@ -81,7 +81,7 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                     <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
                   </>
                 ) : (
-                  // Compact Wide Open Mesmerized Child-like Eyes
+                  // Compact Wide Open Eyes (Looks straight forward at user when stationary)
                   <>
                     <div className="w-4 h-4 rounded-full bg-[#18181B] relative shadow-sm">
                       {/* Primary Glossy Catchlight */}
@@ -99,7 +99,7 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                 )}
               </div>
 
-              {/* Dynamic Mouth Expression: Normal Smile when stationary vs Mesmerized :o when cursor moves */}
+              {/* Dynamic Mouth Expression: Gentle Smile when stationary vs Mesmerized :o when cursor moves */}
               <div className="mt-1.5 opacity-95 transition-all duration-200">
                 {isMoving ? (
                   // Mesmerized Open :o Wonder Mouth when active
@@ -107,9 +107,9 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                     <circle cx="10" cy="5" r="3.5" fill="#18181B" />
                   </svg>
                 ) : (
-                  // Normal Cute Smile seeing the user when stationary
-                  <svg width="20" height="8" viewBox="0 0 20 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 3 2 C 6 7, 10 7, 10 2 C 10 7, 14 7, 17 2" stroke="#18181B" strokeWidth="1.8" strokeLinecap="round" />
+                  // Gentle Warm Smile seeing the user when stationary
+                  <svg width="20" height="9" viewBox="0 0 20 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 4 2 Q 10 7.5 16 2" stroke="#18181B" strokeWidth="1.8" strokeLinecap="round" fill="none" />
                   </svg>
                 )}
               </div>

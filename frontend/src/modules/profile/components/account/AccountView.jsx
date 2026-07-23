@@ -52,10 +52,10 @@ const AccountView = ({
       )}
 
       {/* Parallel Single Frame Layout: Left Image Column + Right Fields Column */}
-      <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         
         {/* Left Side: Avatar Section with Divider */}
-        <div className="md:col-span-4 flex flex-col items-center justify-center text-center md:border-r md:border-[#ECECEC]/70 md:pr-8">
+        <div className="md:col-span-4 flex flex-col items-center justify-start pt-1 text-center md:border-r md:border-[#ECECEC]/70 md:pr-8">
           <div className="relative group cursor-pointer mb-4" onClick={() => fileInputRef.current?.click()}>
             <input 
               type="file" 

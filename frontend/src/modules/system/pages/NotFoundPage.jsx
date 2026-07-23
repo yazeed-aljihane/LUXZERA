@@ -18,25 +18,16 @@ export default function NotFoundPage({ isErrorFallback = false }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9] flex flex-col items-center justify-center relative overflow-hidden font-['Plus_Jakarta_Sans',sans-serif] selection:bg-[#F07020] selection:text-white px-6">
-      {/* Soft Ambient Radial Blurs - Fully blended without sharp edges */}
-      <div 
-        className="absolute top-[15%] left-[20%] w-96 h-96 bg-[#F07020]/5 rounded-full blur-[120px] transition-transform duration-500 ease-out pointer-events-none"
-        style={{ transform: `translate(${mousePos.x * -35}px, ${mousePos.y * -35}px)` }}
-      />
-      <div 
-        className="absolute bottom-[15%] right-[20%] w-96 h-96 bg-[#18181B]/5 rounded-full blur-[120px] transition-transform duration-500 ease-out pointer-events-none"
-        style={{ transform: `translate(${mousePos.x * 45}px, ${mousePos.y * 45}px)` }}
-      />
-
-      {/* Main Content Card - Seamless blending */}
-      <div className="z-10 flex flex-col items-center text-center max-w-md mx-auto">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center relative overflow-hidden font-['Plus_Jakarta_Sans',sans-serif] selection:bg-[#F07020] selection:text-white px-6">
+      
+      {/* Main Content Container - 100% Seamless Pure White Blending */}
+      <div className="z-10 flex flex-col items-center text-center max-w-md mx-auto py-12">
         
         {/* Animated 404 Mascot Canvas */}
         <div className="relative w-72 h-56 flex items-center justify-center mb-6">
-          {/* Subtle Background 404 Typography */}
+          {/* Subtle Background 404 Text */}
           <div 
-            className="absolute inset-0 flex items-center justify-center text-[140px] font-extrabold text-[#18181B]/[0.05] tracking-tighter select-none transition-transform duration-300 ease-out pointer-events-none"
+            className="absolute inset-0 flex items-center justify-center text-[140px] font-extrabold text-[#18181B]/[0.04] tracking-tighter select-none transition-transform duration-300 ease-out pointer-events-none"
             style={{ transform: `translate(${mousePos.x * 12}px, ${mousePos.y * 12}px)` }}
           >
             404
@@ -47,14 +38,11 @@ export default function NotFoundPage({ isErrorFallback = false }) {
             className="relative flex flex-col items-center justify-center transition-transform duration-150 ease-out"
             style={{ transform: `translate(${mousePos.x * 24}px, ${mousePos.y * 24}px)` }}
           >
-            {/* Soft Mascot Glow */}
-            <div className="absolute inset-0 bg-[#F07020]/10 rounded-full blur-2xl transform scale-125 pointer-events-none" />
-            
             {/* Zera Logo Badge Mascot */}
             <img 
               src="/logo.png" 
               alt="Zera Mascot" 
-              className="w-28 h-28 object-contain relative z-10 filter drop-shadow-sm transition-transform duration-300 hover:scale-105"
+              className="w-28 h-28 object-contain relative z-10"
             />
             
             {/* Animated Interactive Eyes Expression */}
@@ -85,12 +73,12 @@ export default function NotFoundPage({ isErrorFallback = false }) {
 
         {/* Heading & Subtitle with strict contrast & controlled line length */}
         <h1 className="text-[28px] font-bold text-[#18181B] tracking-tight mb-2">
-          {isErrorFallback ? "Oops! Something went wrong." : "Page not found."}
+          {isErrorFallback ? "Oops! Something went wrong." : "You look a little lost."}
         </h1>
         <p className="text-[14px] text-[#71717A] font-normal leading-relaxed mb-8 max-w-[340px] mx-auto">
           {isErrorFallback 
             ? "Our servers encountered an issue. Let's get you back to safety."
-            : "The page you are looking for doesn't exist or has been moved."}
+            : "The page you're looking for doesn't exist or has been moved. Let's get you back to the latest drops."}
         </p>
 
         {/* Compact Rounded Pill CTA */}

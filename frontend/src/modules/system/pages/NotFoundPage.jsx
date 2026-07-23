@@ -45,31 +45,25 @@ export default function NotFoundPage({ isErrorFallback = false }) {
               className="w-28 h-28 object-contain relative z-10"
             />
             
-            {/* Animated Interactive Eyes Expression - Cute & Large glossy style */}
+            {/* Animated Interactive Eyes Expression - Balanced Cute proportions */}
             <div 
-              className="absolute z-20 flex items-center justify-center gap-4 top-[40%]"
+              className="absolute z-20 flex items-center justify-center gap-5 top-[43%]"
               style={{ transform: `translate(${mousePos.x * 8}px, ${mousePos.y * 8}px)` }}
             >
               {isErrorFallback ? (
                 // Confused / Error Eyes
                 <>
-                  <div className="w-6.5 h-6.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
-                  <div className="w-6.5 h-6.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
+                  <div className="w-4.5 h-4.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[9px] font-bold">✕</div>
+                  <div className="w-4.5 h-4.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[9px] font-bold">✕</div>
                 </>
               ) : (
-                // Cute Glossy Tracking Eyes
+                // Balanced Cute Glossy Eyes
                 <>
-                  <div className="w-7 h-7 rounded-full bg-[#18181B] relative shadow-sm">
-                    {/* Primary Catchlight */}
-                    <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-1 left-1.5" />
-                    {/* Secondary Sparkle */}
-                    <div className="w-1 h-1 rounded-full bg-white/80 absolute bottom-1.5 right-1.5" />
+                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] relative">
+                    <div className="w-[5px] h-[5px] rounded-full bg-white absolute top-0.5 left-1" />
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-[#18181B] relative shadow-sm">
-                    {/* Primary Catchlight */}
-                    <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-1 left-1.5" />
-                    {/* Secondary Sparkle */}
-                    <div className="w-1 h-1 rounded-full bg-white/80 absolute bottom-1.5 right-1.5" />
+                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] relative">
+                    <div className="w-[5px] h-[5px] rounded-full bg-white absolute top-0.5 left-1" />
                   </div>
                 </>
               )}

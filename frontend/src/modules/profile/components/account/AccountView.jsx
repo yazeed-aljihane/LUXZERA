@@ -93,8 +93,8 @@ const AccountView = ({
         </div>
 
         {/* Right Side: Parallel Fields Container */}
-        <div className="md:col-span-8 space-y-5 md:pl-4">
-          <div className="flex items-center justify-between mb-5">
+        <div className="md:col-span-8 space-y-4 md:pl-4">
+          <div className="flex items-center justify-between mb-3">
             <h3 className="text-[16px] font-bold text-[#37352F] tracking-tight">Personal Profile Details</h3>
           </div>
 

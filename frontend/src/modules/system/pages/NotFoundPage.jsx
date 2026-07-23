@@ -57,13 +57,13 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                   <div className="w-4.5 h-4.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[9px] font-bold">✕</div>
                 </>
               ) : (
-                // Balanced Cute Glossy Eyes
+                // Balanced Cute Eyes with Center White Pupil Spot
                 <>
-                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] relative">
-                    <div className="w-[5px] h-[5px] rounded-full bg-white absolute top-0.5 left-1" />
+                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] flex items-center justify-center">
+                    <div className="w-[6px] h-[6px] rounded-full bg-white" />
                   </div>
-                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] relative">
-                    <div className="w-[5px] h-[5px] rounded-full bg-white absolute top-0.5 left-1" />
+                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] flex items-center justify-center">
+                    <div className="w-[6px] h-[6px] rounded-full bg-white" />
                   </div>
                 </>
               )}

@@ -114,8 +114,8 @@ body {
   width: 100%;
   height: 46px;
   border-radius: 9999px;
-  border: 1px solid #E4E4E7;
-  background: #FFFFFF;
+  border: 1px solid #E7E3DD;
+  background: #FAFAF9;
   color: #18181B;
   font-size: 14px;
   font-weight: 500;
@@ -125,18 +125,23 @@ body {
   line-height: 44px;
   padding-top: 0;
   padding-bottom: 0;
-  transition: border-color 180ms ease;
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .auth-input::placeholder {
   color: #9CA3AF;
 }
 
+.auth-input:hover {
+  background: #FFFFFF;
+  border-color: #D4D4D8;
+}
+
 .auth-input:focus {
+  background: #FFFFFF;
   border-color: #18181B;
-  box-shadow: none;
+  box-shadow: 0 0 0 1px #18181B;
   outline: none;
-  transform: none;
 }
 
 .auth-input:-webkit-autofill,
@@ -156,14 +161,16 @@ body {
   font-weight: 600;
   text-transform: none;
   letter-spacing: normal;
-  transition: background-color 180ms ease;
+  transition: background-color 200ms ease, transform 150ms ease;
   box-shadow: none;
 }
 
 .auth-cta:hover:not(:disabled) {
   background: #000000;
-  transform: none;
-  box-shadow: none;
+}
+
+.auth-cta:active:not(:disabled) {
+  transform: scale(0.985);
 }
 
 .auth-cta:disabled {

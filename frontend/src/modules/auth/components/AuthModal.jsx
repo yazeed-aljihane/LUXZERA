@@ -258,27 +258,32 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           left: 16px;
           top: 50%;
           transform: translateY(-50%);
-          color: #18181B;
+          color: #71717A;
           pointer-events: none;
+          transition: color 200ms ease;
         }
 
         .am-input {
           width: 100%;
           height: 46px;
           border-radius: 9999px;
-          border: 1px solid #E4E4E7;
-          background: #FFFFFF;
+          border: 1px solid #E7E3DD;
+          background: #FAFAF9;
           padding: 0 16px;
           font-size: 14px;
           color: #18181B;
           font-family: 'Plus Jakarta Sans', sans-serif;
           font-weight: 500;
           outline: none;
-          transition: border-color 180ms ease;
+          box-sizing: border-box;
+          line-height: 44px;
+          padding-top: 0;
+          padding-bottom: 0;
+          transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
         }
         
         .am-input.has-left-icon {
-          padding-left: 44px;
+          padding-left: 48px;
         }
 
         .am-input.has-right-icon {
@@ -289,9 +294,19 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           color: #9CA3AF;
         }
 
+        .am-input:hover {
+          background: #FFFFFF;
+          border-color: #D4D4D8;
+        }
+
         .am-input:focus {
-          border-color: #111111;
-          /* No glow, no shadow */
+          background: #FFFFFF;
+          border-color: #18181B;
+          box-shadow: 0 0 0 1px #18181B;
+        }
+
+        .am-input-wrap:focus-within .am-icon-left {
+          color: #18181B;
         }
 
         .am-eye {
@@ -346,11 +361,15 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           font-weight: 600;
           cursor: pointer;
           margin-top: 4px;
-          transition: background-color 180ms ease;
+          transition: background-color 200ms ease, transform 150ms ease;
         }
 
         .am-submit:hover:not(:disabled) {
           background-color: #000000;
+        }
+
+        .am-submit:active:not(:disabled) {
+          transform: scale(0.985);
         }
         
         .am-submit:disabled {

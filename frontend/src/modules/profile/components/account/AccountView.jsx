@@ -96,11 +96,6 @@ const AccountView = ({
         <div className="md:col-span-9 space-y-2.5">
           <div className="flex items-center justify-between mb-1">
             <h3 className="text-[15px] font-bold text-[#37352F] tracking-tight">Personal Profile Details</h3>
-            {successMsg && (
-              <span className="text-[12px] font-semibold text-emerald-600 animate-pulse">
-                ✓ {successMsg}
-              </span>
-            )}
           </div>
 
           {/* 1. First Name */}

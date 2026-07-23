@@ -99,7 +99,7 @@ const AccountView = ({
           {/* 1. First Name */}
           <div className="flex items-center justify-between py-1.5 border-b border-[#ECECEC]/70 group">
             <label className="text-[13px] font-semibold text-[#37352F]">First Name</label>
-            <div className="relative flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
               <input
                 type="text"
                 name="firstName"
@@ -110,13 +110,13 @@ const AccountView = ({
                 required
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100" />
-            </div>
+            </span>
           </div>
 
           {/* 2. Last Name */}
           <div className="flex items-center justify-between py-1.5 border-b border-[#ECECEC]/70 group">
             <label className="text-[13px] font-semibold text-[#37352F]">Last Name</label>
-            <div className="relative flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
               <input
                 type="text"
                 name="lastName"
@@ -127,13 +127,13 @@ const AccountView = ({
                 required
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100" />
-            </div>
+            </span>
           </div>
 
           {/* 3. Mobile Number */}
           <div className="flex items-center justify-between py-1.5 border-b border-[#ECECEC]/70 group">
             <label className="text-[13px] font-semibold text-[#37352F]">Mobile Number</label>
-            <div className="relative flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
               <input
                 type="text"
                 name="phoneNumber"
@@ -143,13 +143,13 @@ const AccountView = ({
                 className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium placeholder-[#9B9B9B] min-w-[140px]"
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100" />
-            </div>
+            </span>
           </div>
 
           {/* 4. Gender */}
           <div className="flex items-center justify-between py-1.5 border-b border-[#ECECEC]/70 group">
             <label className="text-[13px] font-semibold text-[#37352F]">Gender</label>
-            <div className="relative flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
               <select
                 name="gender"
                 value={formData.gender || ""}
@@ -162,13 +162,13 @@ const AccountView = ({
                 <option value="OTHER">Other</option>
               </select>
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100" />
-            </div>
+            </span>
           </div>
 
           {/* 5. Date of Birth */}
           <div className="flex items-center justify-between py-1.5 border-b border-[#ECECEC]/70 group">
             <label className="text-[13px] font-semibold text-[#37352F]">Date of Birth</label>
-            <div className="relative flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020]">
               <input
                 type="date"
                 name="dateOfBirth"
@@ -177,13 +177,13 @@ const AccountView = ({
                 className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium cursor-pointer min-w-[140px]"
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100" />
-            </div>
+            </span>
           </div>
 
           {/* 6. Biography */}
           <div className="flex items-center justify-between py-1.5 border-b border-[#ECECEC]/70 group">
             <label className="text-[13px] font-semibold text-[#37352F]">Biography</label>
-            <div className="relative flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] max-w-sm">
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] max-w-sm">
               <input
                 type="text"
                 name="bio"
@@ -193,7 +193,7 @@ const AccountView = ({
                 className="text-[13px] text-right bg-transparent outline-none text-[#37352F] font-medium placeholder-[#9B9B9B] min-w-[140px]"
               />
               <Pencil size={12} className="text-[#9B9B9B] group-hover:text-[#F07020] transition-colors opacity-70 group-hover:opacity-100 flex-shrink-0" />
-            </div>
+            </span>
           </div>
 
           {/* Save Profile Button */}

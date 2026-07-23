@@ -38,36 +38,12 @@ export default function NotFoundPage({ isErrorFallback = false }) {
             className="relative flex flex-col items-center justify-center transition-transform duration-150 ease-out"
             style={{ transform: `translate(${mousePos.x * 24}px, ${mousePos.y * 24}px)` }}
           >
-            {/* Zera Logo Badge Mascot */}
+            {/* Authentic Zera Symbol */}
             <img 
               src="/logo.png" 
-              alt="Zera Mascot" 
+              alt="Zera Symbol" 
               className="w-28 h-28 object-contain relative z-10"
             />
-            
-            {/* Animated Interactive Eyes Expression - Balanced Cute proportions */}
-            <div 
-              className="absolute z-20 flex items-center justify-center gap-5 top-[43%]"
-              style={{ transform: `translate(${mousePos.x * 8}px, ${mousePos.y * 8}px)` }}
-            >
-              {isErrorFallback ? (
-                // Confused / Error Eyes
-                <>
-                  <div className="w-4.5 h-4.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[9px] font-bold">✕</div>
-                  <div className="w-4.5 h-4.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[9px] font-bold">✕</div>
-                </>
-              ) : (
-                // Balanced Cute Eyes with Center White Pupil Spot
-                <>
-                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] flex items-center justify-center">
-                    <div className="w-[6px] h-[6px] rounded-full bg-white" />
-                  </div>
-                  <div className="w-[18px] h-[18px] rounded-full bg-[#18181B] flex items-center justify-center">
-                    <div className="w-[6px] h-[6px] rounded-full bg-white" />
-                  </div>
-                </>
-              )}
-            </div>
           </div>
         </div>
 

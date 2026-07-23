@@ -480,7 +480,11 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         </button>
 
         <div className="am-logo-container">
-          <img src="/zera.png" alt="LuxZera Logo" className="am-logo-badge" />
+          <img 
+            src="/zera.png" 
+            alt="LuxZera Logo" 
+            className={`am-logo-badge ${isSubmitting ? "is-loading" : ""}`} 
+          />
         </div>
 
         <div className="am-header">
@@ -562,11 +566,15 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
             )}
           </div>
 
-          <button type="submit" className="am-submit" disabled={isSubmitting}>
-            {isSubmitting 
-              ? (view === "register" ? "Creating account..." : "Signing in...") 
-              : "Continue"
-            }
+          <button type="submit" className="am-submit flex items-center justify-center gap-2" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <>
+                <img src="/zera.png" alt="Loading" className="h-5 w-5 object-contain animate-spin" style={{ animationDuration: '1.2s' }} />
+                <span>{view === "register" ? "Creating account..." : "Signing in..."}</span>
+              </>
+            ) : (
+              "Continue"
+            )}
           </button>
         </form>
 

@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
           )}
 
           {step === 1 ? (
-            <form onSubmit={handleRequestReset} className="auth-view flex flex-col gap-4 text-left">
+            <form onSubmit={handleRequestReset} className="auth-view flex flex-col items-center gap-4 text-left">
               <div className="relative w-full">
                 <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#18181B] pointer-events-none" />
                 <input
@@ -90,12 +90,12 @@ export default function ForgotPasswordPage() {
                   className="auth-input pl-11 pr-4"
                 />
               </div>
-              <button type="submit" disabled={loading} className="auth-cta w-full border-none flex items-center justify-center mt-1">
+              <button type="submit" disabled={loading} className="auth-cta px-6 border-none flex items-center justify-center mt-1 self-center">
                 {loading ? "Sending..." : "Send Verification Code"}
               </button>
             </form>
           ) : (
-            <form onSubmit={handleResetPassword} className="auth-view flex flex-col gap-4 text-left">
+            <form onSubmit={handleResetPassword} className="auth-view flex flex-col items-center gap-4 text-left">
               <div className="relative w-full">
                 <ShieldCheck size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#18181B] pointer-events-none" />
                 <input
@@ -119,7 +119,7 @@ export default function ForgotPasswordPage() {
                   className="auth-input pl-11 pr-4"
                 />
               </div>
-              <button type="submit" disabled={loading || successMsg.includes("Redirecting")} className="auth-cta w-full border-none flex items-center justify-center mt-1">
+              <button type="submit" disabled={loading || successMsg.includes("Redirecting")} className="auth-cta px-6 border-none flex items-center justify-center mt-1 self-center">
                 {loading ? "Resetting..." : "Reset Password"}
               </button>
             </form>

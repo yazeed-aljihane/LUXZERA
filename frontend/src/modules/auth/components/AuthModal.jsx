@@ -192,11 +192,6 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           to { transform: rotate(360deg); }
         }
 
-        @keyframes am-zera-float {
-          0%, 100% { transform: translateY(0px) scale(1); }
-          50% { transform: translateY(-4px) scale(1.03); }
-        }
-
         .am-logo-container {
           display: flex;
           align-items: center;
@@ -208,11 +203,6 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           height: 48px;
           width: auto;
           object-fit: contain;
-          transition: transform 200ms ease;
-        }
-
-        .am-logo-badge.am-zera-float {
-          animation: am-zera-float 3s ease-in-out infinite;
         }
 
         .am-header {
@@ -511,15 +501,15 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         </button>
 
         <div className="am-logo-container">
-          <img src="/logo.png" alt="Zera Logo" className={`am-logo-badge ${isSubmitting ? "animate-spin" : "am-zera-float"}`} style={isSubmitting ? { animationDuration: '1.2s' } : {}} />
+          <img src="/logo.png" alt="Zera Logo" className={`am-logo-badge ${isSubmitting ? "animate-spin" : ""}`} style={isSubmitting ? { animationDuration: '1.2s' } : {}} />
         </div>
 
         <div className="am-header">
           <h2 className="am-title">
-            <TypewriterText text={view === "register" ? "You belong here." : "Look who's back."} speed={30} key={view + "-title"} />
+            {view === "register" ? "You belong here." : "Look who's back."}
           </h2>
           <p className="am-subtitle">
-            <TypewriterText text={view === "register" ? "Create your account to start curating." : "Your saved items missed you."} speed={20} delay={300} key={view + "-sub"} />
+            {view === "register" ? "Create your account to start curating." : "Your saved items missed you."}
           </p>
         </div>
 

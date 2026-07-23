@@ -64,25 +64,36 @@ sequenceDiagram
 
 ```text
 LUXZERA/
-├── frontend/                     # React + Vite Frontend Application
-│   ├── src/
-│   │   ├── app/                  # Root Mounting & Router Config
-│   │   ├── infrastructure/       # API Gateway & Axios Interceptors
-│   │   ├── modules/
-│   │   │   ├── auth/             # Auth Modal, OTP & OAuth Views
-│   │   │   ├── products/         # Product Catalog & AI Search UI
-│   │   │   └── profile/          # User Dashboard & Account Views
-│   │   └── shared/               # UI Components, Token & Error Utils
-│   └── public/                   # Public Static Assets & Logos
+├── frontend/                        # React 18 + Vite Frontend Application
+│   ├── public/                      # Static Brand Assets & Logos
+│   └── src/
+│       ├── app/                     # Main Mounting & Router Architecture
+│       ├── assets/                  # Images, Graphics & Media
+│       ├── infrastructure/          # API Gateway & Axios Interceptors
+│       ├── modules/                 # Domain-Driven Feature Modules
+│       │   ├── auth/                # Auth Modal, OTP Verification & OAuth Pages
+│       │   ├── cart/                # Shopping Cart & Checkout Workflows
+│       │   ├── designer/            # Designer Studio & Collection Management
+│       │   ├── home/                # Homepage Hero & Feature Showcases
+│       │   ├── products/            # Product Catalog, Filtering & AI Search UI
+│       │   ├── profile/             # User Dashboard, Addresses & Settings
+│       │   ├── system/              # System Notifications & Layout Wrappers
+│       │   └── wishlist/            # User Saved Wardrobe & Wishlists
+│       ├── shared/                  # Reusable Design System & Utilities
+│       │   ├── components/          # UI Component Library (Buttons, Modals, Loader)
+│       │   ├── hooks/               # Shared React Custom Hooks
+│       │   └── utils/               # Token Management & Error Handlers
+│       └── styles/                  # Design System Tokens & Global CSS
 │
-└── server/                       # Spring Boot 3.3.2 Backend Service
+└── server/                          # Spring Boot 3.3.2 Backend Service
     └── src/main/java/com/luxzera/server/
-        ├── admin/                # Super-Admin Onboarding Service
-        ├── auth/                 # JWT Auth, SecurityConfig & OTP Engine
-        ├── common/               # Health Probes & Shared Controllers
-        ├── email/                # EmailServiceImpl & Thymeleaf Mail Engine
-        ├── products/             # Product Management & AI Vector Search
-        └── user/                 # User Profile & Data Access Layer
+        ├── admin/                   # Super-Admin Onboarding & Management
+        ├── auth/                    # SecurityConfig, JWT Filters & OTP Engine
+        ├── common/                  # Health Checks & Cross-Cutting Controllers
+        ├── config/                  # WebClient, CORS & Bean Definitions
+        ├── email/                   # Thymeleaf Templates & JavaMailSender Engine
+        ├── products/                # Product CRUD & AI Vector Search Service
+        └── user/                    # User Profile Data Access & Management
 ```
 
 ---

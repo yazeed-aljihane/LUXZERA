@@ -168,19 +168,21 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          background: transparent;
-          border: none;
+          background: #FAFAF9;
+          border: 1px solid #ECECEC;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           color: #9CA3AF;
-          transition: background-color 180ms ease, color 180ms ease;
+          transition: all 180ms ease;
         }
 
         .am-close:hover {
-          background-color: #F3F4F6;
-          color: #111111;
+          background-color: #FFFFFF;
+          color: #37352F;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
         }
 
         .am-logo-container {

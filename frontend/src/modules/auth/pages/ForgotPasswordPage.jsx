@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { forgotPassword, resetPassword } from "@/modules/auth/services/authService";
+import { formatErrorMessage } from "@/shared/utils/errorUtils";
 
 export default function ForgotPasswordPage() {
   const navigate = useNavigate();
@@ -25,9 +26,7 @@ export default function ForgotPasswordPage() {
       setSuccessMsg("Verification code sent! Please check your email inbox.");
       setTimeout(() => setStep(2), 1000);
     } catch (err) {
-      console.error(err);
-      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Email address not found. Please try again.");
-      setErrorMsg(msg);
+      setErrorMsg(formatErrorMessage(err, "Email address not found. Please try again."));
     } finally {
       setLoading(false);
     }
@@ -44,9 +43,7 @@ export default function ForgotPasswordPage() {
       setSuccessMsg("Password reset successfully! Redirecting you to login page...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
-      console.error(err);
-      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Failed to reset password. Please check your verification code.");
-      setErrorMsg(msg);
+      setErrorMsg(formatErrorMessage(err, "Failed to reset password. Please check your verification code."));
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "@/modules/auth/services/authService";
+import { formatErrorMessage } from "@/shared/utils/errorUtils";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -24,8 +25,7 @@ export default function RegisterPage() {
       // Success: Navigate to Verify OTP Page with email prefilled in search params
       navigate(`/verify-otp?email=${encodeURIComponent(email)}`);
     } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message || "Registration failed. Please check your credentials.");
+      setErrorMsg(formatErrorMessage(err, "Registration failed. Please check your credentials."));
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { completeGoogleSignup } from "@/modules/auth/services/authService";
 import { removeToken } from "@/shared/utils/token";
+import { formatErrorMessage } from "@/shared/utils/errorUtils";
 
 export default function CompleteGoogleSignupPage() {
   const navigate = useNavigate();
@@ -27,8 +28,7 @@ export default function CompleteGoogleSignupPage() {
       setSuccessMsg("Account setup completed successfully! Redirecting to login portal...");
       setTimeout(() => { window.location.href = "/login"; }, 1500);
     } catch (err) {
-      console.error(err);
-      setErrorMsg(err.message || "Failed to complete Google registration. Please try another username.");
+      setErrorMsg(formatErrorMessage(err, "Failed to complete Google registration. Please try another username."));
     } finally {
       setLoading(false);
     }

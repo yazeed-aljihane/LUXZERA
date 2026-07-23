@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { verifyOtp, resendOtp } from "@/modules/auth/services/authService";
+import { formatErrorMessage } from "@/shared/utils/errorUtils";
 
 export default function VerifyOtpPage() {
   const navigate = useNavigate();
@@ -36,9 +37,7 @@ export default function VerifyOtpPage() {
       setSuccessMsg("Account verified successfully! Redirecting you to login page...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
-      console.error(err);
-      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Invalid OTP code. Please try again.");
-      setErrorMsg(msg);
+      setErrorMsg(formatErrorMessage(err, "Invalid OTP code. Please try again."));
     } finally {
       setLoading(false);
     }
@@ -55,9 +54,7 @@ export default function VerifyOtpPage() {
       setTimer(60);
       setCanResend(false);
     } catch (err) {
-      console.error(err);
-      const msg = typeof err === "string" ? err : (err?.message || err?.data?.message || "Failed to resend code. Please try again.");
-      setErrorMsg(msg);
+      setErrorMsg(formatErrorMessage(err, "Failed to resend code. Please try again."));
     } finally {
       setLoading(false);
     }

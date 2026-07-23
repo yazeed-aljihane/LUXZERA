@@ -42,6 +42,15 @@ const createClient = (baseURL) => {
       return response;
     },
     (error) => {
+      // Log technical error details exclusively to browser console for developers
+      console.error("🔴 [API Gateway Technical Error]:", {
+        url: error?.config?.url,
+        method: error?.config?.method,
+        status: error?.response?.status,
+        message: error?.message,
+        data: error?.response?.data
+      });
+
       if (error.response) {
         // Clean up local auth session if token is invalid or expired
         if (error.response.status === 401) {
@@ -53,7 +62,11 @@ const createClient = (baseURL) => {
         }
         return Promise.reject(error.response.data || error.response);
       }
-      return Promise.reject(error);
+
+      // If no response (network error / connection refused)
+      return Promise.reject({
+        message: "Unable to connect right now. Please try again in a moment."
+      });
     }
   );
 

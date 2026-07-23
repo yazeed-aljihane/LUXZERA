@@ -7,6 +7,7 @@ import { useAuth } from "@/modules/auth/store/useAuth";
 import { GoogleLogin } from "@react-oauth/google";
 import { register as apiRegister, googleLogin, getCurrentUser } from "@/modules/auth/services/authService";
 import { setToken } from "@/shared/utils/token";
+import { formatErrorMessage } from "@/shared/utils/errorUtils";
 
 export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         closeAndReset();
       }
     } catch (err) {
-      setErrorMsg(err.message || (view === "register" ? "Sign up failed." : "Invalid email or password."));
+      setErrorMsg(formatErrorMessage(err, view === "register" ? "Sign up failed." : "Invalid email or password."));
     } finally {
       setIsSubmitting(false);
     }
@@ -192,20 +193,15 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
 
         .am-logo-container {
           display: flex;
-          flex-direction: column;
           align-items: center;
-          margin-bottom: 12px;
+          justify-content: center;
+          margin-bottom: 16px;
         }
 
         .am-logo-badge {
-          height: 36px;
+          height: 48px;
           width: auto;
-          margin-bottom: 6px;
-        }
-
-        .am-logo-wordmark {
-          height: 18px;
-          width: auto;
+          object-fit: contain;
         }
 
         .am-header {
@@ -480,8 +476,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         </button>
 
         <div className="am-logo-container">
-          <img src="/logo.png" alt="LuxZera Badge" className={`am-logo-badge ${isSubmitting ? "animate-spin" : ""}`} style={isSubmitting ? { animationDuration: '1.2s' } : {}} />
-          <img src="/LuxZera.png" alt="LuxZera Wordmark" className="am-logo-wordmark" />
+          <img src="/logo.png" alt="Zera Logo" className={`am-logo-badge ${isSubmitting ? "animate-spin" : ""}`} style={isSubmitting ? { animationDuration: '1.2s' } : {}} />
         </div>
 
         <div className="am-header">

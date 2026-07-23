@@ -45,25 +45,31 @@ export default function NotFoundPage({ isErrorFallback = false }) {
               className="w-28 h-28 object-contain relative z-10"
             />
             
-            {/* Animated Interactive Eyes Expression - Bigger & Expressive */}
+            {/* Animated Interactive Eyes Expression - Cute & Large glossy style */}
             <div 
-              className="absolute z-20 flex items-center justify-center gap-5 top-[42%]"
+              className="absolute z-20 flex items-center justify-center gap-4 top-[40%]"
               style={{ transform: `translate(${mousePos.x * 8}px, ${mousePos.y * 8}px)` }}
             >
               {isErrorFallback ? (
                 // Confused / Error Eyes
                 <>
-                  <div className="w-4 h-4 rounded-full bg-[#18181B]" />
-                  <div className="w-4 h-4 rounded-full bg-[#18181B]" />
+                  <div className="w-6.5 h-6.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
+                  <div className="w-6.5 h-6.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
                 </>
               ) : (
-                // Curiously Tracking Eyes
+                // Cute Glossy Tracking Eyes
                 <>
-                  <div className="w-4 h-4 rounded-full bg-[#18181B] relative flex items-center justify-center shadow-sm">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white absolute top-0.5 left-0.5" />
+                  <div className="w-7 h-7 rounded-full bg-[#18181B] relative shadow-sm">
+                    {/* Primary Catchlight */}
+                    <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-1 left-1.5" />
+                    {/* Secondary Sparkle */}
+                    <div className="w-1 h-1 rounded-full bg-white/80 absolute bottom-1.5 right-1.5" />
                   </div>
-                  <div className="w-4 h-4 rounded-full bg-[#18181B] relative flex items-center justify-center shadow-sm">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white absolute top-0.5 left-0.5" />
+                  <div className="w-7 h-7 rounded-full bg-[#18181B] relative shadow-sm">
+                    {/* Primary Catchlight */}
+                    <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-1 left-1.5" />
+                    {/* Secondary Sparkle */}
+                    <div className="w-1 h-1 rounded-full bg-white/80 absolute bottom-1.5 right-1.5" />
                   </div>
                 </>
               )}

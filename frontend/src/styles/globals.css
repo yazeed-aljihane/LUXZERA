@@ -121,6 +121,10 @@ body {
   font-weight: 500;
   outline: none;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  box-sizing: border-box;
+  line-height: 44px;
+  padding-top: 0;
+  padding-bottom: 0;
   transition: border-color 180ms ease;
 }
 

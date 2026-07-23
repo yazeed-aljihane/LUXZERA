@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
-                  className="auth-input pl-11 pr-4"
+                  className="auth-input pl-12 pr-4"
                 />
               </div>
               <button type="submit" disabled={loading} className="auth-cta px-6 border-none flex items-center justify-center mt-1 self-center">
@@ -105,7 +105,7 @@ export default function ForgotPasswordPage() {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                   placeholder="Enter 6-digit OTP code"
-                  className="auth-input pl-11 pr-4 text-[14px] font-bold tracking-widest placeholder:font-normal placeholder:tracking-normal"
+                  className="auth-input pl-12 pr-4 text-[14px] font-bold tracking-widest placeholder:font-normal placeholder:tracking-normal"
                 />
               </div>
               <div className="relative w-full">
@@ -116,7 +116,7 @@ export default function ForgotPasswordPage() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Enter new secure password"
-                  className="auth-input pl-11 pr-4"
+                  className="auth-input pl-12 pr-4"
                 />
               </div>
               <button type="submit" disabled={loading || successMsg.includes("Redirecting")} className="auth-cta px-6 border-none flex items-center justify-center mt-1 self-center">

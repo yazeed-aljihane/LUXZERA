@@ -144,11 +144,11 @@ body {
 }
 
 .auth-cta {
-  height: 48px;
+  height: 42px;
   border-radius: 9999px;
   background: #18181B;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   text-transform: none;
   letter-spacing: normal;

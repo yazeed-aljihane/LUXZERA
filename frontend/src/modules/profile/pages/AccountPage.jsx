@@ -193,7 +193,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-4">
         
         {/* Header Title */}
         <div className="mb-4">
@@ -210,7 +210,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
 
           {/* Premium Right Dynamic Content Card Panel */}
           <div className="col-span-12 md:col-span-8">
-            <div className="w-full bg-white rounded-2xl border border-slate-200/60 pt-6 px-6 pb-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] min-h-[480px] flex flex-col relative overflow-hidden">
+            <div className="w-full bg-white rounded-2xl border border-slate-200/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex flex-col relative overflow-hidden">
               <div className="flex-1 overflow-y-auto pr-1">
                 {/* Conditional view rendering depending on active tab */}
                 {activeTab === "profile" && (

@@ -23,8 +23,20 @@
 body {
   background-color: var(--primary-bg);
   color: var(--text-charcoal);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  font-kerning: normal;
+  letter-spacing: -0.011em;
+}
+
+input, button, textarea {
+  font-family: inherit;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
@@ -125,7 +137,10 @@ body {
   line-height: 44px;
   padding-top: 0;
   padding-bottom: 0;
-  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  letter-spacing: -0.01em;
+  will-change: border-color, background-color;
+  transform: translateZ(0);
+  transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .auth-input::placeholder {

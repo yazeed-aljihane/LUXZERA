@@ -1,41 +1,38 @@
-# LuxZera | Modern AI Luxury E-Commerce Platform
+# LuxZera | High-Performance AI Luxury E-Commerce Platform
 
-LuxZera is a high-performance, intelligent luxury e-commerce ecosystem built with Spring Boot 3.3.2 and React. LuxZera combines natural language vector embeddings with decoupled microservices, automated email dispatch, and enterprise security.
+LuxZera is an intelligent luxury e-commerce platform engineered with Spring Boot 3.3.2 and React. LuxZera combines natural language vector embeddings with decoupled microservices, live email dispatch, and enterprise security.
 
 ---
 
-## 🏛 High-Level System Architecture
+## 🏛 High-Level System Architecture (HLD)
 
-A clean, decoupled architecture connecting client presentation, API security, core microservices, and external cloud infrastructure.
+LuxZera follows a clean 3-tier high-level system architecture connecting the Presentation Layer, Platform & Gateway Layer, and Data & Infrastructure Layer.
 
 ```mermaid
 flowchart LR
-    subgraph Client ["Client Presentation"]
-        A["📱 React 18 SPA<br/>(Vite + Tailwind CSS)"]
+    subgraph Presentation ["1. Presentation Layer"]
+        UI["📱 Client Application<br/>(React 18 SPA)"]
     end
 
-    subgraph Gateway ["API & Security Gateway"]
-        B["🛡️ Spring Security 6<br/>(JWT + CORS Gateway)"]
+    subgraph CorePlatform ["2. Platform & Gateway Layer"]
+        Gateway["🛡️ Spring Security & Gateway"]
+        Services["⚡ Core Business Services"]
     end
 
-    subgraph Core ["Business Microservices"]
-        C["⚡ Spring Boot Services<br/>(Auth, Products & AI Engine)"]
+    subgraph Infrastructure ["3. Data & Cloud Layer"]
+        Data[("🗄️ Serverless PostgreSQL")]
+        AI["🤖 Hugging Face Vector AI"]
+        Mail["📧 Gmail SMTP Relay"]
+        Cloud["☁️ Cloud Asset Storage"]
     end
 
-    subgraph Data ["Data & External Services"]
-        D[("🗄️ Neon PostgreSQL<br/>Serverless Database")]
-        E["🤖 Hugging Face AI<br/>(BGE-M3 Vector Model)"]
-        F["📧 Gmail SMTP<br/>Live Email Relay"]
-        G["☁️ Cloud Storage<br/>(Cloudflare R2 / S3)"]
-    end
-
-    A -->|REST API / HTTPS| B
-    B -->|Authenticated Requests| C
+    UI -->|HTTPS / REST API| Gateway
+    Gateway --> Services
     
-    C -->|Relational Data & Vectors| D
-    C -->|Natural Language Inference| E
-    C -->|OTP & Notification Mail| F
-    C -->|Media & Asset Uploads| G
+    Services --> Data
+    Services --> AI
+    Services --> Mail
+    Services --> Cloud
 ```
 
 ---
@@ -92,15 +89,15 @@ LUXZERA/
 
 ## 🛠 Technical Stack
 
-| Tier | Technologies |
+| Layer | Technologies |
 | :--- | :--- |
-| **Frontend** | React 18, Vite, Tailwind CSS, Lucide Icons, Google GSI |
+| **Presentation** | React 18, Vite, Tailwind CSS, Lucide Icons, Google GSI |
 | **Gateway & Security** | Spring Security 6, JWT, Axios Interceptors, Health Controllers |
-| **Backend Core** | Java 17, Spring Boot 3.3.2, Spring WebFlux |
+| **Core Platform** | Java 17, Spring Boot 3.3.2, Spring WebFlux |
 | **Database** | Neon PostgreSQL, JPA / Hibernate |
-| **AI Search** | Hugging Face API (`BGE-M3` Vector Model) |
+| **AI Vector Search** | Hugging Face API (`BGE-M3` Vector Model) |
 | **Email & Delivery** | JavaMailSender, Thymeleaf Templates, Gmail SMTP |
-| **Asset Storage** | Cloudflare R2 / AWS S3 SDK |
+| **Media Storage** | Cloudflare R2 / AWS S3 SDK |
 
 ---
 

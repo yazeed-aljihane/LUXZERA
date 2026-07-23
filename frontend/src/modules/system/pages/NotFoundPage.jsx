@@ -45,42 +45,52 @@ export default function NotFoundPage({ isErrorFallback = false }) {
               className="w-28 h-28 object-contain relative z-10"
             />
 
-            {/* Facial Expressions: Eyebrows, Cat Pupils & Cute Mouth */}
+            {/* Facial Expressions: Mesmerized Child-like Wonder & Excitement */}
             <div 
-              className="absolute z-20 flex flex-col items-center justify-center top-[33%]"
+              className="absolute z-20 flex flex-col items-center justify-center top-[30%]"
               style={{ transform: `translate(${mousePos.x * 6}px, ${mousePos.y * 6}px)` }}
             >
-              {/* Cute Eyebrows */}
-              <div className="flex items-center gap-5 mb-1 opacity-80">
-                <div className="w-3.5 h-[2px] bg-[#18181B] rounded-full transform -rotate-6" />
-                <div className="w-3.5 h-[2px] bg-[#18181B] rounded-full transform rotate-6" />
+              {/* Excited Wonder Eyebrows */}
+              <div className="flex items-center gap-6 mb-1 opacity-90">
+                <div className="w-3.5 h-[2.5px] bg-[#18181B] rounded-full transform -rotate-12" />
+                <div className="w-3.5 h-[2.5px] bg-[#18181B] rounded-full transform rotate-12" />
               </div>
 
-              {/* Blinking Cute Cat Pupils */}
-              <div className="flex items-center justify-center gap-3.5 animate-[blink_4s_infinite]">
+              {/* Mesmerized Sparkly Eyes Container with Rosy Blush */}
+              <div className="relative flex items-center justify-center gap-3 animate-[blink_4s_infinite]">
+                {/* Soft Rosy Blush Cheeks */}
+                <div className="absolute -left-3 top-2 w-3 h-1.5 rounded-full bg-[#F07020]/30 blur-[0.5px]" />
+                <div className="absolute -right-3 top-2 w-3 h-1.5 rounded-full bg-[#F07020]/30 blur-[0.5px]" />
+
                 {isErrorFallback ? (
                   // Error / Dizzy Eyes Expression
                   <>
-                    <div className="w-5 h-5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
-                    <div className="w-5 h-5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
+                    <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
+                    <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
                   </>
                 ) : (
-                  // Cute Glossy Round Cat Pupils
+                  // Mesmerized Starry Child-like Eyes
                   <>
-                    <div className="w-5 h-5 rounded-full bg-[#18181B] relative shadow-sm">
-                      <div className="w-2 h-2 rounded-full bg-white absolute top-0.5 left-1" />
+                    <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] relative shadow-sm">
+                      {/* Main Glossy Catchlight */}
+                      <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-0.5 left-1" />
+                      {/* Secondary Wonder Sparkle */}
+                      <div className="w-1 h-1 rounded-full bg-white/90 absolute bottom-1 right-1" />
                     </div>
-                    <div className="w-5 h-5 rounded-full bg-[#18181B] relative shadow-sm">
-                      <div className="w-2 h-2 rounded-full bg-white absolute top-0.5 left-1" />
+                    <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] relative shadow-sm">
+                      {/* Main Glossy Catchlight */}
+                      <div className="w-2.5 h-2.5 rounded-full bg-white absolute top-0.5 left-1" />
+                      {/* Secondary Wonder Sparkle */}
+                      <div className="w-1 h-1 rounded-full bg-white/90 absolute bottom-1 right-1" />
                     </div>
                   </>
                 )}
               </div>
 
-              {/* Cute Cat Mouth Curve Expression */}
-              <div className="mt-1.5 opacity-90">
-                <svg width="20" height="8" viewBox="0 0 20 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 2 C6 7, 10 7, 10 2 C10 7, 14 7, 17 2" stroke="#18181B" strokeWidth="1.8" strokeLinecap="round" />
+              {/* Excited Open Happy Smile Mouth */}
+              <div className="mt-1.5 opacity-95">
+                <svg width="20" height="9" viewBox="0 0 20 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M 3 2 Q 10 9.5 17 2 Z" fill="#18181B" />
                 </svg>
               </div>
             </div>

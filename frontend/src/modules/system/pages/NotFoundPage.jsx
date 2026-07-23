@@ -5,16 +5,28 @@ import { ArrowLeft } from "lucide-react";
 export default function NotFoundPage({ isErrorFallback = false }) {
   const navigate = useNavigate();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
+    let idleTimer = null;
+
     const handleMouseMove = (e) => {
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = (e.clientY / window.innerHeight) * 2 - 1;
       setMousePos({ x, y });
+      
+      setIsMoving(true);
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        setIsMoving(false);
+      }, 1000);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (idleTimer) clearTimeout(idleTimer);
+    };
   }, []);
 
   return (
@@ -87,11 +99,19 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                 )}
               </div>
 
-              {/* Mesmerized Open :o Wonder Mouth Expression */}
-              <div className="mt-1.5 opacity-95">
-                <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="10" cy="5" r="3.5" fill="#18181B" />
-                </svg>
+              {/* Dynamic Mouth Expression: Normal Smile when stationary vs Mesmerized :o when cursor moves */}
+              <div className="mt-1.5 opacity-95 transition-all duration-200">
+                {isMoving ? (
+                  // Mesmerized Open :o Wonder Mouth when active
+                  <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="10" cy="5" r="3.5" fill="#18181B" />
+                  </svg>
+                ) : (
+                  // Normal Cute Smile seeing the user when stationary
+                  <svg width="20" height="8" viewBox="0 0 20 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 3 2 C 6 7, 10 7, 10 2 C 10 7, 14 7, 17 2" stroke="#18181B" strokeWidth="1.8" strokeLinecap="round" />
+                  </svg>
+                )}
               </div>
             </div>
           </div>

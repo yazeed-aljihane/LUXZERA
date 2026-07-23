@@ -45,25 +45,25 @@ export default function NotFoundPage({ isErrorFallback = false }) {
               className="w-28 h-28 object-contain relative z-10"
             />
             
-            {/* Animated Interactive Eyes Expression */}
+            {/* Animated Interactive Eyes Expression - Bigger & Expressive */}
             <div 
-              className="absolute z-20 flex items-center justify-center gap-5 top-[44%]"
+              className="absolute z-20 flex items-center justify-center gap-5 top-[42%]"
               style={{ transform: `translate(${mousePos.x * 8}px, ${mousePos.y * 8}px)` }}
             >
               {isErrorFallback ? (
                 // Confused / Error Eyes
                 <>
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#18181B]" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#18181B]" />
+                  <div className="w-4 h-4 rounded-full bg-[#18181B]" />
+                  <div className="w-4 h-4 rounded-full bg-[#18181B]" />
                 </>
               ) : (
                 // Curiously Tracking Eyes
                 <>
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#18181B] relative flex items-center justify-center">
-                    <div className="w-1 h-1 rounded-full bg-white absolute top-0.5 left-0.5" />
+                  <div className="w-4 h-4 rounded-full bg-[#18181B] relative flex items-center justify-center shadow-sm">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white absolute top-0.5 left-0.5" />
                   </div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#18181B] relative flex items-center justify-center">
-                    <div className="w-1 h-1 rounded-full bg-white absolute top-0.5 left-0.5" />
+                  <div className="w-4 h-4 rounded-full bg-[#18181B] relative flex items-center justify-center shadow-sm">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white absolute top-0.5 left-0.5" />
                   </div>
                 </>
               )}

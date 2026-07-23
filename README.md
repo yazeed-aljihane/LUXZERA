@@ -1,77 +1,49 @@
-# LuxZera | High-Performance AI Luxury E-Commerce Platform
+# LuxZera | Modern AI Luxury E-Commerce Platform
 
-LuxZera is a high-performance, intelligent luxury e-commerce ecosystem built with Spring Boot 3.3.2 and React. Featuring a 4-tier architecture, LuxZera combines natural language vector embeddings with decoupled microservices, automated email dispatch, and enterprise security.
+LuxZera is a high-performance, intelligent luxury e-commerce ecosystem built with Spring Boot 3.3.2 and React. LuxZera combines natural language vector embeddings with decoupled microservices, automated email dispatch, and enterprise security.
 
 ---
 
-## 🏛 High-Level System Architecture (HLD)
+## 🏛 High-Level System Architecture
 
-The LuxZera system architecture follows a clean 4-tier design separating Presentation, Gateway Security, Business Microservices, and Data & External Infrastructure.
-
-### High-Level Architecture Diagram
+A clean, decoupled architecture connecting client presentation, API security, core microservices, and external cloud infrastructure.
 
 ```mermaid
-graph TD
-    %% ── TIER 1: CLIENT TIER ──
-    subgraph TIER1 ["1. Client & Presentation Tier"]
-        Client["Web Client / Mobile Browser"]
-        ReactApp["React 18 SPA (Vite Engine)"]
-        AuthUI["Auth Modal & GSI Google Sign-In"]
-        SearchUI["AI Natural Language Discovery UI"]
+flowchart LR
+    subgraph Client ["Client Presentation"]
+        A["📱 React 18 SPA<br/>(Vite + Tailwind CSS)"]
     end
 
-    %% ── TIER 2: API & SECURITY GATEWAY ──
-    subgraph TIER2 ["2. Security & API Gateway Tier"]
-        Gateway["Axios API Gateway Interceptor"]
-        SecurityGate["Spring Security 6 Gateway"]
-        JWTFilter["Stateless JWT Authentication Filter"]
-        HealthProbe["Cloud Health Monitor (GET / & /health)"]
+    subgraph Gateway ["API & Security Gateway"]
+        B["🛡️ Spring Security 6<br/>(JWT + CORS Gateway)"]
     end
 
-    %% ── TIER 3: BUSINESS & MICROSERVICES TIER ──
-    subgraph TIER3 ["3. Business Microservices Tier (Spring Boot 3.3.2)"]
-        AuthEngine["Authentication & OTP Engine"]
-        MailEngine["Thymeleaf SMTP Email Engine"]
-        ProductEngine["Product Catalog Microservice"]
-        AISearchEngine["AI Semantic Vector Search Service"]
-        AdminEngine["Super-Admin Onboarding Service"]
+    subgraph Core ["Business Microservices"]
+        C["⚡ Spring Boot Services<br/>(Auth, Products & AI Engine)"]
     end
 
-    %% ── TIER 4: DATA & INFRASTRUCTURE TIER ──
-    subgraph TIER4 ["4. Data & External Infrastructure Tier"]
-        PostgresDB[(Neon PostgreSQL Serverless DB)]
-        GoogleAuth["Google Identity Provider (OAuth 2.0)"]
-        GmailSMTP["Gmail SMTP Relay (Port 587)"]
-        HuggingFaceAI["Hugging Face AI (BGE-M3 Embeddings)"]
-        CloudStorage["Cloudflare R2 / AWS S3 Storage"]
+    subgraph Data ["Data & External Services"]
+        D[("🗄️ Neon PostgreSQL<br/>Serverless Database")]
+        E["🤖 Hugging Face AI<br/>(BGE-M3 Vector Model)"]
+        F["📧 Gmail SMTP<br/>Live Email Relay"]
+        G["☁️ Cloud Storage<br/>(Cloudflare R2 / S3)"]
     end
 
-    %% ── TIER CONNECTIONS ──
-    Client --> ReactApp
-    ReactApp --> AuthUI
-    ReactApp --> SearchUI
-    AuthUI -.->|SSO Authentication| GoogleAuth
+    A -->|REST API / HTTPS| B
+    B -->|Authenticated Requests| C
+    
+    C -->|Relational Data & Vectors| D
+    C -->|Natural Language Inference| E
+    C -->|OTP & Notification Mail| F
+    C -->|Media & Asset Uploads| G
 
-    ReactApp --> Gateway
-    Gateway -->|HTTPS / JSON REST API| SecurityGate
-    SecurityGate --> JWTFilter
-    JWTFilter --> HealthProbe
-
-    JWTFilter --> AuthEngine
-    JWTFilter --> ProductEngine
-    JWTFilter --> AISearchEngine
-    JWTFilter --> AdminEngine
-
-    AuthEngine --> MailEngine
-    MailEngine -->|Live OTP Delivery| GmailSMTP
-
-    AuthEngine -->|JPA / Hibernate| PostgresDB
-    ProductEngine -->|JPA / Hibernate| PostgresDB
-    AdminEngine -->|JPA / Hibernate| PostgresDB
-
-    AISearchEngine -->|Generate Vector Embeddings| HuggingFaceAI
-    AISearchEngine -->|Vector Nearest-Neighbor Query| PostgresDB
-    ProductEngine -->|Asset Management| CloudStorage
+    style A fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
+    style B fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
+    style C fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
+    style D fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
+    style E fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
+    style F fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
+    style G fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
 ```
 
 ---
@@ -84,17 +56,17 @@ sequenceDiagram
     actor User
     participant Frontend as React SPA (Vite)
     participant Gateway as Spring Security Gateway
-    participant AI as Hugging Face (BGE-M3 Model)
+    participant AI as Hugging Face AI Engine
     participant DB as Neon PostgreSQL DB
 
     User->>Frontend: Enters query ("sleek dark evening blazer")
     Frontend->>Gateway: GET /api/search/ai?query=...
-    Gateway->>AI: POST /inference (Vector Embedding Generation)
-    AI-->>Gateway: Returns 1024-dim Dense Vector
+    Gateway->>AI: POST /inference (BGE-M3 Embedding)
+    AI-->>Gateway: Returns 1024-dim Vector
     Gateway->>DB: Executes Vector Nearest-Neighbor Search
-    DB-->>Gateway: Returns Matched Product Records
+    DB-->>Gateway: Returns Matched Products
     Gateway-->>Frontend: JSON Response Payload
-    Frontend-->>User: Renders High-Relevance Product Grid
+    Frontend-->>User: Renders Product Cards Grid
 ```
 
 ---
@@ -126,17 +98,17 @@ LUXZERA/
 
 ---
 
-## 🛠 Technical Stack Overview
+## 🛠 Technical Stack
 
-| Layer | Technology | Function |
-| :--- | :--- | :--- |
-| **Frontend** | React 18, Vite, Tailwind CSS, Lucide Icons | Single Page Application & Modern UI |
-| **API & Gateway** | Spring Security 6, JWT, Axios Interceptors | Security Filtering & CORS Management |
-| **Backend Core** | Java 17, Spring Boot 3.3.2, Spring WebFlux | Microservices Business Logic |
-| **Database** | Neon PostgreSQL, JPA / Hibernate | Serverless Relational Storage |
-| **AI Vector Engine** | Hugging Face Inference API (`BGE-M3`) | Natural Language Semantic Discovery |
-| **Email Service** | JavaMailSender, Thymeleaf, Gmail SMTP | Live OTP & Password Reset Dispatch |
-| **Media Storage** | Cloudflare R2 / AWS S3 SDK | Product Image & Asset Hosting |
+| Tier | Technologies |
+| :--- | :--- |
+| **Frontend** | React 18, Vite, Tailwind CSS, Lucide Icons, Google GSI |
+| **Gateway & Security** | Spring Security 6, JWT, Axios Interceptors, Health Controllers |
+| **Backend Core** | Java 17, Spring Boot 3.3.2, Spring WebFlux |
+| **Database** | Neon PostgreSQL, JPA / Hibernate |
+| **AI Search** | Hugging Face API (`BGE-M3` Vector Model) |
+| **Email & Delivery** | JavaMailSender, Thymeleaf Templates, Gmail SMTP |
+| **Asset Storage** | Cloudflare R2 / AWS S3 SDK |
 
 ---
 

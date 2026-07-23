@@ -126,7 +126,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Space+Grotesk:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         .am-overlay {
           position: fixed;
@@ -154,7 +154,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           transform: scale(${isVisible ? 1 : 0.98});
           transition: opacity 180ms ease-out, transform 180ms ease-out;
           
-          font-family: 'Inter', -apple-system, sans-serif;
+          font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           -webkit-font-smoothing: antialiased;
           max-height: 100vh;
           overflow-y: hidden;
@@ -207,18 +207,18 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
         }
 
         .am-title {
-          font-family: 'Geist Pixel', monospace;
-          font-size: 36px;
-          font-weight: 400;
-          color: #111111;
-          letter-spacing: -0.02em;
-          line-height: 1.1;
+          font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+          font-size: 32px;
+          font-weight: 700;
+          color: #37352F;
+          letter-spacing: -0.025em;
+          line-height: 1.15;
           margin-bottom: 8px;
         }
 
         .am-subtitle {
           font-size: 14px;
-          color: #6B7280;
+          color: #9B9B9B;
           line-height: 1.4;
         }
 
@@ -262,12 +262,12 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }) {
           width: 100%;
           height: 46px;
           border-radius: 9999px;
-          border: 1px solid #E5E7EB;
+          border: 1px solid #ECECEC;
           background: #FFFFFF;
           padding: 0 16px;
           font-size: 14px;
-          color: #111111;
-          font-family: 'Space Grotesk', sans-serif;
+          color: #37352F;
+          font-family: 'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, sans-serif;
           font-weight: 500;
           outline: none;
           transition: border-color 180ms ease;

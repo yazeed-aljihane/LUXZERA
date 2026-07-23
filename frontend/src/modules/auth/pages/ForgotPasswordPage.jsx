@@ -114,8 +114,8 @@ export default function ForgotPasswordPage() {
           <div className="text-[12.5px] font-semibold text-[#515154] mt-2 border-t border-[#E7E3DD]/40 pt-4">
             <p>
               Remember your password?{" "}
-              <span onClick={() => navigate("/login")} className="text-[#FF6A00] hover:underline cursor-pointer font-bold pl-1">
-                Sign In
+              <span onClick={() => navigate("/login")} className="text-[#F07020] hover:underline cursor-pointer font-bold pl-1">
+                Log in
               </span>
             </p>
           </div>

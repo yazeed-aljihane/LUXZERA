@@ -112,49 +112,58 @@ body {
 
 .auth-input {
   width: 100%;
-  height: 3rem;
-  border-radius: 0.9rem;
-  border: 1px solid #E2DFD8;
-  background: rgba(250, 249, 247, 0.78);
-  color: #0D1B2A;
-  font-size: 13px;
-  font-weight: 650;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid #E4E4E7;
+  background: #FFFFFF;
+  color: #18181B;
+  font-size: 14px;
+  font-weight: 500;
   outline: none;
-  transition: border-color 240ms ease, background-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: border-color 180ms ease;
 }
 
 .auth-input::placeholder {
-  color: rgba(134, 134, 139, 0.82);
+  color: #9CA3AF;
 }
 
 .auth-input:focus {
-  border-color: rgba(91, 110, 245, 0.6);
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 0 0 4px rgba(91, 110, 245, 0.09), 0 12px 26px rgba(13, 27, 42, 0.06);
-  transform: translateY(-1px);
+  border-color: #18181B;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+}
+
+.auth-input:-webkit-autofill,
+.auth-input:-webkit-autofill:hover, 
+.auth-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset !important;
+  -webkit-text-fill-color: #18181B !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .auth-cta {
-  height: 3rem;
-  border-radius: 0.9rem;
-  background: #0D1B2A;
-  color: white;
-  font-size: 13px;
-  font-weight: 850;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  transition: transform 240ms ease, background-color 240ms ease, box-shadow 240ms ease, opacity 240ms ease;
-  box-shadow: 0 12px 28px rgba(13, 27, 42, 0.16);
+  height: 48px;
+  border-radius: 12px;
+  background: #18181B;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  transition: background-color 180ms ease;
+  box-shadow: none;
 }
 
 .auth-cta:hover:not(:disabled) {
-  background: #FF6A00;
-  transform: translateY(-1px);
-  box-shadow: 0 16px 34px rgba(255, 106, 0, 0.20);
+  background: #000000;
+  transform: none;
+  box-shadow: none;
 }
 
 .auth-cta:disabled {
-  opacity: 0.48;
+  opacity: 0.6;
   cursor: not-allowed;
   box-shadow: none;
 }

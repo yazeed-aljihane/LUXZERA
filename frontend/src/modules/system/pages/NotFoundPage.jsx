@@ -69,19 +69,19 @@ export default function NotFoundPage({ isErrorFallback = false }) {
                     <div className="w-5.5 h-5.5 rounded-full bg-[#18181B] flex items-center justify-center text-white text-[10px] font-bold">✕</div>
                   </>
                 ) : (
-                  // Balanced Wide Open Mesmerized Child-like Eyes
+                  // Compact Wide Open Mesmerized Child-like Eyes
                   <>
-                    <div className="w-[22px] h-[22px] rounded-full bg-[#18181B] relative shadow-sm">
+                    <div className="w-4 h-4 rounded-full bg-[#18181B] relative shadow-sm">
                       {/* Primary Glossy Catchlight */}
-                      <div className="w-[7px] h-[7px] rounded-full bg-white absolute top-0.5 left-1" />
+                      <div className="w-[5px] h-[5px] rounded-full bg-white absolute top-0.5 left-0.5" />
                       {/* Secondary Wonder Sparkle */}
-                      <div className="w-[3px] h-[3px] rounded-full bg-white/90 absolute bottom-1 right-1" />
+                      <div className="w-[2px] h-[2px] rounded-full bg-white/90 absolute bottom-0.5 right-0.5" />
                     </div>
-                    <div className="w-[22px] h-[22px] rounded-full bg-[#18181B] relative shadow-sm">
+                    <div className="w-4 h-4 rounded-full bg-[#18181B] relative shadow-sm">
                       {/* Primary Glossy Catchlight */}
-                      <div className="w-[7px] h-[7px] rounded-full bg-white absolute top-0.5 left-1" />
+                      <div className="w-[5px] h-[5px] rounded-full bg-white absolute top-0.5 left-0.5" />
                       {/* Secondary Wonder Sparkle */}
-                      <div className="w-[3px] h-[3px] rounded-full bg-white/90 absolute bottom-1 right-1" />
+                      <div className="w-[2px] h-[2px] rounded-full bg-white/90 absolute bottom-0.5 right-0.5" />
                     </div>
                   </>
                 )}

@@ -36,14 +36,6 @@ flowchart LR
     C -->|Natural Language Inference| E
     C -->|OTP & Notification Mail| F
     C -->|Media & Asset Uploads| G
-
-    style A fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
-    style B fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
-    style C fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
-    style D fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
-    style E fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
-    style F fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
-    style G fill:#FAFAF9,stroke:#37352F,stroke-width:1.5px
 ```
 
 ---

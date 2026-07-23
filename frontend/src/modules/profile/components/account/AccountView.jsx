@@ -52,11 +52,11 @@ const AccountView = ({
       )}
 
       {/* Parallel Single Frame Layout: Left Image Column + Right Fields Column */}
-      <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+      <form onSubmit={(e) => { e.preventDefault(); onSave(fileInputRef.current); }} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
         
-        {/* Left Side: Avatar Section */}
-        <div className="md:col-span-3 flex flex-col items-center justify-center py-2 text-center">
-          <div className="relative group cursor-pointer mb-3" onClick={() => fileInputRef.current?.click()}>
+        {/* Left Side: Avatar Section with Divider */}
+        <div className="md:col-span-4 flex flex-col items-center justify-center text-center md:border-r md:border-[#ECECEC]/70 md:pr-8">
+          <div className="relative group cursor-pointer mb-4" onClick={() => fileInputRef.current?.click()}>
             <input 
               type="file" 
               ref={fileInputRef} 
@@ -68,40 +68,40 @@ const AccountView = ({
               <img
                 src={profileImage}
                 alt="profile"
-                className="w-20 h-20 rounded-full object-cover shadow-sm bg-white border border-[#ECECEC]"
+                className="w-24 h-24 rounded-full object-cover shadow-sm bg-white border border-[#ECECEC]"
               />
             ) : (
-              <div className="w-20 h-20 rounded-full bg-[#37352F] text-white border border-[#ECECEC] flex items-center justify-center text-xl font-bold uppercase shadow-sm">
+              <div className="w-24 h-24 rounded-full bg-[#37352F] text-white border border-[#ECECEC] flex items-center justify-center text-2xl font-bold uppercase shadow-sm">
                 {initial}
               </div>
             )}
-            <div className="absolute bottom-0 right-0 bg-[#F07020] text-white p-1.5 rounded-full shadow-md hover:scale-105 transition-transform">
-              <Pencil size={11} strokeWidth={2.5} />
+            <div className="absolute bottom-0 right-0 bg-[#F07020] text-white p-2 rounded-full shadow-md hover:scale-105 transition-transform">
+              <Pencil size={12} strokeWidth={2.5} />
             </div>
           </div>
 
-          <h3 className="text-[15px] font-bold text-[#37352F] tracking-tight">{fullName}</h3>
-          <p className="text-[11.5px] text-[#9B9B9B] font-medium mt-0.5 mb-2 break-all max-w-[180px]">{user?.email}</p>
+          <h3 className="text-[16px] font-bold text-[#37352F] tracking-tight">{fullName}</h3>
+          <p className="text-[12px] text-[#9B9B9B] font-medium mt-0.5 mb-3 break-all max-w-[200px]">{user?.email}</p>
 
           <button 
             type="button" 
             onClick={() => fileInputRef.current?.click()}
-            className="text-[11.5px] font-semibold text-[#F07020] hover:text-[#d65f14] transition-colors inline-flex items-center gap-1"
+            className="text-[12px] font-semibold text-[#F07020] hover:text-[#d65f14] transition-colors inline-flex items-center gap-1.5"
           >
             Change Photo
           </button>
         </div>
 
-        {/* Right Side: Parallel Fields Container - Tight Value-Only Capsules */}
-        <div className="md:col-span-9 space-y-2.5">
-          <div className="flex items-center justify-between mb-1">
-            <h3 className="text-[15px] font-bold text-[#37352F] tracking-tight">Personal Profile Details</h3>
+        {/* Right Side: Parallel Fields Container */}
+        <div className="md:col-span-8 space-y-5 md:pl-4">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="text-[16px] font-bold text-[#37352F] tracking-tight">Personal Profile Details</h3>
           </div>
 
           {/* 1. First Name */}
-          <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
-            <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">First Name</label>
-            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+            <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">First Name</label>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="text"
                 name="firstName"
@@ -117,9 +117,9 @@ const AccountView = ({
           </span>
 
           {/* 2. Last Name */}
-          <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
-            <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Last Name</label>
-            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+            <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Last Name</label>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="text"
                 name="lastName"
@@ -135,9 +135,9 @@ const AccountView = ({
           </span>
 
           {/* 3. Mobile Number with 10-digit Regex */}
-          <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
-            <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Mobile Number</label>
-            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+            <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Mobile Number</label>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="tel"
                 name="phoneNumber"
@@ -154,9 +154,9 @@ const AccountView = ({
           </span>
 
           {/* 4. Gender */}
-          <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
-            <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Gender</label>
-            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+            <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Gender</label>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <select
                 name="gender"
                 value={formData.gender || ""}
@@ -173,9 +173,9 @@ const AccountView = ({
           </span>
 
           {/* 5. Date of Birth */}
-          <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
-            <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Date of Birth</label>
-            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+            <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Date of Birth</label>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="date"
                 name="dateOfBirth"
@@ -188,9 +188,9 @@ const AccountView = ({
           </span>
 
           {/* 6. Biography */}
-          <span className="flex items-center gap-4 py-1.5 border-b border-[#ECECEC]/60 group w-full">
-            <label className="text-[13px] font-semibold text-[#37352F] w-28 whitespace-nowrap">Biography</label>
-            <span className="relative inline-flex items-center gap-1.5 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-3.5 py-1 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
+          <span className="flex items-center gap-6 py-2 border-b border-[#ECECEC]/60 group w-full">
+            <label className="text-[13px] font-semibold text-[#37352F] w-32 whitespace-nowrap">Biography</label>
+            <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FAFAF9] hover:bg-white border border-[#E7E3DD] hover:border-[#F07020] px-4 py-1.5 transition-all focus-within:bg-white focus-within:border-[#F07020] focus-within:ring-1 focus-within:ring-[#F07020] w-fit">
               <input
                 type="text"
                 name="bio"

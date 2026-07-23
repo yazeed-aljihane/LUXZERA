@@ -183,7 +183,7 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
   }
 
   return (
-    <div className="min-h-screen bg-white antialiased font-sans py-6 animate-page-fade-in">
+    <div className="h-screen bg-white antialiased font-sans py-4 animate-page-fade-in flex flex-col overflow-hidden">
       <style>{`
         .animate-page-fade-in {
           animation: page-fade-in 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -193,15 +193,15 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-6 flex-1 flex flex-col">
         
         {/* Header Title */}
-        <div className="mb-4">
-          <h1 className="text-2xl font-bold text-[#2D3436] tracking-tight">Account Dashboard</h1>
+        <div className="mb-3">
+          <h1 className="text-xl font-bold text-[#2D3436] tracking-tight">Account Dashboard</h1>
         </div>
 
         {/* Master Content Framework Grid */}
-        <div className="grid grid-cols-12 gap-6 items-start">
+        <div className="grid grid-cols-12 gap-6 flex-1 min-h-0 items-stretch">
           
           {/* Sidebar Section */}
           <div className="col-span-12 md:col-span-4">
@@ -209,8 +209,8 @@ const AccountPage = ({ currentUser, authLoading, onUserChange }) => {
           </div>
 
           {/* Premium Right Dynamic Content Card Panel */}
-          <div className="col-span-12 md:col-span-8">
-            <div className="w-full bg-white rounded-2xl border border-slate-200/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex flex-col relative overflow-hidden">
+          <div className="col-span-12 md:col-span-8 flex flex-col min-h-0">
+            <div className="w-full bg-white rounded-2xl border border-slate-200/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex flex-col relative flex-1 min-h-0">
               <div className="flex-1 overflow-y-auto pr-1">
                 {/* Conditional view rendering depending on active tab */}
                 {activeTab === "profile" && (

@@ -43,11 +43,9 @@ export default function LoginModal({
 
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
-          onError={() =>
-            console.log(
-              "Google Login Failed"
-            )
-          }
+          onError={() => {
+            console.error("Login Failed");
+          }}
         />
 
         <button

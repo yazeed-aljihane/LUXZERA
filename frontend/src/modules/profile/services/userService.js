@@ -36,7 +36,6 @@ export const updateProfile = async (userId, profileData, fileInput) => {
   if (!response.ok) {
     throw new Error(data.message || "Failed to update profile");
   }
-  console.log("Image safely stored in the cloud:", data.profilePicture);
   return data;
 };
 

@@ -75,7 +75,7 @@ export default function App() {
   }, [location]);
 
   const handleAppleSignInAction = () => {
-    console.log("Apple secure token identity handshake triggered.");
+    // Handle Apple Sign-In action here
   };
 
   const openAuthModal = (view = "login") => {
